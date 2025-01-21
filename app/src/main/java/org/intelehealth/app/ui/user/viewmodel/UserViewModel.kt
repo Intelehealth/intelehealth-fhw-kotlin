@@ -1,0 +1,56 @@
+package org.intelehealth.app.ui.user.viewmodel
+
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.intelehealth.common.ui.viewmodel.BaseViewModel
+import org.intelehealth.common.utility.DateTimeUtils
+import org.intelehealth.data.network.model.JWTParams
+import org.intelehealth.data.network.model.LoginResponse
+import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.provider.user.UserRepository
+import javax.inject.Inject
+
+/**
+ * Created by Vaghela Mithun R. on 18-01-2025 - 11:22.
+ * Email : mithun@intelehealth.org
+ * Mob   : +919727206702
+ **/
+@HiltViewModel
+class UserViewModel @Inject constructor(private val userRepository: UserRepository) : BaseViewModel() {
+
+    fun generateJWTAuthToken(param: JWTParams) =
+        executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
+
+    fun login(username: String, password: String) = userRepository.login(username, password).asLiveData()
+
+    fun saveJWTToken(jwtToken: String) = userRepository.saveJWTToken(jwtToken)
+
+    fun saveUser(loginResponse: LoginResponse, onSaved: (User) -> Unit) {
+        viewModelScope.launch {
+            User(
+                userId = loginResponse.user.uuid,
+                displayName = loginResponse.user.person.display,
+                userName = loginResponse.user.username,
+                password = "",
+                systemId = loginResponse.user.systemId,
+                personId = loginResponse.user.person.uuid,
+                providerId = loginResponse.provider.uuid,
+                sessionId = loginResponse.sessionId,
+                firstLoginInTime = DateTimeUtils.getCurrentDateWithDBFormat(),
+                lastLoginInTime = DateTimeUtils.getCurrentDateWithDBFormat()
+            ).also {
+                userRepository.saveUser(it)
+                userRepository.updateUserLoggedInStatus(true)
+                withContext(Dispatchers.Main) { onSaved(it) }
+            }
+        }
+    }
+
+    fun getUser() = userRepository.getLiveUser()
+
+    fun sendUserDeviceToken() = userRepository.sendUserDeviceToken().asLiveData()
+}

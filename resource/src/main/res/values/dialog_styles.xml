@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.IDA.Dialog.Title" parent="Theme.IDA.TextAppearance.Primary">
+        <item name="android:textSize">@dimen/std_20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.IDA.Dialog.SubTitle" parent="Theme.IDA.TextAppearance.Secondary">
+        <item name="android:textSize">@dimen/std_16sp</item>
+    </style>
+
+    <style name="Theme.IDA.Dialog.Button.Positive" parent="Theme.IDA.Button.Primary" />
+
+    <style name="Theme.IDA.Dialog.Button.Negative" parent="Theme.IDA.Button.Tertiary" />
+
+</resources>

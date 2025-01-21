@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_new_update">New Update Available</string>
+    <string name="title_error">Error</string>
+
+    <!--  Dialog Title  -->
+    <string name="dialog_title_patient_registered">Patient Registered!</string>
+    <string name="title_terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="title_privacy_policy">Privacy Policy</string>
+    <string name="title_forgot_password">Forgot Password</string>
+    <string name="title_reset_password">Reset Password</string>
+    <string name="dialog_title_exit_app">Exit App</string>
+</resources>

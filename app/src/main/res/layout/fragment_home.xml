@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="statusCount"
+            type="org.intelehealth.data.offline.entity.StatusCount" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFindPatient"
+            style="@style/Theme.IDA.SearchButton.Hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:text="@string/hint_find_patient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHomeAddPatient"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_marginHorizontal="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_12dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFindPatient">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHomeAddPatient"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:padding="@dimen/std_16dp">
+
+                <ImageView
+                    android:id="@+id/ivHomeAddPatientIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/oval_white_overlay_icon_bg"
+                    android:contentDescription="@string/action_add_patient"
+                    android:padding="@dimen/std_12dp"
+                    android:src="@drawable/ic_unselected_menu_add_patient"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvHomeAddPatientLbl"
+                    style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/std_16dp"
+                    android:layout_toEndOf="@+id/ivHomeAddPatientIcon"
+                    android:text="@string/action_add_patient"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivHomeAddPatientIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivHomeAddPatientNavigate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/oval_black_overlay_icon_bg"
+                    android:contentDescription="@string/action_add_patient"
+                    android:padding="@dimen/std_8dp"
+                    android:src="@drawable/ic_arrow_next"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHomePrescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardHomeAddPatient">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccentLightCard"
+                android:padding="@dimen/std_16dp">
+
+                <TextView
+                    android:id="@+id/tvHomePrescriptionLbl"
+                    style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_prescription"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHomePrescriptionReceivedCount"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHomePrescriptionLbl"
+                    android:text="@{@string/content_prescription_received_count(statusCount.received, statusCount.pending)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHomePrescriptionLbl"
+                    tools:text="5 out of 12 received" />
+
+                <ImageView
+                    android:id="@+id/ivHomePrescriptionNavigate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHomePrescriptionReceivedCount"
+                    android:layout_marginTop="@dimen/std_24dp"
+                    android:background="@drawable/oval_accent_icon_bg"
+                    android:contentDescription="@string/lbl_previous"
+                    android:src="@drawable/ic_arrow_next"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvHomePrescriptionReceivedCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:contentDescription="@string/content_received_prescriptions"
+                android:src="@drawable/img_received_prescription"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHomeOpenVisits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardHomePrescription">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryLightCard"
+                android:padding="@dimen/std_16dp">
+
+                <TextView
+                    android:id="@+id/tvHomeOpenVisitsLbl"
+                    style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lbl_open_visits"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHomeOpenVisitsCount"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHomeOpenVisitsLbl"
+                    android:text="@{@string/content_unclosed_visits(statusCount.pending + statusCount.received)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHomeOpenVisitsLbl"
+                    tools:text="12 unclosed visits" />
+
+                <ImageView
+                    android:id="@+id/ivHomeOpenVisitsNavigate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHomeOpenVisitsCount"
+                    android:layout_marginTop="@dimen/std_24dp"
+                    android:background="@drawable/oval_primary_icon_bg"
+                    android:contentDescription="@string/lbl_open_visits"
+                    android:src="@drawable/ic_arrow_next"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvHomeOpenVisitsCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:contentDescription="@string/content_received_prescriptions"
+                android:src="@drawable/img_open_visit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHomeAppointments"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_4dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toStartOf="@+id/cardHomeFollowUp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
+            app:strokeColor="@color/colorLightGray"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:padding="@dimen/std_16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivHomeAppointmentsIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_appointments"
+                    app:layout_constraintBottom_toTopOf="@id/tvHomeAppointmentsLbl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvHomeAppointmentsLbl"
+                    style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:text="@string/lbl_appointments"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvHomeUpcomingAppointmentCount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivHomeAppointmentsIcon" />
+
+                <TextView
+                    android:id="@+id/tvHomeUpcomingAppointmentCount"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:text="@string/lbl_upcoming"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHomeAppointmentsLbl" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHomeFollowUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_4dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/cardHomeAppointments"
+            app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
+            app:strokeColor="@color/colorLightGray"
+            app:strokeWidth="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/white"
+                android:padding="@dimen/std_16dp">
+
+                <ImageView
+                    android:id="@+id/ivHomeFollowUpIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/lbl_follow_up_visits"
+                    android:src="@drawable/ic_followup"
+                    app:layout_constraintBottom_toTopOf="@id/tvHomeFollowUpLbl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/tvHomeFollowUpLbl"
+                    style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:text="@string/lbl_follow_up_visits"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvHomeFollowUpPendingCount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivHomeFollowUpIcon" />
+
+                <TextView
+                    android:id="@+id/tvHomeFollowUpPendingCount"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:text="@string/lbl_pending"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHomeFollowUpLbl" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

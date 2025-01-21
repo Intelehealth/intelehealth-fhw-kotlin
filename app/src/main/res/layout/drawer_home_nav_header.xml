@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="user"
+            type="org.intelehealth.data.offline.entity.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_close_drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ripple_icon_bg"
+            android:contentDescription="@string/action_close"
+            android:padding="@dimen/std_8dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivUserProfilePicture"
+            android:layout_width="@dimen/std_72dp"
+            android:layout_height="@dimen/std_72dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:src="@drawable/avatar1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close_drawer"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+        <TextView
+            android:id="@+id/tvUserName"
+            style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:text="@{user.displayName}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfilePicture"
+            app:layout_constraintTop_toTopOf="@id/ivUserProfilePicture"
+            tools:text="User name" />
+
+        <TextView
+            android:id="@+id/tvUserId"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:text="@{@string/lbl_chw_id(user.userName)}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfilePicture"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName"
+            tools:text="@string/lbl_chw_id" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditProfile"
+            style="@style/Theme.IDA.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:maxHeight="@dimen/std_32dp"
+            android:paddingHorizontal="0dp"
+            android:text="@string/action_edit_profile"
+            app:icon="@drawable/ic_arrow_next"
+            app:iconGravity="end"
+            app:iconPadding="@dimen/std_8dp"
+            app:layout_constraintStart_toEndOf="@id/ivUserProfilePicture"
+            app:layout_constraintTop_toBottomOf="@id/tvUserId" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_size"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:background="#80B2AFBE"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnEditProfile" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

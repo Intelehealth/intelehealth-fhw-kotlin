@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/selector_menu_home"
+        android:title="@string/action_home" />
+
+    <item
+        android:id="@+id/nav_achievements"
+        android:icon="@drawable/selector_menu_achievements"
+        android:title="@string/action_achievements" />
+
+    <item
+        android:id="@+id/nav_help"
+        android:icon="@drawable/selector_menu_help"
+        android:title="@string/action_help_home" />
+
+    <item
+        android:id="@+id/nav_add_patient"
+        android:icon="@drawable/selector_menu_add_patient"
+        android:title="@string/action_add_patient" />
+
+</menu>

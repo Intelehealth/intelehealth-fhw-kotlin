@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_password_not_exist">This password does not exist.</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">Please check username and password entered</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_network" translatable="false">Network Error</string>
+    <string name="error_could_not_connect_with_server">Couldn\'t connect with server. \nPlease check your internet \nconnection.</string>
+    <string name="error_location_not_selected">Please select a value from the location dropdown</string>
+    <string name="error_location_not_fetched">Unable to fetch locations</string>
+    <string name="error_sync_failed">Sync failed</string>
+    <string name="error_sync_failed_try_again">Sync failed, please try again</string>
+    <string name="error_sync_failed_no_internet">Sync failed, no internet connection</string>
+    <string name="error_sync_failed_server_error">Sync failed, server error</string>
+</resources>

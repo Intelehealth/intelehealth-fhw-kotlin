@@ -1,0 +1,11 @@
+- String must be defined in a string resource instead of hard coded
+- DataBinding and ViewBinding must be used to bind the views
+- Naming conventions must be followed
+- Proper error handling must be implemented
+- Function or method must be small and single responsibility, if it is doing more than one thing then it should be divided into multiple functions
+- Function or method parameter must be in model class instead of passing multiple parameters, if more then 3 parameters are passed then it should be in model class
+- Feature must be divided into multiple modules
+- Proper package structure must be followed
+- Must be follow the designed application architecture. MVVM, Clean Architecture.
+- Try catch will not be used in the code, instead of try catch proper error handling must be implemented
+- Application resources must be as per the design pattern

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="org.intelehealth.app.ui.home.fragment.HomeFragment"
+        android:label="@string/action_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_achievements"
+        android:name="org.intelehealth.app.ui.home.fragment.MyAchievementFragment"
+        android:label="@string/action_my_achievements"
+        tools:layout="@layout/fragment_achievements" />
+
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="org.intelehealth.app.ui.home.fragment.HelpCenterFragment"
+        android:label="@string/action_help_home"
+        tools:layout="@layout/fragment_help_center" />
+
+    <activity
+        android:id="@+id/nav_add_patient"
+        android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
+        android:label="@string/action_add_patient"
+        tools:layout="@layout/activity_test" />
+
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="org.intelehealth.app.ui.home.fragment.SettingFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_help_center" />
+
+    <fragment
+        android:id="@+id/nav_about_us"
+        android:name="org.intelehealth.app.ui.home.fragment.AboutUsFragment"
+        android:label="@string/action_about_us"
+        tools:layout="@layout/fragment_help_center" />
+
+</navigation>

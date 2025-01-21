@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <color name="colorChatDeactivated">#D0D0D0</color>
+    <color name="colorContainer">#F7F7FA</color>
+    <color name="colorChatGray">#E4E4E4</color>
+    <color name="colorChatDarkGray">#A6A6A6</color>
+</resources>

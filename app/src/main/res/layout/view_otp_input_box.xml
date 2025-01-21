@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/et_pin_1"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:autofillHints="false"
+        android:imeOptions="actionNext" />
+
+    <EditText
+        android:id="@+id/et_pin_2"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:imeOptions="actionNext" />
+
+    <EditText
+        android:id="@+id/et_pin_3"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:imeOptions="actionNext" />
+
+    <EditText
+        android:id="@+id/et_pin_4"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:imeOptions="actionNext" />
+
+    <EditText
+        android:id="@+id/et_pin_5"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:imeOptions="actionNext" />
+
+    <EditText
+        android:id="@+id/et_pin_6"
+        style="@style/Theme.IDA.InputBox.OTP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:imeOptions="actionDone" />
+</LinearLayout>

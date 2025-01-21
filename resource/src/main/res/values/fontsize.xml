@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="std_10sp">10sp</dimen>
+    <dimen name="std_12sp">12sp</dimen>
+    <dimen name="std_14sp">14sp</dimen>
+    <dimen name="std_16sp">16sp</dimen>
+    <dimen name="std_18sp">18sp</dimen>
+    <dimen name="std_20sp">20sp</dimen>
+    <dimen name="std_22sp">22sp</dimen>
+    <dimen name="std_24sp">24sp</dimen>
+    <dimen name="std_26sp">26sp</dimen>
+    <dimen name="std_28sp">28sp</dimen>
+    <dimen name="std_30sp">30sp</dimen>
+    <dimen name="std_32sp">32sp</dimen>
+    <dimen name="std_34sp">34sp</dimen>
+    <dimen name="std_36sp">36sp</dimen>
+
+    <dimen name="date_header_text_siz">@dimen/std_16sp</dimen>
+</resources>

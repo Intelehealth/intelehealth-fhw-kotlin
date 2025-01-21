@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="darkGray">#7F7B92</color>
+    <color name="colorDeactivated">#B0ADBE</color>
+    <color name="colorRtcBtn">#EFE8FF</color>
+    <color name="colorContainer">#F7F7FA</color>
+    <color name="colorIncomingCallBg">#B0ADBE</color>
+
+    <!--   Call log status color    -->
+    <color name="colorMissedCallBg">#44FA3131</color>
+    <color name="colorMissedCall">#FA3131</color>
+    <color name="colorReceivedCallBg">#4418A700</color>
+    <color name="colorIncomingCall">#18A700</color>
+    <color name="colorOutgoingCallBg">#443A81FD</color>
+    <color name="colorOutgoingCall">#3A81FD</color>
+    <color name="rippleMaskColor">#000000</color>
+
+</resources>

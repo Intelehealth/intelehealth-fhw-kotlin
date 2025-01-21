@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_splash_bg">
+
+        <ImageView
+            android:id="@+id/iv_ayu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/std_32dp"
+            android:contentDescription="@string/content_hello_i_am_ayu"
+            android:src="@drawable/ic_ayu"
+            app:layout_constraintBottom_toTopOf="@id/tv_hello_ayu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_hello_ayu"
+            style="@style/Theme.IDA.Dark.TextAppearance.Heading1.Bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_ayu_icon"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center"
+            android:text="@string/content_hello_i_am_ayu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/Theme.IDA.Dark.TextAppearance.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center"
+            android:text="@string/content_ayu_digital_health_assistant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_hello_ayu" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_rounded_white_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/std_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <CheckBox
+                android:id="@+id/checkbox_privacy_policy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/std_16dp"
+                android:button="@null"
+                android:padding="@dimen/std_16dp"
+                android:drawableStart="@drawable/selector_checkbox_button"
+                app:layout_constraintBottom_toTopOf="@id/btnSetup"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_privacy_notice_link_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:gravity="center_vertical"
+                android:text="@string/content_agree_to_terms"
+                android:textSize="@dimen/std_14sp"
+                app:layout_constraintBottom_toBottomOf="@id/checkbox_privacy_policy"
+                app:layout_constraintStart_toEndOf="@id/checkbox_privacy_policy"
+                app:layout_constraintTop_toTopOf="@id/checkbox_privacy_policy" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetup"
+                style="@style/Theme.IDA.Button.Next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/std_16dp"
+                android:text="@string/action_setup"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

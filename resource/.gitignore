@@ -1,0 +1,13 @@
+/build
+/src/main/assets/
+/src/biocon/assets/
+/src/bmgf/assets/
+/src/ida/assets/
+/src/kcdo/assets/
+/src/kf/assets/
+/src/namma/assets/
+/src/nas/assets/
+/src/unfpa/assets/
+/src/unicef/assets/
+*.json
+/sampledata/

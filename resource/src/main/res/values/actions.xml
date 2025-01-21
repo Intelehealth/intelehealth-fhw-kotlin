@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_update">@string/lbl_update</string>
+    <string name="action_retry">@string/lbl_retry</string>
+    <string name="action_cancel">@string/lbl_cancel</string>
+    <string name="action_ok">@string/lbl_ok</string>
+    <string name="action_close">@string/lbl_close</string>
+    <string name="action_save">@string/lbl_save</string>
+    <string name="action_delete">@string/lbl_delete</string>
+    <string name="action_edit">@string/lbl_edit</string>
+    <string name="action_done">@string/lbl_done</string>
+    <string name="action_next">@string/lbl_next</string>
+    <string name="action_no">No</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_skip">@string/lbl_skip</string>
+    <string name="action_setup">@string/lbl_setup</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_decline">Decline</string>
+    <string name="action_forgot_password"><u>Forgot Password?</u></string>
+    <string name="action_forgot_username"><u>Forgot Username?</u></string>
+    <string name="action_username">@string/lbl_username</string>
+    <string name="action_mobile">Mobile Number</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_resend_otp"><font color='#2E1E91'>Resend</font></string>
+    <string name="action_help"><u>Help</u></string>
+    <string name="action_achievements">Achievements</string>
+    <string name="action_my_achievements">My Achievements</string>
+    <string name="action_home">Home</string>
+    <string name="action_add_patient">Add Patient</string>
+    <string name="action_help_home">Help</string>
+    <string name="action_educational_videos">Educational videos</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_call_logs">Call Logs</string>
+    <string name="action_about_us">About us</string>
+    <string name="action_log_out">Log-out</string>
+    <string name="action_reset_app_new">Reset app</string>
+    <string name="action_edit_profile">@string/lbl_edit_profile</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="action_exit">Exit</string>
+</resources>

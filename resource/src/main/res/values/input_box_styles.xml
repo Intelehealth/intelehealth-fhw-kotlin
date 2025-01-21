@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.IDA.OutlineInputBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="cornerRadius">@dimen/std_8dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="hintTextColor">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnSurface">@color/colorAccent</item>
+        <item name="colorError">@color/red</item>
+        <item name="boxBackgroundColor">@color/colorInputBackground</item>
+        <item name="boxStrokeColor">@color/selector_color_inputbox</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:layout_marginTop">@dimen/std_4dp</item>
+        <item name="cursorColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme.IDA.OutlineInputBox.DropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="cornerRadius">@dimen/std_8dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="hintTextColor">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnSurface">@color/colorAccent</item>
+        <item name="colorError">@color/red</item>
+        <item name="boxBackgroundColor">@color/colorInputBackground</item>
+        <item name="boxStrokeColor">@color/selector_color_inputbox</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:layout_marginTop">@dimen/std_8dp</item>
+<!--        <item name="endIconTint">@color/colorAccent</item>-->
+        <item name="endIconDrawable">@drawable/ic_dropdown</item>
+<!--        <item name="endIconMode">custom</item>-->
+    </style>
+
+    <style name="Theme.IDA.InputBox" parent="">
+        <item name="android:maxHeight">@dimen/std_48dp</item>
+        <item name="android:minHeight">@dimen/std_48dp</item>
+        <item name="background">@null</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Name" parent="Theme.IDA.InputBox">
+        <item name="android:maxLength">25</item>
+        <item name="android:digits">@string/validation_latter_only</item>
+        <item name="android:inputType">textCapWords</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Password" parent="Theme.IDA.InputBox">
+        <item name="android:maxLength">25</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+
+    <style name="Theme.IDA.OutlineInputBox.Password" parent="Theme.IDA.OutlineInputBox">
+        <item name="endIconMode">password_toggle</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Name1" parent="Theme.IDA.InputBox">
+        <item name="android:maxLength">25</item>
+        <item name="android:digits">@string/validation_latter_with_space_only</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Address" parent="Theme.IDA.InputBox">
+        <!--        <item name="android:maxLength">25</item>-->
+        <item name="android:digits">@string/validation_address</item>
+        <item name="android:inputType">textPostalAddress</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Address1" parent="Theme.IDA.InputBox">
+        <!--        <item name="android:maxLength">25</item>-->
+        <item name="android:digits">@string/validation_address_with_space</item>
+        <item name="android:inputType">textPostalAddress</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.Phone" parent="Theme.IDA.InputBox">
+        <item name="android:maxLength">10</item>
+        <item name="android:digits">@string/validation_digit_only</item>
+        <item name="android:inputType">phone</item>
+    </style>
+
+    <style name="Theme.IDA.InputBox.OTP" parent="Theme.IDA.InputBox">
+        <item name="android:maxLength">1</item>
+        <item name="android:digits">@string/validation_digit_only</item>
+        <item name="android:inputType">number</item>
+        <item name="android:minWidth">@dimen/std_48dp</item>
+        <item name="android:background">@drawable/otp_input_bg</item>
+        <item name="background">@drawable/otp_input_bg</item>
+    </style>
+</resources>
