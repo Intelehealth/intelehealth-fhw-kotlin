@@ -88,10 +88,10 @@ class SplashFragment : LanguageFragment(R.layout.fragment_splash), BaseViewHolde
     private fun navigateToNextScreen() {
         if (launcherViewModel.isUserLoggedIn()) {
             findNavController().navigate(SplashFragmentDirections.actionSplashToHome())
+            requireActivity().finish()
         } else {
             findNavController().navigate(SplashFragmentDirections.actionSplashToLogin())
         }
-        requireActivity().finish()
     }
 
     private fun initLanguageList() {

@@ -12,36 +12,40 @@ import org.gradle.api.artifacts.dsl.DependencyHandler
 * */
 fun DependencyHandler.appModuleDeps() {
     // Libraries
-    api(project(Modules.installer))
-    api(project(Modules.mediator))
+    implementation(project(Modules.installer))
+    implementation(project(Modules.mediator))
     implementation(project(Modules.config))
     implementation(project(Modules.provider))
-    api(project(Modules.fcm))
+    implementation(project(Modules.network))
+    implementation(project(Modules.offline))
+    implementation(project(Modules.fcm))
+    implementation(project(Modules.common))
 
     // Glide
     implementation(Deps.Glide.glide)
     // Navigation Component
     implementation(Deps.AndroidX.Navigation.ui)
     implementation(Deps.AndroidX.Navigation.fragment)
-//    implementation(Deps.AndroidX.Navigation.commonKtx)
-//    implementation(Deps.AndroidX.Navigation.navigationSafeArguments)
-//    implementation(Deps.AndroidX.Navigation.dynamicFeaturesFragment)
 
-//    api(Deps.Android.material)
-//    api(Deps.AndroidX.appcompat)
-//    api(Deps.AndroidX.Constraint.constraintLayout)
-//    api(Deps.AndroidX.Fragment.fragmentKtx)
-//    api(Deps.AndroidX.Activity.activityKtx)
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
+    implementation(Deps.AndroidX.Fragment.fragmentKtx)
+    implementation(Deps.AndroidX.Activity.activityKtx)
 
-//    implementation(Deps.AndroidX.Lifecycle.viewModel)
-//    implementation(Deps.AndroidX.Lifecycle.liveData)
-//    implementation(Deps.AndroidX.Lifecycle.runtime)
+    implementation(Deps.AndroidX.Lifecycle.viewModel)
+    implementation(Deps.AndroidX.Lifecycle.liveData)
+    implementation(Deps.AndroidX.Lifecycle.runtime)
+
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
+    kapt(Deps.AndroidX.Room.compiler)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*
@@ -49,7 +53,7 @@ fun DependencyHandler.appModuleDeps() {
 * */
 fun DependencyHandler.fcmModuleDeps() {
 
-    api(project(Modules.common))
+    implementation(project(Modules.common))
 
     // Libraries
     api(platform(Deps.Firebase.bom))
@@ -87,15 +91,24 @@ fun DependencyHandler.featureOnDemandChatModuleDeps() {
     implementation(project(Modules.common))
     implementation(project(Modules.app))
     implementation(project(Modules.provider))
+    implementation(project(Modules.installer))
+    implementation(project(Modules.mediator))
 
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
     // Work Manager
-    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.AndroidX.Work.runtimeKtx)
+
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
+    kapt(Deps.AndroidX.Room.compiler)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*
@@ -106,10 +119,21 @@ fun DependencyHandler.featureOnDemandVideoModuleDeps() {
     implementation(project(Modules.common))
     implementation(project(Modules.app))
     implementation(project(Modules.provider))
+    implementation(project(Modules.installer))
+    implementation(project(Modules.mediator))
+    implementation(project(Modules.fcm))
 
     implementation(Deps.AndroidX.Lifecycle.viewModel)
     implementation(Deps.AndroidX.Lifecycle.liveData)
     implementation(Deps.AndroidX.Lifecycle.runtime)
+
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
+
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
+    kapt(Deps.AndroidX.Room.compiler)
 
 //    implementation(Deps.Protobuf.javalite)
     implementation(Deps.LiveKit.android)
@@ -119,13 +143,13 @@ fun DependencyHandler.featureOnDemandVideoModuleDeps() {
     implementation(Deps.RippleBackground.rippleBackground)
 
     // Work Manager
-    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.AndroidX.Work.runtimeKtx)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*
@@ -134,6 +158,11 @@ fun DependencyHandler.featureOnDemandVideoModuleDeps() {
 fun DependencyHandler.commonModuleDeps() {
     // Module
     api(project(Modules.resource))
+
+    // AndroidX Libs
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
 
     // KTX
     api(Deps.AndroidX.coreKtx)
@@ -149,6 +178,9 @@ fun DependencyHandler.commonModuleDeps() {
     api(Deps.Retrofit.retrofit)
     api(Deps.Retrofit.gsonConverter)
 
+    //OKHttp
+    api(Deps.OkHttp.okhttp)
+    api(Deps.OkHttp.logging)
 
     // Timber
     api(Deps.Timber.timber)
@@ -167,9 +199,9 @@ fun DependencyHandler.commonModuleDeps() {
 * */
 fun DependencyHandler.resourceModuleDeps() {
     // AndroidX Libs
-    api(Deps.Android.material)
-    api(Deps.AndroidX.appcompat)
-    api(Deps.AndroidX.Constraint.constraintLayout)
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
 }
 
 /*
@@ -177,29 +209,30 @@ fun DependencyHandler.resourceModuleDeps() {
 * */
 fun DependencyHandler.configModuleDeps() {
     // Module
-    api(project(Modules.core))
+    implementation(project(Modules.core))
+    implementation(project(Modules.common))
 
-    api(Deps.AndroidX.Lifecycle.viewModel)
-    api(Deps.AndroidX.Lifecycle.liveData)
-    api(Deps.AndroidX.Lifecycle.runtime)
+    implementation(Deps.AndroidX.Lifecycle.viewModel)
+    implementation(Deps.AndroidX.Lifecycle.liveData)
+    implementation(Deps.AndroidX.Lifecycle.runtime)
 
     // Coroutines
-//    api(Deps.Coroutines.core)
-//    api(Deps.Coroutines.android)
+    implementation(Deps.Coroutines.core)
+    implementation(Deps.Coroutines.android)
 
     // Room
-    api(Deps.AndroidX.Room.runtime)
-    api(Deps.AndroidX.Room.ktx)
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
     kapt(Deps.AndroidX.Room.compiler)
 
     // Work Manager
-    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.AndroidX.Work.runtimeKtx)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*
@@ -207,44 +240,45 @@ fun DependencyHandler.configModuleDeps() {
 * */
 fun DependencyHandler.offlineModuleDeps() {
     // Module
-    api(project(Modules.core))
+    implementation(project(Modules.core))
+    implementation(project(Modules.common))
 
 //    api(Deps.AndroidX.Lifecycle.viewModel)
-    api(Deps.AndroidX.Lifecycle.liveData)
-    api(Deps.AndroidX.Lifecycle.runtime)
+    implementation(Deps.AndroidX.Lifecycle.liveData)
+    implementation(Deps.AndroidX.Lifecycle.runtime)
 
-    // Coroutines
-//    api(Deps.Coroutines.core)
-//    api(Deps.Coroutines.android)
+//     Coroutines
+    implementation(Deps.Coroutines.core)
+    implementation(Deps.Coroutines.android)
 
     // Room
-    api(Deps.AndroidX.Room.runtime)
-    api(Deps.AndroidX.Room.ktx)
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
     kapt(Deps.AndroidX.Room.compiler)
 
-//    // Work Manager
-//    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.Gson.gson)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
-//    implementation(Deps.Dagger.hiltWorker)
-//    kapt(Deps.Dagger.hiltKapt)
 }
 
 /*
 * Add required dependencies to data module
 * */
 fun DependencyHandler.coreModuleDeps() {
-    api(project(Modules.common))
+    implementation(project(Modules.common))
 
     // Retrofit
-//    api(Deps.Retrofit.retrofit)
-//    api(Deps.Retrofit.gsonConverter)
+    implementation(Deps.Retrofit.retrofit)
+    implementation(Deps.Retrofit.gsonConverter)
 //
     //OKHttp
-//    api(Deps.OkHttp.okhttp)
-    api(Deps.OkHttp.logging)
+    implementation(Deps.OkHttp.okhttp)
+    implementation(Deps.OkHttp.logging)
+
+    // Gson
+    implementation(Deps.Gson.gson)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
@@ -252,11 +286,16 @@ fun DependencyHandler.coreModuleDeps() {
 }
 
 fun DependencyHandler.featureInstallerModuleDeps() {
-    api(project(Modules.common))
+    implementation(project(Modules.common))
+
+    // AndroidX Libs
+    implementation(Deps.Android.material)
+    implementation(Deps.AndroidX.appcompat)
+    implementation(Deps.AndroidX.Constraint.constraintLayout)
 
     // Retrofit
-    api(Deps.Play.featureDelivery)
-    api(Deps.Play.review)
+    implementation(Deps.Play.featureDelivery)
+    implementation(Deps.Play.review)
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
@@ -264,7 +303,7 @@ fun DependencyHandler.featureInstallerModuleDeps() {
 }
 
 fun DependencyHandler.featureOnDemandMediatorModuleDeps() {
-    api(project(Modules.common))
+    implementation(project(Modules.common))
 
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
@@ -282,29 +321,52 @@ fun DependencyHandler.dataModuleDeps() {
 * Add required dependencies to domain module
 * */
 fun DependencyHandler.networkModuleDeps() {
-    api(project(Modules.core))
-    api(project(Modules.offline))
+    implementation(project(Modules.core))
+    implementation(project(Modules.offline))
+    implementation(project(Modules.common))
+
+    // Retrofit
+    implementation(Deps.Retrofit.retrofit)
+    implementation(Deps.Retrofit.gsonConverter)
+//
+    //OKHttp
+    implementation(Deps.OkHttp.okhttp)
+    implementation(Deps.OkHttp.logging)
+
+    // Gson
+    implementation(Deps.Gson.gson)
+
     // Work Manager
-    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.AndroidX.Work.runtimeKtx)
     // Hilt
-    api(Deps.Dagger.hiltAndroid)
+    implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
-    api(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    implementation(Deps.Dagger.hiltWorker)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*
 * Add required dependencies to domain module
 * */
 fun DependencyHandler.providerModuleDeps() {
-    api(project(Modules.network))
+    implementation(project(Modules.network))
+    implementation(project(Modules.offline))
+    implementation(project(Modules.common))
     // Work Manager
-    api(Deps.AndroidX.Work.runtimeKtx)
+    implementation(Deps.AndroidX.Work.runtimeKtx)
+
+    // Room
+    implementation(Deps.AndroidX.Room.runtime)
+    implementation(Deps.AndroidX.Room.ktx)
+    kapt(Deps.AndroidX.Room.compiler)
+
+    implementation(Deps.Gson.gson)
+
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
-    kapt(Deps.Dagger.hiltKapt)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*

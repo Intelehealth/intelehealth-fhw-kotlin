@@ -59,7 +59,7 @@
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:text">@string/action_reset_app_new</item>
         <item name="android:textSize">@dimen/std_14sp</item>
-        <item name="icon">@drawable/ic_sync_red</item>
+        <item name="icon">@drawable/ic_sync</item>
         <item name="iconGravity">start</item>
         <item name="iconTint">@color/red</item>
         <item name="iconPadding">@dimen/std_16dp</item>

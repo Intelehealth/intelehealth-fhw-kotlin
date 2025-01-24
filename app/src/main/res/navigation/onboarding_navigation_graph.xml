@@ -13,18 +13,28 @@
         <action
             android:id="@+id/action_splash_to_intro"
             app:destination="@id/fragmentIntroScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splash_to_home"
             app:destination="@id/activityHomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splash_to_login"
             app:destination="@id/fragmentLoginScreen"
-            app:popUpTo="@id/fragmentSplashScreen"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -35,6 +45,10 @@
         <action
             android:id="@+id/action_intro_to_ayu_policy"
             app:destination="@id/fragmentAyuPolicyScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
     </fragment>
@@ -47,12 +61,20 @@
         <action
             android:id="@+id/action_ayu_policy_to_setup"
             app:destination="@id/fragmentSetupScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_ayu_policy_to_consent"
             app:destination="@id/fragmentConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
 
@@ -76,12 +98,20 @@
         <action
             android:id="@+id/action_setup_to_sync"
             app:destination="@id/fragmentSyncScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_setup_to_forgot_password"
             app:destination="@id/fragmentForgotPasswordScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSetupScreen"
             app:popUpToInclusive="true" />
     </fragment>
@@ -99,6 +129,10 @@
         <action
             android:id="@+id/action_sync_to_home"
             app:destination="@id/activityHomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/fragmentSplashScreen"
             app:popUpToInclusive="true" />
     </fragment>
@@ -112,14 +146,18 @@
         <action
             android:id="@+id/action_login_to_home"
             app:destination="@id/activityHomeScreen"
-            app:popUpTo="@id/fragmentSplashScreen"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
         <action
             android:id="@+id/action_login_to_forgot_password"
             app:destination="@id/fragmentForgotPasswordScreen"
-            app:popUpTo="@id/fragmentLoginScreen"
-            app:popUpToInclusive="true" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -129,7 +167,11 @@
         tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgot_password_to_otp_verification"
-            app:destination="@id/fragmentOtpVerificationScreen" />
+            app:destination="@id/fragmentOtpVerificationScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -139,7 +181,11 @@
         tools:layout="@layout/fragment_otp_verification">
         <action
             android:id="@+id/action_otp_verification_to_reset_password"
-            app:destination="@id/fragmentResetPasswordScreen" />
+            app:destination="@id/fragmentResetPasswordScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment

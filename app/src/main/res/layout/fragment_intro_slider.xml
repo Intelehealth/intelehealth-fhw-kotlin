@@ -23,7 +23,7 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:contentDescription="@string/intro_title_1"
-            android:src="@drawable/intro_image_1"
+            android:src="@drawable/onboarding_image_1"
             app:layout_constraintBottom_toTopOf="@id/tvIntroTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

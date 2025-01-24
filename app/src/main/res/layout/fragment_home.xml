@@ -6,8 +6,16 @@
     <data>
 
         <variable
-            name="statusCount"
-            type="org.intelehealth.data.offline.entity.StatusCount" />
+            name="presCount"
+            type="org.intelehealth.data.offline.entity.PrescriptionStatusCount" />
+
+        <variable
+            name="followUpCount"
+            type="org.intelehealth.data.offline.entity.FollowUpStatusCount" />
+
+        <variable
+            name="appointmentCount"
+            type="org.intelehealth.data.offline.entity.AppointmentStatusCount" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -119,8 +127,9 @@
                     style="@style/Theme.IDA.TextAppearance.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_4dp"
                     android:layout_below="@+id/tvHomePrescriptionLbl"
-                    android:text="@{@string/content_prescription_received_count(statusCount.received, statusCount.pending)}"
+                    android:text="@{@string/content_prescription_received_count(presCount.received, presCount.pending)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHomePrescriptionLbl"
                     tools:text="5 out of 12 received" />
@@ -182,8 +191,9 @@
                     style="@style/Theme.IDA.TextAppearance.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_4dp"
                     android:layout_below="@+id/tvHomeOpenVisitsLbl"
-                    android:text="@{@string/content_unclosed_visits(statusCount.pending + statusCount.received)}"
+                    android:text="@{@string/content_unclosed_visits(presCount.pending + presCount.received)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHomeOpenVisitsLbl"
                     tools:text="12 unclosed visits" />
@@ -231,6 +241,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/white"
+                android:minHeight="@dimen/std_152dp"
                 android:padding="@dimen/std_16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -240,7 +251,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_appointments"
-                    app:layout_constraintBottom_toTopOf="@id/tvHomeAppointmentsLbl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -253,7 +263,6 @@
                     android:layout_marginTop="@dimen/std_16dp"
                     android:text="@string/lbl_appointments"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/tvHomeUpcomingAppointmentCount"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivHomeAppointmentsIcon" />
 
@@ -263,8 +272,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_4dp"
-                    android:text="@string/lbl_upcoming"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@{@string/lbl_upcoming(appointmentCount.upcoming)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHomeAppointmentsLbl" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -293,6 +301,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/white"
+                android:minHeight="@dimen/std_152dp"
                 android:padding="@dimen/std_16dp">
 
                 <ImageView
@@ -301,7 +310,6 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/lbl_follow_up_visits"
                     android:src="@drawable/ic_followup"
-                    app:layout_constraintBottom_toTopOf="@id/tvHomeFollowUpLbl"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -314,7 +322,6 @@
                     android:layout_marginTop="@dimen/std_16dp"
                     android:text="@string/lbl_follow_up_visits"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/tvHomeFollowUpPendingCount"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivHomeFollowUpIcon" />
 
@@ -324,10 +331,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_4dp"
-                    android:text="@string/lbl_pending"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="@{@string/content_follow_up_status(followUpCount.today, followUpCount.tomorrow)}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvHomeFollowUpLbl" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvHomeFollowUpLbl"
+                    tools:text="5 today\n12 tomorrow" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>

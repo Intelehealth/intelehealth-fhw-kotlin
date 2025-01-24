@@ -29,7 +29,7 @@ import org.intelehealth.config.worker.ConfigSyncWorker
  * Mob   : +919727206702
  **/
 
-const val SPLASH_DELAY_TIME = 2000L
+const val SPLASH_DELAY_TIME = 500L
 
 @HiltViewModel
 class LauncherViewModel @Inject constructor(

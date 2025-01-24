@@ -24,14 +24,17 @@
     <string name="content_received_prescriptions">Version: %1$s</string>
     <string name="content_prescription_received_count">%1$d out of %2$d received</string>
     <string name="content_unclosed_visits">%1$d unclosed visits</string>
+    <string name="content_follow_up_status">%1$d today\n%2$d tomorrow</string>
     <string name="content_contact_your_admin">Contact your admin</string>
     <string name="content_enter_the_credentials">Enter the credentials given \nby Intelehealth team.</string>
     <string name="content_welcome_user">Welcome! %1$s</string>
-    <string name="content_login_successful">Login successful, Welcome! %1$s</string>
+    <string name="content_login_successful">Login successful, Welcome back! %1$s</string>
+    <string name="content_setup_successful">Setup completed, Welcome! %1$s</string>
     <string name="content_syncing">Syncing…</string>
     <string name="content_synced">Synced</string>
     <string name="content_wait_for_sync">Please wait for the sync to complete</string>
     <string name="content_last_synced">Last synced %1$s</string>
     <string name="content_are_you_sure_exit">Are you sure you want to exit?</string>
     <string name="content_are_you_sure_logout">Are you sure you want to log out from the app?</string>
+    <string name="content_welcome_back">Welcome back!</string>
 </resources>

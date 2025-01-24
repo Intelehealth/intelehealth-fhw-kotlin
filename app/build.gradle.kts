@@ -5,7 +5,7 @@ import extensions.unitTestDeps
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
+    kotlin(Plugins.KAPT)
     alias(libs.plugins.navigation.safe.args)
     id(Plugins.PARCELIZE)
     alias(libs.plugins.dagger.hilt)

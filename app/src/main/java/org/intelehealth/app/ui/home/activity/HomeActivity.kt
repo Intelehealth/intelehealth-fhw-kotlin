@@ -15,8 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivityHomeBinding
 import org.intelehealth.app.databinding.DrawerHomeNavHeaderBinding
+import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.ImageSpanGravity
+import org.intelehealth.common.extensions.gotoNextActivity
 import org.intelehealth.common.extensions.imageSpan
 import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
@@ -118,6 +120,21 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return when (item.itemId) {
             R.id.nav_setting -> {
                 navController.navigate(R.id.nav_setting)
+                true
+            }
+
+            R.id.nav_logout -> {
+                showCommonDialog(
+                    DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
+                        title = ResourceR.string.action_logout,
+                        message = ResourceR.string.content_are_you_sure_logout,
+                        positiveLbl = ResourceR.string.action_logout,
+                        negativeLbl = ResourceR.string.action_cancel,
+                        onPositiveClick = {
+                            userViewModel.logout()
+                            gotoNextActivity(OnboardingActivity::class.java, true)
+                        })
+                )
                 true
             }
 

@@ -53,4 +53,12 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
     fun getUser() = userRepository.getLiveUser()
 
     fun sendUserDeviceToken() = userRepository.sendUserDeviceToken().asLiveData()
+
+    fun updateUser(user: User) {
+        viewModelScope.launch { userRepository.updateUser(user) }
+    }
+
+    fun logout() {
+        userRepository.logout()
+    }
 }

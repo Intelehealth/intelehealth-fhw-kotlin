@@ -29,3 +29,15 @@ CASE WHEN custom.product_category = "Pending" then custom.total END as pending, 
     count(uuid) AS total
 FROM tbl_visit
 GROUP BY product_category) as custom);
+
+// Follow up count query
+
+SELECT sum(today) as today, sum(tomorrow) as tomorrow, sum(upcoming) as upcoming, count(follow_up_date) as total FROM
+(SELECT date(substr(value, 1, 10)) as follow_up_date,
+CASE WHEN date(substr(value, 1, 10)) = date('now') THEN 1 END as today,
+CASE WHEN date(substr(value, 1, 10)) = date('now', '+1 day')  THEN 1  END as tomorrow,
+CASE WHEN date(substr(value, 1, 10)) > date('now', '+1 day') THEN 1 END as upcoming
+FROM tbl_obs
+WHERE conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" AND (follow_up_date >= date('now') )
+AND encounteruuid not in (select uuid from tbl_encounter WHERE encounter_type_uuid = "629a9d0b-48eb-405e-953d-a5964c88dc30")
+GROUP BY uuid HAVING (follow_up_date is NOT NULL AND LOWER(follow_up_date) != 'no' AND follow_up_date != '' ))

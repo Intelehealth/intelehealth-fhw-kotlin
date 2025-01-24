@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import org.intelehealth.data.offline.entity.Appointment
+import org.intelehealth.data.offline.entity.AppointmentStatusCount
 
 /**
  * Created by Vaghela Mithun R. on 02-04-2024 - 10:24.
@@ -33,4 +34,7 @@ interface AppointmentDao : CoreDao<Appointment> {
 
     @Query("SELECT * FROM tbl_appointments WHERE open_mrs_id = :openMrsId AND voided == 0")
     fun getByOpenMrsId(openMrsId: String): LiveData<Appointment>
+
+    @Query("SELECT SUM(upcoming) as upcoming, SUM(past) as past, total FROM (SELECT CASE WHEN (datetime(A.slot_js_date) >= datetime('now')) THEN 1 ELSE 0 END as upcoming, CASE WHEN (datetime(A.slot_js_date) < datetime('now'))  THEN 1  ELSE 0 END as past, count(A.uuid) as total FROM tbl_appointments A LEFT JOIN tbl_patient P ON P.uuid = A.patient_id WHERE A.status = 'booked')")
+    fun getAppointmentStatusCount(): LiveData<AppointmentStatusCount>
 }

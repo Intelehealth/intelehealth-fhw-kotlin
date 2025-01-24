@@ -2,6 +2,7 @@
 
     <dimen name="std_4dp">4dp</dimen>
     <dimen name="std_8dp">8dp</dimen>
+    <dimen name="std_10dp">10dp</dimen>
     <dimen name="std_12dp">12dp</dimen>
     <dimen name="std_14dp">14dp</dimen>
     <dimen name="std_16dp">16dp</dimen>
@@ -17,6 +18,8 @@
     <dimen name="std_80dp">80dp</dimen>
     <dimen name="std_96dp">96dp</dimen>
     <dimen name="std_128dp">128dp</dimen>
+    <dimen name="std_148dp">148dp</dimen>
+    <dimen name="std_152dp">152dp</dimen>
     <dimen name="std_160dp">160dp</dimen>
     <dimen name="std_192dp">192dp</dimen>
     <dimen name="std_256dp">256dp</dimen>
@@ -54,5 +57,7 @@
     <dimen name="dialog_icon_size">@dimen/std_64dp</dimen>
     <dimen name="pager_indicator_size">@dimen/std_48dp</dimen>
     <dimen name="stroke_size">1dp</dimen>
+
+    <dimen name="login_collapsing_layout_height">350dp</dimen>
 
 </resources>

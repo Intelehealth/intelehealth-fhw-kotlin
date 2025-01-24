@@ -88,7 +88,7 @@ object Deps {
         const val hiltAndroid = "com.google.dagger:hilt-android:$version"
         const val hiltAndroidCompiler = "com.google.dagger:hilt-compiler:$version"
         const val hiltWorker = "androidx.hilt:hilt-work:$versionWorker"
-        const val hiltKapt = "androidx.hilt:hilt-compiler:$versionWorker"
+        const val hiltWorkerKapt = "androidx.hilt:hilt-compiler:$versionWorker"
     }
 
     object OkHttp {

@@ -1,4 +1,4 @@
-rootProject.name = "IDA50"
+rootProject.name = "IDAV50"
 include(":app")
 include(":common")
 include(":resource")

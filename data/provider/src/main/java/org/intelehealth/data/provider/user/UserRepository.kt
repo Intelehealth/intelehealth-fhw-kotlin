@@ -44,4 +44,10 @@ class UserRepository @Inject constructor(
         DeviceTokenReq(preferenceUtils.userId, preferenceUtils.currentLanguage, preferenceUtils.fcmToken)
     )
 
+    suspend fun updateUser(user: User) = userDao.update(user)
+
+    fun logout() {
+        updateUserLoggedInStatus(false)
+    }
+
 }
