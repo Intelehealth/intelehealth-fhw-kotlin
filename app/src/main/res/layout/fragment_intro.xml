@@ -10,7 +10,7 @@
             android:id="@+id/introPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/btnSkip"
+            app:layout_constraintBottom_toTopOf="@id/pagerIndicator"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -18,14 +18,15 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/pagerIndicator"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/std_48dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/btnSkip"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/introPager"
             app:tabBackground="@drawable/selector_dot"
             app:tabGravity="center"
-            app:tabIndicatorHeight="0dp" />
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSkip"

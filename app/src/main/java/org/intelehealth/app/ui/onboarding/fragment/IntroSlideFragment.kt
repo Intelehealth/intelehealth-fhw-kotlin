@@ -16,7 +16,7 @@ import org.intelehealth.app.model.IntroContent
 private const val ARG_PARAM1 = "param1"
 
 @AndroidEntryPoint
-class IntroSliderFragment : Fragment(R.layout.fragment_intro_slider) {
+class IntroSlideFragment : Fragment(R.layout.fragment_intro_slider) {
     private lateinit var binding: FragmentIntroSliderBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class IntroSliderFragment : Fragment(R.layout.fragment_intro_slider) {
 
     companion object {
         @JvmStatic
-        fun newInstance(introContent: IntroContent) = IntroSliderFragment().apply {
+        fun newInstance(introContent: IntroContent) = IntroSlideFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(ARG_PARAM1, introContent)
             }

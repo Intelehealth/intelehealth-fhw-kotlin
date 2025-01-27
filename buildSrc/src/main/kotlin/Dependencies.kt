@@ -169,6 +169,17 @@ object Deps {
         const val config = "com.google.firebase:firebase-config"
         const val auth = "com.google.firebase:firebase-auth"
     }
+
+    object Jsoup {
+        private const val version = "1.15.2"
+        const val jsoup = "org.jsoup:jsoup:$version"
+    }
+
+    object CCPLibrary {
+        private const val version = "2.6.1"
+        const val ccp = "com.hbb20:ccp:$version"
+    }
+
 }
 
 object TestDeps {

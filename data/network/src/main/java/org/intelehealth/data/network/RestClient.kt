@@ -2,17 +2,18 @@ package org.intelehealth.data.network
 
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
-import org.intelehealth.data.network.model.LoginResponse
-import org.intelehealth.data.network.model.PullResponse
-import org.intelehealth.data.network.model.PushRequestApiCall
+import org.intelehealth.common.service.BaseResponse
+import org.intelehealth.data.network.model.request.DeviceTokenReq
+import org.intelehealth.data.network.model.request.JWTParams
+import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.response.PullResponse
+import org.intelehealth.data.network.model.request.PushRequestApiCall
 import org.intelehealth.data.network.model.SetupLocation
-import org.intelehealth.common.service.ServiceResponse
+import org.intelehealth.data.network.model.response.UserResponse
 import org.intelehealth.data.offline.entity.ObsJsonResponse
 import org.intelehealth.data.offline.entity.Observation
 import org.intelehealth.data.offline.entity.PatientProfile
-import org.intelehealth.data.network.model.DeviceTokenReq
-import org.intelehealth.data.network.model.JWTParams
-
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -40,7 +41,7 @@ interface RestClient {
     @POST
     suspend fun generateJWTAuthToken(
         @Url url: String = BuildConfig.SERVER_URL + ":3030/auth/login", @Body body: JWTParams
-    ): Response<ServiceResponse<Boolean, String>>
+    ): Response<BaseResponse<Boolean, String>>
 
     @GET("/EMR-Middleware/webapi/pull/pulldata/{locationId}/{lastPullExecutedTime}/{pageNo}/{pageLimit}")
     suspend fun pullData(
@@ -49,7 +50,7 @@ interface RestClient {
         @Path("lastPullExecutedTime") lastPullExecutedTime: String,
         @Path("pageNo") pageNo: Int,
         @Path("pageLimit") pageLimit: Int
-    ): Response<ServiceResponse<String, PullResponse>>
+    ): Response<BaseResponse<String, PullResponse>>
 
     @GET("/openmrs/ws/rest/v1/session")
     suspend fun login(@Header("Authorization") basicAuth: String): Response<LoginResponse>
@@ -59,6 +60,35 @@ interface RestClient {
         @Url url: String = BuildConfig.SERVER_URL + ":3004/api/mindmap/user_settings",
         @Body deviceTokenReq: DeviceTokenReq
     ): Response<ResponseBody>
+
+    @GET
+    fun getHtmlPage(@Url url: String?): Response<ResponseBody>
+
+    @POST("/openmrs/ws/rest/v1/password")
+    suspend fun changePassword(
+        @Body map: HashMap<String, String>, @Header("Authorization") authHeader: String
+    ): Response<ResponseBody>
+
+    @POST
+    @Headers("Accept: application/json")
+    suspend fun requestOTP(
+        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/auth/requestOtp", @Body otpReqParam: OtpRequestParam
+    ): Response<UserResponse<Any?>>
+
+    @POST
+    @Headers("Accept: application/json")
+    suspend fun verifyOTP(
+        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/auth/verifyOtp", @Body otpReqParam: OtpRequestParam
+    ): Response<UserResponse<Any?>>
+
+
+    @POST
+    suspend fun resetPassword(
+        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/auth/resetPassword/{userUuid}",
+        @Path("userUuid") userUuid: String,
+        @Body map: HashMap<String, String>
+    ): Response<UserResponse<Any?>>
+
 
     @GET("/openmrs/ws/rest/v1/provider")
     suspend fun fetchUserProviderDetails(
@@ -108,29 +138,7 @@ interface RestClient {
 //    @GET("/intelehealth/app_update.json")
 //    suspend fun checkAppUpdate(): Response<CheckAppUpdateRes>
 //
-//    @POST("/openmrs/ws/rest/v1/password")
-//    suspend fun changePassword(
-//        @Body modelChangePassword: ChangePasswordModel_New,
-//        @Header("Authorization") authHeader: String
-//    ): Response<ResponseBody>
-//
-//    @POST("/api/auth/requestOtp")
-//    @Headers("Accept: application/json")
-//    suspend fun requestOTP(
-//        @Body modelRequestOTPParams: RequestOTPParamsModel_New
-//    ): Response<ForgotPasswordApiResponseModel_New>
-//
-//    @POST("/api/auth/verifyOtp")
-//    @Headers("Accept: application/json")
-//    suspend fun verifyOTP(
-//        @Body modelOtpVerificationParams: OTPVerificationParamsModel_New
-//    ): Response<ForgotPasswordApiResponseModel_New>
-//
-//
-//    @POST("/api/auth/resetPassword/{userUuid}")
-//    suspend fun resetPassword(
-//        @Path("userUuid") userUuid: String, @Body modelChangePassword: ChangePasswordParamsModel_New
-//    ): Response<ResetPasswordResModel_New>
+
 //
 //
 //    @POST

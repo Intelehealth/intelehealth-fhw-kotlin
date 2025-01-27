@@ -36,7 +36,7 @@ class OnboardingActivity : AppCompatActivity() {
         checkForceUpdate()
     }
 
-    private fun checkForceUpdate() {
+    fun checkForceUpdate() {
         launcherViewModel.checkForceUpdate {
             DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
                 title = ResourceR.string.title_new_update,

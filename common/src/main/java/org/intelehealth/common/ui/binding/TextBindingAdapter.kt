@@ -12,10 +12,14 @@ import com.google.android.material.button.MaterialButton
 
 @BindingAdapter("android:value")
 fun bindResourceString(textView: TextView, resId: Int) {
-    textView.text = textView.context.getString(resId)
+    if (resId != 0) {
+        textView.text = textView.context.getString(resId)
+    }
 }
 
 @BindingAdapter("android:action")
 fun bindResourceString(btn: MaterialButton, resId: Int) {
-    btn.text = btn.context.getString(resId)
+    if (resId != 0) {
+        btn.text = btn.context.getString(resId)
+    }
 }

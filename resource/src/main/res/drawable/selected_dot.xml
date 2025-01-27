@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thickness="8dp"
-            android:useLevel="false">
+    <!--    <item>-->
+    <!--        <shape-->
+    <!--            android:innerRadius="0dp"-->
+    <!--            android:shape="rectangle"-->
+    <!--            android:thickness="8dp"-->
+    <!--            android:useLevel="false">-->
+    <!--            <solid android:color="@color/transparent" />-->
+    <!--        </shape>-->
+    <!--    </item>-->
+    <item
+        android:width="@dimen/std_56dp"
+        android:height="@dimen/std_8dp"
+        android:gravity="center">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/std_8dp" />
             <solid android:color="@color/colorAccent" />
         </shape>
     </item>
+    <!--    <item android:gravity="center">-->
+    <!--        <shape-->
+    <!--            android:innerRadius="0dp"-->
+    <!--            android:shape="ring"-->
+    <!--            android:thickness="8dp"-->
+    <!--            android:useLevel="false">-->
+    <!--            <solid android:color="@color/colorAccent" />-->
+    <!--        </shape>-->
+    <!--    </item>-->
 
 </layer-list>

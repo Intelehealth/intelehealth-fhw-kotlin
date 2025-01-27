@@ -1,6 +1,6 @@
 package org.intelehealth.feature.chat.restapi.response
 
-import org.intelehealth.common.service.ServiceResponse
+import org.intelehealth.common.service.BaseResponse
 
 
 /**
@@ -10,4 +10,4 @@ import org.intelehealth.common.service.ServiceResponse
  **/
 class ChatResponse<T>(
     var success: Boolean = false,
-) : ServiceResponse<String, T>()
+) : BaseResponse<String, T>()

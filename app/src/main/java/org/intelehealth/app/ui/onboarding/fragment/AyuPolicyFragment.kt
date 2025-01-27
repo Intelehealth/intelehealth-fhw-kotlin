@@ -34,13 +34,13 @@ class AyuPolicyFragment : Fragment(R.layout.fragment_ayu_policy) {
         val termAndCondition = resources.getString(ResourceR.string.title_terms_and_conditions)
         val privacyPolicy = resources.getString(ResourceR.string.title_privacy_policy)
         binding.tvPrivacyNoticeLink1.setClickableText(termAndCondition) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS).apply {
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS, null).apply {
                 findNavController().navigate(this)
             }
         }
 
         binding.tvPrivacyNoticeLink1.setClickableText(privacyPolicy) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.PRIVACY_POLICY).apply {
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.PRIVACY_POLICY, null).apply {
                 findNavController().navigate(this)
             }
         }

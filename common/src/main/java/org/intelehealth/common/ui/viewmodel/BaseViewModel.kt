@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.onStart
 import org.intelehealth.common.helper.NetworkHelper
 import retrofit2.Response
 import org.intelehealth.common.state.Result
-import org.intelehealth.common.service.ServiceResponse
+import org.intelehealth.common.service.BaseResponse
 import timber.log.Timber
 
 open class BaseViewModel(
@@ -48,7 +48,7 @@ open class BaseViewModel(
     }.flowOn(dispatcher)
 
     fun <S, R> executeNetworkCall(
-        networkCall: suspend () -> Response<out ServiceResponse<S, R>>
+        networkCall: suspend () -> Response<out BaseResponse<S, R>>
     ) = flow {
         if (isInternetAvailable()) {
             com.github.ajalt.timberkt.Timber.d { "network call started" }
@@ -79,7 +79,7 @@ open class BaseViewModel(
     }.flowOn(dispatcher)
 
     fun <L, T> catchNetworkData(
-        networkCall: suspend () -> Response<out ServiceResponse<String, T>>, saveDataCall: suspend (T?) -> L
+        networkCall: suspend () -> Response<out BaseResponse<String, T>>, saveDataCall: suspend (T?) -> L
     ) = flow {
         com.github.ajalt.timberkt.Timber.d { "catchNetworkData" }
         if (isInternetAvailable()) {
@@ -100,7 +100,7 @@ open class BaseViewModel(
         emit(Result.Loading("Please wait..."))
     }.flowOn(dispatcher)
 
-    fun isInternetAvailable(): Boolean = true //networkHelper?.isNetworkConnected() ?: false
+    fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: false
 
     /**
      * Handle response here in base with loading and error message

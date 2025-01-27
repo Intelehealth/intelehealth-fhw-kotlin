@@ -14,6 +14,9 @@ const val JSON_FOLDER_Update = "Engines_Update"
 const val CONFIG_FILE_NAME = "config.json"
 const val ASSET_FILE_CONSENT = "consent.json"
 const val KEY_RESULTS = "results"
+const val IND_COUNTRY_CODE = "91"
+
+
 fun getAppPlayStoreUrl(context: Context): String {
     return "https://play.google.com/store/apps/details?id=" + context.applicationContext.packageName
 }

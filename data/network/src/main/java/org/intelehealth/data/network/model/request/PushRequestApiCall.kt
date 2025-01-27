@@ -1,7 +1,8 @@
-package org.intelehealth.data.network.model
+package org.intelehealth.data.network.model.request
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import org.intelehealth.data.network.model.response.Person
 import org.intelehealth.data.offline.entity.Encounter
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.Provider

@@ -13,8 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".activities.IntroActivity.SlideFragment">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/ivIntroImage"
@@ -53,6 +52,7 @@
             android:layout_marginStart="@dimen/std_16dp"
             android:layout_marginTop="@dimen/std_16dp"
             android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             android:gravity="center"
             android:justificationMode="inter_word"
             android:lineSpacingExtra="@dimen/std_line_space"

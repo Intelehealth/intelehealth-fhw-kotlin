@@ -1,4 +1,4 @@
-package org.intelehealth.data.network.model
+package org.intelehealth.data.network.model.request
 
 import com.google.gson.annotations.SerializedName
 

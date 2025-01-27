@@ -6,10 +6,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.intelehealth.common.helper.NetworkHelper
+import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.data.network.model.JWTParams
-import org.intelehealth.data.network.model.LoginResponse
+import org.intelehealth.data.network.model.request.JWTParams
+import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.response.UserResponse
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.data.provider.user.UserRepository
 import javax.inject.Inject
@@ -20,7 +24,9 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class UserViewModel @Inject constructor(private val userRepository: UserRepository) : BaseViewModel() {
+class UserViewModel @Inject constructor(
+    private val userRepository: UserRepository, networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper = networkHelper) {
 
     fun generateJWTAuthToken(param: JWTParams) =
         executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
@@ -54,11 +60,34 @@ class UserViewModel @Inject constructor(private val userRepository: UserReposito
 
     fun sendUserDeviceToken() = userRepository.sendUserDeviceToken().asLiveData()
 
-    fun updateUser(user: User) {
-        viewModelScope.launch { userRepository.updateUser(user) }
+    fun updateUser(user: User, onUpdated: () -> Unit) {
+        viewModelScope.launch {
+            userRepository.updateUser(user)
+            withContext(Dispatchers.Main) { onUpdated() }
+        }
     }
 
     fun logout() {
         userRepository.logout()
+    }
+
+    fun changePassword(oldPassword: String, newPassword: String) =
+        userRepository.changePassword(oldPassword, newPassword).asLiveData()
+
+    fun requestOTP(otpRequestParam: OtpRequestParam) = userRepository.requestOTP(otpRequestParam).asLiveData()
+
+    fun verifyOTP(otpRequestParam: OtpRequestParam) = executeNetworkCall {
+        userRepository.verifyOTP(otpRequestParam)
+    }.asLiveData()
+
+    fun resetPassword(userUuid: String, map: HashMap<String, String>) = executeNetworkCall {
+        userRepository.resetPassword(userUuid, map)
+    }.asLiveData()
+
+    fun handleUserResponse(it: Result<UserResponse<Any?>>, callback: (data: UserResponse<Any?>) -> Unit) {
+        handleResponse(it) {
+            if (!it.success) failResult.postValue(it.message)
+            else callback(it)
+        }
     }
 }

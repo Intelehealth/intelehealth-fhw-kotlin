@@ -1,9 +1,7 @@
 package org.intelehealth.config.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.hilt.work.HiltWorker
-import androidx.room.PrimaryKey
 import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -19,9 +17,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.intelehealth.common.state.Result
+import org.intelehealth.common.utility.API_ERROR
+import org.intelehealth.common.utility.NO_DATA_FOUND
+import org.intelehealth.common.utility.NO_NETWORK
+import org.intelehealth.common.utility.WORKER_RESULT
 import org.intelehealth.config.data.ConfigRepository
-import org.intelehealth.config.utility.NO_DATA_FOUND
-import org.intelehealth.config.utility.WORKER_RESULT
+import org.intelehealth.config.network.response.ConfigResponse
+import org.intelehealth.common.state.Result as APIResult
 
 /**
  * Created by Vaghela Mithun R. on 12-04-2024 - 13:17.
@@ -42,16 +45,25 @@ class ConfigSyncWorker @AssistedInject constructor(
                 if (result.isSuccess()) {
                     result.data?.let {
                         configRepository.saveAllConfig(it, this) { wokerResult = Result.success() }
-                    } ?: setFailureResult()
-                } else setFailureResult()
+                    } ?: setFailureResult(result)
+                } else setFailureResult(result)
             }
         }
 
         return wokerResult
     }
 
-    private fun setFailureResult() {
-        wokerResult = Result.failure(workDataOf(Pair(WORKER_RESULT, NO_DATA_FOUND)))
+    private fun setFailureResult(result: APIResult<ConfigResponse>) {
+        wokerResult = when (result.status) {
+            APIResult.State.FAIL -> if (result.message == NO_NETWORK) Result.failure(
+                workDataOf(Pair(WORKER_RESULT, NO_NETWORK))
+            )
+            else Result.failure(workDataOf(Pair(WORKER_RESULT, NO_DATA_FOUND)))
+
+            APIResult.State.ERROR -> Result.failure(workDataOf(Pair(WORKER_RESULT, API_ERROR)))
+
+            else -> Result.failure()
+        }
     }
 
     companion object {

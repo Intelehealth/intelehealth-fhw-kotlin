@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ViewAuthenticationFormBinding
-import org.intelehealth.app.ui.onboarding.fragment.SetupFragmentDirections
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.hideErrorOnTextChang
 import org.intelehealth.common.extensions.showAlertDialog
@@ -16,19 +16,20 @@ import org.intelehealth.common.extensions.validateDropDown
 import org.intelehealth.common.extensions.validatePassword
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.data.network.model.JWTParams
-import org.intelehealth.data.network.model.LoginResponse
+import org.intelehealth.data.network.model.request.JWTParams
+import org.intelehealth.data.network.model.response.LoginResponse
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.resource.R
-import kotlin.math.log
 
 /**
  * Created by Vaghela Mithun R. on 24-01-2025 - 11:08.
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+
+@AndroidEntryPoint
 abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
-    private val userViewModel: UserViewModel by viewModels()
+    protected val userViewModel: UserViewModel by viewModels()
     private lateinit var binding: ViewAuthenticationFormBinding
     private lateinit var user: User
 
@@ -36,7 +37,15 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
         this.binding = formBinding
         handleButtonClick()
         handleInputError()
-        userViewModel.getUser().observe(viewLifecycleOwner) { user = it }
+        fetchUserIfLoggedIn()
+    }
+
+    private fun fetchUserIfLoggedIn() {
+        if (binding.isLocationEnabled != null && binding.isLocationEnabled == false) return
+        userViewModel.getUser().observe(viewLifecycleOwner) {
+            it ?: return@observe
+            user = it
+        }
     }
 
     private fun handleInputError() {
@@ -112,7 +121,8 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
             else userViewModel.updateUser(user.apply {
                 sessionId = response.sessionId
                 lastLoginInTime = DateTimeUtils.getCurrentDateWithDBFormat()
-            })
+            }) { onUserAuthenticated(user) }
+
         }
     }
 

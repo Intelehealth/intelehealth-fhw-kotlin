@@ -34,6 +34,14 @@ fun Fragment.showCommonDialog(dialogParams: DialogParams) {
     requireContext().showCustomDialog(dialogParams)
 }
 
+fun Fragment.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit) {
+    requireContext().showRetryDialogOnWentWrong(onRetry, onCancel)
+}
+
+fun Fragment.showNetworkFailureDialog(onRetry: () -> Unit) {
+    requireContext().showNetworkFailureDialog(onRetry)
+}
+
 fun Fragment.requestNeededPermissions(onPermissionsGranted: (() -> Unit)) {
     requireActivity().requestNeededPermissions { onPermissionsGranted() }
 }

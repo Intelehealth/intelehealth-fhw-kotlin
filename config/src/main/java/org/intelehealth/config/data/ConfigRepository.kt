@@ -6,11 +6,11 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.state.Result
+import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.config.network.response.ConfigResponse
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.utility.FieldGroup
-import org.intelehealth.config.utility.NO_DATA_FOUND
 import javax.inject.Inject
 
 /**
@@ -45,7 +45,7 @@ class ConfigRepository @Inject constructor(
         }
     }
 
-    suspend fun suspendFetchAndUpdateConfig() = dataSource.getConfig()
+    fun suspendFetchAndUpdateConfig() = dataSource.getConfig()
 
     fun saveAllConfig(config: ConfigResponse, coroutineScope: CoroutineScope = scope, onCompleted: () -> Unit) {
         coroutineScope.launch {

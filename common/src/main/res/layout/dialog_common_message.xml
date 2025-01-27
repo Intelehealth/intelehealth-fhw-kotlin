@@ -84,6 +84,7 @@
                 style="@style/Theme.IDA.Dialog.Button.Negative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{params.negativeLbl != 0 ? View.VISIBLE : View.GONE}"
                 android:action="@{params.negativeLbl}"
                 android:text="@string/action_no"
                 app:layout_constraintBottom_toBottomOf="@id/btnDialogYes"

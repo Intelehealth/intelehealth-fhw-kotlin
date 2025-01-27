@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
@@ -13,7 +12,6 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentSetupBinding
 import org.intelehealth.app.ui.location.viewmodel.LocationViewModel
 import org.intelehealth.app.ui.user.fragment.AuthenticationFragment
-import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.app.utility.KEY_RESULTS
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.showToast
@@ -30,7 +28,6 @@ import org.intelehealth.resource.R as ResourceR
 @AndroidEntryPoint
 class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     private lateinit var binding: FragmentSetupBinding
-    private val userViewModel: UserViewModel by viewModels()
     private val locationViewModel: LocationViewModel by viewModels()
     private lateinit var locationAdapter: ArrayAdapter<SetupLocation>
 
@@ -44,7 +41,7 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     private fun fetchLocation() {
         locationViewModel.getLocation().observe(viewLifecycleOwner, {
             it ?: return@observe
-            userViewModel.handleResponse(it) { result ->
+            locationViewModel.handleResponse(it) { result ->
                 Timber.d { Gson().toJson(result) }
                 result[KEY_RESULTS]?.let { locations -> bindLocation(locations) }
             }
@@ -66,6 +63,7 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     }
 
     override fun onUserAuthenticated(user: User) {
+        locationViewModel.saveLocation()
         val successMsg = getString(ResourceR.string.content_setup_successful, user.displayName)
         showToast(successMsg)
         findNavController().navigate(SetupFragmentDirections.actionSetupToSync(user.displayName))

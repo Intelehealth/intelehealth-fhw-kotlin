@@ -2,8 +2,9 @@ package org.intelehealth.data.provider.user
 
 import android.util.Base64
 import org.intelehealth.common.utility.PreferenceUtils
-import org.intelehealth.data.network.model.DeviceTokenReq
-import org.intelehealth.data.network.model.JWTParams
+import org.intelehealth.data.network.model.request.DeviceTokenReq
+import org.intelehealth.data.network.model.request.JWTParams
+import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
 import java.nio.charset.StandardCharsets
@@ -49,5 +50,15 @@ class UserRepository @Inject constructor(
     fun logout() {
         updateUserLoggedInStatus(false)
     }
+
+    fun changePassword(oldPassword: String, newPassword: String) = dataSource.changePassword(
+        preferenceUtils.basicAuthToken, oldPassword, newPassword
+    )
+
+    fun requestOTP(otpRequestParam: OtpRequestParam) = dataSource.requestOtp(otpRequestParam)
+
+    suspend fun verifyOTP(otpRequestParam: OtpRequestParam) = dataSource.verifyOtp(otpRequestParam)
+
+    suspend fun resetPassword(userUuid: String, map: HashMap<String, String>) = dataSource.resetPassword(userUuid, map)
 
 }

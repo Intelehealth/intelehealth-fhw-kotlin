@@ -21,7 +21,13 @@ import javax.inject.Inject
 import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.utility.KEY_FORCE_UPDATE_VERSION_CODE
 import org.intelehealth.common.extensions.hide
+import org.intelehealth.common.helper.NetworkHelper
+import org.intelehealth.common.utility.API_ERROR
+import org.intelehealth.common.utility.NO_DATA_FOUND
+import org.intelehealth.common.utility.NO_NETWORK
+import org.intelehealth.common.utility.WORKER_RESULT
 import org.intelehealth.config.worker.ConfigSyncWorker
+import kotlin.jvm.Throws
 
 /**
  * Created by Vaghela Mithun R. on 07-01-2025 - 13:47.
@@ -33,22 +39,28 @@ const val SPLASH_DELAY_TIME = 500L
 
 @HiltViewModel
 class LauncherViewModel @Inject constructor(
-    private val preferenceUtils: PreferenceUtils, private val workManager: WorkManager
-) : BaseViewModel() {
+    private val preferenceUtils: PreferenceUtils,
+    private val workManager: WorkManager,
+    private val networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper = networkHelper) {
 
     private val mutableInitialLaunchStatus: MutableLiveData<Boolean> = MutableLiveData()
     val initialLaunchStatus = mutableInitialLaunchStatus.hide()
 
     fun updateFcmToken() = getDeviceToken { token: String? -> token?.let { preferenceUtils.fcmToken = token } }
 
-    fun checkForceUpdate(onNewUpdateAvailable: () -> Unit) = getRemoteConfig {
-        val forceUpdateVersionCode = it.getLong(KEY_FORCE_UPDATE_VERSION_CODE)
-        if (forceUpdateVersionCode > BuildConfig.VERSION_CODE) onNewUpdateAvailable.invoke()
-        else requestConfig()
+    fun checkForceUpdate(onNewUpdateAvailable: () -> Unit) {
+        if (isInternetAvailable()) {
+            getRemoteConfig {
+                val forceUpdateVersionCode = it.getLong(KEY_FORCE_UPDATE_VERSION_CODE)
+                if (forceUpdateVersionCode > BuildConfig.VERSION_CODE) onNewUpdateAvailable.invoke()
+                else requestConfig()
+            }
+        } else dataConnectionStatus.postValue(false)
     }
 
     fun requestConfig() {
-        if (preferenceUtils.initialLaunchStatus) {
+        if (isInternetAvailable()) if (preferenceUtils.initialLaunchStatus) {
             val configWorkRequest = OneTimeWorkRequestBuilder<ConfigSyncWorker>().build()
             workManager.enqueue(configWorkRequest)
             val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -59,7 +71,10 @@ class LauncherViewModel @Inject constructor(
                         if (state == WorkInfo.State.SUCCEEDED.name) {
                             mutableInitialLaunchStatus.postValue(true)
                         } else if (state == WorkInfo.State.FAILED.name) {
-                            failResult.postValue(WorkInfo.State.FAILED.name)
+                            val workResult = it.outputData.getString(WORKER_RESULT)
+                            if (workResult == NO_NETWORK) dataConnectionStatus.postValue(false)
+                            else if (workResult == API_ERROR) errorResult.postValue(Throwable(API_ERROR))
+                            else failResult.postValue(NO_DATA_FOUND)
                         }
                     }
                 }

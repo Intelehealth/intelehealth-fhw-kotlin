@@ -2,10 +2,10 @@ package org.intelehealth.app.ui.user.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentLoginBinding
 import org.intelehealth.common.extensions.showToast
@@ -17,6 +17,7 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+@AndroidEntryPoint
 class LoginFragment : AuthenticationFragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
 
@@ -58,6 +59,7 @@ class LoginFragment : AuthenticationFragment(R.layout.fragment_login) {
     }
 
     override fun onUserAuthenticated(user: User) {
+
         val successMsg = getString(ResourceR.string.content_login_successful, user.displayName)
         showToast(successMsg)
         findNavController().navigate(LoginFragmentDirections.actionLoginToHome())

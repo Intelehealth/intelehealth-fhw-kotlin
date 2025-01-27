@@ -23,11 +23,16 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentSplashBinding
 import org.intelehealth.app.ui.language.adapter.LanguageAdapter
 import org.intelehealth.app.ui.language.fragment.LanguageFragment
+import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
 import org.intelehealth.app.ui.onboarding.viewmodel.LauncherViewModel
 import org.intelehealth.common.extensions.requestNeededPermissions
 import org.intelehealth.common.extensions.showCommonDialog
+import org.intelehealth.common.extensions.showNetworkFailureDialog
+import org.intelehealth.common.extensions.showRetryDialogOnWentWrong
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
+import org.intelehealth.common.utility.API_ERROR
+import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.config.room.entity.ActiveLanguage
 
 /**
@@ -67,21 +72,21 @@ class SplashFragment : LanguageFragment(R.layout.fragment_splash), BaseViewHolde
 
     private fun observeFailResult() {
         launcherViewModel.failDataResult.observe(viewLifecycleOwner) { status ->
-            if (status == WorkInfo.State.FAILED.name) {
-                showConfigFailDialog()
+            if (status == NO_DATA_FOUND) {
+                showRetryDialogOnWentWrong({ launcherViewModel.requestConfig() }, { requireActivity().finish() })
             }
         }
-    }
 
-    private fun showConfigFailDialog() {
-        DialogParams(icon = org.intelehealth.resource.R.drawable.ic_dialog_alert,
-            title = org.intelehealth.resource.R.string.title_error,
-            message = org.intelehealth.resource.R.string.content_something_went_wrong,
-            positiveLbl = org.intelehealth.resource.R.string.action_retry,
-            negativeLbl = org.intelehealth.resource.R.string.action_cancel,
-            onPositiveClick = { launcherViewModel.requestConfig() },
-            onNegativeClick = { requireActivity().finish() }).let {
-            showCommonDialog(it)
+        launcherViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
+            if (it.not()) showNetworkFailureDialog {
+                (requireActivity() as OnboardingActivity).checkForceUpdate()
+            }
+        }
+
+        launcherViewModel.errorDataResult.observe(viewLifecycleOwner) {
+            if (it.message == API_ERROR) {
+                showRetryDialogOnWentWrong({ launcherViewModel.requestConfig() }, { requireActivity().finish() })
+            }
         }
     }
 

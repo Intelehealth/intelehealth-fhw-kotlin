@@ -6,4 +6,5 @@
     <string name="hint_reenter_new_password">Re-enter new password</string>
     <string name="hint_new_password">@string/lbl_new_password</string>
     <string name="hint_find_patient">Find patient</string>
+    <string name="hint_enter_mobile_number">Enter mobile number</string>
 </resources>

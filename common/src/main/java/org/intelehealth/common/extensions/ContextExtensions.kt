@@ -90,3 +90,27 @@ fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAler
         }
     }
 }.show()
+
+fun Context.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit) {
+
+    DialogParams(icon = R.drawable.ic_dialog_alert,
+        title = R.string.title_error,
+        message = R.string.content_something_went_wrong,
+        positiveLbl = R.string.action_retry,
+        negativeLbl = R.string.action_cancel,
+        onPositiveClick = { onRetry.invoke() },
+        onNegativeClick = { onCancel.invoke() }).apply {
+        showCustomDialog(this)
+    }
+}
+
+fun Context.showNetworkFailureDialog(onRetry: () -> Unit) {
+    DialogParams(icon = R.drawable.ic_dialog_alert,
+        title = R.string.dialog_title_network_failure,
+        message = R.string.content_no_network,
+        positiveLbl = R.string.action_retry,
+        negativeLbl = 0,
+        onPositiveClick = { onRetry.invoke() }).apply {
+        showCustomDialog(this)
+    }
+}

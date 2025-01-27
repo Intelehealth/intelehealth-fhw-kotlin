@@ -1,21 +1,114 @@
 package org.intelehealth.app.ui.user.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentForgotPasswordBinding
+import org.intelehealth.app.ui.user.viewmodel.UserViewModel
+import org.intelehealth.app.utility.IND_COUNTRY_CODE
+import org.intelehealth.common.extensions.hide
+import org.intelehealth.common.extensions.show
+import org.intelehealth.common.extensions.showToast
+import org.intelehealth.common.ui.fragment.BaseProgressFragment
+import org.intelehealth.data.network.model.request.OTP_FOR_PASSWORD
+import org.intelehealth.data.network.model.request.OTP_FOR_USERNAME
+import org.intelehealth.data.network.model.request.OtpRequestParam
 
 /**
  * Created by Vaghela Mithun R. on 05-01-2025 - 12:27.
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
+@AndroidEntryPoint
+class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_password) {
     private lateinit var binding: FragmentForgotPasswordBinding
+    private val userViewModel by viewModels<UserViewModel>()
+    private val args by navArgs<ForgotPasswordFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentForgotPasswordBinding.bind(view)
+        bindProgressView(binding.progressView)
+        changeViewTypeVisibilityOnButtonClick()
+        binding.btnForgotPasswordContinue.isEnabled = false
+        binding.btnUsername.isSelected = true
+        changeContinueButtonStateOnTextChange()
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        if (binding.ccSpinnerForgotPassword.selectedCountryCode == IND_COUNTRY_CODE) {
+            binding.mobileLength = 10
+        }
+
+        observeOtherState()
+    }
+
+    private fun changeContinueButtonStateOnTextChange() {
+        binding.textInputFPUsername.doOnTextChanged { text, _, _, _ ->
+            binding.btnForgotPasswordContinue.isEnabled = (text?.isNotEmpty() == true && text.length > 5)
+        }
+        binding.textInputMobileNumber.doOnTextChanged { text, _, _, _ ->
+            val mobileLength = binding.mobileLength ?: 10
+            val enable = (text?.isNotEmpty() == true && text.length == mobileLength)
+            binding.btnForgotPasswordContinue.isEnabled = enable
+        }
+
+        binding.btnForgotPasswordContinue.setOnClickListener { requestOtp() }
+    }
+
+    private fun changeViewTypeVisibilityOnButtonClick() {
+        binding.btnUsername.setOnClickListener {
+            binding.groupForgotPasswordUsername.show()
+            binding.groupFPMobileNumber.hide()
+            binding.btnUsername.isSelected = true
+            binding.btnMobileNumber.isSelected = false
+        }
+
+        binding.btnMobileNumber.setOnClickListener {
+            binding.groupForgotPasswordUsername.hide()
+            binding.groupFPMobileNumber.show()
+            binding.btnUsername.isSelected = false
+            binding.btnMobileNumber.isSelected = true
+        }
+    }
+
+    private fun requestOtp() {
+        OtpRequestParam(
+            otpFor = if (args.requestFor == OTP_FOR_PASSWORD) OTP_FOR_PASSWORD else OTP_FOR_USERNAME,
+            userName = binding.textInputFPUsername.text.toString(),
+            phoneNumber = binding.textInputMobileNumber.text.toString(),
+            countryCode = binding.ccSpinnerForgotPassword.selectedCountryCode.toInt()
+        ).also {
+            userViewModel.requestOTP(it).observe(viewLifecycleOwner) { result ->
+                result ?: return@observe
+                userViewModel.handleUserResponse(result) {
+                    showToast(result.message ?: "OTP sent successfully")
+                }
+            }
+        }
+    }
+
+    private fun observeOtherState() {
+        userViewModel.failDataResult.observe(viewLifecycleOwner) {
+            showToast("failed =>$it")
+        }
+        userViewModel.errorDataResult.observe(viewLifecycleOwner) {
+            showToast("error => ${it.message ?: "Something went wrong"}")
+        }
+
+        userViewModel.loading.observe(viewLifecycleOwner) {
+            if (it) showProgress() else hideProgress()
+        }
+
+        userViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
+            if (!it) {
+                showToast("No internet connection")
+            }
+        }
     }
 }

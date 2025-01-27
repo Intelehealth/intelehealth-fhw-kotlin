@@ -88,6 +88,19 @@
         <argument
             android:name="consent_type"
             app:argType="org.intelehealth.app.ui.onboarding.fragment.ConsentType" />
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_to_self"
+            app:destination="@id/fragmentConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -165,6 +178,12 @@
         android:name="org.intelehealth.app.ui.user.fragment.ForgotPasswordFragment"
         android:label=""
         tools:layout="@layout/fragment_forgot_password">
+
+        <argument
+            android:name="requestFor"
+            android:defaultValue="password"
+            app:argType="string" />
+
         <action
             android:id="@+id/action_forgot_password_to_otp_verification"
             app:destination="@id/fragmentOtpVerificationScreen"

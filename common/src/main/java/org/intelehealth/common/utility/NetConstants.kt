@@ -6,3 +6,6 @@ package org.intelehealth.common.utility
  * Mob   : +919727206702
  **/
 const val NO_NETWORK = "No Network"
+const val NO_DATA_FOUND = "No data found"
+const val WORKER_RESULT = "worker_result"
+const val API_ERROR = "API Error"

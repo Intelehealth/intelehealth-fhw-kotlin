@@ -18,13 +18,9 @@ class SyncDataSource @Inject constructor(
     fun pullData(pageNo: Int, pageLimit: Int) = getResult {
         val locationStr = preferenceUtils.location
         val location = Gson().fromJson(locationStr, SetupLocation::class.java)
+        location?.uuid ?: throw Exception("Location not found")
         apiClient.pullData(
-            preferenceUtils.basicAuthToken,
-            location.uuid!!,
-            preferenceUtils.lastSyncedTime,
-            pageNo,
-            pageLimit
+            preferenceUtils.basicAuthToken, location.uuid!!, preferenceUtils.lastSyncedTime, pageNo, pageLimit
         )
-
     }
 }

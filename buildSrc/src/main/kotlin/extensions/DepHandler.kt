@@ -21,6 +21,12 @@ fun DependencyHandler.appModuleDeps() {
     implementation(project(Modules.fcm))
     implementation(project(Modules.common))
 
+    //jsoup to parse html
+    implementation(Deps.Jsoup.jsoup)
+
+    //CCP Library
+    implementation(Deps.CCPLibrary.ccp)
+
     // Glide
     implementation(Deps.Glide.glide)
     // Navigation Component
@@ -418,7 +424,6 @@ fun DependencyHandler.androidTestDeps() {
 //    // Truth
 //    androidTestImplementation(TestDeps.truth)
 }
-
 
 
 /*

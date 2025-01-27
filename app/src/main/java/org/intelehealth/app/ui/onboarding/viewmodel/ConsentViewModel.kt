@@ -8,9 +8,13 @@ import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.intelehealth.app.model.Consent
-import org.intelehealth.app.utility.ASSET_FILE_CONSENT
 import org.intelehealth.common.extensions.hide
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
+import org.intelehealth.data.provider.consent.ConsentRepository
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
 import java.util.Locale
 import javax.inject.Inject
 
@@ -20,7 +24,11 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class ConsentViewModel @Inject constructor(private val assetManager: AssetManager) : BaseViewModel() {
+class ConsentViewModel @Inject constructor(
+    private val assetManager: AssetManager,
+    private val consentRepository: ConsentRepository,
+    networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper = networkHelper) {
     private val mutableConsent: MutableLiveData<Consent> = MutableLiveData()
     val consentData = mutableConsent.hide()
 
@@ -38,4 +46,20 @@ class ConsentViewModel @Inject constructor(private val assetManager: AssetManage
     fun formatToHtml(text: String): String {
         return "<html><body style='color:black;font-size: 0.8em;' ><p align=\"justify\"> $text </body></html>"
     }
+
+    fun saveConsentPage(key: String, url: String) {
+        viewModelScope.launch {
+            consentRepository.getConsent(url).collect {
+                handleResponse(it) { responseBody ->
+                    val doc: Document = Jsoup.parse(responseBody.string())
+                    val element: Element? = doc.getElementById("primary")
+                    element?.let { el ->
+                        consentRepository.saveConsentPage(key, el.html().replace("#", ""))
+                    }
+                }
+            }
+        }
+    }
+
+    fun loadConsentPage(key: String) = consentRepository.getConsentPage(key)
 }

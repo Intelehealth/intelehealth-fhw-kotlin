@@ -1,7 +1,7 @@
 package org.intelehealth.data.provider.sync.data
 
 import org.intelehealth.common.utility.PreferenceUtils
-import org.intelehealth.data.network.model.PullResponse
+import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.offline.OfflineDatabase
 import javax.inject.Inject
 

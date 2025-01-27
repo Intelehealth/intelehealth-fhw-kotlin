@@ -1,12 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+<!--    <item>-->
+<!--        <shape-->
+<!--            android:innerRadius="0dp"-->
+<!--            android:shape="ring"-->
+<!--            android:thickness="@dimen/std_4dp"-->
+<!--            android:useLevel="false">-->
+<!--            <solid android:color="@color/colorAccent" />-->
+<!--        </shape>-->
+<!--    </item>-->
+
+    <!--    <item-->
+    <!--        android:width="@dimen/std_12dp"-->
+    <!--        android:height="@dimen/std_12dp"-->
+    <!--        android:end="@dimen/std_4dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:start="@dimen/std_4dp">-->
+    <!--        <shape-->
+    <!--            android:shape="oval"-->
+    <!--            android:thickness="8dp">-->
+    <!--            <corners android:radius="@dimen/std_8dp" />-->
+    <!--            <solid android:color="@color/colorAccent" />-->
+    <!--        </shape>-->
+    <!--    </item>-->
+
+    <!--    <item-->
+    <!--        android:width="@dimen/std_36dp"-->
+    <!--        android:height="@dimen/std_12dp"-->
+    <!--        android:gravity="center">-->
+    <!--        <shape-->
+    <!--            android:shape="rectangle"-->
+    <!--            android:thickness="8dp">-->
+    <!--            <corners android:radius="@dimen/std_8dp" />-->
+    <!--            <solid android:color="@color/transparent" />-->
+    <!--        </shape>-->
+    <!--    </item>-->
+
+    <item
+        android:gravity="center"
+        android:width="@dimen/std_8dp"
+        android:height="@dimen/std_8dp">
         <shape
-            android:innerRadius="0dp"
-            android:shape="ring"
-            android:thickness="8dp"
-            android:useLevel="false">
-            <solid android:color="@android:color/darker_gray" />
+            android:shape="oval"
+            android:thickness="8dp">
+            <corners android:radius="@dimen/std_8dp" />
+            <solid android:color="@color/colorAccent" />
         </shape>
     </item>
 </layer-list>

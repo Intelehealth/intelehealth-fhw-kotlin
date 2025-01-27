@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.intelehealth.app.model.IntroContent
 import org.intelehealth.app.model.ViewType
-import org.intelehealth.app.ui.onboarding.fragment.IntroSliderFragment
+import org.intelehealth.app.ui.onboarding.fragment.IntroSlideFragment
 
 /**
  * Created by Vaghela Mithun R. on 07-01-2025 - 18:28.
@@ -19,6 +19,6 @@ class IntroPagerAdapter(private val activity: FragmentActivity) : FragmentStateA
 
     override fun createFragment(position: Int): Fragment {
         val content = IntroContent.getContent(activity, ViewType.entries[position])
-        return IntroSliderFragment.newInstance(content)
+        return IntroSlideFragment.newInstance(content)
     }
 }

@@ -1,8 +1,9 @@
 package org.intelehealth.data.provider.user
 
 import org.intelehealth.data.network.RestClient
-import org.intelehealth.data.network.model.DeviceTokenReq
-import org.intelehealth.data.network.model.JWTParams
+import org.intelehealth.data.network.model.request.DeviceTokenReq
+import org.intelehealth.data.network.model.request.JWTParams
+import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.provider.BaseDataSource
 import javax.inject.Inject
 
@@ -21,4 +22,20 @@ class UserDataSource @Inject constructor(private val restClient: RestClient) : B
             deviceTokenReq = deviceToken
         )
     }
+
+    fun changePassword(basicAuth: String, oldPassword: String, newPassword: String) = getResult {
+        restClient.changePassword(
+            hashMapOf(
+                "oldPassword" to oldPassword, "newPassword" to newPassword
+            ), basicAuth
+        )
+    }
+
+    fun requestOtp(otpRequestParam: OtpRequestParam) =
+        getResult { restClient.requestOTP(otpReqParam = otpRequestParam) }
+
+    suspend fun verifyOtp(otpRequestParam: OtpRequestParam) = restClient.verifyOTP(otpReqParam = otpRequestParam)
+
+    suspend fun resetPassword(userUuid: String, map: HashMap<String, String>) =
+        restClient.resetPassword(userUuid = userUuid, map = map)
 }

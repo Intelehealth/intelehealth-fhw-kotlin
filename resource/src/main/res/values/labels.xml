@@ -11,7 +11,7 @@
     <string name="lbl_done">Done</string>
     <string name="lbl_next">Next</string>
     <string name="lbl_previous">Previous</string>
-    <string name="lbl_retry">Retry</string>
+    <string name="lbl_retry">Try again</string>
     <string name="lbl_selected_language">Select Language</string>
     <string name="lbl_skip">Skip</string>
     <string name="lbl_setup">Setup</string>
