@@ -16,7 +16,7 @@ import org.intelehealth.common.extensions.show
  **/
 @SuppressLint("ClickableViewAccessibility")
 open class BaseProgressFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId), View.OnTouchListener {
-    lateinit var progressBinding: ViewProgressBinding
+    private lateinit var progressBinding: ViewProgressBinding
 
     fun bindProgressView(progressBinding: ViewProgressBinding) {
         this.progressBinding = progressBinding
@@ -26,7 +26,7 @@ open class BaseProgressFragment(@LayoutRes layoutResId: Int) : Fragment(layoutRe
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-        return false
+        return true
     }
 
     fun showProgress() = progressBinding.progressLayout.show()

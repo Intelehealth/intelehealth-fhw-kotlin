@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
 import android.util.DisplayMetrics
-import android.widget.Toast
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import org.intelehealth.common.model.DialogParams
+import org.intelehealth.resource.R
 import java.util.Locale
 
 /**
@@ -19,11 +20,27 @@ import java.util.Locale
  **/
 
 fun Fragment.showToast(message: String) {
-    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    requireActivity().showToast(message)
 }
 
 fun Fragment.showToast(@StringRes resId: Int) {
-    Toast.makeText(requireContext(), getString(resId), Toast.LENGTH_SHORT).show()
+    requireActivity().showToast(resId)
+}
+
+fun Fragment.showSuccessSnackBar(anchorView: View? = null, @StringRes message: Int) {
+    requireActivity().showSuccessSnackBar(anchorView, message)
+}
+
+fun Fragment.showErrorSnackBar(anchorView: View? = null, @StringRes message: Int) {
+    requireActivity().showErrorSnackBar(anchorView, message)
+}
+
+fun Fragment.showSuccessSnackBar(anchorView: View? = null, message: String) {
+    requireActivity().showSuccessSnackBar(anchorView, message)
+}
+
+fun Fragment.showErrorSnackBar(anchorView: View? = null, message: String) {
+    requireActivity().showErrorSnackBar(anchorView, message)
 }
 
 fun Fragment.showAlertDialog(dialogParams: DialogParams) {

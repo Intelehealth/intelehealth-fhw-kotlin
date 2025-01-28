@@ -33,6 +33,7 @@ class TriagingRuleViewModel @Inject constructor(private val assetManager: AssetM
 
     private val engine: ScriptEngine = ScriptEngineManager().getEngineByName("rhino")
 
+    // https://bmgf.intelehealth.org/triage
     fun loadTriagingRuleData(fileName: String) {
         // Load triaging rule data from asset
         viewModelScope.launch {

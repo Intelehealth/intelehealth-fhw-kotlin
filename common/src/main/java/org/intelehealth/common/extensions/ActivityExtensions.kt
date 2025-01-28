@@ -5,17 +5,23 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.annotation.IntegerRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.snackbar.Snackbar
+import org.intelehealth.common.databinding.SnackbarViewBinding
 import org.intelehealth.common.model.DialogParams
 import java.util.Locale
+import org.intelehealth.resource.R as ResourceR
+import android.view.View
+import android.widget.FrameLayout
 
 /**
  * Created by Vaghela Mithun R. on 15-04-2024 - 13:37.
@@ -31,8 +37,41 @@ fun ComponentActivity.showToast(@StringRes resId: Int) {
     Toast.makeText(applicationContext, getString(resId), Toast.LENGTH_SHORT).show()
 }
 
-fun ComponentActivity.showSnackBar(message: String) {
-    Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT).show()
+fun ComponentActivity.showSuccessSnackBar(anchorView: View? = null, @StringRes message: Int) {
+    showSnackBarWithIcon(anchorView, getString(message), ResourceR.drawable.ic_success)
+}
+
+fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, @StringRes message: Int) {
+    showSnackBarWithIcon(anchorView, getString(message), ResourceR.drawable.ic_error, ResourceR.color.red)
+}
+
+fun ComponentActivity.showSuccessSnackBar(anchorView: View? = null, message: String) {
+    showSnackBarWithIcon(anchorView, message, ResourceR.drawable.ic_success)
+}
+
+fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, message: String) {
+    showSnackBarWithIcon(anchorView, message, ResourceR.drawable.ic_error, ResourceR.color.red)
+}
+
+fun ComponentActivity.showSnackBarWithIcon(
+    anchorView: View? = null,
+    message: String,
+    @DrawableRes iconResId: Int,
+    @ColorRes colorResId: Int = ResourceR.color.white
+) {
+    val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+    val binding = SnackbarViewBinding.inflate(LayoutInflater.from(this))
+    anchorView?.let { snackbar.anchorView = it }
+    if (colorResId == ResourceR.color.red) {
+        binding.tvSnackbarMessage.setTextColor(getColor(ResourceR.color.white))
+    }
+    binding.message = message
+    binding.icon = iconResId
+    binding.clSnackbarRoot.setBackgroundColor(getColor(colorResId))
+    val snackbarLayout = snackbar.view as FrameLayout
+    snackbarLayout.setPadding(0, 0, 0, 0) // Remove default padding
+    snackbarLayout.addView(binding.root, 0)
+    snackbar.show()
 }
 
 fun ComponentActivity.showAlertDialog(dialogParams: DialogParams) {

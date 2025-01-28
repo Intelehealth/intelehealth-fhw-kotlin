@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_chat">Chat</string>
-    <string name="title_video">Video</string>
+    <string name="title_chat" translatable="false">Chat</string>
+    <string name="title_video" translatable="false">Video</string>
 </resources>

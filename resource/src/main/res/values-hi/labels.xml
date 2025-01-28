@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Component labels  -->
+    <string name="lbl_close">Close</string>
+    <string name="lbl_update">Update</string>
+    <string name="lbl_cancel">Cancel</string>
+    <string name="lbl_ok">OK</string>
+    <string name="lbl_save">Save</string>
+    <string name="lbl_delete">Delete</string>
+    <string name="lbl_edit">Edit</string>
+    <string name="lbl_done">Done</string>
+    <string name="lbl_next">Next</string>
+    <string name="lbl_previous">Previous</string>
+    <string name="lbl_retry">Try again</string>
+    <string name="lbl_selected_language">Select Language</string>
+    <string name="lbl_skip">Skip</string>
+    <string name="lbl_setup">Setup</string>
+    <string name="lbl_location">Location</string>
+    <string name="lbl_username">Username</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_confirm_new_password">Confirm new password</string>
+    <string name="lbl_new_password">New password</string>
+    <string name="lbl_chw_id">CHW ID: %1$s</string>
+    <string name="lbl_mcc_id">MCC ID: %1$s</string>
+    <string name="lbl_edit_profile">Edit Profile</string>
+    <string name="lbl_prescription">Prescription</string>
+    <string name="lbl_open_visits">Open Visits</string>
+    <string name="lbl_appointments">Appointments</string>
+    <string name="lbl_follow_up_visits">Follow-Up Visits</string>
+    <string name="lbl_upcoming">%1$s Upcoming</string>
+    <string name="lbl_pending">%1$s Pending</string>
+</resources>

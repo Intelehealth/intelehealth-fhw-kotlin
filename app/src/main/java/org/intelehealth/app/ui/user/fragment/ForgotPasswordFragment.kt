@@ -11,12 +11,16 @@ import org.intelehealth.app.databinding.FragmentForgotPasswordBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.app.utility.IND_COUNTRY_CODE
 import org.intelehealth.common.extensions.hide
+import org.intelehealth.common.extensions.mapWithResourceId
 import org.intelehealth.common.extensions.show
+import org.intelehealth.common.extensions.showErrorSnackBar
+import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.data.network.model.request.OTP_FOR_PASSWORD
 import org.intelehealth.data.network.model.request.OTP_FOR_USERNAME
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Vaghela Mithun R. on 05-01-2025 - 12:27.
@@ -86,19 +90,26 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
         ).also {
             userViewModel.requestOTP(it).observe(viewLifecycleOwner) { result ->
                 result ?: return@observe
-                userViewModel.handleUserResponse(result) {
-                    showToast(result.message ?: "OTP sent successfully")
+                userViewModel.handleUserResponse(result) { success ->
+                    val message = success.message ?: getString(ResourceR.string.content_otp_sent_successfully)
+                    showSuccessSnackBar(
+                        binding.btnForgotPasswordContinue, message.mapWithResourceId(requireContext())
+                    )
                 }
             }
         }
+
+        binding.textInputFPUsername.text?.clear()
+        binding.textInputMobileNumber.text?.clear()
+        binding.btnForgotPasswordContinue.isEnabled = false
     }
 
     private fun observeOtherState() {
         userViewModel.failDataResult.observe(viewLifecycleOwner) {
-            showToast("failed =>$it")
+            showErrorSnackBar(binding.btnForgotPasswordContinue, it.mapWithResourceId(requireContext()))
         }
         userViewModel.errorDataResult.observe(viewLifecycleOwner) {
-            showToast("error => ${it.message ?: "Something went wrong"}")
+            showErrorSnackBar(binding.btnForgotPasswordContinue, ResourceR.string.content_something_went_wrong)
         }
 
         userViewModel.loading.observe(viewLifecycleOwner) {

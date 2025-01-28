@@ -38,4 +38,14 @@
     <string name="content_are_you_sure_logout">Are you sure you want to log out from the app?</string>
     <string name="content_welcome_back">Welcome back!</string>
     <string name="content_no_network">Oops! It looks like you\'re not connected to the internet. Please check your connection and try again.</string>
+    <string name="content_snackbar_success">Success</string>
+    <string name="content_otp_sent_successfully">Otp sent successfully!</string>
+    <string name="content_no_user_exists">No user exists with this phone number/email/username.</string>
+    <string name="content_no_phone_number_email_updated">No phoneNumber/email updated for this username.</string>
+    <string name="content_no_user_exists_with_username">No user exists with this username.</string>
+    <string name="content_otp_verified_successfully">Otp verified successfully!</string>
+    <string name="content_otp_expired">Otp expired!</string>
+    <string name="content_otp_incorrect">Otp incorrect!</string>
+    <string name="content_password_reset_successful">Password reset successful.</string>
+    <string name="content_no_user_found">No user exists!</string>
 </resources>

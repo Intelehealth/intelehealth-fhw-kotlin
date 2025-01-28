@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.IDA.TextAppearance.Primary" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:fontFamily">@font/dm_sans</item>
@@ -38,6 +39,10 @@
     </style>
 
     <style name="Theme.IDA.Dark.TextAppearance.Body" parent="Theme.IDA.Dark.TextAppearance">
+        <item name="android:textSize">@dimen/std_18sp</item>
+    </style>
+
+    <style name="Theme.IDA.TextAppearance.Body" parent="Theme.IDA.TextAppearance.Primary">
         <item name="android:textSize">@dimen/std_18sp</item>
     </style>
 </resources>

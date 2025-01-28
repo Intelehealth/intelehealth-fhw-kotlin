@@ -107,3 +107,20 @@ fun String.imageSpan(context: Context, @DrawableRes iconResId: Int, gravity: Ima
 
         return@apply
     }
+
+fun String.mapWithResourceId(context: Context): String {
+    val resId = when (this) {
+        "Otp sent successfully!" -> R.string.content_otp_sent_successfully
+        "No user exists with this phone number/email/username." -> R.string.content_no_user_exists
+        "No phoneNumber/email updated for this username." -> R.string.content_no_phone_number_email_updated
+        "No user exists with this username." -> R.string.content_no_user_exists_with_username
+        "Otp verified successfully!" -> R.string.content_otp_verified_successfully
+        "Otp expired!" -> R.string.content_otp_expired
+        "Otp incorrect!" -> R.string.content_otp_incorrect
+        "Password reset successful." -> R.string.content_password_reset_successful
+        "No user exists!" -> R.string.content_no_user_found
+        else -> 0
+    }
+    if (resId == 0) return this
+    return context.resources.getString(resId)
+}

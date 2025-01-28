@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_splash_desc">जहां कोई डॉक्टर नहीं है, वहां गुणवत्तापूर्ण स्वास्थ्य सेवा प्रदान करें</string>
+    <string name="content_warning_app_update">कृपया ऐप को नवीनतम संस्करण में अपडेट करें।</string>
+    <string name="content_something_went_wrong">कुछ गलत हो गया। कृपया सहायता से संपर्क करें</string>
+    <string name="content_does_patient_start_visit_now">क्या मरीज़ अभी विज़िट शुरू करना चाहता है?</string>
+    <string name="content_dialog_alert_icon">अलर्ट आइकन</string>
+    <string name="content_hello_i_am_ayu">नमस्ते, मैं AYU हूँ!</string>
+    <string name="content_ayu_digital_health_assistant">एक डिजिटल स्वास्थ्य सहायक.\nचलिए शुरू करते हैं!</string>
+    <string name="content_agree_to_terms"><font color='#2F1E91'><u>शर्तों और शर्तों से सहमत हों शर्तें</u></font> और <font color='#2F1E91'><u>गोपनीयता नीति</u></font></string>
+    <string name="content_config_file_missing">कॉन्फ़िगरेशन फ़ाइल गुम है।</string>
+    <string name="content_one_time_setup">कृपया अपनी एक\nबार की सेटअप गतिविधि पूरी करें</string>
+    <string name="content_enter_following_details">कृपया निम्नलिखित विवरण दर्ज करें</string>
+    <string name="content_help">सहायता</string>
+    <string name="content_forgot_password_instruction">अपने खाते को फिर से एक्सेस करने के लिए नीचे दिए गए निर्देशों का पालन करें</string>
+    <string name="content_enter_verification_coe">सत्यापन कोड दर्ज करें</string>
+    <string name="content_otp_sent_on_registered_number">6-अंकीय OTP भेजा गया आपका पंजीकृत नंबर और ईमेल। कृपया जाँच करें और OTP दर्ज करें।</string>
+    <string name="content_did_not_received_otp">क्या OTP प्राप्त नहीं हुआ?</string>
+    <string name="content_resend_otp_in">पुनः भेजें</string>
+    <string name="content_enter_new_password">नया पासवर्ड दर्ज करें</string>
+    <string name="content_generate_new_password"><u>नया पासवर्ड जनरेट करें</u></string>
+    <string name="content_please_reset_password">कृपया अपने खाते के लिए नया पासवर्ड रीसेट करें</string>
+    <string name="content_version">संस्करण: %1$s</string>
+    <string name="content_received_prescriptions">संस्करण: %1$s</string>
+    <string name="content_prescription_received_count">%1$d में से %2$d प्राप्त हुए</string>
+    <string name="content_unclosed_visits">%1$d बंद नहीं किए गए विज़िट</string>
+    <string name="content_follow_up_status">%1$d आज\n%2$d कल</string>
+    <string name="content_contact_your_admin">अपने एडमिन से संपर्क करें</string>
+    <string name="content_enter_the_credentials">Intelehealth टीम द्वारा दिए गए क्रेडेंशियल दर्ज करें।</string>
+    <string name="content_welcome_user">स्वागत है! %1$s</string>
+    <string name="content_login_successful">लॉगिन सफल, वापस स्वागत है! %1$s</string>
+    <string name="content_setup_successful">सेटअप पूरा हो गया, स्वागत है! %1$s</string>
+    <string name="content_syncing">सिंक हो रहा है…</string>
+    <string name="content_synced">सिंक किया गया</string>
+    <string name="content_wait_for_sync">कृपया सिंक पूरा होने तक प्रतीक्षा करें</string>
+    <string name="content_last_synced">अंतिम बार सिंक किया गया %1$s</string>
+    <string name="content_are_you_sure_exit">क्या आप वाकई बाहर निकलना चाहते हैं?</string>
+    <string name="content_are_you_sure_logout">क्या आप वाकई ऐप से लॉग आउट करना चाहते हैं?</string>
+    <string name="content_welcome_back">वापस स्वागत है!</string>
+    <string name="content_no_network">ओह! ऐसा लगता है कि आप इंटरनेट से कनेक्ट नहीं हैं। कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।</string>
+    <string name="content_snackbar_success">सफलता</string>
+    <string name="content_otp_sent_successfully">Otp सफलतापूर्वक भेजा गया!</string>
+    <string name="content_no_user_exists">इस फ़ोन नंबर/ईमेल/उपयोगकर्ता नाम के साथ कोई उपयोगकर्ता मौजूद नहीं है।</string>
+    <string name="content_no_phone_number_email_updated">इस उपयोगकर्ता नाम के लिए कोई फ़ोन नंबर/ईमेल अपडेट नहीं किया गया है।</string>
+    <string name="content_no_user_exists_with_username">इस उपयोगकर्ता नाम के साथ कोई उपयोगकर्ता मौजूद नहीं है।</string>
+    <string name="content_otp_verified_successfully">OTP सफलतापूर्वक सत्यापित किया गया!</string>
+    <string name="content_otp_expired">OTP समाप्त हो गया!</string>
+    <string name="content_otp_incorrect">OTP गलत!</string>
+    <string name="content_password_reset_successful">पासवर्ड रीसेट सफल.</string>
+    <string name="content_no_user_found">कोई उपयोगकर्ता मौजूद नहीं है!</string>
+</resources>

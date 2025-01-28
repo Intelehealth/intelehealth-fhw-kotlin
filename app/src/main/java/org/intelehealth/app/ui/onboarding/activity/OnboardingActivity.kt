@@ -29,7 +29,7 @@ import org.intelehealth.resource.R as ResourceR
 class OnboardingActivity : AppCompatActivity() {
 
     private val launcherViewModel by viewModels<LauncherViewModel>()
-    private val triagingRuleViewModel by viewModels<TriagingRuleViewModel>()
+//    private val triagingRuleViewModel by viewModels<TriagingRuleViewModel>()
 
     private val binding by lazy { ActivityOnboardingBinding.inflate(layoutInflater) }
 
@@ -38,10 +38,10 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(binding.root)
         launcherViewModel.updateFcmToken()
         checkForceUpdate()
-        triagingRuleViewModel.loadTriagingRuleData(TRIAGING_RULE_FILE_NAME)
-        triagingRuleViewModel.triagingResultData.observe(this, {
-            Timber.d { "Triaging Rule Data : $it" }
-        })
+//        triagingRuleViewModel.loadTriagingRuleData(TRIAGING_RULE_FILE_NAME)
+//        triagingRuleViewModel.triagingResultData.observe(this, {
+//            Timber.d { "Triaging Rule Data : $it" }
+//        })
     }
 
     fun checkForceUpdate() {
