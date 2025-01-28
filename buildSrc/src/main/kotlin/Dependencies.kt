@@ -10,6 +10,7 @@ object Deps {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
         const val extensions = "org.jetbrains.kotlin:kotlin-android-extensions:$version"
+        const val scriptingJvm = "org.jetbrains.kotlin:kotlin-scripting-jvm:$version"
     }
 
     object Coroutines {
@@ -180,6 +181,19 @@ object Deps {
         const val ccp = "com.hbb20:ccp:$version"
     }
 
+    object Lottie {
+        private const val version = "4.2.0"
+        const val lottie = "com.airbnb.android:lottie:$version"
+    }
+
+    object ExoPlayer {
+        private const val version = "2.16.1"
+        const val exoPlayer = "com.google.android.exoplayer:exoplayer:$version"
+    }
+
+    object Rhino {
+        const val android = "io.apisense:rhino-android:1.0"
+    }
 }
 
 object TestDeps {

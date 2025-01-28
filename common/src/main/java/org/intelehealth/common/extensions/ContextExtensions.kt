@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.intelehealth.common.databinding.DialogCommonMessageBinding

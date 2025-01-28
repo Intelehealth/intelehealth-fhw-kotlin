@@ -13,6 +13,7 @@ const val JSON_FOLDER = "Engines"
 const val JSON_FOLDER_Update = "Engines_Update"
 const val CONFIG_FILE_NAME = "config.json"
 const val ASSET_FILE_CONSENT = "consent.json"
+const val TRIAGING_RULE_FILE_NAME = "triaging_referral_rules.json"
 const val KEY_RESULTS = "results"
 const val IND_COUNTRY_CODE = "91"
 

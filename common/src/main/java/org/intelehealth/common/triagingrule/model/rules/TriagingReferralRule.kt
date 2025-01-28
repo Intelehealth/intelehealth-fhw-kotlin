@@ -1,4 +1,4 @@
-package org.intelehealth.common.model.rules
+package org.intelehealth.common.triagingrule.model.rules
 
 import com.google.gson.annotations.SerializedName
 

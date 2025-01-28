@@ -5,6 +5,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.github.ajalt.timberkt.Timber
 import com.google.firebase.FirebaseApp
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -19,6 +20,8 @@ class IHApplication : Application(), Configuration.Provider {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         FirebaseApp.initializeApp(this)
+
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = false
     }
 
     @Inject
