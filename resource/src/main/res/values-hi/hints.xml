@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hint_start_typing_location">Start typing or select location</string>
-    <string name="hint_enter_username">Enter your username</string>
-    <string name="hint_enter_password">Enter your password</string>
-    <string name="hint_reenter_new_password">Re-enter new password</string>
+    <string name="hint_start_typing_location">टाइप करना शुरू करें या स्थान चुनें</string>
+    <string name="hint_enter_username">अपना उपयोगकर्ता नाम दर्ज करें</string>
+    <string name="hint_enter_password">अपना पासवर्ड दर्ज करें</string>
+    <string name="hint_reenter_new_password">नया पासवर्ड फिर से दर्ज करें</string>
     <string name="hint_new_password">@string/lbl_new_password</string>
-    <string name="hint_find_patient">Find patient</string>
-    <string name="hint_enter_mobile_number">Enter mobile number</string>
+    <string name="hint_find_patient">रोगी को खोजें</string>
+    <string name="hint_enter_mobile_number">मोबाइल नंबर दर्ज करें</string>
 </resources>

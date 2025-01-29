@@ -14,6 +14,7 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:layout_marginTop">@dimen/std_4dp</item>
         <item name="cursorColor">@color/colorAccent</item>
+        <item name="android:cursorVisible">true</item>
     </style>
 
     <style name="Theme.IDA.OutlineInputBox.DropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -28,9 +29,9 @@
         <item name="boxStrokeColor">@color/selector_color_inputbox</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:layout_marginTop">@dimen/std_8dp</item>
-<!--        <item name="endIconTint">@color/colorAccent</item>-->
+        <!--        <item name="endIconTint">@color/colorAccent</item>-->
         <item name="endIconDrawable">@drawable/ic_dropdown</item>
-<!--        <item name="endIconMode">custom</item>-->
+        <!--        <item name="endIconMode">custom</item>-->
     </style>
 
     <style name="Theme.IDA.InputBox" parent="">
@@ -82,8 +83,9 @@
         <item name="android:maxLength">1</item>
         <item name="android:digits">@string/validation_digit_only</item>
         <item name="android:inputType">number</item>
-        <item name="android:minWidth">@dimen/std_48dp</item>
-        <item name="android:background">@drawable/otp_input_bg</item>
-        <item name="background">@drawable/otp_input_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <!--        <item name="android:background">@drawable/otp_input_bg</item>-->
+        <!--        <item name="background">@drawable/otp_input_bg</item>-->
     </style>
 </resources>

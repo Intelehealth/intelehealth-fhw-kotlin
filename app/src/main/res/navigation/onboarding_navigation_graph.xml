@@ -198,6 +198,9 @@
         android:name="org.intelehealth.app.ui.user.fragment.OTPVerificationFragment"
         android:label=""
         tools:layout="@layout/fragment_otp_verification">
+        <argument
+            android:name="reqModel"
+            app:argType="org.intelehealth.data.network.model.request.OtpRequestParam" />
         <action
             android:id="@+id/action_otp_verification_to_reset_password"
             app:destination="@id/fragmentResetPasswordScreen"

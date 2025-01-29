@@ -107,7 +107,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnForgotPasswordContinue"
+                android:id="@+id/btnVerifyOtpContinue"
                 style="@style/Theme.IDA.Button.Next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,5 +118,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/llResendOtp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

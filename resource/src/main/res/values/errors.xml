@@ -5,7 +5,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">Please check username and password entered</string>
     <string name="error_field_required">This field is required</string>
-    <string name="error_network" translatable="false">Network Error</string>
+    <string name="error_network">Network Error</string>
     <string name="error_could_not_connect_with_server">Couldn\'t connect with server. \nPlease check your internet \nconnection.</string>
     <string name="error_location_not_selected">Please select a value from the location dropdown</string>
     <string name="error_location_not_fetched">Unable to fetch locations</string>

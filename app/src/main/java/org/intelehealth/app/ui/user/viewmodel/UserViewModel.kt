@@ -1,9 +1,12 @@
 package org.intelehealth.app.ui.user.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.helper.NetworkHelper
@@ -27,6 +30,9 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(
     private val userRepository: UserRepository, networkHelper: NetworkHelper
 ) : BaseViewModel(networkHelper = networkHelper) {
+
+    private val otpCountDown = MutableLiveData<Long>()
+    val otpCountDownLiveData: LiveData<Long> = otpCountDown
 
     fun generateJWTAuthToken(param: JWTParams) =
         executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
@@ -89,5 +95,25 @@ class UserViewModel @Inject constructor(
             if (!it.success) failResult.postValue(it.message)
             else callback(it)
         }
+    }
+
+    // countdown timer for expired OTP
+    fun startOTPCountDownTimer() {
+        viewModelScope.launch {
+            var time = OTP_EXPIRY_TIME
+            otpCountDown.postValue(time / OTP_EXPIRY_TIME_INTERVAL)
+            while (time > 0) {
+                otpCountDown.postValue(time / OTP_EXPIRY_TIME_INTERVAL)
+                time -= OTP_EXPIRY_TIME_INTERVAL
+                delay(OTP_EXPIRY_TIME_INTERVAL)
+            }
+
+            otpCountDown.postValue(0)
+        }
+    }
+
+    companion object {
+        const val OTP_EXPIRY_TIME = 60 * 1000L
+        const val OTP_EXPIRY_TIME_INTERVAL = 1000L
     }
 }

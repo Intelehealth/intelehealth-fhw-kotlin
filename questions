@@ -1,4 +1,7 @@
 1. What is the use of device info?
+2. API format should be standard with proper message code
+3. Reduce the load of pull/push api
+4. Download protocol at the time of app installation with user interaction of choosing the protocol
 
 Visit
 Total = 314

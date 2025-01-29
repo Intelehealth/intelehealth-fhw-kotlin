@@ -16,7 +16,7 @@
     <string name="content_enter_verification_coe">सत्यापन कोड दर्ज करें</string>
     <string name="content_otp_sent_on_registered_number">6-अंकीय OTP भेजा गया आपका पंजीकृत नंबर और ईमेल। कृपया जाँच करें और OTP दर्ज करें।</string>
     <string name="content_did_not_received_otp">क्या OTP प्राप्त नहीं हुआ?</string>
-    <string name="content_resend_otp_in">पुनः भेजें</string>
+    <string name="content_resend_otp_in">%1$d सेकंड में पुनः भेजें</string>
     <string name="content_enter_new_password">नया पासवर्ड दर्ज करें</string>
     <string name="content_generate_new_password"><u>नया पासवर्ड जनरेट करें</u></string>
     <string name="content_please_reset_password">कृपया अपने खाते के लिए नया पासवर्ड रीसेट करें</string>

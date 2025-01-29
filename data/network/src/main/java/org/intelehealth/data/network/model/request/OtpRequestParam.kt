@@ -1,6 +1,8 @@
 package org.intelehealth.data.network.model.request
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Vaghela Mithun R. on 27-01-2025 - 16:04.
@@ -12,8 +14,11 @@ const val OTP_FOR_USERNAME = "username"
 const val OTP_FOR_MOBILE = "mobile"
 const val OTP_FOR_PASSWORD = "password"
 
+@Parcelize
 data class OtpRequestParam(
-    @SerializedName("otpFor", alternate = ["verifyFor"]) var otpFor: String? = null,
+    @SerializedName("otpFor") var otpFor: String? = null,
+
+    @SerializedName("verifyFor") var verifyFor: String? = otpFor,
 
     @SerializedName("username") var userName: String? = null,
 
@@ -24,4 +29,4 @@ data class OtpRequestParam(
     @SerializedName("email") var email: String? = null,
 
     @SerializedName("otp") var otp: String? = null
-)
+) : Parcelable

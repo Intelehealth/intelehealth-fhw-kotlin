@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<!DOCTYPE resources [<!ENTITY resend "Resend">]>-->
 <resources>
     <string name="content_splash_desc">Deliver quality healthcare where\nthere is no doctor</string>
     <string name="content_warning_app_update">Please update the app to the latest version.</string>
@@ -16,12 +17,12 @@
     <string name="content_enter_verification_coe">Enter verification code</string>
     <string name="content_otp_sent_on_registered_number">6-digit OTP sent on your registered number and email.\nPlease check and enter the OTP.</string>
     <string name="content_did_not_received_otp">Didn\'t receive OTP?</string>
-    <string name="content_resend_otp_in">Resend in</string>
+    <string name="content_resend_otp_in">Resend in %1$d seconds</string>
     <string name="content_enter_new_password">Enter new password</string>
     <string name="content_generate_new_password"><u>Generate a new password</u></string>
     <string name="content_please_reset_password">Please reset new password for \nyour account</string>
     <string name="content_version">Version: %1$s</string>
-    <string name="content_received_prescriptions">Version: %1$s</string>
+    <string name="content_received_prescriptions">Prescription received</string>
     <string name="content_prescription_received_count">%1$d out of %2$d received</string>
     <string name="content_unclosed_visits">%1$d unclosed visits</string>
     <string name="content_follow_up_status">%1$d today\n%2$d tomorrow</string>

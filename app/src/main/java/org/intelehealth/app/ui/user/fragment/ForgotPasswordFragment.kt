@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
@@ -71,6 +72,7 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
             binding.groupFPMobileNumber.hide()
             binding.btnUsername.isSelected = true
             binding.btnMobileNumber.isSelected = false
+            binding.textInputMobileNumber.text?.clear()
         }
 
         binding.btnMobileNumber.setOnClickListener {
@@ -78,6 +80,7 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
             binding.groupFPMobileNumber.show()
             binding.btnUsername.isSelected = false
             binding.btnMobileNumber.isSelected = true
+            binding.textInputFPUsername.text?.clear()
         }
     }
 
@@ -94,6 +97,9 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
                     val message = success.message ?: getString(ResourceR.string.content_otp_sent_successfully)
                     showSuccessSnackBar(
                         binding.btnForgotPasswordContinue, message.mapWithResourceId(requireContext())
+                    )
+                    findNavController().navigate(
+                        ForgotPasswordFragmentDirections.actionForgotPasswordToOtpVerification(it)
                     )
                 }
             }
@@ -118,7 +124,10 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
 
         userViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
             if (!it) {
-                showToast("No internet connection")
+                showErrorSnackBar(
+                    binding.btnForgotPasswordContinue,
+                    ResourceR.string.error_could_not_connect_with_server
+                )
             }
         }
     }
