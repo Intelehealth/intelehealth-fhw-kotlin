@@ -2,10 +2,9 @@ package org.intelehealth.common.ui.fragment
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
-import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
-import org.intelehealth.common.databinding.ViewProgressBinding
 import android.view.View
+import androidx.annotation.LayoutRes
+import org.intelehealth.common.databinding.ViewProgressBinding
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.extensions.show
 
@@ -15,7 +14,7 @@ import org.intelehealth.common.extensions.show
  * Mob   : +919727206702
  **/
 @SuppressLint("ClickableViewAccessibility")
-open class BaseProgressFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId), View.OnTouchListener {
+abstract class BaseProgressFragment(@LayoutRes layoutResId: Int) : StateFragment(layoutResId), View.OnTouchListener {
     private lateinit var progressBinding: ViewProgressBinding
 
     fun bindProgressView(progressBinding: ViewProgressBinding) {
@@ -29,7 +28,13 @@ open class BaseProgressFragment(@LayoutRes layoutResId: Int) : Fragment(layoutRe
         return true
     }
 
-    fun showProgress() = progressBinding.progressLayout.show()
+    override fun showLoading() {
+        super.showLoading()
+        progressBinding.progressLayout.show()
+    }
 
-    fun hideProgress() = progressBinding.progressLayout.hide()
+    override fun hideLoading() {
+        super.hideLoading()
+        progressBinding.progressLayout.hide()
+    }
 }

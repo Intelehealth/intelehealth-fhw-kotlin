@@ -1,5 +1,6 @@
 package org.intelehealth.app.ui.onboarding.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -40,6 +41,7 @@ import org.intelehealth.config.room.entity.ActiveLanguage
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashFragment : LanguageFragment(R.layout.fragment_splash), BaseViewHolder.ViewHolderClickListener {
     private lateinit var binding: FragmentSplashBinding

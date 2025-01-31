@@ -9,16 +9,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.intelehealth.common.extensions.containsDigit
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.network.model.request.JWTParams
-import org.intelehealth.data.network.model.response.LoginResponse
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.response.LoginResponse
 import org.intelehealth.data.network.model.response.UserResponse
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.data.provider.user.UserRepository
+import java.security.SecureRandom
 import javax.inject.Inject
 
 /**
@@ -86,8 +88,8 @@ class UserViewModel @Inject constructor(
         userRepository.verifyOTP(otpRequestParam)
     }.asLiveData()
 
-    fun resetPassword(userUuid: String, map: HashMap<String, String>) = executeNetworkCall {
-        userRepository.resetPassword(userUuid, map)
+    fun resetPassword(userUuid: String, newPassword: String) = executeNetworkCall {
+        userRepository.resetPassword(userUuid, newPassword)
     }.asLiveData()
 
     fun handleUserResponse(it: Result<UserResponse<Any?>>, callback: (data: UserResponse<Any?>) -> Unit) {
@@ -112,7 +114,21 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun generatePassword(): String {
+        val pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
+        val rnd = SecureRandom()
+        val sb = StringBuilder(PASSWORD_LEN)
+        for (i in 0 until PASSWORD_LEN) {
+            sb.append(pattern[rnd.nextInt(pattern.length)])
+        }
+
+        return if (sb.toString().containsDigit()) {
+            sb.toString()
+        } else generatePassword()
+    }
+
     companion object {
+        const val PASSWORD_LEN = 8
         const val OTP_EXPIRY_TIME = 60 * 1000L
         const val OTP_EXPIRY_TIME_INTERVAL = 1000L
     }

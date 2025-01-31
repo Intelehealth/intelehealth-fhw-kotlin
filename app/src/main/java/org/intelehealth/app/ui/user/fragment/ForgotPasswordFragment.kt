@@ -16,8 +16,8 @@ import org.intelehealth.common.extensions.mapWithResourceId
 import org.intelehealth.common.extensions.show
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
-import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
+import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.model.request.OTP_FOR_PASSWORD
 import org.intelehealth.data.network.model.request.OTP_FOR_USERNAME
 import org.intelehealth.data.network.model.request.OtpRequestParam
@@ -31,8 +31,8 @@ import org.intelehealth.resource.R as ResourceR
 @AndroidEntryPoint
 class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_password) {
     private lateinit var binding: FragmentForgotPasswordBinding
-    private val userViewModel by viewModels<UserViewModel>()
     private val args by navArgs<ForgotPasswordFragmentArgs>()
+    override val viewModel: UserViewModel by viewModels<UserViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,8 +49,6 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
         if (binding.ccSpinnerForgotPassword.selectedCountryCode == IND_COUNTRY_CODE) {
             binding.mobileLength = 10
         }
-
-        observeOtherState()
     }
 
     private fun changeContinueButtonStateOnTextChange() {
@@ -91,9 +89,9 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
             phoneNumber = binding.textInputMobileNumber.text.toString(),
             countryCode = binding.ccSpinnerForgotPassword.selectedCountryCode.toInt()
         ).also {
-            userViewModel.requestOTP(it).observe(viewLifecycleOwner) { result ->
+            viewModel.requestOTP(it).observe(viewLifecycleOwner) { result ->
                 result ?: return@observe
-                userViewModel.handleUserResponse(result) { success ->
+                viewModel.handleUserResponse(result) { success ->
                     val message = success.message ?: getString(ResourceR.string.content_otp_sent_successfully)
                     showSuccessSnackBar(
                         binding.btnForgotPasswordContinue, message.mapWithResourceId(requireContext())
@@ -110,25 +108,9 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
         binding.btnForgotPasswordContinue.isEnabled = false
     }
 
-    private fun observeOtherState() {
-        userViewModel.failDataResult.observe(viewLifecycleOwner) {
-            showErrorSnackBar(binding.btnForgotPasswordContinue, it.mapWithResourceId(requireContext()))
-        }
-        userViewModel.errorDataResult.observe(viewLifecycleOwner) {
-            showErrorSnackBar(binding.btnForgotPasswordContinue, ResourceR.string.content_something_went_wrong)
-        }
+    override fun getAnchorView(): View = binding.btnForgotPasswordContinue
 
-        userViewModel.loading.observe(viewLifecycleOwner) {
-            if (it) showProgress() else hideProgress()
-        }
-
-        userViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
-            if (!it) {
-                showErrorSnackBar(
-                    binding.btnForgotPasswordContinue,
-                    ResourceR.string.error_could_not_connect_with_server
-                )
-            }
-        }
+    override fun onFailed(reason: String) {
+        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
     }
 }

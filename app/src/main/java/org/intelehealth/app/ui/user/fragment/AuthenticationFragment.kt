@@ -1,7 +1,8 @@
 package org.intelehealth.app.ui.user.fragment
 
+import android.view.Gravity
+import android.view.View
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -9,12 +10,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ViewAuthenticationFormBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.hideErrorOnTextChang
+import org.intelehealth.common.extensions.setCompoundDrawableClick
 import org.intelehealth.common.extensions.showAlertDialog
+import org.intelehealth.common.extensions.showErrorSnackBar
+import org.intelehealth.common.extensions.showTooltip
 import org.intelehealth.common.extensions.showTooltipOnClick
 import org.intelehealth.common.extensions.validate
 import org.intelehealth.common.extensions.validateDropDown
 import org.intelehealth.common.extensions.validatePassword
 import org.intelehealth.common.model.DialogParams
+import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.response.LoginResponse
@@ -28,8 +33,8 @@ import org.intelehealth.resource.R
  **/
 
 @AndroidEntryPoint
-abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
-    protected val userViewModel: UserViewModel by viewModels()
+abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : BaseProgressFragment(layoutResId) {
+    override val viewModel: UserViewModel by viewModels()
     private lateinit var binding: ViewAuthenticationFormBinding
     private lateinit var user: User
 
@@ -42,7 +47,7 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
 
     private fun fetchUserIfLoggedIn() {
         if (binding.isLocationEnabled != null && binding.isLocationEnabled == false) return
-        userViewModel.getUser().observe(viewLifecycleOwner) {
+        viewModel.getUser().observe(viewLifecycleOwner) {
             it ?: return@observe
             user = it
         }
@@ -75,7 +80,9 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
             )
         }
 
-        binding.ivAuthenticationHelp.showTooltipOnClick(R.string.content_enter_the_credentials)
+        binding.tvInstructionDetails.setCompoundDrawableClick(Gravity.END) {
+            it.showTooltip(R.string.content_enter_the_credentials)
+        }
     }
 
     private fun validateFields(onValidated: () -> Unit) {
@@ -98,10 +105,10 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
 
     private fun generateJWTAuthToken(username: String, password: String) {
         JWTParams(username = username, password = password).apply {
-            userViewModel.generateJWTAuthToken(this).observe(viewLifecycleOwner, {
+            viewModel.generateJWTAuthToken(this).observe(viewLifecycleOwner, {
                 it ?: return@observe
-                userViewModel.handleResponse(it) { token ->
-                    userViewModel.saveJWTToken(token)
+                viewModel.handleResponse(it) { token ->
+                    viewModel.saveJWTToken(token)
                     login(this.username, this.password)
                 }
             })
@@ -109,21 +116,28 @@ abstract class AuthenticationFragment(@LayoutRes layoutResId: Int) : Fragment(la
     }
 
     private fun login(username: String, password: String) {
-        userViewModel.login(username, password).observe(viewLifecycleOwner, {
+        viewModel.login(username, password).observe(viewLifecycleOwner, {
             it ?: return@observe
-            userViewModel.handleResponse(it) { loginResponse -> saveLoginResponse(loginResponse) }
+            viewModel.handleResponse(it) { loginResponse -> saveLoginResponse(loginResponse) }
         })
     }
 
     private fun saveLoginResponse(response: LoginResponse) {
         binding.isLocationEnabled?.let {
-            if (it) userViewModel.saveUser(response) { user -> onUserAuthenticated(user) }
-            else userViewModel.updateUser(user.apply {
+            if (it) viewModel.saveUser(response) { user -> onUserAuthenticated(user) }
+            else viewModel.updateUser(user.apply {
                 sessionId = response.sessionId
                 lastLoginInTime = DateTimeUtils.getCurrentDateWithDBFormat()
             }) { onUserAuthenticated(user) }
-
         }
+    }
+
+    override fun getAnchorView(): View = binding.btnSetup
+
+    override fun onFailed(reason: String) {
+        super.onFailed(reason)
+        binding.textInputPassword.text?.clear()
+        showErrorSnackBar(message = R.string.error_incorrect_password)
     }
 
     abstract fun onUserAuthenticated(user: User)

@@ -124,3 +124,7 @@ fun String.mapWithResourceId(context: Context): String {
     if (resId == 0) return this
     return context.resources.getString(resId)
 }
+
+fun String.containsDigit(): Boolean {
+    return this.any { it.isDigit() }
+}

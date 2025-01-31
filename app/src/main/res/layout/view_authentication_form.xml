@@ -33,24 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_24dp"
+            android:drawablePadding="@dimen/std_8dp"
             android:text="@string/content_enter_following_details"
+            app:drawableEndCompat="@drawable/ic_help_info"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivAuthenticationHelp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toEndOf="@id/tvInstructionDetails"
-            android:contentDescription="@string/content_help"
-            android:padding="@dimen/std_8dp"
-            android:src="@drawable/ic_help_info"
-            app:layout_constraintBottom_toBottomOf="@id/tvInstructionDetails"
-            app:layout_constraintStart_toEndOf="@id/tvInstructionDetails"
-            app:layout_constraintTop_toTopOf="@id/tvInstructionDetails"
-            app:tint="?attr/colorPrimary" />
-
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"

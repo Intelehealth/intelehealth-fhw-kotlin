@@ -16,7 +16,7 @@ import org.intelehealth.resource.R as ResourceR
  **/
 @AndroidEntryPoint
 class SyncFragment : CircularProgressFragment() {
-    private val syncDataViewModel by viewModels<SyncDataViewModel>()
+    override val viewModel: SyncDataViewModel by viewModels<SyncDataViewModel>()
     private val args: SyncFragmentArgs by lazy { SyncFragmentArgs.fromBundle(requireArguments()) }
 
     @Inject
@@ -27,13 +27,11 @@ class SyncFragment : CircularProgressFragment() {
         progressContent(getString(ResourceR.string.content_wait_for_sync))
         progressTask(getString(ResourceR.string.content_syncing))
         handleDataSyncProgress()
-        handleDataSyncError()
-        handleDataSyncConnectionError()
-        syncDataViewModel.startDataSync()
+        viewModel.startDataSync()
     }
 
     private fun handleDataSyncProgress() {
-        syncDataViewModel.workerProgress.observe(viewLifecycleOwner) {
+        viewModel.workerProgress.observe(viewLifecycleOwner) {
             onProgress(it)
             if (it == 100) {
                 progressTask(getString(ResourceR.string.content_synced))
@@ -43,24 +41,24 @@ class SyncFragment : CircularProgressFragment() {
         }
     }
 
-    private fun handleDataSyncError() {
-        syncDataViewModel.errorDataResult.observe(viewLifecycleOwner) {
-            errorMessage(getString(ResourceR.string.error_sync_failed_try_again))
-        }
+    override fun onError(reason: String) {
+        super.onError(reason)
+        errorMessage()
     }
 
-    private fun handleDataSyncConnectionError() {
-        syncDataViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
-            if (!it) errorMessage(getString(ResourceR.string.error_could_not_connect_with_server))
-        }
-    }
+//    private fun handleDataSyncError() {
+//        viewModel.errorDataResult.observe(viewLifecycleOwner) {
+//            errorMessage(getString(ResourceR.string.error_sync_failed_try_again))
+//        }
+//    }
+//
+//    private fun handleDataSyncConnectionError() {
+//        viewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
+//            if (!it) errorMessage(getString(ResourceR.string.error_could_not_connect_with_server))
+//        }
+//    }
 
     override fun onRetry() {
         initiateProgressTask()
     }
-
-    override fun onClose() {
-        requireActivity().finish()
-    }
-
 }

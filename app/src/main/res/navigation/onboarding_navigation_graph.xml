@@ -215,6 +215,10 @@
         android:name="org.intelehealth.app.ui.user.fragment.ResetPasswordFragment"
         android:label=""
         tools:layout="@layout/fragment_reset_password">
+
+        <argument
+            android:name="userUuid"
+            app:argType="string" />
         <!--        <action-->
         <!--            android:id="@+id/action_login_to_home"-->
         <!--            app:destination="@id/activityHomeScreen" />-->

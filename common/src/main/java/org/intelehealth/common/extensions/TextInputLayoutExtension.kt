@@ -5,7 +5,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.annotation.StringRes
 import androidx.core.widget.doOnTextChanged
-import com.github.ajalt.timberkt.Timber
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import org.intelehealth.resource.R as ResourceR
@@ -98,6 +97,30 @@ fun TextInputLayout.validatePassword(input: TextInputEditText, @StringRes resId:
         showError(ResourceR.string.error_invalid_password)
         false
     } else true
+}
+
+fun TextInputLayout.validatePasswordPattern(input: TextInputEditText, @StringRes resId: Int): Boolean {
+    return if (!isValidPassword(input.text.toString())) {
+        showError(resId)
+        false
+    } else true
+}
+
+fun TextInputLayout.passwordMatchWithConfirmPassword(
+    newPassword: TextInputEditText,
+    confirmPassword: TextInputEditText
+): Boolean {
+    return if (!newPassword.text.toString().equals(confirmPassword.text.toString(), ignoreCase = false)) {
+        showError(ResourceR.string.error_confirm_password)
+        false
+    } else true
+}
+
+fun isValidPassword(passwd: String?): Boolean {
+    if (passwd.isNullOrEmpty()) return false
+    //String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}"; // with special character
+    val pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}" // without special character
+    return passwd.matches(pattern.toRegex())
 }
 
 fun EditText.addFilter(filter: InputFilter) {

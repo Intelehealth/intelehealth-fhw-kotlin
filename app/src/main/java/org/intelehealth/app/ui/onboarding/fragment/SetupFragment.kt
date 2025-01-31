@@ -35,6 +35,7 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSetupBinding.bind(view)
         bindAuthenticationForm(binding.viewAuthenticationForm)
+        bindProgressView(binding.progressView)
         fetchLocation()
     }
 
@@ -70,4 +71,5 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     }
 
     override fun onForgotPasswordNavDirection() = SetupFragmentDirections.actionSetupToForgotPassword()
+
 }

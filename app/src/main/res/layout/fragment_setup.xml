@@ -55,5 +55,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

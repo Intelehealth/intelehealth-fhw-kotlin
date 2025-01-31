@@ -56,9 +56,22 @@ open class BaseViewModel(
             com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
             if (response.code() == 200) {
                 Timber.d("Api success")
-                val result = Result.Success(response.body()?.data, "Success")
-                result.message = response.body()?.message
-                emit(result)
+                if (response.body()?.data != null && response.body()?.status is Boolean) {
+                    if (response.body()?.status as Boolean) {
+                        val result = Result.Success(response.body()?.data, "Success")
+                        result.message = response.body()?.message
+                        emit(result)
+                        return@flow
+                    } else {
+                        emit(Result.Fail(response.body()?.message))
+                        return@flow
+                    }
+                } else {
+                    val result = Result.Success(response.body()?.data, "Success")
+                    result.message = response.body()?.message
+                    emit(result)
+                    return@flow
+                }
             } else {
                 Timber.e("Api error ${response.body()?.message}")
                 emit(Result.Error(response.body()?.message))
@@ -109,15 +122,6 @@ open class BaseViewModel(
     fun <T> handleResponse(it: Result<T>, callback: (data: T) -> Unit) {
         println("handleResponse status ${it.status} ${it.message}")
         when (it.status) {
-            Result.State.LOADING -> {
-                loadingData.postValue(true)
-            }
-
-            Result.State.FAIL -> {
-                loadingData.postValue(false)
-                failResult.postValue("")
-            }
-
             Result.State.SUCCESS -> {
                 loadingData.postValue(false)
                 it.data?.let { data ->
@@ -126,16 +130,43 @@ open class BaseViewModel(
                 } ?: failResult.postValue(it.message ?: "")
             }
 
+            else -> handleCommonStats(it)
+        }
+    }
+
+    fun <T> allowNullDataResponse(it: Result<T>, callback: (data: T?) -> Unit) {
+        println("handleResponse status ${it.status} ${it.message}")
+        when (it.status) {
+            Result.State.SUCCESS -> {
+                loadingData.postValue(false)
+                callback(it.data)
+            }
+
+            else -> handleCommonStats(it)
+        }
+    }
+
+    private fun <T> handleCommonStats(it: Result<T>) {
+        when (it.status) {
+            Result.State.LOADING -> {
+                loadingData.postValue(true)
+            }
+
+            Result.State.FAIL -> {
+                loadingData.postValue(false)
+                failResult.postValue(it.message ?: "")
+            }
+
             Result.State.ERROR -> {
                 println("ERROR ${it.message}")
                 loadingData.postValue(false)
                 errorResult.postValue(Throwable(it.message))
             }
-        }
-    }
 
-    fun updateFailResult(message: String) {
-        failResult.postValue(message)
+            else -> {
+                // do nothing
+            }
+        }
     }
 
     companion object {

@@ -49,4 +49,8 @@
     <string name="content_otp_incorrect">Otp incorrect!</string>
     <string name="content_password_reset_successful">Password reset successful.</string>
     <string name="content_no_user_found">No user exists!</string>
+    <string name="content_support_mobile_no_1">919503692181</string>
+    <string name="content_help_whatsapp_string">Hello I’m  %1$s I need some assistance</string>
+    <string name="content_help_whatsapp_string_2">Hello, I need some assistance</string>
+    <string name="content_generate_password_tooltip_text">This will automatically \ngenerate new password.</string>
 </resources>

@@ -1,5 +1,6 @@
 package org.intelehealth.common.extensions
 
+import android.annotation.SuppressLint
 import android.widget.TextView
 
 /**
@@ -30,4 +31,30 @@ fun TextView.setClickableText(
     val spanString = this.text as android.text.SpannableString
     spanString.setSpan(clickableSpan, startingPosition, endingPosition, 0)
     this.text = spanString
+}
+
+@SuppressLint("ClickableViewAccessibility")
+fun TextView.setCompoundDrawableClick(gravity: Int, onClick: (TextView) -> Unit) {
+    this.setOnTouchListener { v, event ->
+        if (event.action == android.view.MotionEvent.ACTION_UP) {
+            val drawableEnd = this.compoundDrawablesRelative[2]
+            if (drawableEnd != null) {
+                val drawableBounds = drawableEnd.bounds
+                val x = event.x.toInt()
+                val y = event.y.toInt()
+                val drawableStartX = this.width - this.paddingEnd - drawableBounds.width()
+                val drawableEndX = this.width - this.paddingEnd
+                val isDrawableClicked = when (gravity) {
+                    android.view.Gravity.END -> x in drawableStartX..drawableEndX
+                    android.view.Gravity.START -> x in this.paddingStart..(this.paddingStart + drawableBounds.width())
+                    else -> false
+                }
+                if (isDrawableClicked && y >= this.paddingTop && y <= this.height - this.paddingBottom) {
+                    onClick(this)
+                    return@setOnTouchListener true
+                }
+            }
+        }
+        false
+    }
 }

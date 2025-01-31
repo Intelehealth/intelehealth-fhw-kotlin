@@ -13,4 +13,6 @@
     <string name="error_sync_failed_try_again">Sync failed, please try again</string>
     <string name="error_sync_failed_no_internet">Sync failed, no internet connection</string>
     <string name="error_sync_failed_server_error">Sync failed, server error</string>
+    <string name="error_confirm_password">New password and confirm password must be same.</string>
+    <string name="error_password_validation">Password length must be greater or equal to 8 and with combination of small, capital characters and digits</string>
 </resources>

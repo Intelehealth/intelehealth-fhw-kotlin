@@ -99,34 +99,6 @@
             app:layout_constraintTop_toBottomOf="@id/progressIndicator"
             tools:text="Downloading..." />
 
-        <TextView
-            android:id="@+id/txtErrorMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_48dp"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtProgressTask"
-            tools:text="Error Message" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnClosePopup"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_16dp"
-            android:backgroundTint="@color/transparent"
-            android:text="@string/lbl_close"
-            android:textColor="@color/red"
-            android:textSize="@dimen/std_20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@id/btnRetryDownload"
-            app:layout_constraintTop_toBottomOf="@id/txtErrorMsg" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRetryDownload"
             style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -135,18 +107,14 @@
             android:layout_marginTop="@dimen/std_16dp"
             android:backgroundTint="@color/transparent"
             android:text="@string/lbl_retry"
+            android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/std_20sp"
-            app:layout_constraintEnd_toStartOf="@id/btnClosePopup"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtErrorMsg" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/downloadErrorGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="txtErrorMsg,btnClosePopup, btnRetryDownload" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtProgressTask" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

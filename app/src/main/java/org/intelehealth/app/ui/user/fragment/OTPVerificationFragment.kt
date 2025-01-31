@@ -13,7 +13,9 @@ import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.mapWithResourceId
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
+import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_USER_UUID
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -25,7 +27,7 @@ import org.intelehealth.resource.R as ResourceR
 class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verification) {
     private lateinit var binding: FragmentOtpVerificationBinding
     private val args by navArgs<OTPVerificationFragmentArgs>()
-    private val userViewModel by viewModels<UserViewModel>()
+    override val viewModel by viewModels<UserViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,8 +35,8 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
         bindProgressView(binding.progressView)
         binding.btnVerifyOtpContinue.isEnabled = false
         observeOTPCountDown()
-        userViewModel.startOTPCountDownTimer()
-        observeOtherState()
+        viewModel.startOTPCountDownTimer()
+//        observeOtherState()
         addTextChangeListener()
         setClickListeners()
     }
@@ -45,6 +47,13 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
         }
 
         binding.btnVerifyOtpContinue.setOnClickListener { sendOtpToVerify() }
+
+        binding.btnHelp.setOnClickListener {
+            startWhatsappIntent(
+                getString(ResourceR.string.content_support_mobile_no_1),
+                getString(ResourceR.string.content_help_whatsapp_string_2)
+            )
+        }
     }
 
     private fun addTextChangeListener() {
@@ -73,21 +82,21 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
 
     private fun handleResendOtp() {
         binding.tvResendOtp.setOnClickListener {
-            userViewModel.requestOTP(args.reqModel).observe(viewLifecycleOwner) {
+            viewModel.requestOTP(args.reqModel).observe(viewLifecycleOwner) {
                 it ?: return@observe
-                userViewModel.handleUserResponse(it) { success ->
+                viewModel.handleUserResponse(it) { success ->
                     val message = success.message ?: getString(ResourceR.string.content_otp_sent_successfully)
                     showSuccessSnackBar(
                         binding.btnVerifyOtpContinue, message.mapWithResourceId(requireContext())
                     )
-                    userViewModel.startOTPCountDownTimer()
+                    viewModel.startOTPCountDownTimer()
                 }
             }
         }
     }
 
     private fun observeOTPCountDown() {
-        userViewModel.otpCountDownLiveData.observe(viewLifecycleOwner) {
+        viewModel.otpCountDownLiveData.observe(viewLifecycleOwner) {
             it ?: return@observe
             val resendContent = if (it == 0L) {
                 handleResendOtp()
@@ -100,33 +109,26 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
         }
     }
 
-    private fun observeOtherState() {
-        userViewModel.failDataResult.observe(viewLifecycleOwner) {
-            showErrorSnackBar(binding.btnVerifyOtpContinue, it.mapWithResourceId(requireContext()))
-        }
-
-        userViewModel.errorDataResult.observe(viewLifecycleOwner) {
-            showErrorSnackBar(binding.btnVerifyOtpContinue, ResourceR.string.content_something_went_wrong)
-        }
-
-        userViewModel.loading.observe(viewLifecycleOwner) {
-            if (it) showProgress() else hideProgress()
-        }
-
-        userViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
-            if (!it) {
-                showErrorSnackBar(binding.btnVerifyOtpContinue, ResourceR.string.error_could_not_connect_with_server)
+    private fun sendOtpToVerify() {
+        args.reqModel.otp = getOtpFromView()
+        viewModel.verifyOTP(args.reqModel).observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.handleResponse(it) { success ->
+                success[KEY_USER_UUID]?.let { userId ->
+                    showSuccessSnackBar(
+                        binding.btnVerifyOtpContinue, getString(ResourceR.string.content_otp_verified_successfully)
+                    )
+                    findNavController().navigate(
+                        OTPVerificationFragmentDirections.actionOtpVerificationToResetPassword(userId)
+                    )
+                }
             }
         }
     }
 
-    private fun sendOtpToVerify() {
-        args.reqModel.otp = getOtpFromView()
-        userViewModel.verifyOTP(args.reqModel).observe(viewLifecycleOwner) {
-            it ?: return@observe
-            userViewModel.handleResponse(it) { success ->
-                findNavController().navigate(OTPVerificationFragmentDirections.actionOtpVerificationToResetPassword())
-            }
-        }
+    override fun getAnchorView(): View = binding.btnVerifyOtpContinue
+
+    override fun onFailed(reason: String) {
+        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
     }
 }

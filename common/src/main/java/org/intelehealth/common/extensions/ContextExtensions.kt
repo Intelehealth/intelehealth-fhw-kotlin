@@ -3,6 +3,7 @@ package org.intelehealth.common.extensions
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -66,12 +67,15 @@ fun Context.showCustomDialog(dialogParams: DialogParams) {
             dismiss()
             dialogParams.onNegativeClick.invoke()
         }
-    }
+        resources.getDimensionPixelSize(R.dimen.dialog_width).let {
+            window?.setLayout(it, WindowManager.LayoutParams.WRAP_CONTENT)
+        }
+    }.show()
 }
 
 fun Context.buildCustomDialog(binding: ViewDataBinding) = MaterialAlertDialogBuilder(this).apply {
     setView(binding.root)
-}.show().apply {
+}.create().apply {
     removeBackground()
 }
 

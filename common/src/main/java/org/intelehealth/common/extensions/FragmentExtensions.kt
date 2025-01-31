@@ -1,8 +1,10 @@
 package org.intelehealth.common.extensions
 
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import androidx.annotation.StringRes
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import org.intelehealth.common.model.DialogParams
 
@@ -58,5 +60,12 @@ fun Fragment.requestNeededPermissions(onPermissionsGranted: (() -> Unit)) {
 
 fun Fragment.changeLanguage(language: String): Context {
     return requireActivity().changeLanguage(language)
+}
+
+fun Fragment.startWhatsappIntent(phoneNumber: String, message: String) {
+    Intent(Intent.ACTION_VIEW).apply {
+        data = "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message".toUri()
+        startActivity(this)
+    }
 }
 

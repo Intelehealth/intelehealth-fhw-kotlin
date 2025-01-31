@@ -59,6 +59,6 @@ class UserRepository @Inject constructor(
 
     suspend fun verifyOTP(otpRequestParam: OtpRequestParam) = dataSource.verifyOtp(otpRequestParam)
 
-    suspend fun resetPassword(userUuid: String, map: HashMap<String, String>) = dataSource.resetPassword(userUuid, map)
+    suspend fun resetPassword(userUuid: String, newPassword: String) = dataSource.resetPassword(userUuid, newPassword)
 
 }

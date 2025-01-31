@@ -1,5 +1,6 @@
 package org.intelehealth.data.provider.user
 
+import org.intelehealth.data.network.BuildConfig
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
@@ -26,16 +27,25 @@ class UserDataSource @Inject constructor(private val restClient: RestClient) : B
     fun changePassword(basicAuth: String, oldPassword: String, newPassword: String) = getResult {
         restClient.changePassword(
             hashMapOf(
-                "oldPassword" to oldPassword, "newPassword" to newPassword
+                KEY_OLD_PASSWORD to oldPassword, KEY_NEW_PASSWORD to newPassword
             ), basicAuth
         )
     }
 
-    fun requestOtp(otpRequestParam: OtpRequestParam) =
-        getResult { restClient.requestOTP(otpReqParam = otpRequestParam) }
+    fun requestOtp(otpRequestParam: OtpRequestParam) = getResult {
+        restClient.requestOTP(otpReqParam = otpRequestParam)
+    }
 
     suspend fun verifyOtp(otpRequestParam: OtpRequestParam) = restClient.verifyOTP(otpReqParam = otpRequestParam)
 
-    suspend fun resetPassword(userUuid: String, map: HashMap<String, String>) =
-        restClient.resetPassword(userUuid = userUuid, map = map)
+    suspend fun resetPassword(userUuid: String, newPassword: String) = restClient.resetPassword(
+        url = BuildConfig.SERVER_URL + ":3004/api/auth/resetPassword/$userUuid",
+        map = hashMapOf(KEY_NEW_PASSWORD to newPassword)
+    )
+
+    companion object {
+        const val KEY_USER_UUID = "userUuid"
+        const val KEY_NEW_PASSWORD = "newPassword"
+        const val KEY_OLD_PASSWORD = "oldPassword"
+    }
 }

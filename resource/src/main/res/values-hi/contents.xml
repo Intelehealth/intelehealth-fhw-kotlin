@@ -48,4 +48,8 @@
     <string name="content_otp_incorrect">OTP गलत!</string>
     <string name="content_password_reset_successful">पासवर्ड रीसेट सफल.</string>
     <string name="content_no_user_found">कोई उपयोगकर्ता मौजूद नहीं है!</string>
+    <string name="content_support_mobile_no_1">919503692181</string>
+    <string name="content_help_whatsapp_string">नमस्ते, मेरा नाम %1$s है मुझे आपकी सहायता की जरूरत है</string>
+    <string name="content_help_whatsapp_string_2">नमस्ते, मुझे आपकी सहायता की जरूरत है</string>
+    <string name="content_generate_password_tooltip_text">इससे स्वचालित रूप से नया पासवर्ड जनरेट हो जाएगा.</string>
 </resources>

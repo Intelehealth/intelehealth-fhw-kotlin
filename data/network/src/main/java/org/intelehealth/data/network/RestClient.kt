@@ -79,16 +79,10 @@ interface RestClient {
     @Headers("Accept: application/json")
     suspend fun verifyOTP(
         @Url url: String = BuildConfig.SERVER_URL + ":3004/api/auth/verifyOtp", @Body otpReqParam: OtpRequestParam
-    ): Response<UserResponse<Any?>>
-
+    ): Response<UserResponse<HashMap<String, String>>>
 
     @POST
-    suspend fun resetPassword(
-        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/auth/resetPassword/{userUuid}",
-        @Path("userUuid") userUuid: String,
-        @Body map: HashMap<String, String>
-    ): Response<UserResponse<Any?>>
-
+    suspend fun resetPassword(@Url url: String, @Body map: HashMap<String, String>): Response<UserResponse<Any?>>
 
     @GET("/openmrs/ws/rest/v1/provider")
     suspend fun fetchUserProviderDetails(

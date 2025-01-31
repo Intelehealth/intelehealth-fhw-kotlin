@@ -1,8 +1,8 @@
 package org.intelehealth.common.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import org.intelehealth.common.R
 import org.intelehealth.common.databinding.FragmentCircularProgressbarBinding
 
@@ -11,7 +11,7 @@ import org.intelehealth.common.databinding.FragmentCircularProgressbarBinding
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-abstract class CircularProgressFragment : Fragment(R.layout.fragment_circular_progressbar) {
+abstract class CircularProgressFragment : StateFragment(R.layout.fragment_circular_progressbar) {
     private val binding: FragmentCircularProgressbarBinding by lazy {
         FragmentCircularProgressbarBinding.bind(requireView())
     }
@@ -27,9 +27,8 @@ abstract class CircularProgressFragment : Fragment(R.layout.fragment_circular_pr
     private fun setupClickListeners() {
         binding.btnRetryDownload.setOnClickListener {
             onRetry()
-            binding.downloadErrorGroup.visibility = View.GONE
+            binding.btnRetryDownload.visibility = View.GONE
         }
-        binding.btnClosePopup.setOnClickListener { onClose() }
     }
 
     fun progressTitle(title: String) {
@@ -40,11 +39,11 @@ abstract class CircularProgressFragment : Fragment(R.layout.fragment_circular_pr
         binding.txtProgressContent.text = content
     }
 
-    fun errorMessage(message: String) {
-        binding.txtErrorMsg.text = message
-        binding.downloadErrorGroup.visibility = View.VISIBLE
+    fun errorMessage() {
+        binding.btnRetryDownload.visibility = View.VISIBLE
     }
 
+    @SuppressLint("SetTextI18n")
     fun onProgress(progress: Int) {
         requireActivity().runOnUiThread {
             binding.progressIndicator.progress = progress
@@ -52,7 +51,7 @@ abstract class CircularProgressFragment : Fragment(R.layout.fragment_circular_pr
         }
     }
 
-    fun progressMax(max: Int) {
+    private fun progressMax(max: Int) {
         binding.progressIndicator.max = max
     }
 
@@ -64,5 +63,4 @@ abstract class CircularProgressFragment : Fragment(R.layout.fragment_circular_pr
 
     abstract fun initiateProgressTask()
     abstract fun onRetry()
-    abstract fun onClose()
 }

@@ -13,4 +13,6 @@
     <string name="error_sync_failed_try_again">सिंक विफल, कृपया पुनः प्रयास करें</string>
     <string name="error_sync_failed_no_internet">सिंक विफल, कोई इंटरनेट कनेक्शन नहीं</string>
     <string name="error_sync_failed_server_error">सिंक विफल, सर्वर त्रुटि</string>
+    <string name="error_confirm_password">नया पासवर्ड और पुष्टि किया गया पासवर्ड एक जैसा होना चाहिए।</string>
+    <string name="error_password_validation">पासवर्ड में कम से कम 8 या इससे अधिक कैरेक्टर होने चाहिए और स्मॉल, कैपिटल कैरेक्टर और डिज़िट्स का संयोजन होना चाहिए।</string>
 </resources>

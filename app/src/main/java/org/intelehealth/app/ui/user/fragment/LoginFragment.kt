@@ -8,6 +8,7 @@ import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentLoginBinding
+import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.resource.R as ResourceR
@@ -25,6 +26,7 @@ class LoginFragment : AuthenticationFragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
         bindAuthenticationForm(binding.viewAuthenticationForm)
+        bindProgressView(binding.progressView)
         manageCollapsingLayout()
     }
 
@@ -59,7 +61,6 @@ class LoginFragment : AuthenticationFragment(R.layout.fragment_login) {
     }
 
     override fun onUserAuthenticated(user: User) {
-
         val successMsg = getString(ResourceR.string.content_login_successful, user.displayName)
         showToast(successMsg)
         findNavController().navigate(LoginFragmentDirections.actionLoginToHome())
