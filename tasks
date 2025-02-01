@@ -1,10 +1,11 @@
 Pending
-- Back press flow handling through navigation graph
-- Consent link click error handling
+- Back press flow handling through navigation graph - DONE
+- Consent link click error handling - DONE
 - Improve build system of implementation
-- Setup and Forgot password text formating in center
-- Snackbar with action button
+- Setup and Forgot password text formating in center - DONE
+- Snackbar with action button - DONE
 - Home screen help icon tint color
 - Dialog custom width
 - OTP default focuse on first input, back press, move next focus after enter digit, and remove focus after delete digit
 - Handle setup and login screen back press flow after reset password
+- Login and setup help icon click

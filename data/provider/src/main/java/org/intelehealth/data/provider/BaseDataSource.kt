@@ -1,5 +1,6 @@
 package org.intelehealth.data.provider
 
+import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
@@ -14,8 +15,7 @@ import retrofit2.Response
  * Abstract Base Data source class with error handling
  */
 abstract class BaseDataSource(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
-    private val networkHelper: NetworkHelper? = null
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO, private val networkHelper: NetworkHelper? = null
 ) {
     companion object {
         private const val TAG = "BaseDataSource"
@@ -29,19 +29,21 @@ abstract class BaseDataSource(
             if (response.isSuccessful) {
                 println("API SUCCESS")
                 val result = Result.Success(
-                    response.body(),
-                    response.message()
+                    response.body(), response.message()
                 )
                 emit(result)
             } else {
                 println("API ERROR ${response.message()}")
                 emit(Result.Error<T>(response.message()))
             }
-        } else Result.Fail<T>(NO_NETWORK)
+        } else {
+            Timber.d { NO_NETWORK }
+            emit(Result.Fail<T>(NO_NETWORK))
+        }
     }.onStart {
         emit(Result.Loading<T>("Please wait..."))
     }.flowOn(dispatcher)
 
-    private fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: true
+    private fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: false
 }
 

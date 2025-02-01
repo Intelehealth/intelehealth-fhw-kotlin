@@ -112,7 +112,7 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
             it ?: return@observe
             viewModel.allowNullDataResponse(it) {
                 showSuccessSnackBar(binding.btnResetPasswordSave, ResourceR.string.content_password_reset_successful)
-                findNavController().popBackStack(R.id.fragmentLoginScreen, true)
+                findNavController().popBackStack()
             }
         })
     }

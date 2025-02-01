@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentAyuPolicyBinding
@@ -33,6 +34,8 @@ class AyuPolicyFragment : Fragment(R.layout.fragment_ayu_policy) {
     private fun setClickableTermsAndPrivacyPolicy() {
         val termAndCondition = resources.getString(ResourceR.string.title_terms_and_conditions)
         val privacyPolicy = resources.getString(ResourceR.string.title_privacy_policy)
+        Timber.d { termAndCondition }
+        Timber.d { privacyPolicy }
         binding.tvPrivacyNoticeLink1.setClickableText(termAndCondition) {
             AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS, null).apply {
                 findNavController().navigate(this)

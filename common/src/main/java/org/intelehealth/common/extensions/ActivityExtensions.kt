@@ -53,12 +53,38 @@ fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, message: Strin
     showSnackBarWithIcon(anchorView, message, ResourceR.drawable.ic_error, ResourceR.color.red)
 }
 
+fun ComponentActivity.showNetworkLostSnackBar(anchorView: View? = null, @StringRes message: Int, action: () -> Unit) {
+    showSnackBarWithAction(anchorView, getString(message), ResourceR.color.red, action = action)
+}
+
 fun ComponentActivity.showSnackBarWithIcon(
     anchorView: View? = null,
     message: String,
     @DrawableRes iconResId: Int,
     @ColorRes colorResId: Int = ResourceR.color.white
+) = buildSnackBar(anchorView, message, iconResId, colorResId).show()
+
+fun ComponentActivity.showSnackBarWithAction(
+    anchorView: View? = null,
+    message: String,
+    @ColorRes colorResId: Int = ResourceR.color.white,
+    @StringRes actionText: Int = ResourceR.string.action_retry,
+    action: () -> Unit
 ) {
+    val snackBar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
+    snackBar.setBackgroundTint(getColor(colorResId))
+    anchorView?.let { snackBar.anchorView = it }
+    snackBar.setActionTextColor(getColor(ResourceR.color.white))
+    snackBar.setAction(getString(actionText)) { action() }
+    snackBar.show()
+}
+
+private fun ComponentActivity.buildSnackBar(
+    anchorView: View? = null,
+    message: String,
+    @DrawableRes iconResId: Int,
+    @ColorRes colorResId: Int = ResourceR.color.white
+): Snackbar {
     val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
     val binding = SnackbarViewBinding.inflate(LayoutInflater.from(this))
     anchorView?.let { snackbar.anchorView = it }
@@ -66,12 +92,12 @@ fun ComponentActivity.showSnackBarWithIcon(
         binding.tvSnackbarMessage.setTextColor(getColor(ResourceR.color.white))
     }
     binding.message = message
-    binding.icon = iconResId
+    if (iconResId != 0) binding.icon = iconResId else binding.ivSnackbarIcon.visibility = View.GONE
     binding.clSnackbarRoot.setBackgroundColor(getColor(colorResId))
     val snackbarLayout = snackbar.view as FrameLayout
     snackbarLayout.setPadding(0, 0, 0, 0) // Remove default padding
     snackbarLayout.addView(binding.root, 0)
-    snackbar.show()
+    return snackbar
 }
 
 fun ComponentActivity.showAlertDialog(dialogParams: DialogParams) {

@@ -6,6 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.extensions.showErrorSnackBar
+import org.intelehealth.common.extensions.showNetworkLostSnackBar
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.resource.R
 
@@ -35,7 +36,9 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
 
         viewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
             it ?: return@observe
-            if (!it) showErrorSnackBar(getAnchorView(), R.string.error_could_not_connect_with_server)
+            if (!it) showNetworkLostSnackBar(
+                getAnchorView(), R.string.error_could_not_connect_with_server
+            ) { retryOnNetworkLost() }
         }
 
         viewModel.loading.observe(viewLifecycleOwner) {
@@ -47,6 +50,15 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
     open fun getAnchorView(): View? = null
     open fun showLoading() {}
     open fun hideLoading() {}
-    open fun onFailed(reason: String) { Timber.e { reason } }
-    open fun onError(reason: String) { Timber.e { reason } }
+    open fun retryOnNetworkLost() {
+        Timber.d { "Retry on network lost" }
+    }
+
+    open fun onFailed(reason: String) {
+        Timber.e { reason }
+    }
+
+    open fun onError(reason: String) {
+        Timber.e { reason }
+    }
 }

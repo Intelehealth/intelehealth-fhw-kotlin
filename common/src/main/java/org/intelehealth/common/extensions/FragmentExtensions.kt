@@ -3,6 +3,7 @@ package org.intelehealth.common.extensions
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -36,6 +37,10 @@ fun Fragment.showSuccessSnackBar(anchorView: View? = null, message: String) {
 
 fun Fragment.showErrorSnackBar(anchorView: View? = null, message: String) {
     requireActivity().showErrorSnackBar(anchorView, message)
+}
+
+fun Fragment.showNetworkLostSnackBar(anchorView: View? = null, @StringRes message: Int, action: () -> Unit) {
+    requireActivity().showNetworkLostSnackBar(anchorView, message, action)
 }
 
 fun Fragment.showAlertDialog(dialogParams: DialogParams) {

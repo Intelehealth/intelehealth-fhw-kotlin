@@ -14,6 +14,7 @@ import org.intelehealth.app.ui.location.viewmodel.LocationViewModel
 import org.intelehealth.app.ui.user.fragment.AuthenticationFragment
 import org.intelehealth.app.utility.KEY_RESULTS
 import org.intelehealth.common.extensions.hideError
+import org.intelehealth.common.extensions.showNetworkLostSnackBar
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.data.network.model.SetupLocation
@@ -37,6 +38,16 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
         bindAuthenticationForm(binding.viewAuthenticationForm)
         bindProgressView(binding.progressView)
         fetchLocation()
+        handleLostNetwork()
+    }
+
+    private fun handleLostNetwork() {
+        locationViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            if (!it) showNetworkLostSnackBar(
+                binding.viewAuthenticationForm.root, ResourceR.string.error_could_not_connect_with_server
+            ) { retryOnNetworkLost() }
+        }
     }
 
     private fun fetchLocation() {
@@ -71,5 +82,10 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     }
 
     override fun onForgotPasswordNavDirection() = SetupFragmentDirections.actionSetupToForgotPassword()
+
+    override fun retryOnNetworkLost() {
+        super.retryOnNetworkLost()
+        fetchLocation()
+    }
 
 }

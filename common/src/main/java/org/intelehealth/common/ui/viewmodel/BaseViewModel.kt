@@ -13,6 +13,7 @@ import org.intelehealth.common.helper.NetworkHelper
 import retrofit2.Response
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.service.BaseResponse
+import org.intelehealth.common.utility.NO_NETWORK
 import timber.log.Timber
 
 open class BaseViewModel(
@@ -154,7 +155,8 @@ open class BaseViewModel(
 
             Result.State.FAIL -> {
                 loadingData.postValue(false)
-                failResult.postValue(it.message ?: "")
+                if (it.message == NO_NETWORK) dataConnectionStatus.postValue(false)
+                else failResult.postValue(it.message ?: "")
             }
 
             Result.State.ERROR -> {

@@ -2,6 +2,7 @@ package org.intelehealth.common.extensions
 
 import android.annotation.SuppressLint
 import android.widget.TextView
+import com.github.ajalt.timberkt.Timber
 
 /**
  * Created by Vaghela Mithun R. on 08-01-2025 - 16:54.
@@ -29,6 +30,7 @@ fun TextView.setClickableText(
     startingPosition: Int, endingPosition: Int, clickableSpan: android.text.style.ClickableSpan
 ) {
     val spanString = this.text as android.text.SpannableString
+    Timber.d { "spanString : $spanString" }
     spanString.setSpan(clickableSpan, startingPosition, endingPosition, 0)
     this.text = spanString
 }

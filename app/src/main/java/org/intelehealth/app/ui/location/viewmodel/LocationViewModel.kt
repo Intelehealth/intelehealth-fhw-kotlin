@@ -2,6 +2,7 @@ package org.intelehealth.app.ui.location.viewmodel
 
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.model.SetupLocation
 import org.intelehealth.data.provider.location.LocationRepository
@@ -13,7 +14,10 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class LocationViewModel @Inject constructor(private val locationRepository: LocationRepository) : BaseViewModel() {
+class LocationViewModel @Inject constructor(
+    private val locationRepository: LocationRepository,
+    private val networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper = networkHelper) {
 
     var selectedLocation: SetupLocation? = null
 

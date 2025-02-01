@@ -7,7 +7,7 @@
     <string name="content_dialog_alert_icon">अलर्ट आइकन</string>
     <string name="content_hello_i_am_ayu">नमस्ते, मैं AYU हूँ!</string>
     <string name="content_ayu_digital_health_assistant">एक डिजिटल स्वास्थ्य सहायक.\nचलिए शुरू करते हैं!</string>
-    <string name="content_agree_to_terms"><font color='#2F1E91'><u>शर्तों और शर्तों से सहमत हों शर्तें</u></font> और <font color='#2F1E91'><u>गोपनीयता नीति</u></font></string>
+    <string name="content_agree_to_terms"><font color='#2F1E91'><u>नियम व शर्तों</u></font> और <font color='#2F1E91'><u>गोपनीयता नीति से सहमति</u></font></string>
     <string name="content_config_file_missing">कॉन्फ़िगरेशन फ़ाइल गुम है।</string>
     <string name="content_one_time_setup">कृपया अपनी एक\nबार की सेटअप गतिविधि पूरी करें</string>
     <string name="content_enter_following_details">कृपया निम्नलिखित विवरण दर्ज करें</string>

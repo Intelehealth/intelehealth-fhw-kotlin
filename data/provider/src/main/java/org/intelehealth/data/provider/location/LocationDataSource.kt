@@ -1,5 +1,6 @@
 package org.intelehealth.data.provider.location
 
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.provider.BaseDataSource
 import javax.inject.Inject
@@ -9,6 +10,9 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class LocationDataSource @Inject constructor(private val restClient: RestClient) : BaseDataSource() {
+class LocationDataSource @Inject constructor(
+    private val restClient: RestClient,
+    private val networkHelper: NetworkHelper,
+) : BaseDataSource(networkHelper = networkHelper) {
     fun getLocation() = getResult { restClient.fetchLocationList() }
 }
