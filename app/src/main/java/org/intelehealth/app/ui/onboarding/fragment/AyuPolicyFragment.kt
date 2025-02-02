@@ -37,13 +37,13 @@ class AyuPolicyFragment : Fragment(R.layout.fragment_ayu_policy) {
         Timber.d { termAndCondition }
         Timber.d { privacyPolicy }
         binding.tvPrivacyNoticeLink1.setClickableText(termAndCondition) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS, null).apply {
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS, null, null).apply {
                 findNavController().navigate(this)
             }
         }
 
         binding.tvPrivacyNoticeLink1.setClickableText(privacyPolicy) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.PRIVACY_POLICY, null).apply {
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.PRIVACY_POLICY, null, null).apply {
                 findNavController().navigate(this)
             }
         }

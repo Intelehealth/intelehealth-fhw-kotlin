@@ -1,5 +1,6 @@
 package org.intelehealth.data.provider.user
 
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.data.network.BuildConfig
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.request.DeviceTokenReq
@@ -13,7 +14,9 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class UserDataSource @Inject constructor(private val restClient: RestClient) : BaseDataSource() {
+class UserDataSource @Inject constructor(
+    private val restClient: RestClient, networkHelper: NetworkHelper
+) : BaseDataSource(networkHelper = networkHelper) {
     suspend fun generateJWTAuthToken(param: JWTParams) = restClient.generateJWTAuthToken(body = param)
 
     fun login(basicAuth: String) = getResult { restClient.login(basicAuth) }

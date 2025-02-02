@@ -49,6 +49,7 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentConsentBinding.bind(view)
+        binding.contentLoadingProgressBar.hide()
         updateWebViewSettings()
         binding.buttonVisibility = false
         consentViewModel.loadConsentData(ASSET_FILE_CONSENT)
@@ -60,7 +61,8 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         if (consentViewModel.isInternetAvailable()) {
             args.url?.let {
                 binding.webview.loadUrl(it)
-                consentViewModel.saveConsentPage(args.consentType.key, it)
+                binding.screenTitle = args.screenTitle
+//                consentViewModel.saveConsentPage(args.consentType.key, it)
             } ?: loadFromCatch()
         } else loadFromCatch()
     }
@@ -146,14 +148,15 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
 
     private fun overrideUrl(request: WebResourceRequest): Boolean {
         request.url?.toString()?.let {
+            val title = binding.screenTitle
             if (it.contains(URL_PRIVACY_POLICY)) {
-                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.PRIVACY_POLICY, it)
+                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.PRIVACY_POLICY, it, title)
                 findNavController().navigate(direction)
             } else if (it.contains(URL_TERM_OF_USE)) {
-                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.TERMS_OF_USE, it)
+                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.TERMS_OF_USE, it, title)
                 findNavController().navigate(direction)
             } else if (it.contains(URL_PERSONAL_DATA)) {
-                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.PERSONAL_DATA_POLICY, it)
+                val direction = ConsentFragmentDirections.actionToSelf(ConsentType.PERSONAL_DATA_POLICY, it, title)
                 findNavController().navigate(direction)
             } else if (it.lowercase().contains(FORMAT_PDF) || it.lowercase().contains(MAILTO)) {
                 requireContext().startActivity(Intent(Intent.ACTION_VIEW).apply {

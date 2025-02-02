@@ -1,16 +1,19 @@
 package org.intelehealth.app.ui.user.fragment
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentOtpVerificationBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.mapWithResourceId
+import org.intelehealth.common.extensions.previousFocus
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.startWhatsappIntent
@@ -36,7 +39,6 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
         binding.btnVerifyOtpContinue.isEnabled = false
         observeOTPCountDown()
         viewModel.startOTPCountDownTimer()
-//        observeOtherState()
         addTextChangeListener()
         setClickListeners()
     }
@@ -56,17 +58,40 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
         }
     }
 
-    private fun addTextChangeListener() {
-        val otpView = binding.viewOtpInputBox
-        otpView.etPin1.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
-        otpView.etPin2.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
-        otpView.etPin3.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
-        otpView.etPin4.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
-        otpView.etPin5.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
-        otpView.etPin6.doOnTextChanged { _, _, _, _ -> validateAndSendOtp() }
+    private fun setupOtpKeyHandler(currentEditText: TextInputEditText) {
+        currentEditText.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentEditText.text.isNullOrEmpty()) {
+                currentEditText.clearFocus()
+                currentEditText.previousFocus()
+                true
+            } else false
+        }
     }
 
-    private fun validateAndSendOtp() {
+    private fun addTextChangeListener() {
+        val otpView = binding.viewOtpInputBox
+        setupOtpInput(otpView.etPin1, otpView.etPin2)
+        setupOtpInput(otpView.etPin2, otpView.etPin3)
+        setupOtpInput(otpView.etPin3, otpView.etPin4)
+        setupOtpInput(otpView.etPin4, otpView.etPin5)
+        setupOtpInput(otpView.etPin5, otpView.etPin6)
+        setupOtpInput(otpView.etPin6, null)
+    }
+
+    private fun setupOtpInput(currentEditText: TextInputEditText, nextEditText: TextInputEditText?) {
+        currentEditText.doOnTextChanged { text, _, _, _ ->
+            if (text?.length == 1) nextEditText?.requestFocus()
+            validateAndActiveSendButton()
+        }
+        setupOtpKeyHandler(currentEditText)
+        setupOtpKeyHandler(currentEditText)
+        setupOtpKeyHandler(currentEditText)
+        setupOtpKeyHandler(currentEditText)
+        setupOtpKeyHandler(currentEditText)
+        setupOtpKeyHandler(currentEditText)
+    }
+
+    private fun validateAndActiveSendButton() {
         val otpView = binding.viewOtpInputBox
         otpView.etPin1.text.isNullOrEmpty().or(otpView.etPin2.text.isNullOrEmpty())
             .or(otpView.etPin3.text.isNullOrEmpty()).or(otpView.etPin4.text.isNullOrEmpty())

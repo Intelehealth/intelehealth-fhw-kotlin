@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.databinding.TooltipLayoutBinding
 
 /**
@@ -46,6 +47,7 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
         val positionY = anchorRect.bottom - (anchorRect.height() / 2)
         showAtLocation(anchor, Gravity.NO_GRAVITY, positionX, positionY)
         handler.sendEmptyMessageDelayed(MSG_DISMISS_TOOLTIP, 4000)
+        Timber.d { "showTooltip : $message" }
     }
 
 

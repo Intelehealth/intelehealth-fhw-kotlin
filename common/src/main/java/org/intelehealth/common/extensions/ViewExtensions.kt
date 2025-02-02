@@ -30,3 +30,7 @@ fun View.showTooltipOnClick(@StringRes resId: Int) {
     }
 }
 
+fun View.previousFocus() {
+    val previousView = focusSearch(View.FOCUS_LEFT)
+    previousView?.requestFocus()
+}

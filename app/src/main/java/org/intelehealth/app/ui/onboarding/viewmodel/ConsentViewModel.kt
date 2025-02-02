@@ -49,6 +49,7 @@ class ConsentViewModel @Inject constructor(
 
     fun saveConsentPage(key: String, url: String) {
         viewModelScope.launch {
+            Timber.d{"Save Consent Page : $key => $url"}
             consentRepository.getConsent(url).collect {
                 handleResponse(it) { responseBody ->
                     val doc: Document = Jsoup.parse(responseBody.string())
