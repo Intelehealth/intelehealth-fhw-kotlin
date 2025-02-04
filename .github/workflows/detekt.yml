@@ -1,4 +1,4 @@
-name: Detekt-Actions
+name: Detekt Workflow
 
 on:
   pull_request:
@@ -21,15 +21,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      #      - name: "detekt"
-      #        uses: natiginfo/action-detekt-all@1.23.7
-      #        with:
-      #          args: --config config/detekt/detekt.yml
+      - name: "detekt"
+        uses: natiginfo/action-detekt-all@1.23.7
+        with:
+          args: --config config/detekt/detekt.yml
 
-      - name: Run Detekt
-        run: |
-          ./gradlew detekt
-          ./gradlew detektHtmlReport
+      - name: Generate Detekt Report
+        run: ./gradlew detektHtmlReport
 
       - name: Upload Detekt report
         uses: actions/upload-artifact@v4
