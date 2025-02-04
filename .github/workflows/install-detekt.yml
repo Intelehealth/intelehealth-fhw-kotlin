@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Setup detekt
-        uses: peter-murray/setup-detekt@v2
+        uses: peter-murray/setup-detekt@v3
         with:
           detekt_version: 1.23.7
           add_to_path: false
