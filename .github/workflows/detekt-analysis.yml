@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: detekt-report
-          path: reports/detekt/detekt.html
+          path: build/reports/detekt/detekt.html

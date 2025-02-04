@@ -1,0 +1,11 @@
+GitHub Actions has both free and paid options. Here's a quick overview:
+
+Free Tier: Public repositories get 2,000 CI/CD minutes per month and 500 MB of storage.
+Private repositories get 500 CI/CD minutes per month and 500 MB of storage.
+
+Paid Plans: GitHub Pro, GitHub Team, and GitHub Enterprise Cloud offer higher limits
+for CI/CD minutes and storage. For example, GitHub Team provides 3,000 CI/CD minutes per month and
+2 GB of storage.
+
+If you exceed these limits, additional usage will be billed.
+For private repositories, the cost is $0.008 USD per minute and $0.008 USD per GB of storage per day.
