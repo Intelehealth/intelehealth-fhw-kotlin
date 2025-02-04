@@ -21,13 +21,16 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: "detekt"
-        uses: natiginfo/action-detekt-all@1.23.7
-        with:
-          args: --config config/detekt/detekt.yml
+#      - name: "detekt"
+#        uses: natiginfo/action-detekt-all@1.23.7
+#        with:
+#          args: --config config/detekt/detekt.yml\
+
+      - name: Run Detekt
+        run: ./gradlew detekt
 
       - name: Upload Detekt Report
-        uses: actions/download-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: detekt-report
           path: build/reports/detekt/detekt.html
