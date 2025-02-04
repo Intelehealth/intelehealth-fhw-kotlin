@@ -24,4 +24,10 @@ jobs:
       - name: "detekt"
         uses: natiginfo/action-detekt-all@1.23.7
         with:
-          args: --config detekt.ym
+          args: --config config/detekt/detekt.yml
+
+      - name: Upload Detekt Report
+        uses: actions/download-artifact@v4
+        with:
+          name: detekt-report
+          path: build/reports/detekt/detekt.html
