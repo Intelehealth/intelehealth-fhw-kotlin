@@ -31,21 +31,103 @@ import org.intelehealth.resource.R as ResourceR
  * Mob   : +919727206702
  **/
 
+/**
+ * Represents the different types of consent that a user can provide.
+ *
+ * Each enum value corresponds to a specific type of consent, identified by a unique key.
+ * These keys are used to reference the consent type in data storage or when interacting with
+ * consent-related APIs.
+ *
+ * @property key The unique identifier for this consent type.
+ */
 enum class ConsentType(val key: String) {
-    PERSONAL_DATA_POLICY("personal_data_processing_policy"), PRIVACY_POLICY("privacy_policy"), TERMS_AND_CONDITIONS("terms_and_conditions"), TELECONSULTATION(
-        "teleconsultation_consent"
-    ),
-    TERMS_OF_USE("terms_of_use"), PRIVACY_NOTICE("privacy_notice"), PERSONAL_DATA_CONSENT("personal_data_consent"), PRESCRIPTION_DISCLAIMER(
-        "prescription_disclaimer"
-    )
+    /**
+     * Consent for the processing of personal data.
+     *
+     * This consent type covers the user's agreement to how their personal data is collected,
+     * used, stored, and processed.
+     */
+    PERSONAL_DATA_POLICY("personal_data_processing_policy"),
+
+    /**
+     * Consent for the privacy policy.
+     *
+     * This consent type covers the user's agreement to the terms outlined in the privacy policy.
+     */
+    PRIVACY_POLICY("privacy_policy"),
+
+    /**
+     * Consent for the terms and conditions.
+     *
+     * This consent type covers the user's agreement to the general terms and conditions of service.
+     */
+    TERMS_AND_CONDITIONS("terms_and_conditions"),
+
+    /**
+     * Consent for teleconsultation.
+     *
+     * This consent type covers the user's agreement to participate in remote consultations.
+     */
+    TELECONSULTATION("teleconsultation_consent"),
+
+    /**
+     * Consent for the terms of use.
+     *
+     * This consent type covers the user's agreement to the specific terms of use for the service.
+     */
+    TERMS_OF_USE("terms_of_use"),
+
+    /**
+     * Consent for the privacy notice.
+     *
+     * This consent type covers the user's acknowledgment of the privacy notice.
+     */
+    PRIVACY_NOTICE("privacy_notice"),
+
+    /**
+     * Consent for the collection and use of personal data.
+     *
+     * This consent type covers the user's explicit agreement to the collection and use of their personal data.
+     */
+    PERSONAL_DATA_CONSENT("personal_data_consent"),
+
+    /**
+     * Consent for the prescription disclaimer.
+     *
+     * This consent type covers the user's acknowledgment of the disclaimer related to prescriptions.
+     */
+    PRESCRIPTION_DISCLAIMER("prescription_disclaimer")
 }
 
+/**
+ * A Fragment responsible for displaying various types of consent content to the user,
+ * such as privacy policies, terms and conditions, and other legal agreements.
+ *
+ * This fragment can load content from either a URL or from locally stored data.
+ * It uses a WebView to display the content and handles navigation within the WebView.
+ *
+ * The fragment supports different types of consent, as defined by the [ConsentType] enum.
+ * It dynamically loads the appropriate content based on the selected consent type.
+ *
+ * @property binding The view binding for the fragment's layout.
+ * @property args The navigation arguments passed to the fragment, including the consent type, URL, and screen title.
+ * @property consentViewModel The ViewModel responsible for managing consent-related data and logic.
+ */
 @AndroidEntryPoint
 class ConsentFragment : Fragment(R.layout.fragment_consent) {
     private lateinit var binding: FragmentConsentBinding
     private val args: ConsentFragmentArgs by navArgs<ConsentFragmentArgs>()
     private val consentViewModel by viewModels<ConsentViewModel>()
 
+    /**
+     * Called when the fragment's view has been created.
+     *
+     * Initializes the view binding, sets up the WebView, loads the consent data, and handles
+     * navigation events.
+     *
+     * @param view The root view of the fragment.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentConsentBinding.bind(view)
@@ -57,6 +139,12 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
+    /**
+     * Loads the consent page content.
+     *
+     * If an internet connection is available and a URL is provided in the arguments, it loads the content from the URL.
+     * Otherwise, it attempts to load the content from locally stored data.
+     */
     private fun loadPage() {
         if (consentViewModel.isInternetAvailable()) {
             args.url?.let {
@@ -67,12 +155,23 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         } else loadFromCatch()
     }
 
+    /**
+     * Loads consent content from locally stored data.
+     *
+     * Retrieves the consent data based on the consent type key. If the data is found, it loads it into the WebView.
+     * Otherwise, it observes the consent data from the ViewModel and binds it to the view.
+     */
     private fun loadFromCatch() {
         val consent = consentViewModel.loadConsentPage(args.consentType.key)
         if (consent.isNotEmpty()) binding.webview.loadData(consent, "text/html", "utf-8")
         else consentViewModel.consentData.observeForever { bindConsentData(it) }
     }
 
+    /**
+     * Configures the settings for the WebView.
+     *
+     * Enables JavaScript and sets the WebViewClient to handle page loading and navigation.
+     */
     @SuppressLint("SetJavaScriptEnabled")
     private fun updateWebViewSettings() {
         binding.webview.settings.apply {
@@ -83,6 +182,13 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         binding.webview.webViewClient = webViewClient
     }
 
+    /**
+     * Binds the consent data to the view.
+     *
+     * Determines the appropriate content to display based on the consent type and loads it into the WebView.
+     *
+     * @param consent The consent data to bind.
+     */
     private fun bindConsentData(consent: Consent) {
         binding.contentLoadingProgressBar.hide()
         when (args.consentType) {
@@ -120,11 +226,23 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         }
     }
 
+    /**
+     * Loads HTML content into the WebView.
+     *
+     * Formats the content as HTML and loads it using `loadDataWithBaseURL`.
+     *
+     * @param content The HTML content to load.
+     */
     private fun loadHTMLContent(content: String) {
         val data = consentViewModel.formatToHtml(content)
         binding.webview.loadDataWithBaseURL(null, data, "text/html", "utf-8", null)
     }
 
+    /**
+     * The WebViewClient for handling page loading and navigation events.
+     *
+     * Shows and hides the progress bar during page loading, handles errors, and overrides URL loading.
+     */
     private val webViewClient = object : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -146,6 +264,14 @@ class ConsentFragment : Fragment(R.layout.fragment_consent) {
         }
     }
 
+    /**
+     * Overrides URL loading behavior for specific URLs.
+     *
+     * Handles navigation to other consent pages or external links based on the URL.
+     *
+     * @param request The web resource request.
+     * @return `true` if the URL loading was handled, `false` otherwise.
+     */
     private fun overrideUrl(request: WebResourceRequest): Boolean {
         request.url?.toString()?.let {
             val title = binding.screenTitle

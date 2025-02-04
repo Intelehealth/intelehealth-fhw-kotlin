@@ -37,6 +37,7 @@ class SyncFragment : CircularProgressFragment() {
                 progressTask(getString(ResourceR.string.content_synced))
                 preferenceUtils.initialLaunchStatus = false
                 findNavController().navigate(SyncFragmentDirections.actionSyncToHome())
+                requireActivity().finish()
             }
         }
     }
@@ -45,18 +46,6 @@ class SyncFragment : CircularProgressFragment() {
         super.onError(reason)
         errorMessage()
     }
-
-//    private fun handleDataSyncError() {
-//        viewModel.errorDataResult.observe(viewLifecycleOwner) {
-//            errorMessage(getString(ResourceR.string.error_sync_failed_try_again))
-//        }
-//    }
-//
-//    private fun handleDataSyncConnectionError() {
-//        viewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
-//            if (!it) errorMessage(getString(ResourceR.string.error_could_not_connect_with_server))
-//        }
-//    }
 
     override fun onRetry() {
         initiateProgressTask()

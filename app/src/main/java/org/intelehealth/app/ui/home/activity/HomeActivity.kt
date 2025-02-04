@@ -22,6 +22,7 @@ import org.intelehealth.common.extensions.gotoNextActivity
 import org.intelehealth.common.extensions.imageSpan
 import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
+import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.model.SetupLocation
 import javax.inject.Inject
@@ -33,7 +34,7 @@ import org.intelehealth.resource.R as ResourceR
  * Mob   : +919727206702
  **/
 @AndroidEntryPoint
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSelectedListener {
     // Inject preference utils
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
@@ -105,12 +106,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         preferenceUtils.location.let {
             Gson().fromJson(it, SetupLocation::class.java).display
         }?.apply {
-            val lastSyncedTime = preferenceUtils.lastSyncedTime
-            val subtitle = getString(ResourceR.string.content_last_synced, lastSyncedTime)
+            showLastSyncTime()
             supportActionBar?.title = this.imageSpan(
                 this@HomeActivity, ResourceR.drawable.ic_location_pin, ImageSpanGravity.START
             )
-            supportActionBar?.subtitle = subtitle
+        }
+    }
+
+    private fun showLastSyncTime() {
+        userViewModel.appLastSyncTime()
+        userViewModel.lastSyncData.observe(this) {
+            it ?: return@observe
+            supportActionBar?.subtitle = getString(ResourceR.string.content_last_synced, it)
         }
     }
 

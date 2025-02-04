@@ -14,6 +14,7 @@ navigationFragmentKtx = "2.8.5"
 navigationUiKtx = "2.8.5"
 googleServices = "4.4.2"
 firebaseCrashlytics = "3.0.2"
+detekt = "1.23.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,5 +41,6 @@ androidx-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
+detekt-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 

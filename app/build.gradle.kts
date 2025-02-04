@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.detekt.plugin)
 }
 
 apply("${rootProject.projectDir}/whitelabel.gradle")

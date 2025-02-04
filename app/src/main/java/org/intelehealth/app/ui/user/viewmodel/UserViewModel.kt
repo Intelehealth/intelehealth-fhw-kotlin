@@ -36,6 +36,14 @@ class UserViewModel @Inject constructor(
     private val otpCountDown = MutableLiveData<Long>()
     val otpCountDownLiveData: LiveData<Long> = otpCountDown
 
+    private val lastSyncTime = MutableLiveData<String>()
+    val lastSyncData: LiveData<String> = lastSyncTime
+
+
+    fun appLastSyncTime() {
+        lastSyncTime.postValue(userRepository.appLastSyncTime())
+    }
+
     fun generateJWTAuthToken(param: JWTParams) =
         executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
 
@@ -132,4 +140,5 @@ class UserViewModel @Inject constructor(
         const val OTP_EXPIRY_TIME = 60 * 1000L
         const val OTP_EXPIRY_TIME_INTERVAL = 1000L
     }
+
 }

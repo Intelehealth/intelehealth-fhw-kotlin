@@ -1,6 +1,10 @@
 package org.intelehealth.data.provider.user
 
 import android.util.Base64
+import org.intelehealth.common.extensions.milliToLogTime
+import org.intelehealth.common.extensions.toDate
+import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DB_FORMAT
+import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DISPLAY_FORMAT
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
@@ -18,6 +22,11 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     private val dataSource: UserDataSource, private val preferenceUtils: PreferenceUtils, private val userDao: UserDao
 ) {
+    fun appLastSyncTime(): String {
+        val lastSyncDate = preferenceUtils.lastSyncedTime.toDate(LAST_SYNC_DB_FORMAT)
+        return lastSyncDate.time.toString().milliToLogTime(LAST_SYNC_DISPLAY_FORMAT)
+    }
+
     suspend fun generateJWTAuthToken(param: JWTParams) = dataSource.generateJWTAuthToken(param)
 
     fun login(username: String, password: String) =

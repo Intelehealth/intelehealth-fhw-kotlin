@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.intelehealth.common.extensions.hide
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.constants.NO_NETWORK
 import org.intelehealth.data.provider.sync.worker.SyncDataWorker
@@ -22,7 +23,9 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class SyncDataViewModel @Inject constructor(private val workManager: WorkManager) : BaseViewModel() {
+class SyncDataViewModel @Inject constructor(
+    private val workManager: WorkManager, networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper = networkHelper) {
     private val mutableWorkerProgress: MutableLiveData<Int> = MutableLiveData()
     val workerProgress = mutableWorkerProgress.hide()
 

@@ -33,7 +33,7 @@
     <string name="content_syncing">सिंक हो रहा है…</string>
     <string name="content_synced">सिंक किया गया</string>
     <string name="content_wait_for_sync">कृपया सिंक पूरा होने तक प्रतीक्षा करें</string>
-    <string name="content_last_synced">अंतिम बार सिंक किया गया %1$s</string>
+    <string name="content_last_synced">अंतिम सिंक: <b>%1$s</b></string>
     <string name="content_are_you_sure_exit">क्या आप वाकई बाहर निकलना चाहते हैं?</string>
     <string name="content_are_you_sure_logout">क्या आप वाकई ऐप से लॉग आउट करना चाहते हैं?</string>
     <string name="content_welcome_back">वापस स्वागत है!</string>

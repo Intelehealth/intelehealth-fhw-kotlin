@@ -16,6 +16,7 @@ import org.intelehealth.app.utility.getAppPlayStoreUrl
 import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.triagingrule.viewmodel.TriagingRuleViewModel
+import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.PreferenceUtils
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
@@ -26,7 +27,7 @@ import org.intelehealth.resource.R as ResourceR
  * Mob   : +919727206702
  **/
 @AndroidEntryPoint
-class OnboardingActivity : AppCompatActivity() {
+class OnboardingActivity : BaseStatusBarActivity() {
 
     private val launcherViewModel by viewModels<LauncherViewModel>()
 //    private val triagingRuleViewModel by viewModels<TriagingRuleViewModel>()

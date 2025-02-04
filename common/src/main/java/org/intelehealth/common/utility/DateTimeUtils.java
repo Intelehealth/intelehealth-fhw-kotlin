@@ -32,6 +32,9 @@ public class DateTimeUtils {
     public static final String MMM_DD_YYYY_FORMAT = "MMM dd, yyyy";
 
     public static final String CALL_LOG_TIME_FORMAT = "EEE, dd MMM yyyy HH:mm:ss";
+    public static final String LAST_SYNC_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String LAST_SYNC_DISPLAY_FORMAT = "hh:mm a dd MMM yyyy";
+
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat getSimpleDateFormat(String format, TimeZone timeZone) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);

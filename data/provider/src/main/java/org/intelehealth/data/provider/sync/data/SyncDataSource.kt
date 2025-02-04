@@ -1,6 +1,7 @@
 package org.intelehealth.data.provider.sync.data
 
 import com.google.gson.Gson
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.SetupLocation
@@ -13,8 +14,10 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 class SyncDataSource @Inject constructor(
-    private val apiClient: RestClient, private val preferenceUtils: PreferenceUtils
-) : BaseDataSource() {
+    private val apiClient: RestClient,
+    private val preferenceUtils: PreferenceUtils,
+    networkHelper: NetworkHelper
+) : BaseDataSource(networkHelper = networkHelper) {
     fun pullData(pageNo: Int, pageLimit: Int) = getResult {
         val locationStr = preferenceUtils.location
         val location = Gson().fromJson(locationStr, SetupLocation::class.java)

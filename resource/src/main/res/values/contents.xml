@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--<!DOCTYPE resources [<!ENTITY resend "Resend">]>-->
+<?xml version="1.0" encoding="utf-8"?><!--<!DOCTYPE resources [<!ENTITY resend "Resend">]>-->
 <resources>
     <string name="content_splash_desc">Deliver quality healthcare where\nthere is no doctor</string>
     <string name="content_warning_app_update">Please update the app to the latest version.</string>
@@ -34,7 +33,7 @@
     <string name="content_syncing">Syncing…</string>
     <string name="content_synced">Synced</string>
     <string name="content_wait_for_sync">Please wait for the sync to complete</string>
-    <string name="content_last_synced">Last synced %1$s</string>
+    <string name="content_last_synced">Last synced: <b>%1$s</b></string>
     <string name="content_are_you_sure_exit">Are you sure you want to exit?</string>
     <string name="content_are_you_sure_logout">Are you sure you want to log out from the app?</string>
     <string name="content_welcome_back">Welcome back!</string>
