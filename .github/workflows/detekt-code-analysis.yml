@@ -1,0 +1,27 @@
+name: Detekt-Actions
+
+on:
+  pull_request:
+    branches: [ main, staging, development ]
+
+jobs:
+  detekt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "checkout"
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: 'oracle'
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: "detekt"
+        uses: natiginfo/action-detekt-all@1.23.7
+        with:
+          args: --config detekt.ym
