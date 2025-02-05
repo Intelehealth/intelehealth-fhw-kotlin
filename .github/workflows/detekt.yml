@@ -49,6 +49,7 @@ jobs:
 
   save-report: # This job is save generated Detekt report to the repository
     needs: detekt
+    if: always() # Ensure this job runs even if the detekt job fails
     runs-on: ubuntu-latest
 
     steps:
