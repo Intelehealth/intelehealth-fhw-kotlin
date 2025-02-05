@@ -55,7 +55,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.ref }} # Checkout the current branch
+          
       - name: Download Detekt report
         uses: actions/download-artifact@v4
         with:
@@ -68,4 +70,4 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add detekt/reports/detekt.html
           git commit -m "Add Detekt HTML report"
-          git push
+          git push origin ${{ github.ref }}
