@@ -44,7 +44,7 @@ jobs:
       #        with:
       #          args: --config detekt/detekt.yml
 
-      - name: Upload Detekt Report
+      - name: Generate Detekt Report
         if: always() # Ensure this step runs even if previous steps fail
         uses: actions/upload-artifact@v4
         with:
