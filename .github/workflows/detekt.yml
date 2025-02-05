@@ -47,7 +47,7 @@ jobs:
           name: detekt-report
           path: detekt/reports/detekt.html
 
-  save-report:
+  save-report: # This job is save generated Detekt report to the repository
     needs: detekt
     runs-on: ubuntu-latest
 
