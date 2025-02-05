@@ -66,6 +66,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add reports/detekt/detekt.html
+          git add detekt/reports/detekt.html
           git commit -m "Add Detekt HTML report"
           git push
