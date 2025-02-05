@@ -1,4 +1,4 @@
-name: Detekt Code Analysis
+name: Detekt Code Review
 
 on:
   pull_request:
