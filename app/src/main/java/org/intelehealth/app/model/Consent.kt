@@ -22,7 +22,7 @@ import com.google.gson.annotations.SerializedName
  * @property termsOfUse The text or URL for the terms of use.
  * @property personalDataProcessingPolicy The text or URL for the personal data processing policy.
  */
-class Consent(
+data class Consent(
     @SerializedName("teleconsultation_consent") var teleconsultationConsent: String? = null,
     @SerializedName("privacy_notice") var privacyNotice: String? = null,
     @SerializedName("terms_and_conditions") var termsAndConditions: String? = null,
