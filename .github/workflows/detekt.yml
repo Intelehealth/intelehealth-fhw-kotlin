@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 21
-          distribution: 'JetBrains'
+          distribution: 'oracle'
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
