@@ -60,7 +60,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref }} # Checkout the current branch
+          ref: ${{ github.head_ref }} # Checkout the source branch of the pull request
           
       - name: Download Detekt report
         uses: actions/download-artifact@v4
@@ -69,9 +69,11 @@ jobs:
           path: detekt/reports
 
       - name: Commit and push Detekt report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use GitHub token to authenticate
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add detekt/reports/detekt.html
           git commit -m "Add Detekt HTML report"
-          git push origin ${{ github.ref }}
+          git push origin HEAD:${{ github.head_ref }} # Push to the source branch of the pull request
