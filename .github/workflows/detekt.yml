@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: detekt-report
-          path: reports/detekt
+          path: detekt/reports/detekt.html
 
       - name: Commit and push Detekt report
         run: |
