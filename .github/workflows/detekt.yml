@@ -25,7 +25,11 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle
+          restore-keys: |
+            ${{ runner.os }}-gradle
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Oracle_jdk/21/x64
+          JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Oracle_jdk/21/x64
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -47,24 +51,29 @@ jobs:
           name: detekt-report
           path: detekt/reports/detekt.html
 
-  save-report:
+  save-report: # This job is save generated Detekt report to the repository
     needs: detekt
+    if: always() # Ensure this job runs even if the detekt job fails
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.head_ref }} # Checkout the source branch of the pull request
+          
       - name: Download Detekt report
         uses: actions/download-artifact@v4
         with:
           name: detekt-report
-          path: detekt/reports/detekt.html
+          path: detekt/reports
 
       - name: Commit and push Detekt report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use GitHub token to authenticate
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add reports/detekt/detekt.html
+          git add detekt/reports/detekt.html
           git commit -m "Add Detekt HTML report"
-          git push
+          git push origin HEAD:${{ github.head_ref }} # Push to the source branch of the pull request
