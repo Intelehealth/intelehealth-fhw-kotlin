@@ -10,4 +10,4 @@ Pending
 - Handle setup and login screen back press flow after reset password - DONE
 - Login and setup help icon click - DONE
 - Home sync date format - DONE
-- Detekt integration with github action
+- Detekt integration with github action - DONE
