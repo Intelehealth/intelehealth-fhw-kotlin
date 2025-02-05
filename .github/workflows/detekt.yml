@@ -40,8 +40,31 @@ jobs:
       #        with:
       #          args: --config detekt/detekt.yml
 
-#      - name: Upload Detekt Report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: detekt-report
-#          path: detekt/reports/detekt.html
+      - name: Upload Detekt Report
+        if: always() # Ensure this step runs even if previous steps fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: detekt-report
+          path: detekt/reports/detekt.html
+
+  save-report:
+    needs: detekt
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download Detekt report
+        uses: actions/download-artifact@v4
+        with:
+          name: detekt-report
+          path: reports/detekt
+
+      - name: Commit and push Detekt report
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add reports/detekt/detekt.html
+          git commit -m "Add Detekt HTML report"
+          git push
