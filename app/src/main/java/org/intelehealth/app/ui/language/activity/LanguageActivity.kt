@@ -25,7 +25,8 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 abstract class LanguageActivity : AppCompatActivity() {
-    @Inject lateinit var preferenceUtils: PreferenceUtils
+    @Inject
+    lateinit var preferenceUtils: PreferenceUtils
     private val languageViewModel by viewModels<LanguageViewModel> {
         val db = ConfigDatabase.getInstance(applicationContext)
         val repository = LanguageRepository(db.languageDao())
@@ -44,22 +45,26 @@ abstract class LanguageActivity : AppCompatActivity() {
         if (::preferenceUtils.isInitialized) {
             val appLanguage = preferenceUtils.currentLanguage
             if (!appLanguage.equals("", ignoreCase = true)) {
-                Locale(appLanguage).apply {
-                    Locale.setDefault(this)
-                    val configuration: Configuration = resources.configuration
-                    val displayMetrics: DisplayMetrics = resources.displayMetrics
-                    configuration.setLocale(this)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(this))
-                    } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-                        createConfigurationContext(configuration)
-                    } else {
-                        resources.updateConfiguration(configuration, displayMetrics)
-                    }
-                }
+                changeLanguage(appLanguage)
             }
         }
         return this
+    }
+
+    private fun changeLanguage(language: String) {
+        Locale(language).apply {
+            Locale.setDefault(this)
+            val configuration: Configuration = resources.configuration
+            val displayMetrics: DisplayMetrics = resources.displayMetrics
+            configuration.setLocale(this)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(this))
+            } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+                createConfigurationContext(configuration)
+            } else {
+                resources.updateConfiguration(configuration, displayMetrics)
+            }
+        }
     }
 
     open fun onLanguageLoaded(languages: List<ActiveLanguage>) {}

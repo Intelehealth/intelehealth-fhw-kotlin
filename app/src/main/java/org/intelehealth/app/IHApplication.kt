@@ -64,4 +64,5 @@ class IHApplication : Application(), Configuration.Provider {
      */
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder().setWorkerFactory(workerFactory).build()
+
 }

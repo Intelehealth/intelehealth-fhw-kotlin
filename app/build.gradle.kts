@@ -1,6 +1,7 @@
 import extensions.androidTestDeps
 import extensions.appModuleDeps
 import extensions.unitTestDeps
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.application)
@@ -67,19 +68,9 @@ android {
 }
 
 dependencies {
-
-//    implementation(libs.androidx.navigation.fragment.ktx)
-//    implementation(libs.androidx.navigation.ui.ktx)
     appModuleDeps()
     unitTestDeps()
     androidTestDeps()
-
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
 }
 
 apply(plugin = "com.google.gms.google-services")
