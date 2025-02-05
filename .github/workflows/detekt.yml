@@ -25,7 +25,11 @@ jobs:
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle
+          restore-keys: |
+            ${{ runner.os }}-gradle
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Oracle_jdk/21/x64
+          JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Oracle_jdk/21/x64
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
@@ -62,7 +66,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: detekt-report
-          path: detekt/reports/detekt.html
+          path: detekt/reports
 
       - name: Commit and push Detekt report
         run: |
