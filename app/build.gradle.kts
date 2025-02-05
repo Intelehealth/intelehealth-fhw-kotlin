@@ -1,7 +1,6 @@
 import extensions.androidTestDeps
 import extensions.appModuleDeps
 import extensions.unitTestDeps
-import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.application)
