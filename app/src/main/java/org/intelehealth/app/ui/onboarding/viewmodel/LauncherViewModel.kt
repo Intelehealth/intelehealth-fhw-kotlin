@@ -36,6 +36,7 @@ import kotlin.jvm.Throws
  **/
 
 const val SPLASH_DELAY_TIME = 500L
+const val ANIM_DURATION = 2000L
 
 @HiltViewModel
 class LauncherViewModel @Inject constructor(

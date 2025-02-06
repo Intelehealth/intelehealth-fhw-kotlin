@@ -10,13 +10,14 @@ import android.content.Context
 
 const val KEY_FORCE_UPDATE_VERSION_CODE = "force_update_version_code"
 const val JSON_FOLDER = "Engines"
-const val JSON_FOLDER_Update = "Engines_Update"
+const val JSON_FOLDER_UPDATE = "Engines_Update"
 const val CONFIG_FILE_NAME = "config.json"
 const val ASSET_FILE_CONSENT = "consent.json"
 const val TRIAGING_RULE_FILE_NAME = "triaging_referral_rules.json"
 const val KEY_RESULTS = "results"
 const val IND_COUNTRY_CODE = "91"
-
+const val IND_MOBILE_LEN = 10
+const val PWD_MIN_LENGTH = 5
 
 fun getAppPlayStoreUrl(context: Context): String {
     return "https://play.google.com/store/apps/details?id=" + context.applicationContext.packageName

@@ -59,6 +59,7 @@ class OnboardingActivity : BaseStatusBarActivity() {
         }
     }
 
+    @Suppress("SwallowedException")
     private fun updateApp() {
         try {
             startActivity(getAppIntent(getAppMarketUrl(this@OnboardingActivity)))

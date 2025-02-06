@@ -32,8 +32,6 @@ class TestActivity : AppCompatActivity(R.layout.activity_test) {
 
     private val languageViewModel by viewModels<LanguageViewModel>()
 
-    private val TAG = TestActivity::class.java.simpleName
-
     private val binding: ActivityTestBinding by lazy {
         ActivityTestBinding.inflate(layoutInflater)
     }

@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
+import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
 import org.intelehealth.common.ui.fragment.CircularProgressFragment
 import org.intelehealth.common.utility.PreferenceUtils
 import javax.inject.Inject
@@ -33,7 +34,7 @@ class SyncFragment : CircularProgressFragment() {
     private fun handleDataSyncProgress() {
         viewModel.workerProgress.observe(viewLifecycleOwner) {
             onProgress(it)
-            if (it == 100) {
+            if (it == MAX_PROGRESS) {
                 progressTask(getString(ResourceR.string.content_synced))
                 preferenceUtils.initialLaunchStatus = false
                 findNavController().navigate(SyncFragmentDirections.actionSyncToHome())
