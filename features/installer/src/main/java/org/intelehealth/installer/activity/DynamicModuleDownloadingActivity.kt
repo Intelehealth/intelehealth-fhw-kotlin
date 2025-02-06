@@ -37,7 +37,7 @@ class DynamicModuleDownloadingActivity : CircularProgressActivity(), DynamicDeli
     private fun extractIntent() {
         intent?.let {
             if (it.hasExtra(EXT_MODULES)) {
-                val modules = IntentCompat.getSerializableExtra(it, EXT_MODULES, ArrayList::class.java)
+//                val modules = IntentCompat.getSerializableExtra(it, EXT_MODULES, ArrayList::class.java)
 //                downloadManager.downloadDynamicModules(modules)
             } else if (it.hasExtra(EXT_MODULE)) {
                 val module = it.getStringExtra(EXT_MODULE)

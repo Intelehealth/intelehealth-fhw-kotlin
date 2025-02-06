@@ -29,6 +29,7 @@ fun Context.appVersion(): String {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             "${versionName}(${longVersionCode})"
         } else {
+            @Suppress("DEPRECATION")
             "${versionName}(${versionCode})"
         }
     }
@@ -82,12 +83,12 @@ fun Context.buildCustomDialog(binding: ViewDataBinding) = MaterialAlertDialogBui
 fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAlertDialogBuilder(this).apply {
     setTitle(dialogParams.title)
     setMessage(dialogParams.message)
-    setPositiveButton(dialogParams.positiveLbl) { dialog, which ->
+    setPositiveButton(dialogParams.positiveLbl) { dialog, _ ->
         dialog.dismiss()
         dialogParams.onPositiveClick.invoke()
     }
     if (dialogParams.negativeLbl != 0) {
-        setNegativeButton(dialogParams.negativeLbl) { dialog, which ->
+        setNegativeButton(dialogParams.negativeLbl) { dialog, _ ->
             dialog.dismiss()
             dialogParams.onNegativeClick.invoke()
         }

@@ -39,16 +39,16 @@ abstract class DownloadPopupWindow(
         isOutsideTouchable = true
     }
 
-    fun startDownloading(module: String) {
+//    fun startDownloading(module: String) {
 //        if (downloadManager.isModuleDownloaded(module)) {
 //            listener.onDownloadCompleted()
 //        } else {
 //            //
-//        }
-        binding.btnClosePopup.setOnClickListener { dismiss() }
-        showAtLocation(anchor, Gravity.CENTER, anchor.pivotX.toInt(), anchor.pivotY.toInt())
-        Log.e("DownloadPopupWindow", "startDownloading: ")
-    }
+////        }
+//        binding.btnClosePopup.setOnClickListener { dismiss() }
+//        showAtLocation(anchor, Gravity.CENTER, anchor.pivotX.toInt(), anchor.pivotY.toInt())
+//        Log.e("DownloadPopupWindow", "startDownloading: ")
+//    }
 
     override fun onDismiss(menu: PopupMenu?) {
         downloadManager.unregisterListener()

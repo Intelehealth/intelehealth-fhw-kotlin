@@ -36,14 +36,14 @@ fun TextInputLayout.showError() {
 }
 
 fun TextInputLayout.hideErrorOnTextChang(input: TextInputEditText) {
-    input.doOnTextChanged { text, _, _, count ->
+    input.doOnTextChanged { text, _, _, _ ->
 //        Timber.d { "hideErrorOnTextChang" }
         if (text?.length!! > 0) hideError()
     }
 }
 
 fun TextInputLayout.hideDigitErrorOnTextChang(input: TextInputEditText, digit: Int) {
-    input.doOnTextChanged { text, _, _, count ->
+    input.doOnTextChanged { text, _, _, _ ->
 //        Timber.d { "phone validation $count == $digit" }
         if (text?.length == digit) hideError() else showError()
     }

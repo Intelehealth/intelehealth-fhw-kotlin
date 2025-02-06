@@ -75,11 +75,11 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
     }
 
     private fun changeSaveButtonStateOnTextChange() {
-        binding.textInputNewPassword.doOnTextChanged { text, _, _, _ ->
+        binding.textInputNewPassword.doOnTextChanged { _, _, _, _ ->
             changeSaveButtonState()
             binding.textInputLayoutNewPassword.hideError()
         }
-        binding.textInputConfirmPassword.doOnTextChanged { text, _, _, _ ->
+        binding.textInputConfirmPassword.doOnTextChanged { _, _, _, _ ->
             changeSaveButtonState()
             binding.textInputLayoutConfirmPassword.hideError()
         }

@@ -12,6 +12,7 @@ import org.intelehealth.config.presenter.fields.viewmodel.RegFieldViewModel
  **/
 class RegFieldViewModelFactory(private val repository: RegFieldRepository) :
     ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return RegFieldViewModel(repository) as T
     }

@@ -53,10 +53,12 @@ class PreferenceHelper @Inject constructor(@ApplicationContext private val conte
         return sharedPreferences.getString(key, null)
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> get(key: String?): T {
         return sharedPreferences.all[key] as T
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> get(key: String?, defValue: T): T {
         return (sharedPreferences.all[key] ?: defValue) as T
     }

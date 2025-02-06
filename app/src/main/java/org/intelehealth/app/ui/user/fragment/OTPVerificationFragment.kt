@@ -100,7 +100,7 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
      * @param currentEditText The current OTP input field.
      */
     private fun setupOtpKeyHandler(currentEditText: TextInputEditText) {
-        currentEditText.setOnKeyListener { v, keyCode, event ->
+        currentEditText.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentEditText.text.isNullOrEmpty()) {
                 currentEditText.clearFocus()
                 currentEditText.previousFocus()
