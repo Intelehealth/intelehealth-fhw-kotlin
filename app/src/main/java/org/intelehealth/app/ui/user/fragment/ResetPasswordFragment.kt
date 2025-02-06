@@ -18,7 +18,6 @@ import org.intelehealth.common.extensions.passwordMatchWithConfirmPassword
 import org.intelehealth.common.extensions.setCompoundDrawableClick
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
-import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.showTooltip
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.extensions.validatePasswordPattern

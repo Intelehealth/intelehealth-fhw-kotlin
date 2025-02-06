@@ -2,7 +2,6 @@ package org.intelehealth.installer.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.core.content.IntentCompat
 import androidx.core.view.isVisible
 import org.intelehealth.common.ui.activity.CircularProgressActivity
 import org.intelehealth.installer.R

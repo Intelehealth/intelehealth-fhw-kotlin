@@ -30,7 +30,7 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
         isTouchable = true
         isFocusable = true
         contentView = binding.root
-        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     fun showTooltip(anchor: View, message: String) {

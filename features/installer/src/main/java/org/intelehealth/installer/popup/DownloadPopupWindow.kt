@@ -56,7 +56,7 @@ abstract class DownloadPopupWindow(
 
     override fun onDownloading(percentage: Int) {
         binding.progressDownloading.progress = percentage
-        binding.txtDownloadStatus.text = context.getString(R.string.module_downloading, percentage.toString())
+        binding.txtDownloadStatus.text = context.getString(R.string.module_downloading)
     }
 
     override fun onDownloadCompleted() {

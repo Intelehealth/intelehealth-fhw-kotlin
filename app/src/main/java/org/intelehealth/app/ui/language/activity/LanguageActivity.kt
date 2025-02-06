@@ -1,14 +1,9 @@
 package org.intelehealth.app.ui.language.activity
 
 import android.content.Context
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import org.intelehealth.common.extensions.changeLanguage
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.language.data.LanguageRepository
@@ -16,7 +11,6 @@ import org.intelehealth.config.presenter.language.factory.LanguageViewModelFacto
 import org.intelehealth.config.presenter.language.viewmodel.LanguageViewModel
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.ActiveLanguage
-import java.util.Locale
 import javax.inject.Inject
 
 
