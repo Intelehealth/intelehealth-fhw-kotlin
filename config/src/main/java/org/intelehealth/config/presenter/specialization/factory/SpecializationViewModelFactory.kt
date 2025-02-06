@@ -1,4 +1,4 @@
-package org.intelehealth.config.presenter.language.factory
+package org.intelehealth.config.presenter.specialization.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

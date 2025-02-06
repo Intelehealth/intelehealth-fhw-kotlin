@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.detekt.plugin)
 }
 
 apply("${rootProject.projectDir}/whitelabel.gradle")
