@@ -74,10 +74,10 @@ jobs:
           git add detekt/reports/detekt.html
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit"
-            echo "::set-output name=changes::false"
+            echo "changes=false" >> $GITHUB_OUTPUT
           else
             echo "Changes detected"
-            echo "::set-output name=changes::true"
+            echo "changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Commit and push Detekt report
