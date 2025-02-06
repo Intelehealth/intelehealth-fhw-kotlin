@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Slide
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
-import androidx.work.WorkInfo
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.BuildConfig
@@ -29,10 +28,8 @@ import org.intelehealth.app.ui.onboarding.viewmodel.ANIM_DURATION
 import org.intelehealth.app.ui.onboarding.viewmodel.LauncherViewModel
 import org.intelehealth.app.ui.onboarding.viewmodel.SPLASH_DELAY_TIME
 import org.intelehealth.common.extensions.requestNeededPermissions
-import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.extensions.showNetworkFailureDialog
 import org.intelehealth.common.extensions.showRetryDialogOnWentWrong
-import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND

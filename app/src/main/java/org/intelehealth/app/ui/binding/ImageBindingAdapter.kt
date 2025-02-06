@@ -31,7 +31,7 @@ const val PROFILE_PIC_SIZE_MULTIPLIER = 0.25f
 fun bindContentImage(imageView: ImageView?, content: IntroContent?) {
     if (imageView != null && content != null) {
         Glide.with(imageView.context).load(if (content.isResourceImage) content.resId else content.imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+            .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView)
     }
 }
 

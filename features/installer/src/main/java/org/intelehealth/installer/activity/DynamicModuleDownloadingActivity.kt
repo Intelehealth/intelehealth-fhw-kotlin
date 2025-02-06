@@ -16,7 +16,7 @@ import org.intelehealth.installer.downloader.DynamicModuleDownloadManager
 class DynamicModuleDownloadingActivity : CircularProgressActivity(), DynamicDeliveryCallback {
 
     private val downloadManager: DynamicModuleDownloadManager by lazy {
-        DynamicModuleDownloadManager.getInstance(this);
+        DynamicModuleDownloadManager.getInstance(this)
     }
 
     override fun onViewCreated() {

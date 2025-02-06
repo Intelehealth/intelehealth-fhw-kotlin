@@ -5,20 +5,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ActivityOnboardingBinding
 import org.intelehealth.app.ui.onboarding.viewmodel.LauncherViewModel
-import org.intelehealth.app.utility.TRIAGING_RULE_FILE_NAME
 import org.intelehealth.app.utility.getAppMarketUrl
 import org.intelehealth.app.utility.getAppPlayStoreUrl
 import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
-import org.intelehealth.common.triagingrule.viewmodel.TriagingRuleViewModel
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
-import org.intelehealth.common.utility.PreferenceUtils
-import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
 
 /**

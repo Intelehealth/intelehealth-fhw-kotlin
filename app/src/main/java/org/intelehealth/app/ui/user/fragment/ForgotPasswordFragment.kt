@@ -19,7 +19,6 @@ import org.intelehealth.common.extensions.show
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.model.request.OTP_FOR_PASSWORD
 import org.intelehealth.data.network.model.request.OTP_FOR_USERNAME
 import org.intelehealth.data.network.model.request.OtpRequestParam
