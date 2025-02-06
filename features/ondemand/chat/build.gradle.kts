@@ -13,8 +13,8 @@ import extensions.unitTestDeps
 plugins {
     alias(libs.plugins.androidx.dynamic.feature)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin(Plugins.KAPT)
-    id(Plugins.PARCELIZE)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.dagger.hilt)
 }
 

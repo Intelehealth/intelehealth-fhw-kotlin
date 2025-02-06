@@ -5,9 +5,9 @@ import extensions.unitTestDeps
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin(Plugins.KAPT)
-    id(Plugins.PARCELIZE)
-    id(Plugins.DAGGER_HILT)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.dagger.hilt)
 }
 
 apply("${rootProject.projectDir}/whitelabel.gradle")
