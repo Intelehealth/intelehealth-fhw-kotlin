@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.Slide
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
-import androidx.work.WorkInfo
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.BuildConfig
@@ -25,12 +24,12 @@ import org.intelehealth.app.databinding.FragmentSplashBinding
 import org.intelehealth.app.ui.language.adapter.LanguageAdapter
 import org.intelehealth.app.ui.language.fragment.LanguageFragment
 import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
+import org.intelehealth.app.ui.onboarding.viewmodel.ANIM_DURATION
 import org.intelehealth.app.ui.onboarding.viewmodel.LauncherViewModel
+import org.intelehealth.app.ui.onboarding.viewmodel.SPLASH_DELAY_TIME
 import org.intelehealth.common.extensions.requestNeededPermissions
-import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.extensions.showNetworkFailureDialog
 import org.intelehealth.common.extensions.showRetryDialogOnWentWrong
-import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND
@@ -144,12 +143,12 @@ class SplashFragment : LanguageFragment(R.layout.fragment_splash), BaseViewHolde
                 override fun onAnimationRepeat(animation: Animation) {}
             })
             binding.layoutChild1.startAnimation(translateAnim)
-        }, 500)
+        }, SPLASH_DELAY_TIME)
     }
 
     private fun showChooseLanguageUI(show: Boolean) {
         val transition: Transition = Slide(Gravity.BOTTOM)
-        transition.duration = 2000
+        transition.duration = ANIM_DURATION
         transition.addTarget(R.id.layout_panel)
         TransitionManager.beginDelayedTransition(binding.layoutParent, transition)
         binding.layoutPanel.visibility = if (show) View.VISIBLE else View.GONE

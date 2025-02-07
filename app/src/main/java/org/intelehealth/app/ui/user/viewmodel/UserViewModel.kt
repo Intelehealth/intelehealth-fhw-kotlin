@@ -126,6 +126,7 @@ class UserViewModel @Inject constructor(
         val pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
         val rnd = SecureRandom()
         val sb = StringBuilder(PASSWORD_LEN)
+        @Suppress("UnusedPrivateProperty")
         for (i in 0 until PASSWORD_LEN) {
             sb.append(pattern[rnd.nextInt(pattern.length)])
         }

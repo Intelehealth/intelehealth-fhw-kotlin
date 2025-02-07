@@ -12,6 +12,9 @@ import java.io.File
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+
+const val PROFILE_PIC_SIZE_MULTIPLIER = 0.25f
+
 /**
  * A [BindingAdapter] function that loads an image into an [ImageView] based on the
  * provided [IntroContent].
@@ -28,7 +31,7 @@ import java.io.File
 fun bindContentImage(imageView: ImageView?, content: IntroContent?) {
     if (imageView != null && content != null) {
         Glide.with(imageView.context).load(if (content.isResourceImage) content.resId else content.imageUrl)
-            .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+            .diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView)
     }
 }
 
@@ -46,7 +49,8 @@ fun bindContentImage(imageView: ImageView?, content: IntroContent?) {
 @BindingAdapter("profileUrl")
 fun bindProfileImage(imageView: ImageView?, url: String?) {
     if (imageView != null && !url.isNullOrEmpty()) {
-        val requestBuilder = Glide.with(imageView.context).asDrawable().sizeMultiplier(0.25f)
+        val requestBuilder = Glide.with(imageView.context).asDrawable()
+            .sizeMultiplier(PROFILE_PIC_SIZE_MULTIPLIER)
         Glide.with(imageView.context).load(File(url)).thumbnail(requestBuilder).centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imageView)
     }

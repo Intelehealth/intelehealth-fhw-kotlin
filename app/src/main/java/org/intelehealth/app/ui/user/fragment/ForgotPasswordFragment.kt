@@ -11,13 +11,14 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentForgotPasswordBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.app.utility.IND_COUNTRY_CODE
+import org.intelehealth.app.utility.IND_MOBILE_LEN
+import org.intelehealth.app.utility.PWD_MIN_LENGTH
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.extensions.mapWithResourceId
 import org.intelehealth.common.extensions.show
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.model.request.OTP_FOR_PASSWORD
 import org.intelehealth.data.network.model.request.OTP_FOR_USERNAME
 import org.intelehealth.data.network.model.request.OtpRequestParam
@@ -47,16 +48,16 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
         }
 
         if (binding.ccSpinnerForgotPassword.selectedCountryCode == IND_COUNTRY_CODE) {
-            binding.mobileLength = 10
+            binding.mobileLength = IND_MOBILE_LEN
         }
     }
 
     private fun changeContinueButtonStateOnTextChange() {
         binding.textInputFPUsername.doOnTextChanged { text, _, _, _ ->
-            binding.btnForgotPasswordContinue.isEnabled = (text?.isNotEmpty() == true && text.length > 5)
+            binding.btnForgotPasswordContinue.isEnabled = (text?.isNotEmpty() == true && text.length > PWD_MIN_LENGTH)
         }
         binding.textInputMobileNumber.doOnTextChanged { text, _, _, _ ->
-            val mobileLength = binding.mobileLength ?: 10
+            val mobileLength = binding.mobileLength ?: IND_MOBILE_LEN
             val enable = (text?.isNotEmpty() == true && text.length == mobileLength)
             binding.btnForgotPasswordContinue.isEnabled = enable
         }
@@ -113,4 +114,5 @@ class ForgotPasswordFragment : BaseProgressFragment(R.layout.fragment_forgot_pas
     override fun onFailed(reason: String) {
         showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
     }
+
 }

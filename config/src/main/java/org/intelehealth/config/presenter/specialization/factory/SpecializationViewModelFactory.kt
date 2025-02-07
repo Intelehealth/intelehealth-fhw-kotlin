@@ -1,4 +1,4 @@
-package org.intelehealth.config.presenter.language.factory
+package org.intelehealth.config.presenter.specialization.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +12,7 @@ import org.intelehealth.config.presenter.specialization.viewmodel.Specialization
  **/
 class SpecializationViewModelFactory(private val repository: SpecializationRepository) :
     ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return SpecializationViewModel(repository) as T
     }

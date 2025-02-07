@@ -26,7 +26,7 @@ class IntroSlideFragment : Fragment(R.layout.fragment_intro_slider) {
             val content = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 it.getSerializable(ARG_PARAM1, IntroContent::class.java)
             } else {
-                (it.getSerializable(ARG_PARAM1) as IntroContent)
+                @Suppress("DEPRECATION") (it.getSerializable(ARG_PARAM1) as IntroContent)
             }
 
             binding.content = content

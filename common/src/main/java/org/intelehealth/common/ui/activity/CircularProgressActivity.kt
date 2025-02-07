@@ -54,4 +54,8 @@ abstract class CircularProgressActivity : AppCompatActivity() {
     fun progressTask(status: String) {
         binding.txtProgressTask.text = status
     }
+
+    companion object{
+        const val MAX_PROGRESS = 100
+    }
 }

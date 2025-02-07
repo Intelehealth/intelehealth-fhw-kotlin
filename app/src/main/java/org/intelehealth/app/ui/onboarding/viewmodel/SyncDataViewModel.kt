@@ -6,12 +6,10 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.helper.NetworkHelper
+import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.data.network.constants.NO_NETWORK
 import org.intelehealth.data.provider.sync.worker.SyncDataWorker
@@ -36,7 +34,7 @@ class SyncDataViewModel @Inject constructor(
             workManager.getWorkInfoByIdFlow(configWorkRequest.id).collect {
                 it?.state?.name?.let { state ->
                     when (state) {
-                        WorkInfo.State.SUCCEEDED.name -> mutableWorkerProgress.postValue(100)
+                        WorkInfo.State.SUCCEEDED.name -> mutableWorkerProgress.postValue(MAX_PROGRESS)
 
                         WorkInfo.State.FAILED.name -> {
                             it.outputData.getString(SyncDataWorker.WORK_STATUS)?.let { status ->

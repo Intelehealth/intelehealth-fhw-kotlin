@@ -5,13 +5,13 @@ import extensions.unitTestDeps
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    kotlin(Plugins.KAPT)
+    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.navigation.safe.args)
-    id(Plugins.PARCELIZE)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-//    alias(libs.plugins.detekt.plugin)
+    alias(libs.plugins.detekt.plugin)
 }
 
 apply("${rootProject.projectDir}/whitelabel.gradle")

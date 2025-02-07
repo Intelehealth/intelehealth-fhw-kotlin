@@ -1,169 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="4.3">
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/fragment/AboutUsFragment.kt">
-	<error line="11" column="64" severity="warning" message="The class or object AboutUsFragment is empty." source="detekt.EmptyClassBlock" />
-	<error line="13" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\fragment\AboutUsFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt">
+	<error line="348" column="18" severity="warning" message="Function onSensorChanged is nested too deeply." source="detekt.NestedBlockDepth" />
+	<error line="60" column="60" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="65" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="70" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="75" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="80" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="85" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="60" column="90" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="61" column="52" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="61" column="59" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="61" column="66" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="61" column="73" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="372" column="40" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="372" column="45" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="372" column="50" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="409" column="43" severity="warning" message="Function parameter `messageBody` is unused." source="detekt.UnusedParameter" />
+	<error line="55" column="17" severity="warning" message="Private property `sdf` is unused." source="detekt.UnusedPrivateProperty" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/fragment/HelpCenterFragment.kt">
-	<error line="11" column="67" severity="warning" message="The class or object HelpCenterFragment is empty." source="detekt.EmptyClassBlock" />
-	<error line="13" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\fragment\HelpCenterFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt">
+	<error line="148" column="17" severity="warning" message="The function observeLiveData appears to be too complex based on Cyclomatic Complexity (complexity: 16). Defined complexity threshold for methods is set to &apos;15&apos;" source="detekt.CyclomaticComplexMethod" />
+	<error line="49" column="16" severity="warning" message="Class &apos;CoreVideoCallActivity&apos; with &apos;45&apos; functions detected. Defined threshold inside classes is set to &apos;25&apos;" source="detekt.TooManyFunctions" />
+	<error line="182" column="17" severity="warning" message="This condition is too complex (5). Defined complexity threshold for conditions is set to &apos;4&apos;" source="detekt.ComplexCondition" />
+	<error line="268" column="23" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="495" column="43" severity="warning" message="Function parameter `reason` is unused." source="detekt.UnusedParameter" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/fragment/MyAchievementFragment.kt">
-	<error line="11" column="72" severity="warning" message="The class or object MyAchievementFragment is empty." source="detekt.EmptyClassBlock" />
-	<error line="11" column="74" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\fragment\MyAchievementFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt">
+	<error line="96" column="18" severity="warning" message="Function onTouch is nested too deeply." source="detekt.NestedBlockDepth" />
+	<error line="34" column="34" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="35" column="40" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="90" column="35" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="106" column="67" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="138" column="33" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="139" column="33" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="150" column="17" severity="warning" message="Private function `complete` is unused." source="detekt.UnusedPrivateMember" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/fragment/SettingFragment.kt">
-	<error line="11" column="64" severity="warning" message="The class or object SettingFragment is empty." source="detekt.EmptyClassBlock" />
-	<error line="13" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\fragment\SettingFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt">
+	<error line="169" column="25" severity="warning" message="The function collectEvents appears to be too complex based on Cyclomatic Complexity (complexity: 16). Defined complexity threshold for methods is set to &apos;15&apos;" source="detekt.CyclomaticComplexMethod" />
+	<error line="40" column="12" severity="warning" message="Class &apos;CallViewModel&apos; with &apos;40&apos; functions detected. Defined threshold inside classes is set to &apos;25&apos;" source="detekt.TooManyFunctions" />
+	<error line="453" column="22" severity="warning" message="The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled." source="detekt.TooGenericExceptionCaught" />
+	<error line="336" column="17" severity="warning" message="Private function `observeSpeaking` is unused." source="detekt.UnusedPrivateMember" />
+	<error line="376" column="17" severity="warning" message="Private function `checkRemoteParticipantConnectivity` is unused." source="detekt.UnusedPrivateMember" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt">
-	<error line="139" column="69" severity="warning" message="This empty block of code can be removed." source="detekt.EmptyFunctionBlock" />
-	<error line="144" column="70" severity="warning" message="This empty block of code can be removed." source="detekt.EmptyFunctionBlock" />
-	<error line="165" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\SplashFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="147" column="12" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-	<error line="152" column="31" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallHandlerUtils.kt">
+	<error line="28" column="8" severity="warning" message="Object &apos;CallHandlerUtils&apos; with &apos;14&apos; functions detected. Defined threshold inside objects is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+	<error line="77" column="53" severity="warning" message="Function parameter `context` is unused." source="detekt.UnusedParameter" />
+	<error line="115" column="44" severity="warning" message="Function parameter `context` is unused." source="detekt.UnusedParameter" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/activity/LoginActivity.kt">
-	<error line="10" column="42" severity="warning" message="The class or object LoginActivity is empty." source="detekt.EmptyClassBlock" />
-	<error line="10" column="44" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\activity\LoginActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallIntentUtils.kt">
+	<error line="23" column="8" severity="warning" message="Object &apos;CallIntentUtils&apos; with &apos;17&apos; functions detected. Defined threshold inside objects is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+	<error line="162" column="9" severity="warning" message="Function parameter `flag` is unused." source="detekt.UnusedParameter" />
+	<error line="25" column="23" severity="warning" message="Private property `REQUEST_CODE` is unused." source="detekt.UnusedPrivateProperty" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/OnboardingActivity.kt">
-	<error line="65" column="18" severity="warning" message="The caught exception is swallowed. The original exception could be lost." source="detekt.SwallowedException" />
-	<error line="73" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\activity\OnboardingActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallNotificationHandler.kt">
+	<error line="37" column="8" severity="warning" message="Object &apos;CallNotificationHandler&apos; with &apos;17&apos; functions detected. Defined threshold inside objects is set to &apos;11&apos;" source="detekt.TooManyFunctions" />
+	<error line="195" column="50" severity="warning" message="Function parameter `priority` is unused." source="detekt.UnusedParameter" />
+	<error line="256" column="17" severity="warning" message="Private function `getAudioAttributes` is unused." source="detekt.UnusedPrivateMember" />
+	<error line="265" column="17" severity="warning" message="Private function `getDefaultRingtoneUrl` is unused." source="detekt.UnusedPrivateMember" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/di/qualifier/Qualifier.kt">
-	<error line="13" column="18" severity="warning" message="The file name &apos;Qualifier&apos; does not match the name of the single top-level declaration &apos;ConfigWorkRequest&apos;." source="detekt.MatchingDeclarationName" />
-	<error line="13" column="35" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\di\qualifier\Qualifier.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/RtcEngine.kt">
+	<error line="28" column="18" severity="warning" message="An empty default constructor can be removed." source="detekt.EmptyDefaultConstructor" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/TestActivity.kt">
-	<error line="35" column="17" severity="warning" message="Private variable names should match the pattern: (_)?[a-z][A-Za-z0-9]*" source="detekt.VariableNaming" />
-	<error line="62" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\TestActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="35" column="17" severity="warning" message="Private property `TAG` is unused." source="detekt.UnusedPrivateProperty" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewholder/CallLogViewHolder.kt">
+	<error line="13" column="37" severity="warning" message="This empty block of code can be removed." source="detekt.EmptyFunctionBlock" />
+	<error line="13" column="14" severity="warning" message="Function parameter `callLog` is unused." source="detekt.UnusedParameter" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/utility/AppConstants.kt">
-	<error line="13" column="11" severity="warning" message="Top level constant names should match the pattern: [A-Z][_A-Z0-9]*" source="detekt.TopLevelPropertyNaming" />
-	<error line="27" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\utility\AppConstants.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt">
+	<error line="138" column="17" severity="warning" message="String.format(&quot;%02d:%02d:%02d&quot;, elapsedHours, elapsedMinutes, elapsedSeconds) uses implicitly default locale for string formatting." source="detekt.ImplicitDefaultLocale" />
+	<error line="126" column="82" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="129" column="40" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="130" column="51" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="131" column="49" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="145" column="82" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/di/module/AppModule.kt">
-	<error line="67" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\di\module\AppModule.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/CallLogHandler.kt">
+	<error line="20" column="17" severity="warning" message="Private property `preferenceHelper` is unused." source="detekt.UnusedPrivateProperty" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/address/GramPanchayat.kt">
-	<error line="40" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\address\GramPanchayat.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/httpclient/OkHttpClientProvider.kt">
+	<error line="18" column="29" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="19" column="26" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="20" column="27" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/address/ProvincesAndCities.kt">
-	<error line="14" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\address\ProvincesAndCities.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/model/CallArgs.kt">
+	<error line="122" column="1" severity="warning" message="Line detected, which is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/address/Village.kt">
-	<error line="36" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\address\Village.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/provider/LiveKitProvider.kt">
+	<error line="66" column="9" severity="warning" message="Function parameter `localVideoTrackOptions` is unused." source="detekt.UnusedParameter" />
+	<error line="68" column="9" severity="warning" message="Function parameter `videoTrackPublishDefaults` is unused." source="detekt.UnusedParameter" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/AppConfig.kt">
-	<error line="48" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\AppConfig.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/IDACallLogActivity.kt">
+	<error line="63" column="35" severity="warning" message="Function parameter `callLog` is unused." source="detekt.UnusedParameter" />
 </file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/Consent.kt">
-	<error line="34" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\Consent.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/model/IntroContent.kt">
-	<error line="84" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\model\IntroContent.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="40" column="12" severity="warning" message="The class IntroContent implements the `Serializable` interface and should thus define a `serialVersionUID`." source="detekt.SerialVersionUIDInSerializableClass" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/binding/ImageBindingAdapter.kt">
-	<error line="53" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\binding\ImageBindingAdapter.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="49" column="88" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/activity/HomeActivity.kt">
-	<error line="193" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\activity\HomeActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/fragment/HomeFragment.kt">
-	<error line="66" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\fragment\HomeFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/home/viewmodel/HomeViewModel.kt">
-	<error line="21" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\home\viewmodel\HomeViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/language/activity/LanguageActivity.kt">
-	<error line="71" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\language\activity\LanguageActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/language/adapter/LanguageAdapter.kt">
-	<error line="50" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\language\adapter\LanguageAdapter.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/language/fragment/LanguageFragment.kt">
-	<error line="49" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\language\fragment\LanguageFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/location/viewmodel/LocationViewModel.kt">
-	<error line="27" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\location\viewmodel\LocationViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/SyncActivity.kt">
-	<error line="45" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\activity\SyncActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="29" column="28" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/adapter/IntroPagerAdapter.kt">
-	<error line="24" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\adapter\IntroPagerAdapter.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/AyuPolicyFragment.kt">
-	<error line="93" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\AyuPolicyFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/ConsentFragment.kt">
-	<error line="311" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\ConsentFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroFragment.kt">
-	<error line="88" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\IntroFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroSlideFragment.kt">
-	<error line="44" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\IntroSlideFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SetupFragment.kt">
-	<error line="91" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\SetupFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SyncFragment.kt">
-	<error line="53" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\fragment\SyncFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="36" column="23" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/ConsentViewModel.kt">
-	<error line="134" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\viewmodel\ConsentViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/LauncherViewModel.kt">
-	<error line="88" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\viewmodel\LauncherViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/SyncDataViewModel.kt">
-	<error line="57" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\onboarding\viewmodel\SyncDataViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="39" column="90" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/patient/activity/PatientRegistrationActivity.kt">
-	<error line="18" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\patient\activity\PatientRegistrationActivity.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/specialization/SpecializationArrayAdapter.kt">
-	<error line="66" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\specialization\SpecializationArrayAdapter.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/AuthenticationFragment.kt">
-	<error line="145" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\AuthenticationFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/ChangePasswordFragment.kt">
-	<error line="21" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\ChangePasswordFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt">
-	<error line="116" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\ForgotPasswordFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="50" column="36" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-	<error line="56" column="104" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-	<error line="59" column="56" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/LoginFragment.kt">
-	<error line="70" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\LoginFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/OTPVerificationFragment.kt">
-	<error line="263" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\OTPVerificationFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="167" column="1" severity="warning" message="Line detected, which is longer than the defined maximum line length in the code style." source="detekt.MaxLineLength" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/fragment/ResetPasswordFragment.kt">
-	<error line="126" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\fragment\ResetPasswordFragment.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/ui/user/viewmodel/UserViewModel.kt">
-	<error line="144" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\ui\user\viewmodel\UserViewModel.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="129" column="14" severity="warning" message="Private property `i` is unused." source="detekt.UnusedPrivateProperty" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/main/java/org/intelehealth/app/utility/LanguageUtils.kt">
-	<error line="270" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\main\java\org\intelehealth\app\utility\LanguageUtils.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-</file>
-<file name="D:/Intelehealth/Projects/IDA/IDAV50/app/src/test/java/org/intelehealth/app/ExampleUnitTest.kt">
-	<error line="17" column="2" severity="warning" message="The file D:\Intelehealth\Projects\IDA\IDAV50\app\src\test\java\org\intelehealth\app\ExampleUnitTest.kt is not ending with a new line." source="detekt.NewLineAtEndOfFile" />
-	<error line="5" column="1" severity="warning" message="org.junit.Assert.* is a wildcard import. Replace it with fully qualified imports." source="detekt.WildcardImport" />
+<file name="D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeUpIndicator.kt">
+	<error line="30" column="69" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
+	<error line="33" column="29" severity="warning" message="This expression contains a magic number. Consider defining it to a well named constant." source="detekt.MagicNumber" />
 </file>
 </checkstyle>

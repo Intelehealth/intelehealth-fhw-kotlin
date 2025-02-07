@@ -118,6 +118,7 @@ fun ComponentActivity.gotoNextActivity(
     if (finish) finish()
 }
 
+@Suppress("DEPRECATION")
 fun ComponentActivity.changeLanguage(language: String): Context {
     if (!language.equals("", ignoreCase = true)) {
         Locale(language).apply {
@@ -139,4 +140,3 @@ fun ComponentActivity.changeLanguage(language: String): Context {
     }
     return this
 }
-

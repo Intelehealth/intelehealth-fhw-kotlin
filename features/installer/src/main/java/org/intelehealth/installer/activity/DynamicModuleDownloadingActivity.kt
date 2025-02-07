@@ -2,7 +2,6 @@ package org.intelehealth.installer.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.core.content.IntentCompat
 import androidx.core.view.isVisible
 import org.intelehealth.common.ui.activity.CircularProgressActivity
 import org.intelehealth.installer.R
@@ -17,7 +16,7 @@ import org.intelehealth.installer.downloader.DynamicModuleDownloadManager
 class DynamicModuleDownloadingActivity : CircularProgressActivity(), DynamicDeliveryCallback {
 
     private val downloadManager: DynamicModuleDownloadManager by lazy {
-        DynamicModuleDownloadManager.getInstance(this);
+        DynamicModuleDownloadManager.getInstance(this)
     }
 
     override fun onViewCreated() {
@@ -37,7 +36,7 @@ class DynamicModuleDownloadingActivity : CircularProgressActivity(), DynamicDeli
     private fun extractIntent() {
         intent?.let {
             if (it.hasExtra(EXT_MODULES)) {
-                val modules = IntentCompat.getSerializableExtra(it, EXT_MODULES, ArrayList::class.java)
+//                val modules = IntentCompat.getSerializableExtra(it, EXT_MODULES, ArrayList::class.java)
 //                downloadManager.downloadDynamicModules(modules)
             } else if (it.hasExtra(EXT_MODULE)) {
                 val module = it.getStringExtra(EXT_MODULE)

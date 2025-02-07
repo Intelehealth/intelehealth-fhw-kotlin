@@ -30,7 +30,7 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
         isTouchable = true
         isFocusable = true
         contentView = binding.root
-        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     fun showTooltip(anchor: View, message: String) {
@@ -41,7 +41,7 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
             anchorPosition[0], anchorPosition[1], anchorPosition[0] + anchor.width, anchorPosition[1] + anchor.height
         )
         contentView.measure(height, width)
-        val contentViewHeight = contentView.measuredHeight
+//        val contentViewHeight = contentView.measuredHeight
         val contentViewWidth = contentView.measuredWidth
         val positionX = anchorRect.centerX() - (contentViewWidth / 2)
         val positionY = anchorRect.bottom - (anchorRect.height() / 2)

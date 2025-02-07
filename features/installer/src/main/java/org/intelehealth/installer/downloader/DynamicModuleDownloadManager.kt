@@ -10,7 +10,6 @@ import com.google.android.play.core.splitinstall.SplitInstallSessionState
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallErrorCode
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import org.intelehealth.installer.helper.DownloadProgressNotificationHelper
 
 /**
  * Created by Vaghela Mithun R. on 09-10-2024 - 20:21.
@@ -123,8 +122,8 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
     }
 
     /** Install all features deferred. */
-    fun installAllFeaturesDeferred(modules: List<String>, callback: DynamicDeliveryCallback?) {
-
+//    fun installAllFeaturesDeferred(modules: List<String>, callback: DynamicDeliveryCallback?) {
+//
 //        splitInstallManager.sessionStates.addOnSuccessListener {
 //            println("${TAG}=>sessionStates=>Success")
 //        }.addOnFailureListener {
@@ -135,22 +134,22 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 //            println("${TAG}=>sessionStates=>Complete")
 //        }
 //        val modules = listOf(moduleKotlin, moduleJava, moduleAssets, moduleNative)
-        initNotification()
-        splitInstallManager.deferredInstall(modules).addOnSuccessListener {
-
-        }.addOnFailureListener { e ->
-            Log.d(TAG, "Exception: $e")
-            handleInstallFailure((e as SplitInstallException).errorCode)
-        }
-
-    }
+//        initNotification()
+//        splitInstallManager.deferredInstall(modules).addOnSuccessListener {
+//
+//        }.addOnFailureListener { e ->
+//            Log.d(TAG, "Exception: $e")
+//            handleInstallFailure((e as SplitInstallException).errorCode)
+//        }
+//
+//    }
 
     /** Request uninstall of all features. */
     fun requestUninstall() {
 
-        Log.d(
-            TAG, "Requesting uninstall of all modules. This will happen at some point in the future."
-        )
+//        Log.d(
+//            TAG, "Requesting uninstall of all modules. This will happen at some point in the future."
+//        )
 
         val installedModules = splitInstallManager.installedModules.toList()
         splitInstallManager.deferredUninstall(installedModules).addOnSuccessListener {
@@ -280,9 +279,9 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
         }
     }
 
-    private fun cancelNotificationWithMessage(message: String) {
+//    private fun cancelNotificationWithMessage(message: String) {
 //        downloadProgressHelper.setContent(message)
 //        downloadProgressHelper.startNotifying()
 //        downloadProgressHelper.cancelWithDelay(1000)
-    }
+//    }
 }

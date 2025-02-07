@@ -12,6 +12,7 @@ import org.intelehealth.config.presenter.feature.viewmodel.FeatureActiveStatusVi
  **/
 class FeatureActiveStatusViewModelFactory(private val repository: FeatureActiveStatusRepository) :
     ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return FeatureActiveStatusViewModel(repository) as T
     }

@@ -1,8 +1,6 @@
 package org.intelehealth.installer.popup
 
 import android.content.Context
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
@@ -39,16 +37,16 @@ abstract class DownloadPopupWindow(
         isOutsideTouchable = true
     }
 
-    fun startDownloading(module: String) {
+//    fun startDownloading(module: String) {
 //        if (downloadManager.isModuleDownloaded(module)) {
 //            listener.onDownloadCompleted()
 //        } else {
 //            //
-//        }
-        binding.btnClosePopup.setOnClickListener { dismiss() }
-        showAtLocation(anchor, Gravity.CENTER, anchor.pivotX.toInt(), anchor.pivotY.toInt())
-        Log.e("DownloadPopupWindow", "startDownloading: ")
-    }
+////        }
+//        binding.btnClosePopup.setOnClickListener { dismiss() }
+//        showAtLocation(anchor, Gravity.CENTER, anchor.pivotX.toInt(), anchor.pivotY.toInt())
+//        Log.e("DownloadPopupWindow", "startDownloading: ")
+//    }
 
     override fun onDismiss(menu: PopupMenu?) {
         downloadManager.unregisterListener()
@@ -56,7 +54,7 @@ abstract class DownloadPopupWindow(
 
     override fun onDownloading(percentage: Int) {
         binding.progressDownloading.progress = percentage
-        binding.txtDownloadStatus.text = context.getString(R.string.module_downloading, percentage.toString())
+        binding.txtDownloadStatus.text = context.getString(R.string.module_downloading)
     }
 
     override fun onDownloadCompleted() {

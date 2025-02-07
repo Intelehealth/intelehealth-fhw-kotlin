@@ -157,11 +157,11 @@
 
 <div>
   <ul>
-    <li>169 number of properties</li>
-    <li>204 number of functions</li>
-    <li>61 number of classes</li>
-    <li>23 number of packages</li>
-    <li>50 number of kt files</li>
+    <li>192 number of properties</li>
+    <li>268 number of functions</li>
+    <li>50 number of classes</li>
+    <li>17 number of packages</li>
+    <li>36 number of kt files</li>
   </ul>
 </div>
 
@@ -170,243 +170,527 @@
 
 <div>
   <ul>
-    <li>3,769 lines of code (loc)</li>
-    <li>2,350 source lines of code (sloc)</li>
-    <li>1,372 logical lines of code (lloc)</li>
-    <li>949 comment lines of code (cloc)</li>
-    <li>398 cyclomatic complexity (mcc)</li>
-    <li>216 cognitive complexity</li>
-    <li>70 number of total code smells</li>
-    <li>40% comment source ratio</li>
-    <li>290 mcc per 1,000 lloc</li>
-    <li>51 code smells per 1,000 lloc</li>
+    <li>3,819 lines of code (loc)</li>
+    <li>2,628 source lines of code (sloc)</li>
+    <li>1,822 logical lines of code (lloc)</li>
+    <li>669 comment lines of code (cloc)</li>
+    <li>512 cyclomatic complexity (mcc)</li>
+    <li>222 cognitive complexity</li>
+    <li>64 number of total code smells</li>
+    <li>25% comment source ratio</li>
+    <li>281 mcc per 1,000 lloc</li>
+    <li>35 code smells per 1,000 lloc</li>
   </ul>
 </div>
 
 
 <h2>Findings</h2>
-<div>Total: 70
-  <h3>empty-blocks: 6</h3>
-  <details id="EmptyClassBlock" open="open">
-    <summary class="rule-container"><span class="rule">EmptyClassBlock: 4 </span><span class="description">Empty block of code detected. As they serve no purpose they should be removed.</span></summary>
-<a href="https://detekt.dev/docs/rules/empty-blocks#emptyclassblock">Documentation</a>
+<div>Total: 64
+  <h3>complexity: 10</h3>
+  <details id="ComplexCondition" open="open">
+    <summary class="rule-container"><span class="rule">ComplexCondition: 1 </span><span class="description">Complex conditions should be simplified and extracted into well-named methods if necessary.</span></summary>
+<a href="https://detekt.dev/docs/rules/complexity#complexcondition">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/HelpCenterFragment.kt:11:67</span><span class="message">The class or object HelpCenterFragment is empty.</span>
-        <pre><code><span class="lineno">   8 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   9 </span> * Mob   : +919727206702
-<span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class HelpCenterFragment: Fragment(R.layout.fragment_help_center) <span class="error">{</span>
-<span class="lineno">  12 </span><span class="error"></span>
-<span class="lineno">  13 </span><span class="error">}</span>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt:182:17</span><span class="message">This condition is too complex (5). Defined complexity threshold for conditions is set to '4'</span>
+        <pre><code><span class="lineno"> 179 </span>        }
+<span class="lineno"> 180 </span>        socketViewModel.eventCallCancelByDoctor.observe(this) {
+<span class="lineno"> 181 </span>            Timber.e { &quot;args ${args.toJson()}&quot; }
+<span class="lineno"> 182 </span>            if (<span class="error">it &amp;&amp; args.isIncomingCall() &amp;&amp; isDeclined.not() &amp;&amp; args.isCallAccepted().not() &amp;&amp; args.isMissedCall()</span>
+<span class="lineno"> 183 </span><span class="error">                    .not()</span>
+<span class="lineno"> 184 </span>            ) {
+<span class="lineno"> 185 </span>                args.callStatus = CallStatus.MISSED
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/MyAchievementFragment.kt:11:72</span><span class="message">The class or object MyAchievementFragment is empty.</span>
-        <pre><code><span class="lineno">   8 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   9 </span> * Mob   : +919727206702
-<span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class MyAchievementFragment : Fragment(R.layout.fragment_achievements) <span class="error">{}</span>
+    </ul>
+  </details>
+  <details id="CyclomaticComplexMethod" open="open">
+    <summary class="rule-container"><span class="rule">CyclomaticComplexMethod: 2 </span><span class="description">Prefer splitting up complex methods into smaller, easier to test methods.</span></summary>
+<a href="https://detekt.dev/docs/rules/complexity#cyclomaticcomplexmethod">Documentation</a>
+    <ul>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt:148:17</span><span class="message">The function observeLiveData appears to be too complex based on Cyclomatic Complexity (complexity: 16). Defined complexity threshold for methods is set to '15'</span>
+        <pre><code><span class="lineno"> 145 </span>        }
+<span class="lineno"> 146 </span>    }
+<span class="lineno"> 147 </span>
+<span class="lineno"> 148 </span>    private fun <span class="error">observeLiveData</span>() {
+<span class="lineno"> 149 </span>        videoCallViewModel.callEnd.observe(this) { if (it) onCallEnd() }
+<span class="lineno"> 150 </span>        videoCallViewModel.sayGoodBye.observe(this) { if (it) sayBye(&quot;Call ended by you&quot;) }
+<span class="lineno"> 151 </span>//        videoCallViewModel.microphonePluggedStatus.observe(this) {
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/SettingFragment.kt:11:64</span><span class="message">The class or object SettingFragment is empty.</span>
-        <pre><code><span class="lineno">   8 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   9 </span> * Mob   : +919727206702
-<span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class SettingFragment: Fragment(R.layout.fragment_help_center) <span class="error">{</span>
-<span class="lineno">  12 </span><span class="error"></span>
-<span class="lineno">  13 </span><span class="error">}</span>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt:169:25</span><span class="message">The function collectEvents appears to be too complex based on Cyclomatic Complexity (complexity: 16). Defined complexity threshold for methods is set to '15'</span>
+        <pre><code><span class="lineno"> 166 </span>        }
+<span class="lineno"> 167 </span>    }
+<span class="lineno"> 168 </span>
+<span class="lineno"> 169 </span>    private suspend fun <span class="error">collectEvents</span>() {
+<span class="lineno"> 170 </span>        room.state.name
+<span class="lineno"> 171 </span>        room.events.collect {
+<span class="lineno"> 172 </span>            Timber.e { &quot;Room event: $it&quot; }
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/activity/LoginActivity.kt:10:42</span><span class="message">The class or object LoginActivity is empty.</span>
-        <pre><code><span class="lineno">   7 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   8 </span> * Mob   : +919727206702
-<span class="lineno">   9 </span> **/
-<span class="lineno">  10 </span>class LoginActivity: AppCompatActivity() <span class="error">{}</span>
+    </ul>
+  </details>
+  <details id="NestedBlockDepth" open="open">
+    <summary class="rule-container"><span class="rule">NestedBlockDepth: 2 </span><span class="description">Excessive nesting leads to hidden complexity. Prefer extracting code to make it easier to understand.</span></summary>
+<a href="https://detekt.dev/docs/rules/complexity#nestedblockdepth">Documentation</a>
+    <ul>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:348:18</span><span class="message">Function onSensorChanged is nested too deeply.</span>
+        <pre><code><span class="lineno"> 345 </span>        CallNotificationHandler.cancelNotification(notificationId, this)
+<span class="lineno"> 346 </span>    }
+<span class="lineno"> 347 </span>
+<span class="lineno"> 348 </span>    override fun <span class="error">onSensorChanged</span>(event: SensorEvent?) {
+<span class="lineno"> 349 </span>
+<span class="lineno"> 350 </span>        Timber.d { &quot;OnSensorChanged **** &quot; }
+<span class="lineno"> 351 </span>
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:96:18</span><span class="message">Function onTouch is nested too deeply.</span>
+        <pre><code><span class="lineno">  93 </span>        bounceAnimator.start()
+<span class="lineno">  94 </span>    }
+<span class="lineno">  95 </span>
+<span class="lineno">  96 </span>    override fun <span class="error">onTouch</span>(view: View?, event: MotionEvent?): Boolean {
+<span class="lineno">  97 </span>        view ?: return false
+<span class="lineno">  98 </span>        event?.let {
+<span class="lineno">  99 </span>            if (viewY == 0f) viewY = view.y
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <details id="TooManyFunctions" open="open">
+    <summary class="rule-container"><span class="rule">TooManyFunctions: 5 </span><span class="description">Too many functions inside a/an file/class/object/interface always indicate a violation of the single responsibility principle. Maybe the file/class/object/interface wants to manage too many things at once. Extract functionality which clearly belongs together.</span></summary>
+<a href="https://detekt.dev/docs/rules/complexity#toomanyfunctions">Documentation</a>
+    <ul>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt:49:16</span><span class="message">Class 'CoreVideoCallActivity' with '45' functions detected. Defined threshold inside classes is set to '25'</span>
+        <pre><code><span class="lineno">  46 </span> * Email : mithun@intelehealth.org
+<span class="lineno">  47 </span> * Mob   : +919727206702
+<span class="lineno">  48 </span> **/
+<span class="lineno">  49 </span>abstract class <span class="error">CoreVideoCallActivity</span> : BaseSplitCompActivity() {
+<span class="lineno">  50 </span>
+<span class="lineno">  51 </span>    protected lateinit var args: CallArgs
+<span class="lineno">  52 </span>    private var isDeclined: Boolean = false
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt:40:12</span><span class="message">Class 'CallViewModel' with '40' functions detected. Defined threshold inside classes is set to '25'</span>
+        <pre><code><span class="lineno">  37 </span>import org.intelehealth.common.extensions.hide
+<span class="lineno">  38 </span>import kotlin.coroutines.coroutineContext
+<span class="lineno">  39 </span>
+<span class="lineno">  40 </span>open class <span class="error">CallViewModel</span>(
+<span class="lineno">  41 </span>    private val url: String,
+<span class="lineno">  42 </span>    private val token: String,
+<span class="lineno">  43 </span>    private val application: Application
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallHandlerUtils.kt:28:8</span><span class="message">Object 'CallHandlerUtils' with '14' functions detected. Defined threshold inside objects is set to '11'</span>
+        <pre><code><span class="lineno">  25 </span> * Created by Vaghela Mithun R. on 8/28/2021.
+<span class="lineno">  26 </span> * vaghela@codeglo.com
+<span class="lineno">  27 </span> */
+<span class="lineno">  28 </span>object <span class="error">CallHandlerUtils</span> {
+<span class="lineno">  29 </span>
+<span class="lineno">  30 </span>    private var mediaPlayer: MediaPlayer? = null
+<span class="lineno">  31 </span>
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallIntentUtils.kt:23:8</span><span class="message">Object 'CallIntentUtils' with '17' functions detected. Defined threshold inside objects is set to '11'</span>
+        <pre><code><span class="lineno">  20 </span> * Created by Vaghela Mithun R. on 8/30/2021.
+<span class="lineno">  21 </span> * vaghela@codeglo.com
+<span class="lineno">  22 </span> */
+<span class="lineno">  23 </span>object <span class="error">CallIntentUtils</span> {
+<span class="lineno">  24 </span>
+<span class="lineno">  25 </span>    private const val REQUEST_CODE = 10001
+<span class="lineno">  26 </span>    private const val CALL_RECEIVER_ACTION = &quot;CALL_RECEIVER_ACTION&quot;
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallNotificationHandler.kt:37:8</span><span class="message">Object 'CallNotificationHandler' with '17' functions detected. Defined threshold inside objects is set to '11'</span>
+        <pre><code><span class="lineno">  34 </span> * Created by Vaghela Mithun R. on 8/28/2021.
+<span class="lineno">  35 </span> * vaghela@codeglo.com
+<span class="lineno">  36 </span> */
+<span class="lineno">  37 </span>object <span class="error">CallNotificationHandler</span> {
+<span class="lineno">  38 </span>
+<span class="lineno">  39 </span>    private const val NOTIFICATION_CHANNEL_ID = &quot;CHANNEL_ID&quot;
+<span class="lineno">  40 </span>    private const val NOTIFICATION_CHANNEL_NAME = &quot;CHANNEL_NAME&quot;
+</code></pre>
+      </li>
+    </ul>
+  </details>
+  <h3>empty-blocks: 2</h3>
+  <details id="EmptyDefaultConstructor" open="open">
+    <summary class="rule-container"><span class="rule">EmptyDefaultConstructor: 1 </span><span class="description">Empty block of code detected. As they serve no purpose they should be removed.</span></summary>
+<a href="https://detekt.dev/docs/rules/empty-blocks#emptydefaultconstructor">Documentation</a>
+    <ul>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/RtcEngine.kt:28:18</span><span class="message">An empty default constructor can be removed.</span>
+        <pre><code><span class="lineno">  25 </span>    val callLogIntentClass: String
+<span class="lineno">  26 </span>) {
+<span class="lineno">  27 </span>
+<span class="lineno">  28 </span>    class Builder<span class="error">()</span> {
+<span class="lineno">  29 </span>        private var callUrl: String = &quot;&quot;
+<span class="lineno">  30 </span>        private var socketUrl: String = &quot;&quot;
+<span class="lineno">  31 </span>        private var callIntentClass: Class&lt;*&gt;? = null
 </code></pre>
       </li>
     </ul>
   </details>
   <details id="EmptyFunctionBlock" open="open">
-    <summary class="rule-container"><span class="rule">EmptyFunctionBlock: 2 </span><span class="description">Empty block of code detected. As they serve no purpose they should be removed.</span></summary>
+    <summary class="rule-container"><span class="rule">EmptyFunctionBlock: 1 </span><span class="description">Empty block of code detected. As they serve no purpose they should be removed.</span></summary>
 <a href="https://detekt.dev/docs/rules/empty-blocks#emptyfunctionblock">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt:139:69</span><span class="message">This empty block of code can be removed.</span>
-        <pre><code><span class="lineno"> 136 </span>            translateAnim.isFillEnabled = true
-<span class="lineno"> 137 </span>            translateAnim.fillBefore = false
-<span class="lineno"> 138 </span>            translateAnim.setAnimationListener(object : Animation.AnimationListener {
-<span class="lineno"> 139 </span>                override fun onAnimationStart(animation: Animation) <span class="error">{}</span>
-<span class="lineno"> 140 </span>                override fun onAnimationEnd(animation: Animation) {
-<span class="lineno"> 141 </span>                    showChooseLanguageUI(true)
-<span class="lineno"> 142 </span>                }
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt:144:70</span><span class="message">This empty block of code can be removed.</span>
-        <pre><code><span class="lineno"> 141 </span>                    showChooseLanguageUI(true)
-<span class="lineno"> 142 </span>                }
-<span class="lineno"> 143 </span>
-<span class="lineno"> 144 </span>                override fun onAnimationRepeat(animation: Animation) <span class="error">{}</span>
-<span class="lineno"> 145 </span>            })
-<span class="lineno"> 146 </span>            binding.layoutChild1.startAnimation(translateAnim)
-<span class="lineno"> 147 </span>        }, 500)
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewholder/CallLogViewHolder.kt:13:37</span><span class="message">This empty block of code can be removed.</span>
+        <pre><code><span class="lineno">  10 </span> * Mob   : +919727206702
+<span class="lineno">  11 </span> **/
+<span class="lineno">  12 </span>class CallLogViewHolder(private val binding: RowItemCallLogBinding) : BaseViewHolder(binding.root) {
+<span class="lineno">  13 </span>    fun bind(callLog: VideoCallLog) <span class="error">{</span>
+<span class="lineno">  14 </span><span class="error"></span>
+<span class="lineno">  15 </span><span class="error">    }</span>
+<span class="lineno">  16 </span>}
 </code></pre>
       </li>
     </ul>
   </details>
   <h3>exceptions: 1</h3>
-  <details id="SwallowedException" open="open">
-    <summary class="rule-container"><span class="rule">SwallowedException: 1 </span><span class="description">The caught exception is swallowed. The original exception could be lost.</span></summary>
-<a href="https://detekt.dev/docs/rules/exceptions#swallowedexception">Documentation</a>
+  <details id="TooGenericExceptionCaught" open="open">
+    <summary class="rule-container"><span class="rule">TooGenericExceptionCaught: 1 </span><span class="description">The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled.</span></summary>
+<a href="https://detekt.dev/docs/rules/exceptions#toogenericexceptioncaught">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/OnboardingActivity.kt:65:18</span><span class="message">The caught exception is swallowed. The original exception could be lost.</span>
-        <pre><code><span class="lineno">  62 </span>    private fun updateApp() {
-<span class="lineno">  63 </span>        try {
-<span class="lineno">  64 </span>            startActivity(getAppIntent(getAppMarketUrl(this@OnboardingActivity)))
-<span class="lineno">  65 </span>        } catch (<span class="error">e: ActivityNotFoundException</span>) {
-<span class="lineno">  66 </span>            startActivity(getAppIntent(getAppPlayStoreUrl(this@OnboardingActivity)))
-<span class="lineno">  67 </span>        }
-<span class="lineno">  68 </span>    }
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt:453:22</span><span class="message">The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled.</span>
+        <pre><code><span class="lineno"> 450 </span>
+<span class="lineno"> 451 </span>                setupLocalTrack()
+<span class="lineno"> 452 </span>                setupRemoteTrack()
+<span class="lineno"> 453 </span>            } catch (<span class="error">e: Throwable</span>) {
+<span class="lineno"> 454 </span>                mutableError.value = e
+<span class="lineno"> 455 </span>            }
+<span class="lineno"> 456 </span>        }
 </code></pre>
       </li>
     </ul>
   </details>
-  <h3>naming: 3</h3>
-  <details id="MatchingDeclarationName" open="open">
-    <summary class="rule-container"><span class="rule">MatchingDeclarationName: 1 </span><span class="description">If a source file contains only a single non-private top-level class or object, the file name should reflect the case-sensitive name plus the .kt extension.</span></summary>
-<a href="https://detekt.dev/docs/rules/naming#matchingdeclarationname">Documentation</a>
+  <h3>potential-bugs: 1</h3>
+  <details id="ImplicitDefaultLocale" open="open">
+    <summary class="rule-container"><span class="rule">ImplicitDefaultLocale: 1 </span><span class="description">Implicit default locale used for string processing. Consider using explicit locale.</span></summary>
+<a href="https://detekt.dev/docs/rules/potential-bugs#implicitdefaultlocale">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/di/qualifier/Qualifier.kt:13:18</span><span class="message">The file name 'Qualifier' does not match the name of the single top-level declaration 'ConfigWorkRequest'.</span>
-        <pre><code><span class="lineno">  10 </span>
-<span class="lineno">  11 </span>@Qualifier
-<span class="lineno">  12 </span>@Retention(AnnotationRetention.BINARY)
-<span class="lineno">  13 </span>annotation class <span class="error">ConfigWorkRequest</span>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:138:17</span><span class="message">String.format(&quot;%02d:%02d:%02d&quot;, elapsedHours, elapsedMinutes, elapsedSeconds) uses implicitly default locale for string formatting.</span>
+        <pre><code><span class="lineno"> 135 </span>            timerMilli %= minutesInMilli
+<span class="lineno"> 136 </span>            val elapsedSeconds = timerMilli / secondsInMilli
+<span class="lineno"> 137 </span>            val displayTimeString =
+<span class="lineno"> 138 </span>                <span class="error">String.format(&quot;%02d:%02d:%02d&quot;, elapsedHours, elapsedMinutes, elapsedSeconds)</span>
+<span class="lineno"> 139 </span>            callDurationTimerData.postValue(displayTimeString)
+<span class="lineno"> 140 </span>        }
+<span class="lineno"> 141 </span>
 </code></pre>
       </li>
     </ul>
   </details>
-  <details id="TopLevelPropertyNaming" open="open">
-    <summary class="rule-container"><span class="rule">TopLevelPropertyNaming: 1 </span><span class="description">Top level property names should follow the naming convention set in the projects configuration.</span></summary>
-<a href="https://detekt.dev/docs/rules/naming#toplevelpropertynaming">Documentation</a>
-    <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/utility/AppConstants.kt:13:11</span><span class="message">Top level constant names should match the pattern: [A-Z][_A-Z0-9]*</span>
-        <pre><code><span class="lineno">  10 </span>
-<span class="lineno">  11 </span>const val KEY_FORCE_UPDATE_VERSION_CODE = &quot;force_update_version_code&quot;
-<span class="lineno">  12 </span>const val JSON_FOLDER = &quot;Engines&quot;
-<span class="lineno">  13 </span>const val <span class="error">JSON_FOLDER_Update</span> = &quot;Engines_Update&quot;
-<span class="lineno">  14 </span>const val CONFIG_FILE_NAME = &quot;config.json&quot;
-<span class="lineno">  15 </span>const val ASSET_FILE_CONSENT = &quot;consent.json&quot;
-<span class="lineno">  16 </span>const val TRIAGING_RULE_FILE_NAME = &quot;triaging_referral_rules.json&quot;
-</code></pre>
-      </li>
-    </ul>
-  </details>
-  <details id="VariableNaming" open="open">
-    <summary class="rule-container"><span class="rule">VariableNaming: 1 </span><span class="description">Variable names should follow the naming convention set in the projects configuration.</span></summary>
-<a href="https://detekt.dev/docs/rules/naming#variablenaming">Documentation</a>
-    <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/TestActivity.kt:35:17</span><span class="message">Private variable names should match the pattern: (_)?[a-z][A-Za-z0-9]*</span>
-        <pre><code><span class="lineno">  32 </span>
-<span class="lineno">  33 </span>    private val languageViewModel by viewModels&lt;LanguageViewModel&gt;()
-<span class="lineno">  34 </span>
-<span class="lineno">  35 </span>    private val <span class="error">TAG</span> = TestActivity::class.java.simpleName
-<span class="lineno">  36 </span>
-<span class="lineno">  37 </span>    private val binding: ActivityTestBinding by lazy {
-<span class="lineno">  38 </span>        ActivityTestBinding.inflate(layoutInflater)
-</code></pre>
-      </li>
-    </ul>
-  </details>
-  <h3>style: 60</h3>
+  <h3>style: 50</h3>
   <details id="MagicNumber" open="open">
-    <summary class="rule-container"><span class="rule">MagicNumber: 9 </span><span class="description">Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.</span></summary>
+    <summary class="rule-container"><span class="rule">MagicNumber: 31 </span><span class="description">Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#magicnumber">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/binding/ImageBindingAdapter.kt:49:88</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  46 </span>@BindingAdapter(&quot;profileUrl&quot;)
-<span class="lineno">  47 </span>fun bindProfileImage(imageView: ImageView?, url: String?) {
-<span class="lineno">  48 </span>    if (imageView != null &amp;&amp; !url.isNullOrEmpty()) {
-<span class="lineno">  49 </span>        val requestBuilder = Glide.with(imageView.context).asDrawable().sizeMultiplier(<span class="error">0.25f</span>)
-<span class="lineno">  50 </span>        Glide.with(imageView.context).load(File(url)).thumbnail(requestBuilder).centerCrop()
-<span class="lineno">  51 </span>            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imageView)
-<span class="lineno">  52 </span>    }
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/httpclient/OkHttpClientProvider.kt:18:29</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  15 </span>
+<span class="lineno">  16 </span>    private fun provideOkHttpBuilder(interceptor: HttpLoggingInterceptor) =
+<span class="lineno">  17 </span>        OkHttpClient.Builder().retryOnConnectionFailure(true)
+<span class="lineno">  18 </span>            .connectTimeout(<span class="error">60</span>, TimeUnit.SECONDS)
+<span class="lineno">  19 </span>            .readTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  20 </span>            .writeTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  21 </span>            .addInterceptor(interceptor)
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/SyncActivity.kt:29:28</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  26 </span>        progressTask(&quot;Syncing...&quot;)
-<span class="lineno">  27 </span>        SyncDataWorker.startSyncWorker(this) {
-<span class="lineno">  28 </span>            if (it.state == WorkInfo.State.SUCCEEDED) {
-<span class="lineno">  29 </span>                onProgress(<span class="error">100</span>)
-<span class="lineno">  30 </span>                runOnUiThread { progressTask(&quot;Sync Completed&quot;) }
-<span class="lineno">  31 </span>            } else {
-<span class="lineno">  32 </span>                val progress = it.progress.getInt(SyncDataWorker.WORK_PROGRESS, 0)
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/httpclient/OkHttpClientProvider.kt:19:26</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  16 </span>    private fun provideOkHttpBuilder(interceptor: HttpLoggingInterceptor) =
+<span class="lineno">  17 </span>        OkHttpClient.Builder().retryOnConnectionFailure(true)
+<span class="lineno">  18 </span>            .connectTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  19 </span>            .readTimeout(<span class="error">60</span>, TimeUnit.SECONDS)
+<span class="lineno">  20 </span>            .writeTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  21 </span>            .addInterceptor(interceptor)
+<span class="lineno">  22 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt:147:12</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno"> 144 </span>                override fun onAnimationRepeat(animation: Animation) {}
-<span class="lineno"> 145 </span>            })
-<span class="lineno"> 146 </span>            binding.layoutChild1.startAnimation(translateAnim)
-<span class="lineno"> 147 </span>        }, <span class="error">500</span>)
-<span class="lineno"> 148 </span>    }
-<span class="lineno"> 149 </span>
-<span class="lineno"> 150 </span>    private fun showChooseLanguageUI(show: Boolean) {
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/httpclient/OkHttpClientProvider.kt:20:27</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  17 </span>        OkHttpClient.Builder().retryOnConnectionFailure(true)
+<span class="lineno">  18 </span>            .connectTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  19 </span>            .readTimeout(60, TimeUnit.SECONDS)
+<span class="lineno">  20 </span>            .writeTimeout(<span class="error">60</span>, TimeUnit.SECONDS)
+<span class="lineno">  21 </span>            .addInterceptor(interceptor)
+<span class="lineno">  22 </span>
+<span class="lineno">  23 </span>    private fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt:152:31</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno"> 149 </span>
-<span class="lineno"> 150 </span>    private fun showChooseLanguageUI(show: Boolean) {
-<span class="lineno"> 151 </span>        val transition: Transition = Slide(Gravity.BOTTOM)
-<span class="lineno"> 152 </span>        transition.duration = <span class="error">2000</span>
-<span class="lineno"> 153 </span>        transition.addTarget(R.id.layout_panel)
-<span class="lineno"> 154 </span>        TransitionManager.beginDelayedTransition(binding.layoutParent, transition)
-<span class="lineno"> 155 </span>        binding.layoutPanel.visibility = if (show) View.VISIBLE else View.GONE
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:60</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, <span class="error">100</span>, 800, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SyncFragment.kt:36:23</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  33 </span>    private fun handleDataSyncProgress() {
-<span class="lineno">  34 </span>        viewModel.workerProgress.observe(viewLifecycleOwner) {
-<span class="lineno">  35 </span>            onProgress(it)
-<span class="lineno">  36 </span>            if (it == <span class="error">100</span>) {
-<span class="lineno">  37 </span>                progressTask(getString(ResourceR.string.content_synced))
-<span class="lineno">  38 </span>                preferenceUtils.initialLaunchStatus = false
-<span class="lineno">  39 </span>                findNavController().navigate(SyncFragmentDirections.actionSyncToHome())
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:65</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, <span class="error">800</span>, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/SyncDataViewModel.kt:39:90</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  36 </span>            workManager.getWorkInfoByIdFlow(configWorkRequest.id).collect {
-<span class="lineno">  37 </span>                it?.state?.name?.let { state -&gt;
-<span class="lineno">  38 </span>                    when (state) {
-<span class="lineno">  39 </span>                        WorkInfo.State.SUCCEEDED.name -&gt; mutableWorkerProgress.postValue(<span class="error">100</span>)
-<span class="lineno">  40 </span>
-<span class="lineno">  41 </span>                        WorkInfo.State.FAILED.name -&gt; {
-<span class="lineno">  42 </span>                            it.outputData.getString(SyncDataWorker.WORK_STATUS)?.let { status -&gt;
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:70</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, <span class="error">100</span>, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt:50:36</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  47 </span>        }
-<span class="lineno">  48 </span>
-<span class="lineno">  49 </span>        if (binding.ccSpinnerForgotPassword.selectedCountryCode == IND_COUNTRY_CODE) {
-<span class="lineno">  50 </span>            binding.mobileLength = <span class="error">10</span>
-<span class="lineno">  51 </span>        }
-<span class="lineno">  52 </span>    }
-<span class="lineno">  53 </span>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:75</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, <span class="error">800</span>, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt:56:104</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  53 </span>
-<span class="lineno">  54 </span>    private fun changeContinueButtonStateOnTextChange() {
-<span class="lineno">  55 </span>        binding.textInputFPUsername.doOnTextChanged { text, _, _, _ -&gt;
-<span class="lineno">  56 </span>            binding.btnForgotPasswordContinue.isEnabled = (text?.isNotEmpty() == true &amp;&amp; text.length &gt; <span class="error">5</span>)
-<span class="lineno">  57 </span>        }
-<span class="lineno">  58 </span>        binding.textInputMobileNumber.doOnTextChanged { text, _, _, _ -&gt;
-<span class="lineno">  59 </span>            val mobileLength = binding.mobileLength ?: 10
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:80</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, <span class="error">100</span>, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt:59:56</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno">  56 </span>            binding.btnForgotPasswordContinue.isEnabled = (text?.isNotEmpty() == true &amp;&amp; text.length &gt; 5)
-<span class="lineno">  57 </span>        }
-<span class="lineno">  58 </span>        binding.textInputMobileNumber.doOnTextChanged { text, _, _, _ -&gt;
-<span class="lineno">  59 </span>            val mobileLength = binding.mobileLength ?: <span class="error">10</span>
-<span class="lineno">  60 </span>            val enable = (text?.isNotEmpty() == true &amp;&amp; text.length == mobileLength)
-<span class="lineno">  61 </span>            binding.btnForgotPasswordContinue.isEnabled = enable
-<span class="lineno">  62 </span>        }
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:85</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, <span class="error">800</span>, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:60:90</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, <span class="error">100</span>)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:61:52</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, <span class="error">50</span>, 0, 50, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+<span class="lineno">  64 </span>    private val audioManager by lazy {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:61:59</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, <span class="error">50</span>, 0, 50, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+<span class="lineno">  64 </span>    private val audioManager by lazy {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:61:66</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, <span class="error">50</span>, 0, 50)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+<span class="lineno">  64 </span>    private val audioManager by lazy {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:61:73</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  58 </span>
+<span class="lineno">  59 </span>    //[0] initial delay then subsequent vibrate &amp; pause
+<span class="lineno">  60 </span>    private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, 100)
+<span class="lineno">  61 </span>    private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, <span class="error">50</span>)
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>
+<span class="lineno">  64 </span>    private val audioManager by lazy {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:372:40</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 369 </span>                            } else {
+<span class="lineno"> 370 </span>                                Timber.d { &quot;Not held wake lock ***** &quot; }
+<span class="lineno"> 371 </span>                            }
+<span class="lineno"> 372 </span>                            it.acquire(<span class="error">10</span> * 60 * 1000L)
+<span class="lineno"> 373 </span>                        }
+<span class="lineno"> 374 </span>                    } else {
+<span class="lineno"> 375 </span>                        Timber.d { &quot;wake lock not supported ****** &quot; }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:372:45</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 369 </span>                            } else {
+<span class="lineno"> 370 </span>                                Timber.d { &quot;Not held wake lock ***** &quot; }
+<span class="lineno"> 371 </span>                            }
+<span class="lineno"> 372 </span>                            it.acquire(10 * <span class="error">60</span> * 1000L)
+<span class="lineno"> 373 </span>                        }
+<span class="lineno"> 374 </span>                    } else {
+<span class="lineno"> 375 </span>                        Timber.d { &quot;wake lock not supported ****** &quot; }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:372:50</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 369 </span>                            } else {
+<span class="lineno"> 370 </span>                                Timber.d { &quot;Not held wake lock ***** &quot; }
+<span class="lineno"> 371 </span>                            }
+<span class="lineno"> 372 </span>                            it.acquire(10 * 60 * <span class="error">1000L</span>)
+<span class="lineno"> 373 </span>                        }
+<span class="lineno"> 374 </span>                    } else {
+<span class="lineno"> 375 </span>                        Timber.d { &quot;wake lock not supported ****** &quot; }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt:268:23</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 265 </span>            }
+<span class="lineno"> 266 </span>//        socketViewModel.eventBye.observe(this) { if (it) sayBye() }
+<span class="lineno"> 267 </span>            lifecycleScope.launch {
+<span class="lineno"> 268 </span>                delay(<span class="error">1000</span>)
+<span class="lineno"> 269 </span>                Timber.e { &quot;Socket connected =&gt;${socketViewModel.isConnected()}&quot; }
+<span class="lineno"> 270 </span>            }
+<span class="lineno"> 271 </span>        }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:34:34</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  31 </span>    private var btnIcon: Int = R.drawable.ic_call_accept
+<span class="lineno">  32 </span>    private var btnColor: Int = R.color.colorIncomingCall
+<span class="lineno">  33 </span>    private var btnSize: Int = org.intelehealth.resource.R.dimen.fabDefaultSize
+<span class="lineno">  34 </span>    private var animDelay: Int = <span class="error">500</span>
+<span class="lineno">  35 </span>    private var animDistance: Float = -150f
+<span class="lineno">  36 </span>    private var arrowVisibility = true
+<span class="lineno">  37 </span>
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:35:40</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  32 </span>    private var btnColor: Int = R.color.colorIncomingCall
+<span class="lineno">  33 </span>    private var btnSize: Int = org.intelehealth.resource.R.dimen.fabDefaultSize
+<span class="lineno">  34 </span>    private var animDelay: Int = 500
+<span class="lineno">  35 </span>    private var animDistance: Float = -<span class="error">150f</span>
+<span class="lineno">  36 </span>    private var arrowVisibility = true
+<span class="lineno">  37 </span>
+<span class="lineno">  38 </span>    interface SwipeEventListener {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:90:35</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  87 </span>        bounceAnimator = ObjectAnimator.ofFloat(binding.fabAction, &quot;translationY&quot;, animDistance, 0f)
+<span class="lineno">  88 </span>        bounceAnimator.interpolator = BounceInterpolator()
+<span class="lineno">  89 </span>        bounceAnimator.startDelay = animDelay.toLong()
+<span class="lineno">  90 </span>        bounceAnimator.duration = <span class="error">2500</span>
+<span class="lineno">  91 </span>        bounceAnimator.repeatCount = ValueAnimator.INFINITE
+<span class="lineno">  92 </span>        bounceAnimator.repeatMode = ValueAnimator.REVERSE
+<span class="lineno">  93 </span>        bounceAnimator.start()
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:106:67</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 103 </span>                MotionEvent.ACTION_MOVE -&gt; {
+<span class="lineno"> 104 </span>                    view.animate().y(newY)
+<span class="lineno"> 105 </span>                        .setDuration(0)
+<span class="lineno"> 106 </span>                        .alpha(1 - (swipe / MIN_SWIPE_DISTANCE) + <span class="error">0.2f</span>)
+<span class="lineno"> 107 </span>                        .start()
+<span class="lineno"> 108 </span>                    if (::swipeEventListener.isInitialized) swipeEventListener.onSwipe(this)
+<span class="lineno"> 109 </span>                    if (swipe &gt; MIN_SWIPE_DISTANCE)
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:138:33</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 135 </span>                    binding.swipeUpIndicator.isVisible = false
+<span class="lineno"> 136 </span>                    bounceAnimator.pause()
+<span class="lineno"> 137 </span>                    view.animate()
+<span class="lineno"> 138 </span>                        .scaleX(<span class="error">1.2f</span>)
+<span class="lineno"> 139 </span>                        .scaleY(1.2f)
+<span class="lineno"> 140 </span>                        .setDuration(0)
+<span class="lineno"> 141 </span>                        .start()
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:139:33</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 136 </span>                    bounceAnimator.pause()
+<span class="lineno"> 137 </span>                    view.animate()
+<span class="lineno"> 138 </span>                        .scaleX(1.2f)
+<span class="lineno"> 139 </span>                        .scaleY(<span class="error">1.2f</span>)
+<span class="lineno"> 140 </span>                        .setDuration(0)
+<span class="lineno"> 141 </span>                        .start()
+<span class="lineno"> 142 </span>                    if (::swipeEventListener.isInitialized) swipeEventListener.onTap(this)
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeUpIndicator.kt:30:69</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  27 </span>    }
+<span class="lineno">  28 </span>
+<span class="lineno">  29 </span>    private fun startAnim() {
+<span class="lineno">  30 </span>        animator = ObjectAnimator.ofFloat(this, &quot;translationY&quot;, 0f, <span class="error">50f</span>)
+<span class="lineno">  31 </span>        animator.interpolator = AccelerateInterpolator()
+<span class="lineno">  32 </span>        animator.startDelay = 0
+<span class="lineno">  33 </span>        animator.duration = 1000
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeUpIndicator.kt:33:29</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno">  30 </span>        animator = ObjectAnimator.ofFloat(this, &quot;translationY&quot;, 0f, 50f)
+<span class="lineno">  31 </span>        animator.interpolator = AccelerateInterpolator()
+<span class="lineno">  32 </span>        animator.startDelay = 0
+<span class="lineno">  33 </span>        animator.duration = <span class="error">1000</span>
+<span class="lineno">  34 </span>        animator.repeatCount = ValueAnimator.INFINITE
+<span class="lineno">  35 </span>        animator.repeatMode = ValueAnimator.REVERSE
+<span class="lineno">  36 </span>        animator.addUpdateListener {
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:126:82</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 123 </span>        context.unregisterReceiver(phoneStateBroadcastReceiver)
+<span class="lineno"> 124 </span>    }
+<span class="lineno"> 125 </span>
+<span class="lineno"> 126 </span>    private val callDurationTimer = object : CountDownTimer(WAIT_TIMER.toLong(), <span class="error">1000</span>) {
+<span class="lineno"> 127 </span>        override fun onTick(millisUntilFinished: Long) {
+<span class="lineno"> 128 </span>            var timerMilli: Long = WAIT_TIMER - millisUntilFinished
+<span class="lineno"> 129 </span>            val secondsInMilli: Long = 1000
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:129:40</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 126 </span>    private val callDurationTimer = object : CountDownTimer(WAIT_TIMER.toLong(), 1000) {
+<span class="lineno"> 127 </span>        override fun onTick(millisUntilFinished: Long) {
+<span class="lineno"> 128 </span>            var timerMilli: Long = WAIT_TIMER - millisUntilFinished
+<span class="lineno"> 129 </span>            val secondsInMilli: Long = <span class="error">1000</span>
+<span class="lineno"> 130 </span>            val minutesInMilli = secondsInMilli * 60
+<span class="lineno"> 131 </span>            val hoursInMilli = minutesInMilli * 60
+<span class="lineno"> 132 </span>            val elapsedHours = timerMilli / hoursInMilli
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:130:51</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 127 </span>        override fun onTick(millisUntilFinished: Long) {
+<span class="lineno"> 128 </span>            var timerMilli: Long = WAIT_TIMER - millisUntilFinished
+<span class="lineno"> 129 </span>            val secondsInMilli: Long = 1000
+<span class="lineno"> 130 </span>            val minutesInMilli = secondsInMilli * <span class="error">60</span>
+<span class="lineno"> 131 </span>            val hoursInMilli = minutesInMilli * 60
+<span class="lineno"> 132 </span>            val elapsedHours = timerMilli / hoursInMilli
+<span class="lineno"> 133 </span>            timerMilli %= hoursInMilli
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:131:49</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 128 </span>            var timerMilli: Long = WAIT_TIMER - millisUntilFinished
+<span class="lineno"> 129 </span>            val secondsInMilli: Long = 1000
+<span class="lineno"> 130 </span>            val minutesInMilli = secondsInMilli * 60
+<span class="lineno"> 131 </span>            val hoursInMilli = minutesInMilli * <span class="error">60</span>
+<span class="lineno"> 132 </span>            val elapsedHours = timerMilli / hoursInMilli
+<span class="lineno"> 133 </span>            timerMilli %= hoursInMilli
+<span class="lineno"> 134 </span>            val elapsedMinutes = timerMilli / minutesInMilli
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/VideoCallViewModel.kt:145:82</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 142 </span>        override fun onFinish() {}
+<span class="lineno"> 143 </span>    }
+<span class="lineno"> 144 </span>
+<span class="lineno"> 145 </span>    private val callTimeoutTimer = object : CountDownTimer(CALL_PICKUP_EXP_TIME, <span class="error">1000</span>) {
+<span class="lineno"> 146 </span>        override fun onTick(millisUntilFinished: Long) {
+<span class="lineno"> 147 </span>            remainTimeupMilliseconds = millisUntilFinished
+<span class="lineno"> 148 </span>        }
 </code></pre>
       </li>
     </ul>
@@ -415,400 +699,212 @@
     <summary class="rule-container"><span class="rule">MaxLineLength: 1 </span><span class="description">Line detected, which is longer than the defined maximum line length in the code style.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#maxlinelength">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/OTPVerificationFragment.kt:167:1</span><span class="message">Line detected, which is longer than the defined maximum line length in the code style.</span>
-        <pre><code><span class="lineno"> 164 </span>     */
-<span class="lineno"> 165 </span>    private fun getOtpFromView(): String {
-<span class="lineno"> 166 </span>        val otpView = binding.viewOtpInputBox
-<span class="lineno"> 167 </span><span class="error">        return otpView.etPin1.text.toString() + otpView.etPin2.text.toString() + otpView.etPin3.text.toString() + otpView.etPin4.text.toString() + otpView.etPin5.text.toString() + otpView.etPin6.text.toString()</span>
-<span class="lineno"> 168 </span>    }
-<span class="lineno"> 169 </span>
-<span class="lineno"> 170 </span>    /**
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/model/CallArgs.kt:122:1</span><span class="message">Line detected, which is longer than the defined maximum line length in the code style.</span>
+        <pre><code><span class="lineno"> 119 </span>        fun dummy(): CallArgs {
+<span class="lineno"> 120 </span>            val json = &quot;{&quot; +
+<span class="lineno"> 121 </span>                    &quot;  \&quot;actionType\&quot;: \&quot;VIDEO_CALL\&quot;,&quot; +
+<span class="lineno"> 122 </span><span class="error">                    &quot;  \&quot;appToken\&quot;: \&quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6ImM0MWNmMWU5LTMxNWUtNGFlNi05ZTIwLWNiNzJmZTMwZDg4MyIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiZXhwIjoiMTAgZGF5cyJ9LCJpYXQiOjE2OTcyODk4MDksIm5iZiI6MTY5NzI4OTgwOSwiZXhwIjoxNjk3MzExNDA5LCJpc3MiOiJkZXZrZXkiLCJzdWIiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkiLCJqdGkiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkifQ.LTJJ_BF4c8hZo2Cfe7ItPnP5-GUXfqgQqYIkiSSiZG8\&quot;,&quot; +</span>
+<span class="lineno"> 123 </span>                    &quot;  \&quot;assignorNurseName\&quot;: \&quot;\&quot;,&quot; +
+<span class="lineno"> 124 </span>                    &quot;  \&quot;callEnded\&quot;: false,&quot; +
+<span class="lineno"> 125 </span>                    &quot;  \&quot;device_token\&quot;: \&quot;\&quot;,&quot; +
 </code></pre>
       </li>
     </ul>
   </details>
-  <details id="NewLineAtEndOfFile" open="open">
-    <summary class="rule-container"><span class="rule">NewLineAtEndOfFile: 46 </span><span class="description">Checks whether files end with a line separator.</span></summary>
-<a href="https://detekt.dev/docs/rules/style#newlineatendoffile">Documentation</a>
+  <details id="UnusedParameter" open="open">
+    <summary class="rule-container"><span class="rule">UnusedParameter: 10 </span><span class="description">Function parameter is unused and should be removed.</span></summary>
+<a href="https://detekt.dev/docs/rules/style#unusedparameter">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/TestActivity.kt:62:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/TestActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  59 </span>            Timber.d { &quot;ConfigSyncWorker result: $it&quot; }
-<span class="lineno">  60 </span>        }
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:409:43</span><span class="message">Function parameter `messageBody` is unused.</span>
+        <pre><code><span class="lineno"> 406 </span>
+<span class="lineno"> 407 </span>
+<span class="lineno"> 408 </span>    //timeout
+<span class="lineno"> 409 </span>    private fun sendCallTimedOutToBackend(<span class="error">messageBody</span>: CallArgs) {
+<span class="lineno"> 410 </span>        stopSelf()
+<span class="lineno"> 411 </span>//        messageBody.callMode = CallMode.OUTGOING
+<span class="lineno"> 412 </span>//        messageBody.callStatus = CallStatus.MISSED
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/provider/LiveKitProvider.kt:66:9</span><span class="message">Function parameter `localVideoTrackOptions` is unused.</span>
+        <pre><code><span class="lineno">  63 </span>
+<span class="lineno">  64 </span>    private fun provideRoomOptions(
+<span class="lineno">  65 </span>        localAudioTrackOptions: LocalAudioTrackOptions,
+<span class="lineno">  66 </span>        <span class="error">localVideoTrackOptions</span>: LocalVideoTrackOptions,
+<span class="lineno">  67 </span>        audioTrackPublishDefaults: AudioTrackPublishDefaults,
+<span class="lineno">  68 </span>        videoTrackPublishDefaults: VideoTrackPublishDefaults
+<span class="lineno">  69 </span>    ) = RoomOptions(
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/provider/LiveKitProvider.kt:68:9</span><span class="message">Function parameter `videoTrackPublishDefaults` is unused.</span>
+        <pre><code><span class="lineno">  65 </span>        localAudioTrackOptions: LocalAudioTrackOptions,
+<span class="lineno">  66 </span>        localVideoTrackOptions: LocalVideoTrackOptions,
+<span class="lineno">  67 </span>        audioTrackPublishDefaults: AudioTrackPublishDefaults,
+<span class="lineno">  68 </span>        <span class="error">videoTrackPublishDefaults</span>: VideoTrackPublishDefaults
+<span class="lineno">  69 </span>    ) = RoomOptions(
+<span class="lineno">  70 </span>        audioTrackCaptureDefaults = localAudioTrackOptions,
+<span class="lineno">  71 </span>        audioTrackPublishDefaults = audioTrackPublishDefaults,
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/CoreVideoCallActivity.kt:495:43</span><span class="message">Function parameter `reason` is unused.</span>
+        <pre><code><span class="lineno"> 492 </span>
+<span class="lineno"> 493 </span>    fun isArgsInitiate() = ::args.isInitialized
+<span class="lineno"> 494 </span>
+<span class="lineno"> 495 </span>    private fun checkCallDisconnectReason(<span class="error">reason</span>: DisconnectReason) {
+<span class="lineno"> 496 </span>//        when (reason) {
+<span class="lineno"> 497 </span>//            DisconnectReason.CLIENT_INITIATED -&gt; showToast(getString(R.string.reason_not_initiated))
+<span class="lineno"> 498 </span>//            DisconnectReason.DUPLICATE_IDENTITY -&gt; showToast(getString(R.string.reason_duplicated_identity))
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/activity/IDACallLogActivity.kt:63:35</span><span class="message">Function parameter `callLog` is unused.</span>
+        <pre><code><span class="lineno">  60 </span>        }
 <span class="lineno">  61 </span>    }
-<span class="lineno">  62 </span>}
+<span class="lineno">  62 </span>
+<span class="lineno">  63 </span>    private fun startChatActivity(<span class="error">callLog</span>: VideoCallLog) {
+<span class="lineno">  64 </span>//        val args = CallArgs()
+<span class="lineno">  65 </span>//        args.doctorUuid = callLog.callerId
+<span class="lineno">  66 </span>//        args.patientId = callLog.roomId
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/di/module/AppModule.kt:67:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/di/module/AppModule.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  64 </span>    @Provides
-<span class="lineno">  65 </span>    @Singleton
-<span class="lineno">  66 </span>    fun provideAssetManager(@ApplicationContext context: Context): AssetManager = context.assets
-<span class="lineno">  67 </span>}
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewholder/CallLogViewHolder.kt:13:14</span><span class="message">Function parameter `callLog` is unused.</span>
+        <pre><code><span class="lineno">  10 </span> * Mob   : +919727206702
+<span class="lineno">  11 </span> **/
+<span class="lineno">  12 </span>class CallLogViewHolder(private val binding: RowItemCallLogBinding) : BaseViewHolder(binding.root) {
+<span class="lineno">  13 </span>    fun bind(<span class="error">callLog</span>: VideoCallLog) {
+<span class="lineno">  14 </span>
+<span class="lineno">  15 </span>    }
+<span class="lineno">  16 </span>}
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/di/qualifier/Qualifier.kt:13:35</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/di/qualifier/Qualifier.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  10 </span>
-<span class="lineno">  11 </span>@Qualifier
-<span class="lineno">  12 </span>@Retention(AnnotationRetention.BINARY)
-<span class="lineno">  13 </span>annotation class ConfigWorkRequest
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallHandlerUtils.kt:77:53</span><span class="message">Function parameter `context` is unused.</span>
+        <pre><code><span class="lineno">  74 </span>        CallLogRepository(CallDatabase.getInstance(context).rtcCallLogDao()), PreferenceHelper(context)
+<span class="lineno">  75 </span>    )
+<span class="lineno">  76 </span>
+<span class="lineno">  77 </span>    private fun generateCallLog(callArgs: CallArgs, <span class="error">context</span>: Context) = VideoCallLog(
+<span class="lineno">  78 </span>        callerName = callArgs.doctorName!!,
+<span class="lineno">  79 </span>        callerId = callArgs.doctorId!!,
+<span class="lineno">  80 </span>        calleeId = callArgs.nurseId!!,
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/AppConfig.kt:48:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/AppConfig.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  45 </span>    @SerializedName(&quot;health_scheme_card&quot;) var healthSchemeCard: Boolean? = null,
-<span class="lineno">  46 </span>    @SerializedName(&quot;video_library&quot;) var videoLibrary: String? = null,
-<span class="lineno">  47 </span>    @SerializedName(&quot;privacyNotice&quot;) var privacyNotice: Boolean? = null
-<span class="lineno">  48 </span>)
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallHandlerUtils.kt:115:44</span><span class="message">Function parameter `context` is unused.</span>
+        <pre><code><span class="lineno"> 112 </span>     * @param messageBody an instance of CallArgs to send with intent
+<span class="lineno"> 113 </span>     * @return PendingIntent type of CallActionHandlerReceiver intent
+<span class="lineno"> 114 </span>     */
+<span class="lineno"> 115 </span>    fun declineCall(messageBody: CallArgs, <span class="error">context</span>: Context) {
+<span class="lineno"> 116 </span>        Timber.d { &quot;Call declined **** ${messageBody.callStatus}&quot; }
+<span class="lineno"> 117 </span>//        if (messageBody.isAttendedCall() or messageBody.isCallOnGoing()) {
+<span class="lineno"> 118 </span>//            messageBody.messageType = CALL_NONE
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/Consent.kt:34:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/Consent.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  31 </span>    @SerializedName(&quot;privacy_policy&quot;) var privacyPolicy: String? = null,
-<span class="lineno">  32 </span>    @SerializedName(&quot;terms_of_use&quot;) var termsOfUse: String? = null,
-<span class="lineno">  33 </span>    @SerializedName(&quot;personal_data_processing_policy&quot;) var personalDataProcessingPolicy: String? = null
-<span class="lineno">  34 </span>)
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallIntentUtils.kt:162:9</span><span class="message">Function parameter `flag` is unused.</span>
+        <pre><code><span class="lineno"> 159 </span>    fun getPendingActivityIntent(
+<span class="lineno"> 160 </span>        context: Context,
+<span class="lineno"> 161 </span>        messageBody: CallArgs,
+<span class="lineno"> 162 </span>        <span class="error">flag</span>: Int = getPendingIntentFlag()
+<span class="lineno"> 163 </span>    ): PendingIntent {
+<span class="lineno"> 164 </span>        Timber.d { &quot;getPendingActivityIntent -&gt; url = ${messageBody.url}&quot; }
+<span class="lineno"> 165 </span>        return getCallActivityIntent(messageBody, context).let {
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/IntroContent.kt:84:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/IntroContent.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  81 </span>            )
-<span class="lineno">  82 </span>        }
-<span class="lineno">  83 </span>    }
-<span class="lineno">  84 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/GramPanchayat.kt:40:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/GramPanchayat.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  37 </span>        return if (Locale.getDefault().language == &quot;hi&quot;) nameHindi ?: name ?: &quot;No Value&quot;
-<span class="lineno">  38 </span>        else name ?: &quot;No Value&quot;
-<span class="lineno">  39 </span>    }
-<span class="lineno">  40 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/ProvincesAndCities.kt:14:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/ProvincesAndCities.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  11 </span> */
-<span class="lineno">  12 </span>data class ProvincesAndCities(
-<span class="lineno">  13 </span>    var provinces: ArrayList&lt;String&gt; = arrayListOf(), var cities: ArrayList&lt;String&gt; = arrayListOf()
-<span class="lineno">  14 </span>)
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/Village.kt:36:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/address/Village.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  33 </span>        return if ((Locale.getDefault().language == &quot;hi&quot;)) nameHindi ?: name ?: &quot;No Value&quot;
-<span class="lineno">  34 </span>        else name ?: &quot;No Value&quot;
-<span class="lineno">  35 </span>    }
-<span class="lineno">  36 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/binding/ImageBindingAdapter.kt:53:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/binding/ImageBindingAdapter.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  50 </span>        Glide.with(imageView.context).load(File(url)).thumbnail(requestBuilder).centerCrop()
-<span class="lineno">  51 </span>            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imageView)
-<span class="lineno">  52 </span>    }
-<span class="lineno">  53 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/activity/HomeActivity.kt:193:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/activity/HomeActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 190 </span>            Timber.d { &quot;Device token save status: ${it.status.name}&quot; }
-<span class="lineno"> 191 </span>        }
-<span class="lineno"> 192 </span>    }
-<span class="lineno"> 193 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/HelpCenterFragment.kt:13:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/HelpCenterFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class HelpCenterFragment: Fragment(R.layout.fragment_help_center) {
-<span class="lineno">  12 </span>
-<span class="lineno">  13 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/HomeFragment.kt:66:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/HomeFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  63 </span>    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-<span class="lineno">  64 </span>        return true
-<span class="lineno">  65 </span>    }
-<span class="lineno">  66 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/MyAchievementFragment.kt:11:74</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/MyAchievementFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">   8 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   9 </span> * Mob   : +919727206702
-<span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class MyAchievementFragment : Fragment(R.layout.fragment_achievements) {}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/SettingFragment.kt:13:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/fragment/SettingFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  10 </span> **/
-<span class="lineno">  11 </span>class SettingFragment: Fragment(R.layout.fragment_help_center) {
-<span class="lineno">  12 </span>
-<span class="lineno">  13 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/viewmodel/HomeViewModel.kt:21:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/home/viewmodel/HomeViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  18 </span>    fun getFollowUpStatusCount() = repository.getFollowUpStatusCount()
-<span class="lineno">  19 </span>
-<span class="lineno">  20 </span>    fun getAppointmentStatusCount() = repository.getAppointmentStatusCount()
-<span class="lineno">  21 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/activity/LanguageActivity.kt:71:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/activity/LanguageActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  68 </span>    }
-<span class="lineno">  69 </span>
-<span class="lineno">  70 </span>    open fun onLanguageLoaded(languages: List&lt;ActiveLanguage&gt;) {}
-<span class="lineno">  71 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/adapter/LanguageAdapter.kt:50:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/adapter/LanguageAdapter.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  47 </span>        binding.rbChooseLanguage.isChecked = language.selected
-<span class="lineno">  48 </span>        binding.language = language
-<span class="lineno">  49 </span>    }
-<span class="lineno">  50 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/fragment/LanguageFragment.kt:49:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/language/fragment/LanguageFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  46 </span>    }
-<span class="lineno">  47 </span>
-<span class="lineno">  48 </span>    open fun onLanguageLoaded(languages: List&lt;ActiveLanguage&gt;) {}
-<span class="lineno">  49 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/location/viewmodel/LocationViewModel.kt:27:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/location/viewmodel/LocationViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  24 </span>    fun getLocation() = locationRepository.getLocation().asLiveData()
-<span class="lineno">  25 </span>
-<span class="lineno">  26 </span>    fun saveLocation() = selectedLocation?.let { locationRepository.saveLocation(it) }
-<span class="lineno">  27 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/OnboardingActivity.kt:73:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/OnboardingActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  70 </span>    private fun getAppIntent(url: String) = Intent(
-<span class="lineno">  71 </span>        Intent.ACTION_VIEW, Uri.parse(url)
-<span class="lineno">  72 </span>    )
-<span class="lineno">  73 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/SyncActivity.kt:45:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/activity/SyncActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  42 </span>    override fun onClose() {
-<span class="lineno">  43 </span>        TODO(&quot;Not yet implemented&quot;)
-<span class="lineno">  44 </span>    }
-<span class="lineno">  45 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/adapter/IntroPagerAdapter.kt:24:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/adapter/IntroPagerAdapter.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  21 </span>        val content = IntroContent.getContent(activity, ViewType.entries[position])
-<span class="lineno">  22 </span>        return IntroSlideFragment.newInstance(content)
-<span class="lineno">  23 </span>    }
-<span class="lineno">  24 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/AyuPolicyFragment.kt:93:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/AyuPolicyFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  90 </span>            findNavController().navigate(AyuPolicyFragmentDirections.actionAyuPolicyToSetup())
-<span class="lineno">  91 </span>        }
-<span class="lineno">  92 </span>    }
-<span class="lineno">  93 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/ConsentFragment.kt:311:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/ConsentFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 308 </span>        const val MAILTO = &quot;mailto&quot;
-<span class="lineno"> 309 </span>        const val FORMAT_PDF = &quot;.pdf&quot;
-<span class="lineno"> 310 </span>    }
-<span class="lineno"> 311 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroFragment.kt:88:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  85 </span>    companion object {
-<span class="lineno">  86 </span>        const val SLIDER_INTERVAL_TIME = 3000L
-<span class="lineno">  87 </span>    }
-<span class="lineno">  88 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroSlideFragment.kt:44:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/IntroSlideFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  41 </span>            }
-<span class="lineno">  42 </span>        }
-<span class="lineno">  43 </span>    }
-<span class="lineno">  44 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SetupFragment.kt:91:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SetupFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  88 </span>        fetchLocation()
-<span class="lineno">  89 </span>    }
-<span class="lineno">  90 </span>
-<span class="lineno">  91 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt:165:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SplashFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 162 </span>            adapter.select(position, lang)
-<span class="lineno"> 163 </span>        }
-<span class="lineno"> 164 </span>    }
-<span class="lineno"> 165 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SyncFragment.kt:53:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/fragment/SyncFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  50 </span>    override fun onRetry() {
-<span class="lineno">  51 </span>        initiateProgressTask()
-<span class="lineno">  52 </span>    }
-<span class="lineno">  53 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/ConsentViewModel.kt:134:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/ConsentViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 131 </span>     * @return The consent page content as a String.
-<span class="lineno"> 132 </span>     */
-<span class="lineno"> 133 </span>    fun loadConsentPage(key: String) = consentRepository.getConsentPage(key)
-<span class="lineno"> 134 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/LauncherViewModel.kt:88:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/LauncherViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  85 </span>    }
-<span class="lineno">  86 </span>
-<span class="lineno">  87 </span>    fun isUserLoggedIn() = preferenceUtils.userLoggedInStatus
-<span class="lineno">  88 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/SyncDataViewModel.kt:57:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/onboarding/viewmodel/SyncDataViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  54 </span>            }
-<span class="lineno">  55 </span>        }
-<span class="lineno">  56 </span>    }
-<span class="lineno">  57 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/patient/activity/PatientRegistrationActivity.kt:18:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/patient/activity/PatientRegistrationActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  15 </span>    override fun onCreate(savedInstanceState: Bundle?) {
-<span class="lineno">  16 </span>        super.onCreate(savedInstanceState)
-<span class="lineno">  17 </span>    }
-<span class="lineno">  18 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/specialization/SpecializationArrayAdapter.kt:66:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/specialization/SpecializationArrayAdapter.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  63 </span>        textView.text = ResUtils.getStringResourceByName(context, specialization.sKey)
-<span class="lineno">  64 </span>    }
-<span class="lineno">  65 </span>
-<span class="lineno">  66 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/activity/LoginActivity.kt:10:44</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/activity/LoginActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">   7 </span> * Email : mithun@intelehealth.org
-<span class="lineno">   8 </span> * Mob   : +919727206702
-<span class="lineno">   9 </span> **/
-<span class="lineno">  10 </span>class LoginActivity: AppCompatActivity() {}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/AuthenticationFragment.kt:145:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/AuthenticationFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 142 </span>
-<span class="lineno"> 143 </span>    abstract fun onUserAuthenticated(user: User)
-<span class="lineno"> 144 </span>    abstract fun onForgotPasswordNavDirection(): NavDirections
-<span class="lineno"> 145 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ChangePasswordFragment.kt:21:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ChangePasswordFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  18 </span>        super.onViewCreated(view, savedInstanceState)
-<span class="lineno">  19 </span>        binding = FragmentChangePasswordBinding.bind(view)
-<span class="lineno">  20 </span>    }
-<span class="lineno">  21 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt:116:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ForgotPasswordFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 113 </span>    override fun onFailed(reason: String) {
-<span class="lineno"> 114 </span>        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
-<span class="lineno"> 115 </span>    }
-<span class="lineno"> 116 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/LoginFragment.kt:70:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/LoginFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  67 </span>    }
-<span class="lineno">  68 </span>
-<span class="lineno">  69 </span>    override fun onForgotPasswordNavDirection() = LoginFragmentDirections.actionLoginToForgotPassword()
-<span class="lineno">  70 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/OTPVerificationFragment.kt:263:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/OTPVerificationFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 260 </span>    override fun onFailed(reason: String) {
-<span class="lineno"> 261 </span>        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
-<span class="lineno"> 262 </span>    }
-<span class="lineno"> 263 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ResetPasswordFragment.kt:126:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/fragment/ResetPasswordFragment.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 123 </span>        super.onFailed(reason)
-<span class="lineno"> 124 </span>        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
-<span class="lineno"> 125 </span>    }
-<span class="lineno"> 126 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/viewmodel/UserViewModel.kt:144:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/viewmodel/UserViewModel.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 141 </span>        const val OTP_EXPIRY_TIME_INTERVAL = 1000L
-<span class="lineno"> 142 </span>    }
-<span class="lineno"> 143 </span>
-<span class="lineno"> 144 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/utility/AppConstants.kt:27:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/utility/AppConstants.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  24 </span>
-<span class="lineno">  25 </span>fun getAppMarketUrl(context: Context): String {
-<span class="lineno">  26 </span>    return &quot;market://details?id=&quot; + context.applicationContext.packageName
-<span class="lineno">  27 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/utility/LanguageUtils.kt:270:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/utility/LanguageUtils.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno"> 267 </span>            if (index &gt;= 0) array[index] else &quot;&quot;
-<span class="lineno"> 268 </span>        }
-<span class="lineno"> 269 </span>    }
-<span class="lineno"> 270 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/test/java/org/intelehealth/app/ExampleUnitTest.kt:17:2</span><span class="message">The file /home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/test/java/org/intelehealth/app/ExampleUnitTest.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  14 </span>    fun addition_isCorrect() {
-<span class="lineno">  15 </span>        assertEquals(4, 2 + 2)
-<span class="lineno">  16 </span>    }
-<span class="lineno">  17 </span>}
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallNotificationHandler.kt:195:50</span><span class="message">Function parameter `priority` is unused.</span>
+        <pre><code><span class="lineno"> 192 </span>     * @return NotificationChannel
+<span class="lineno"> 193 </span>     */
+<span class="lineno"> 194 </span>    @RequiresApi(Build.VERSION_CODES.O)
+<span class="lineno"> 195 </span>    fun getNotificationChannel(context: Context, <span class="error">priority</span>: Int): NotificationChannel {
+<span class="lineno"> 196 </span>
+<span class="lineno"> 197 </span>        return NotificationChannel(
+<span class="lineno"> 198 </span>            getChannelId(context), getChannelName(context), NotificationManager.IMPORTANCE_HIGH
 </code></pre>
       </li>
     </ul>
   </details>
-  <details id="SerialVersionUIDInSerializableClass" open="open">
-    <summary class="rule-container"><span class="rule">SerialVersionUIDInSerializableClass: 1 </span><span class="description">A class which implements the Serializable interface does not define a correct serialVersionUID field. The serialVersionUID field should be a private constant long value inside a companion object.</span></summary>
-<a href="https://detekt.dev/docs/rules/style#serialversionuidinserializableclass">Documentation</a>
+  <details id="UnusedPrivateMember" open="open">
+    <summary class="rule-container"><span class="rule">UnusedPrivateMember: 5 </span><span class="description">Private function is unused and should be removed.</span></summary>
+<a href="https://detekt.dev/docs/rules/style#unusedprivatemember">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/model/IntroContent.kt:40:12</span><span class="message">The class IntroContent implements the `Serializable` interface and should thus define a `serialVersionUID`.</span>
-        <pre><code><span class="lineno">  37 </span> * @property title The title text for the slide.
-<span class="lineno">  38 </span> * @property content The descriptive content text for the slide.
-<span class="lineno">  39 </span> */
-<span class="lineno">  40 </span>data class <span class="error">IntroContent</span>(
-<span class="lineno">  41 </span>    val imageUrl: String? = null,
-<span class="lineno">  42 </span>    val isResourceImage: Boolean,
-<span class="lineno">  43 </span>    val resId: Int = 0,
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/custom/SwipeButton.kt:150:17</span><span class="message">Private function `complete` is unused.</span>
+        <pre><code><span class="lineno"> 147 </span>        return true
+<span class="lineno"> 148 </span>    }
+<span class="lineno"> 149 </span>
+<span class="lineno"> 150 </span>    private fun <span class="error">complete</span>(swiped: Float) {
+<span class="lineno"> 151 </span>        if (swiped &gt; MIN_SWIPE_DISTANCE) {
+<span class="lineno"> 152 </span>            if (::swipeEventListener.isInitialized) swipeEventListener.onCompleted(this)
+<span class="lineno"> 153 </span>        }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt:336:17</span><span class="message">Private function `observeSpeaking` is unused.</span>
+        <pre><code><span class="lineno"> 333 </span>        }
+<span class="lineno"> 334 </span>    }
+<span class="lineno"> 335 </span>
+<span class="lineno"> 336 </span>    private fun <span class="error">observeSpeaking</span>(participant: Participant) {
+<span class="lineno"> 337 </span>        viewModelScope.launch {
+<span class="lineno"> 338 </span>            participant::isSpeaking.flow.collect { isSpeaking -&gt;
+<span class="lineno"> 339 </span>                mutableIsSpeakingStatus.postValue(getParticipantStatusMap(participant, isSpeaking))
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/ui/viewmodel/CallViewModel.kt:376:17</span><span class="message">Private function `checkRemoteParticipantConnectivity` is unused.</span>
+        <pre><code><span class="lineno"> 373 </span>//        }
+<span class="lineno"> 374 </span>//    }
+<span class="lineno"> 375 </span>
+<span class="lineno"> 376 </span>    private fun <span class="error">checkRemoteParticipantConnectivity</span>(remoteParticipant: Participant) {
+<span class="lineno"> 377 </span>        viewModelScope.launch {
+<span class="lineno"> 378 </span>            remoteParticipant::connectionQuality.flow
+<span class="lineno"> 379 </span>                .collect { quality -&gt;
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallNotificationHandler.kt:256:17</span><span class="message">Private function `getAudioAttributes` is unused.</span>
+        <pre><code><span class="lineno"> 253 </span>     * Build AudioAttributes
+<span class="lineno"> 254 </span>     * @return AudioAttributes for notification ringtone
+<span class="lineno"> 255 </span>     */
+<span class="lineno"> 256 </span>    private fun <span class="error">getAudioAttributes</span>(): AudioAttributes {
+<span class="lineno"> 257 </span>        return AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+<span class="lineno"> 258 </span>            .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE).build()
+<span class="lineno"> 259 </span>    }
+</code></pre>
+      </li>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallNotificationHandler.kt:265:17</span><span class="message">Private function `getDefaultRingtoneUrl` is unused.</span>
+        <pre><code><span class="lineno"> 262 </span>     * To get default device ringtone uri using RingtoneManager
+<span class="lineno"> 263 </span>     * @return URI with default ringtone uri
+<span class="lineno"> 264 </span>     */
+<span class="lineno"> 265 </span>    private fun <span class="error">getDefaultRingtoneUrl</span>() =
+<span class="lineno"> 266 </span>        RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+<span class="lineno"> 267 </span>
+<span class="lineno"> 268 </span>    private fun getChannelId(context: Context): String =
 </code></pre>
       </li>
     </ul>
   </details>
   <details id="UnusedPrivateProperty" open="open">
-    <summary class="rule-container"><span class="rule">UnusedPrivateProperty: 2 </span><span class="description">Property is unused and should be removed.</span></summary>
+    <summary class="rule-container"><span class="rule">UnusedPrivateProperty: 3 </span><span class="description">Property is unused and should be removed.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#unusedprivateproperty">Documentation</a>
     <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/TestActivity.kt:35:17</span><span class="message">Private property `TAG` is unused.</span>
-        <pre><code><span class="lineno">  32 </span>
-<span class="lineno">  33 </span>    private val languageViewModel by viewModels&lt;LanguageViewModel&gt;()
-<span class="lineno">  34 </span>
-<span class="lineno">  35 </span>    private val <span class="error">TAG</span> = TestActivity::class.java.simpleName
-<span class="lineno">  36 </span>
-<span class="lineno">  37 </span>    private val binding: ActivityTestBinding by lazy {
-<span class="lineno">  38 </span>        ActivityTestBinding.inflate(layoutInflater)
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/CallLogHandler.kt:20:17</span><span class="message">Private property `preferenceHelper` is unused.</span>
+        <pre><code><span class="lineno">  17 </span> **/
+<span class="lineno">  18 </span>class CallLogHandler @Inject constructor(
+<span class="lineno">  19 </span>    private val callLogRepository: CallLogRepository,
+<span class="lineno">  20 </span>    private val <span class="error">preferenceHelper</span>: PreferenceHelper
+<span class="lineno">  21 </span>) {
+<span class="lineno">  22 </span>    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+<span class="lineno">  23 </span>
 </code></pre>
       </li>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/main/java/org/intelehealth/app/ui/user/viewmodel/UserViewModel.kt:129:14</span><span class="message">Private property `i` is unused.</span>
-        <pre><code><span class="lineno"> 126 </span>        val pattern = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz&quot;
-<span class="lineno"> 127 </span>        val rnd = SecureRandom()
-<span class="lineno"> 128 </span>        val sb = StringBuilder(PASSWORD_LEN)
-<span class="lineno"> 129 </span>        for (<span class="error">i</span> in 0 until PASSWORD_LEN) {
-<span class="lineno"> 130 </span>            sb.append(pattern[rnd.nextInt(pattern.length)])
-<span class="lineno"> 131 </span>        }
-<span class="lineno"> 132 </span>
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/notification/HeadsUpNotificationService.kt:55:17</span><span class="message">Private property `sdf` is unused.</span>
+        <pre><code><span class="lineno">  52 </span>    private lateinit var vibrationEffect: VibrationEffect
+<span class="lineno">  53 </span>    private lateinit var countDownTimer: CountDownTimer
+<span class="lineno">  54 </span>    private var isTimerRunning = false
+<span class="lineno">  55 </span>    private var <span class="error">sdf</span> = SimpleDateFormat(&quot;HH:mm:ss&quot;, Locale.getDefault())
+<span class="lineno">  56 </span>    private var rtcArgs: CallArgs? = null
+<span class="lineno">  57 </span>    private var isDuplicateCancelEvent = false
+<span class="lineno">  58 </span>
 </code></pre>
       </li>
-    </ul>
-  </details>
-  <details id="WildcardImport" open="open">
-    <summary class="rule-container"><span class="rule">WildcardImport: 1 </span><span class="description">Wildcard imports should be replaced with imports using fully qualified class names. Wildcard imports can lead to naming conflicts. A library update can introduce naming clashes with your classes which results in compilation errors.</span></summary>
-<a href="https://detekt.dev/docs/rules/style#wildcardimport">Documentation</a>
-    <ul>
-      <li><span class="location">/home/runner/work/intelehealth-fhw-kotlin/intelehealth-fhw-kotlin/app/src/test/java/org/intelehealth/app/ExampleUnitTest.kt:5:1</span><span class="message">org.junit.Assert.* is a wildcard import. Replace it with fully qualified imports.</span>
-        <pre><code><span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import org.junit.Test
-<span class="lineno">   4 </span>
-<span class="lineno">   5 </span><span class="error">import org.junit.Assert.*</span>
-<span class="lineno">   6 </span>
-<span class="lineno">   7 </span>/**
-<span class="lineno">   8 </span> * Example local unit test, which will execute on the development machine (host).
+      <li><span class="location">D:/Intelehealth/Projects/IDA/IDAV50/features/ondemand/video/src/main/java/org/intelehealth/app/feature/video/utils/CallIntentUtils.kt:25:23</span><span class="message">Private property `REQUEST_CODE` is unused.</span>
+        <pre><code><span class="lineno">  22 </span> */
+<span class="lineno">  23 </span>object CallIntentUtils {
+<span class="lineno">  24 </span>
+<span class="lineno">  25 </span>    private const val <span class="error">REQUEST_CODE</span> = 10001
+<span class="lineno">  26 </span>    private const val CALL_RECEIVER_ACTION = &quot;CALL_RECEIVER_ACTION&quot;
+<span class="lineno">  27 </span>
+<span class="lineno">  28 </span>    /**
 </code></pre>
       </li>
     </ul>
@@ -816,7 +912,7 @@
 </div>
 
 
-generated with <a href="https://detekt.dev/">detekt version 1.23.7</a> on 2025-02-05 13:32:40 UTC.
+generated with <a href="https://detekt.dev/">detekt version 1.23.7</a> on 2025-02-06 14:29:31 UTC.
 
 </body>
 </html>

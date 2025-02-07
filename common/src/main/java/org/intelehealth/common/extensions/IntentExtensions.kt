@@ -11,6 +11,7 @@ import com.github.ajalt.timberkt.Timber
 fun Intent.printExtra() {
     extras?.let {
         it.keySet().forEach { key ->
+            @Suppress("DEPRECATION")
             Timber.d { "${key}::${it[key]}" }
         }
     }

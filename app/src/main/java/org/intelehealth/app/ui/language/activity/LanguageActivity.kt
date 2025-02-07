@@ -1,21 +1,16 @@
 package org.intelehealth.app.ui.language.activity
 
 import android.content.Context
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
+import org.intelehealth.common.extensions.changeLanguage
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.language.data.LanguageRepository
 import org.intelehealth.config.presenter.language.factory.LanguageViewModelFactory
 import org.intelehealth.config.presenter.language.viewmodel.LanguageViewModel
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.ActiveLanguage
-import java.util.Locale
 import javax.inject.Inject
 
 
@@ -49,22 +44,6 @@ abstract class LanguageActivity : AppCompatActivity() {
             }
         }
         return this
-    }
-
-    private fun changeLanguage(language: String) {
-        Locale(language).apply {
-            Locale.setDefault(this)
-            val configuration: Configuration = resources.configuration
-            val displayMetrics: DisplayMetrics = resources.displayMetrics
-            configuration.setLocale(this)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(this))
-            } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-                createConfigurationContext(configuration)
-            } else {
-                resources.updateConfiguration(configuration, displayMetrics)
-            }
-        }
     }
 
     open fun onLanguageLoaded(languages: List<ActiveLanguage>) {}

@@ -26,7 +26,7 @@ class SyncActivity : CircularProgressActivity() {
         progressTask("Syncing...")
         SyncDataWorker.startSyncWorker(this) {
             if (it.state == WorkInfo.State.SUCCEEDED) {
-                onProgress(100)
+                onProgress(MAX_PROGRESS)
                 runOnUiThread { progressTask("Sync Completed") }
             } else {
                 val progress = it.progress.getInt(SyncDataWorker.WORK_PROGRESS, 0)

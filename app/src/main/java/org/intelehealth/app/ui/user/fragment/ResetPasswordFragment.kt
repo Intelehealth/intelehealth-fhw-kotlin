@@ -18,7 +18,6 @@ import org.intelehealth.common.extensions.passwordMatchWithConfirmPassword
 import org.intelehealth.common.extensions.setCompoundDrawableClick
 import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
-import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.showTooltip
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.extensions.validatePasswordPattern
@@ -75,11 +74,11 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
     }
 
     private fun changeSaveButtonStateOnTextChange() {
-        binding.textInputNewPassword.doOnTextChanged { text, _, _, _ ->
+        binding.textInputNewPassword.doOnTextChanged { _, _, _, _ ->
             changeSaveButtonState()
             binding.textInputLayoutNewPassword.hideError()
         }
-        binding.textInputConfirmPassword.doOnTextChanged { text, _, _, _ ->
+        binding.textInputConfirmPassword.doOnTextChanged { _, _, _, _ ->
             changeSaveButtonState()
             binding.textInputLayoutConfirmPassword.hideError()
         }

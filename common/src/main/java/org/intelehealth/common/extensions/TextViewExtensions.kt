@@ -37,7 +37,7 @@ fun TextView.setClickableText(
 
 @SuppressLint("ClickableViewAccessibility")
 fun TextView.setCompoundDrawableClick(gravity: Int, onClick: (TextView) -> Unit) {
-    this.setOnTouchListener { v, event ->
+    this.setOnTouchListener { _, event ->
         Timber.d { "setCompoundDrawableClick : $event" }
         if (event.action == android.view.MotionEvent.ACTION_UP || event.action == android.view.MotionEvent.ACTION_DOWN) {
             val drawableEnd = this.compoundDrawablesRelative[2]

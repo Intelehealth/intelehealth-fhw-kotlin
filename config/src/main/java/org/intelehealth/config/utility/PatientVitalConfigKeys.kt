@@ -7,7 +7,7 @@ package org.intelehealth.config.utility
  *
  * Patient vital config keys
  */
-class PatientVitalConfigKeys {
+class PatientVitalConfigKeys private constructor(){
     companion object{
         const val WEIGHT = "weight_kg"
         const val HEIGHT = "height_cm"

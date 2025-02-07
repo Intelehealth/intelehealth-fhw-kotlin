@@ -13,21 +13,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.common.utility.PreferenceUtils
-import org.intelehealth.fcm.utils.FcmRemoteConfig.getRemoteConfig
-import org.intelehealth.fcm.utils.FcmTokenGenerator.getDeviceToken
-import javax.inject.Inject
 import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.utility.KEY_FORCE_UPDATE_VERSION_CODE
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.helper.NetworkHelper
+import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.common.utility.NO_NETWORK
+import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.common.utility.WORKER_RESULT
 import org.intelehealth.config.worker.ConfigSyncWorker
-import kotlin.jvm.Throws
+import org.intelehealth.fcm.utils.FcmRemoteConfig.getRemoteConfig
+import org.intelehealth.fcm.utils.FcmTokenGenerator.getDeviceToken
+import javax.inject.Inject
 
 /**
  * Created by Vaghela Mithun R. on 07-01-2025 - 13:47.
@@ -36,6 +35,7 @@ import kotlin.jvm.Throws
  **/
 
 const val SPLASH_DELAY_TIME = 500L
+const val ANIM_DURATION = 2000L
 
 @HiltViewModel
 class LauncherViewModel @Inject constructor(

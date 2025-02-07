@@ -19,6 +19,7 @@ import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_USER_UUID
+import java.lang.StringBuilder
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -100,7 +101,7 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
      * @param currentEditText The current OTP input field.
      */
     private fun setupOtpKeyHandler(currentEditText: TextInputEditText) {
-        currentEditText.setOnKeyListener { v, keyCode, event ->
+        currentEditText.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL && currentEditText.text.isNullOrEmpty()) {
                 currentEditText.clearFocus()
                 currentEditText.previousFocus()
@@ -164,7 +165,11 @@ class OTPVerificationFragment : BaseProgressFragment(R.layout.fragment_otp_verif
      */
     private fun getOtpFromView(): String {
         val otpView = binding.viewOtpInputBox
-        return otpView.etPin1.text.toString() + otpView.etPin2.text.toString() + otpView.etPin3.text.toString() + otpView.etPin4.text.toString() + otpView.etPin5.text.toString() + otpView.etPin6.text.toString()
+        val builder = StringBuilder()
+        builder.append(otpView.etPin1.text.toString()).append(otpView.etPin2.text.toString())
+            .append(otpView.etPin3.text.toString()).append(otpView.etPin4.text.toString())
+            .append(otpView.etPin5.text.toString()).append(otpView.etPin6.text.toString())
+        return builder.toString()
     }
 
     /**
