@@ -19,18 +19,16 @@ class SwipeUpIndicator : AppCompatImageView {
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+        context, attrs, defStyleAttr
     ) {
         startAnim()
     }
 
     private fun startAnim() {
-        animator = ObjectAnimator.ofFloat(this, "translationY", 0f, 50f)
+        animator = ObjectAnimator.ofFloat(this, PROPERTY_TRANSLATION_Y, MIN_TRANS_Y, MAX_TRANS_Y)
         animator.interpolator = AccelerateInterpolator()
         animator.startDelay = 0
-        animator.duration = 1000
+        animator.duration = ANIM_DURATION
         animator.repeatCount = ValueAnimator.INFINITE
         animator.repeatMode = ValueAnimator.REVERSE
         animator.addUpdateListener {
@@ -41,4 +39,11 @@ class SwipeUpIndicator : AppCompatImageView {
 
     fun start() = animator.start()
     fun pause() = animator.pause()
+
+    companion object {
+        const val ANIM_DURATION = 1000L
+        const val MAX_TRANS_Y = 50f
+        const val MIN_TRANS_Y = 0f
+        const val PROPERTY_TRANSLATION_Y = "translationY"
+    }
 }

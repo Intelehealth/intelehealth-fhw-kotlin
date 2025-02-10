@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.0"
+detekt = "1.23.7"
 kotlin = "1.9.24"
 #coreKtx = "1.15.0"
 #junit = "4.13.2"
@@ -13,11 +14,12 @@ safeArgs = "2.8.6"
 #navigationFragmentKtx = "2.8.6"
 #navigationUiKtx = "2.8.6"
 googleServices = "4.4.2"
-firebaseCrashlytics = "3.0.2"
-detekt = "1.23.7"
+firebaseCrashlytics = "3.0.3"
 #ksp = "1.9.10-1.0.13"
 
 [libraries]
+detekt-cli = { group = "io.gitlab.arturbosch.detekt", name = "detekt-cli", version.ref = "detekt" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 #androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 #junit = { group = "junit", name = "junit", version.ref = "junit" }
 #androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

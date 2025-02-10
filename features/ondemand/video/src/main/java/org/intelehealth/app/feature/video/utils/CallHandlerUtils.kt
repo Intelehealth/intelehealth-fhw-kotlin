@@ -62,19 +62,19 @@ object CallHandlerUtils {
     fun operateIncomingCall(context: Context, callArgs: CallArgs) {
         Timber.d { "operateIncomingCall ->Url = ${callArgs.url}" }
         callArgs.callMode = CallMode.INCOMING
-        getCallLogHandler(context).saveLog(generateCallLog(callArgs, context))
+        getCallLogHandler(context).saveLog(generateCallLog(callArgs))
         notifyCallNotification(callArgs, context)
     }
 
     fun saveIncomingCall(context: Context, callArgs: CallArgs) {
-        getCallLogHandler(context).saveLog(generateCallLog(callArgs, context))
+        getCallLogHandler(context).saveLog(generateCallLog(callArgs))
     }
 
     private fun getCallLogHandler(context: Context) = CallLogHandler(
-        CallLogRepository(CallDatabase.getInstance(context).rtcCallLogDao()), PreferenceHelper(context)
+        CallLogRepository(CallDatabase.getInstance(context).rtcCallLogDao())
     )
 
-    private fun generateCallLog(callArgs: CallArgs, context: Context) = VideoCallLog(
+    private fun generateCallLog(callArgs: CallArgs) = VideoCallLog(
         callerName = callArgs.doctorName!!,
         callerId = callArgs.doctorId!!,
         calleeId = callArgs.nurseId!!,
@@ -112,7 +112,7 @@ object CallHandlerUtils {
      * @param messageBody an instance of CallArgs to send with intent
      * @return PendingIntent type of CallActionHandlerReceiver intent
      */
-    fun declineCall(messageBody: CallArgs, context: Context) {
+    fun declineCall(messageBody: CallArgs) {
         Timber.d { "Call declined **** ${messageBody.callStatus}" }
 //        if (messageBody.isAttendedCall() or messageBody.isCallOnGoing()) {
 //            messageBody.messageType = CALL_NONE

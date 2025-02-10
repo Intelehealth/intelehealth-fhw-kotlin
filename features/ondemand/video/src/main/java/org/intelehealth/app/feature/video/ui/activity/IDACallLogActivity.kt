@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.app.feature.video.R
 import org.intelehealth.app.feature.video.databinding.ActivityCallLogBinding
 import org.intelehealth.app.feature.video.model.VideoCallLog
@@ -61,6 +62,7 @@ class IDACallLogActivity : CoreCallLogActivity(), BaseViewHolder.ViewHolderClick
     }
 
     private fun startChatActivity(callLog: VideoCallLog) {
+        Timber.d { "startChatActivity: $callLog" }
 //        val args = CallArgs()
 //        args.doctorUuid = callLog.callerId
 //        args.patientId = callLog.roomId

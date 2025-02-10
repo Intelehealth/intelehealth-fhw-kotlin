@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.intelehealth.app.feature.video.data.CallLogRepository
 import org.intelehealth.app.feature.video.model.VideoCallLog
 import org.intelehealth.app.feature.video.utils.CallStatus
-import org.intelehealth.common.helper.PreferenceHelper
 import javax.inject.Inject
 
 /**
@@ -16,8 +15,7 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 class CallLogHandler @Inject constructor(
-    private val callLogRepository: CallLogRepository,
-    private val preferenceHelper: PreferenceHelper
+    private val callLogRepository: CallLogRepository
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 

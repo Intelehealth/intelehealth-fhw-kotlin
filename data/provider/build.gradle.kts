@@ -1,6 +1,7 @@
 import extensions.androidTestDeps
 import extensions.providerModuleDeps
 import extensions.unitTestDeps
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.library)
@@ -60,7 +61,4 @@ dependencies {
     providerModuleDeps()
     unitTestDeps()
     androidTestDeps()
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
 }

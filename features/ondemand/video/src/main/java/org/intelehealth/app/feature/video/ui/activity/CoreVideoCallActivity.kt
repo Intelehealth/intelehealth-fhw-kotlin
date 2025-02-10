@@ -35,7 +35,6 @@ import org.intelehealth.common.extensions.viewModelByFactory
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.helper.PreferenceHelper.Companion.RTC_DATA
 import org.intelehealth.common.registry.PermissionRegistry
-import org.intelehealth.common.registry.allGranted
 import org.intelehealth.common.socket.SocketManager
 import org.intelehealth.common.socket.SocketViewModel
 import java.util.Calendar
@@ -129,8 +128,8 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
     }
 
     private fun initView() {
-        observeLiveData()
-        observerSocketEvent()
+        observeVideoCallData()
+        observeSocketEventData()
     }
 
 
@@ -145,7 +144,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
         }
     }
 
-    private fun observeLiveData() {
+    private fun observeVideoCallData() {
         videoCallViewModel.callEnd.observe(this) { if (it) onCallEnd() }
         videoCallViewModel.sayGoodBye.observe(this) { if (it) sayBye("Call ended by you") }
 //        videoCallViewModel.microphonePluggedStatus.observe(this) {
@@ -170,6 +169,29 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
             )
         }
         videoCallViewModel.cameraPosition.observe(this) { onCameraPositionChanged(it) }
+
+        videoCallViewModel.remoteCallDisconnectedReason.observe(this) {
+            it?.let { checkCallDisconnectReason(it) }
+        }
+
+        videoCallViewModel.callTimeUpStatus.observe(this) { callTimeUp(it) }
+
+    }
+
+    private fun observeSocketEventData() {
+        args.socketUrl?.let {
+            socketViewModel.connect(it)
+            socketViewModel.eventNoAnswer.observe(this) {
+                val reason = getString(R.string.no_answer_from, args.doctorName)
+                if (it) sayBye(reason)
+            }
+//        socketViewModel.eventBye.observe(this) { if (it) sayBye() }
+            lifecycleScope.launch {
+                delay(DELAY_TIME)
+                Timber.e { "Socket connected =>${socketViewModel.isConnected()}" }
+            }
+        }
+
         socketViewModel.eventCallRejectByDoctor.observe(this) {
             if (it && isDeclined.not()) sayBye(
                 getString(
@@ -179,9 +201,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
         }
         socketViewModel.eventCallCancelByDoctor.observe(this) {
             Timber.e { "args ${args.toJson()}" }
-            if (it && args.isIncomingCall() && isDeclined.not() && args.isCallAccepted().not() && args.isMissedCall()
-                    .not()
-            ) {
+            if (it && args.isValidMissedCall()) {
                 args.callStatus = CallStatus.MISSED
                 CallHandlerUtils.notifyCallNotification(args, this)
                 sayBye(arg = args.doctorName)
@@ -192,11 +212,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
 //                sayBye(getString(R.string.call_canceled_by, args.doctorName))
 //            }
         }
-        videoCallViewModel.remoteCallDisconnectedReason.observe(this) {
-            it?.let { checkCallDisconnectReason(it) }
-        }
 
-        videoCallViewModel.callTimeUpStatus.observe(this) { callTimeUp(it) }
         socketViewModel.eventCallTimeUp.observe(this) { callTimeUp(it) }
         socketViewModel.eventCallHangUp.observe(this) {
             Timber.d { "Call hangup => $it" }
@@ -252,22 +268,6 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
         }
         it.filterKeys { key -> key == CallViewModel.LOCAL_PARTICIPANT }.apply {
             if (isNotEmpty()) onLocalParticipantSpeaking(values.first())
-        }
-    }
-
-
-    private fun observerSocketEvent() {
-        args.socketUrl?.let {
-            socketViewModel.connect(it)
-            socketViewModel.eventNoAnswer.observe(this) {
-                val reason = getString(R.string.no_answer_from, args.doctorName)
-                if (it) sayBye(reason)
-            }
-//        socketViewModel.eventBye.observe(this) { if (it) sayBye() }
-            lifecycleScope.launch {
-                delay(1000)
-                Timber.e { "Socket connected =>${socketViewModel.isConnected()}" }
-            }
         }
     }
 
@@ -449,6 +449,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
 
     open fun declineCall() {
         isDeclined = true
+        args.callAction = CallAction.DECLINE
 //        showToast(getString(R.string.you_declined_call))
         if (args.isIncomingCall().not()) {
             socketViewModel.emit(SocketManager.EVENT_CALL_CANCEL_BY_HW, args.toJsonArg())
@@ -493,6 +494,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
     fun isArgsInitiate() = ::args.isInitialized
 
     private fun checkCallDisconnectReason(reason: DisconnectReason) {
+        Timber.d { "Disconnect reason $reason" }
 //        when (reason) {
 //            DisconnectReason.CLIENT_INITIATED -> showToast(getString(R.string.reason_not_initiated))
 //            DisconnectReason.DUPLICATE_IDENTITY -> showToast(getString(R.string.reason_duplicated_identity))
@@ -502,6 +504,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
 //            DisconnectReason.STATE_MISMATCH -> showToast(getString(R.string.reason_state_mismatch))
 //            DisconnectReason.JOIN_FAILURE -> showToast(getString(R.string.reason_join_failure))
 //            DisconnectReason.UNKNOWN_REASON -> showToast(getString(R.string.reason_unknown))
+//            else -> Timber.d { "Disconnect reason $reason" }
 //        }
 
         finish()
@@ -512,5 +515,9 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
         super.onDestroy()
         stopRingtone()
         videoCallViewModel.disconnect()
+    }
+
+    companion object {
+        const val DELAY_TIME = 1000L
     }
 }

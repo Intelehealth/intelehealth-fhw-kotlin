@@ -33,3 +33,16 @@ salt.env
 /resource/src/kcdo/assets/
 /resource/src/ida/assets/
 
+/app/reports/
+/common/reports/
+/config/reports/
+/core/reports/
+/data/network/reports/
+/data/offline/reports/
+/data/provider/reports/
+/fcm/reports/
+/features/installer/reports/
+/features/ondemand/chat/reports/
+/features/ondemand/mediator/reports/
+/features/ondemand/video/reports/
+/resource/reports/

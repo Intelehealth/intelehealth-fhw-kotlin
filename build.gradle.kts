@@ -1,7 +1,5 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
@@ -16,20 +14,24 @@ plugins {
     alias(libs.plugins.detekt.plugin) apply false
 }
 
+
 subprojects {
     apply(plugin = Plugins.DETEKT)
 
-    tasks.withType<Detekt> {
-        config = rootProject.files("detekt/detekt.yml")
+    tasks.withType<Detekt>().configureEach {
+        config.setFrom(files("$rootDir/detekt/detekt.yml"))
+        parallel = true
+        buildUponDefaultConfig = true
+        setSource(files("src/main/java", "src/main/kotlin"))
+        include("**/*.kt", "**/*.kts")
         reports {
-            html {
-                required.set(true)
-                outputLocation.set(file("$rootDir/detekt/reports/detekt.html"))
-            }
-            xml {
-                required.set(true)
-                outputLocation.set(file("$rootDir/detekt/reports/detekt.xml"))
-            }
+            html.required.set(true)
+//            html.outputLocation.set(file("${project.buildFile}/reports/detekt/${project.name}.html"))
+            html.outputLocation.set(layout.buildDirectory.file("reports/detekt/${project.name}.html"))
+            xml.required.set(false)
+            txt.required.set(false)
+            sarif.required.set(false)
+            md.required.set(false)
         }
     }
 }

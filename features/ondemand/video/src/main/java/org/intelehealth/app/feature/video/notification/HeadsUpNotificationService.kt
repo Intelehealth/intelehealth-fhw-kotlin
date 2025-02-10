@@ -34,8 +34,6 @@ import org.intelehealth.app.feature.video.utils.CallStatus
 import org.intelehealth.common.extensions.startSupportedForeground
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.socket.SocketManager
-import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlin.random.Random
 
 
@@ -52,12 +50,15 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
     private lateinit var vibrationEffect: VibrationEffect
     private lateinit var countDownTimer: CountDownTimer
     private var isTimerRunning = false
-    private var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+//    private var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
     private var rtcArgs: CallArgs? = null
     private var isDuplicateCancelEvent = false
 
     //[0] initial delay then subsequent vibrate & pause
+    @Suppress("MagicNumber")
     private var vibratePattern: LongArray = longArrayOf(0, 100, 800, 100, 800, 100, 800, 100)
+
+    @Suppress("MagicNumber")
     private var vibrationAmplitude = intArrayOf(0, 50, 0, 50, 0, 50, 0, 50)
 
 
@@ -75,12 +76,10 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
 
     private val vibratorService by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager =
-                getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
         } else {
-            @Suppress("DEPRECATION")
-            getSystemService(VIBRATOR_SERVICE) as Vibrator
+            @Suppress("DEPRECATION") getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
     }
 
@@ -217,8 +216,7 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
             notificationManager.createNotificationChannel(getNotificationChannel(context, 2))
         }
 
-        val notificationCompatBuilder =
-            CallNotificationHandler.outGoingCallNotificationBuilder(messageBody, this)
+        val notificationCompatBuilder = CallNotificationHandler.outGoingCallNotificationBuilder(messageBody, this)
 
         notificationManager.notify(notificationId, notificationCompatBuilder.build())
         startSupportedForeground(notificationId, notificationCompatBuilder.build())
@@ -273,10 +271,9 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
         }
 
         val preferenceHelper = PreferenceHelper(this)
-        preferenceHelper.save(PreferenceHelper.MESSAGE_BODY,Gson().toJson(messageBody))
+        preferenceHelper.save(PreferenceHelper.MESSAGE_BODY, Gson().toJson(messageBody))
 
-        val notificationCompatBuilder =
-            CallNotificationHandler.getIncomingNotificationBuilder(this, messageBody)
+        val notificationCompatBuilder = CallNotificationHandler.getIncomingNotificationBuilder(this, messageBody)
 
         val notification: Notification = notificationCompatBuilder.build()
         notification.flags = Notification.FLAG_INSISTENT
@@ -346,38 +343,28 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-
         Timber.d { "OnSensorChanged **** " }
+        event?.let { sensorEventInRange(it) { acquiringWakelock() } }
+    }
 
-        event?.let {
+    private fun sensorEventInRange(event: SensorEvent, block: () -> Unit) {
+        if (event.sensor.type == Sensor.TYPE_PROXIMITY && event.values[0] < event.sensor.maximumRange) {
+            block()
+        }
+    }
 
-            if (event.sensor.type == Sensor.TYPE_PROXIMITY) {
-
-                if (event.values[0] < event.sensor.maximumRange) {
-
-                    Timber.d { "OnSensorChanged - acquiring wakelock **** " }
-
-                    Timber.d { "Power Manager is screen on **** ${powerManager.isInteractive}" }
-
-                    if (powerManager.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
-
-                        wakeLock?.let {
-
-                            if (it.isHeld) {
-                                Timber.d { "Release then acquire ***** " }
-                                it.release()
-                            } else {
-                                Timber.d { "Not held wake lock ***** " }
-                            }
-                            it.acquire(10 * 60 * 1000L)
-                        }
-                    } else {
-                        Timber.d { "wake lock not supported ****** " }
-                    }
-                } else {
-                    Timber.d { "OnSensorChanged - event value greater than sensor max range **** " }
-                }
+    private fun acquiringWakelock() {
+        Timber.d { "Acquiring wake lock ***** " }
+        if (powerManager.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
+            if (wakeLock.isHeld) {
+                Timber.d { "Release then acquire ***** " }
+                wakeLock.release()
+            } else {
+                Timber.d { "Not held wake lock ***** " }
             }
+            wakeLock.acquire(ACQUIRE_TIMEOUT)
+        } else {
+            Timber.d { "wake lock not supported ****** " }
         }
     }
 
@@ -408,6 +395,7 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
     //timeout
     private fun sendCallTimedOutToBackend(messageBody: CallArgs) {
         stopSelf()
+        Timber.d { "Call timed out ****** ${Gson().toJson(messageBody)}" }
 //        messageBody.callMode = CallMode.OUTGOING
 //        messageBody.callStatus = CallStatus.MISSED
 //        messageBody.callAction = CallAction.HANG_UP
@@ -417,5 +405,6 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
     companion object {
         private const val MAX_TIMEOUT: Long = 60000
         private const val COUNT_DOWN_INTERVAL: Long = 1000
+        private const val ACQUIRE_TIMEOUT = 10 * MAX_TIMEOUT
     }
 }
