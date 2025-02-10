@@ -3,12 +3,8 @@ package org.intelehealth.app.feature.video.utils
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Color
-import android.media.AudioAttributes
-import android.media.AudioManager
-import android.media.RingtoneManager
 import android.os.Build
 import android.os.SystemClock
 import androidx.annotation.RequiresApi
@@ -26,7 +22,8 @@ import org.intelehealth.common.extensions.appName
 import org.intelehealth.common.extensions.span
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 import kotlin.random.Random
 
 
@@ -184,7 +181,6 @@ object CallNotificationHandler {
      * @param priority notification display priority setting
      * @return NotificationChannel
      */
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getNotificationChannel(context: Context, priority: Int): NotificationChannel {
 
         return NotificationChannel(

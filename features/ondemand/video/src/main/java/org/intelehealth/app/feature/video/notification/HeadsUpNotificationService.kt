@@ -34,8 +34,6 @@ import org.intelehealth.app.feature.video.utils.CallStatus
 import org.intelehealth.common.extensions.startSupportedForeground
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.socket.SocketManager
-import java.text.SimpleDateFormat
-import java.util.Locale
 import kotlin.random.Random
 
 

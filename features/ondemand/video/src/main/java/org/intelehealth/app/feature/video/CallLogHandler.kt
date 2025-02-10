@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import org.intelehealth.app.feature.video.data.CallLogRepository
 import org.intelehealth.app.feature.video.model.VideoCallLog
 import org.intelehealth.app.feature.video.utils.CallStatus
-import org.intelehealth.common.helper.PreferenceHelper
 import javax.inject.Inject
 
 /**
