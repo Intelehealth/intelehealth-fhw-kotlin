@@ -51,6 +51,7 @@ jobs:
           ./gradlew detekt
 
       - name: Archive Detekt report
+        if: always() # Ensure this step runs even if previous steps fail
         uses: actions/upload-artifact@v4
         with:
           name: detekt-report
