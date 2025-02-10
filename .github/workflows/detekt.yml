@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: detekt-report
-          path: build/reports/detekt/detekt.html
+          path: detekt/reports/detekt.html
 
   save-report: # This job is save generated Detekt report to the repository
     needs: detekt
@@ -61,7 +61,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: detekt-report
-          path: detekt/reports/detekt.html
+          path: detekt/reports
 
       - name: Configure Git
         run: |
