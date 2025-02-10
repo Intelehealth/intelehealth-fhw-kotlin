@@ -51,7 +51,7 @@ jobs:
           ./gradlew detekt
 
       - name: Archive Detekt report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: detekt-report
           path: build/reports/detekt
