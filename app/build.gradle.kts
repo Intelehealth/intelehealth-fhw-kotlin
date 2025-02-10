@@ -1,6 +1,7 @@
 import extensions.androidTestDeps
 import extensions.appModuleDeps
 import extensions.unitTestDeps
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.application)
@@ -64,6 +65,7 @@ android {
         add(DynamicFeature.chat)
         add(DynamicFeature.video)
     }
+
 }
 
 dependencies {
@@ -73,3 +75,12 @@ dependencies {
 }
 
 apply(plugin = "com.google.gms.google-services")
+
+tasks.withType<Detekt> {
+    config.setFrom(files("$rootDir/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    reports {
+        html.required.set(true)
+        html.outputLocation.set(file("$rootDir/detekt/reports/app.html"))
+    }
+}

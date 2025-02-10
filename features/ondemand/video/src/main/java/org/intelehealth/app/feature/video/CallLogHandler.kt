@@ -16,8 +16,7 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 class CallLogHandler @Inject constructor(
-    private val callLogRepository: CallLogRepository,
-    private val preferenceHelper: PreferenceHelper
+    private val callLogRepository: CallLogRepository
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 

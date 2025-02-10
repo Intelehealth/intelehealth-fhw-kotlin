@@ -22,7 +22,7 @@ import kotlin.random.Random
  */
 object CallIntentUtils {
 
-    private const val REQUEST_CODE = 10001
+//    private const val REQUEST_CODE = 10001
     private const val CALL_RECEIVER_ACTION = "CALL_RECEIVER_ACTION"
 
     /**
@@ -58,8 +58,7 @@ object CallIntentUtils {
      * @return Intent ChatViewActivity intent to start
      */
     private fun getCallLogIntent(
-        messageBody: CallArgs,
-        context: Context
+        messageBody: CallArgs, context: Context
     ): Intent {
         return RtcEngine.getConfig(context)?.let {
             val callClass: Class<*> = Class.forName(it.callLogIntentClass)
@@ -77,8 +76,7 @@ object CallIntentUtils {
      * @return ChatCallBroadCastReceiver intent
      */
     private fun getCallBroadcastIntent(
-        messageBody: CallArgs,
-        context: Context
+        messageBody: CallArgs, context: Context
     ): Intent {
         Timber.d { "getCallBroadcastIntent: ${messageBody.toJson()}" }
         return Intent(context, CallReceiver::class.java).apply {
@@ -94,13 +92,9 @@ object CallIntentUtils {
      * @return PendingIntent type of ChatCallBroadCastReceiver intent
      */
     private fun getActionPendingBroadCastIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ) = PendingIntent.getBroadcast(
-        context,
-        Random.nextInt(0, MAX_INT),
-        getCallBroadcastIntent(messageBody, context),
-        getPendingIntentFlag()
+        context, Random.nextInt(0, MAX_INT), getCallBroadcastIntent(messageBody, context), getPendingIntentFlag()
     )
 
     /**
@@ -110,8 +104,7 @@ object CallIntentUtils {
      * @return PendingIntent type of ChatCallBroadCastReceiver intent
      */
     fun getAcceptPendingBroadCastIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent {
         return getActionPendingBroadCastIntent(context, messageBody)
     }
@@ -124,16 +117,14 @@ object CallIntentUtils {
      * @return PendingIntent type of ChatCallBroadCastReceiver intent
      */
     fun getDeclinePendingBroadCastIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent {
         return getActionPendingBroadCastIntent(context, messageBody)
     }
 
 
     fun getBroadCastIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent {
         return getActionPendingBroadCastIntent(context, messageBody)
     }
@@ -146,20 +137,14 @@ object CallIntentUtils {
      * @return PendingIntent type of ChatCallBroadCastReceiver intent
      */
     fun getPendingBroadCastIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent = PendingIntent.getBroadcast(
-        context,
-        Random.nextInt(0, MAX_INT),
-        getCallBroadcastIntent(messageBody, context),
-        getPendingIntentFlag()
+        context, Random.nextInt(0, MAX_INT), getCallBroadcastIntent(messageBody, context), getPendingIntentFlag()
     )
 
 
     fun getPendingActivityIntent(
-        context: Context,
-        messageBody: CallArgs,
-        flag: Int = getPendingIntentFlag()
+        context: Context, messageBody: CallArgs
     ): PendingIntent {
         Timber.d { "getPendingActivityIntent -> url = ${messageBody.url}" }
         return getCallActivityIntent(messageBody, context).let {
@@ -173,23 +158,19 @@ object CallIntentUtils {
     }
 
     fun getOnGoingPendingActivityIntent(
-        context: Context,
-        messageBody: CallArgs,
-        flag: Int = getPendingIntentFlag()
+        context: Context, messageBody: CallArgs, flag: Int = getPendingIntentFlag()
     ): PendingIntent {
         Timber.d { "getPendingActivityIntent -> url = ${messageBody.url}" }
         return PendingIntent.getActivity(
-            context, Random.nextInt(0, MAX_INT),
-            getCallActivityIntent(messageBody, context),
-            flag
+            context, Random.nextInt(0, MAX_INT), getCallActivityIntent(messageBody, context), flag
         )
     }
 
     fun getCallLogPendingIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent = PendingIntent.getActivity(
-        context, Random.nextInt(0, MAX_INT),
+        context,
+        Random.nextInt(0, MAX_INT),
         getCallLogIntent(messageBody, context),
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
@@ -199,18 +180,15 @@ object CallIntentUtils {
     )
 
     fun getOutGoingCallIntent(
-        context: Context,
-        messageBody: CallArgs
+        context: Context, messageBody: CallArgs
     ): PendingIntent = PendingIntent.getActivity(
-        context, Random.nextInt(0, MAX_INT),
-        getCallActivityIntent(messageBody.apply {
+        context, Random.nextInt(0, MAX_INT), getCallActivityIntent(messageBody.apply {
 //            callStatus = OUTGOING_CALL
 //            val recId = receiverId
 //            receiverId = msgFrom
 //            msgFrom = recId
 
-        }, context),
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        }, context), if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
@@ -221,8 +199,7 @@ object CallIntentUtils {
         val taskStackBuilder = TaskStackBuilder.create(context)
         taskStackBuilder.addNextIntentWithParentStack(intent)
         return taskStackBuilder.getPendingIntent(
-            Random.nextInt(0, MAX_INT),
-            getPendingIntentFlag()
+            Random.nextInt(0, MAX_INT), getPendingIntentFlag()
         )
     }
 
@@ -232,8 +209,7 @@ object CallIntentUtils {
         PendingIntent.FLAG_UPDATE_CURRENT
     }
 
-    fun getFlagUpdateCurrent() = getPendingIntentFlag().or(PendingIntent.FLAG_UPDATE_CURRENT)
+//    fun getFlagUpdateCurrent() = getPendingIntentFlag().or(PendingIntent.FLAG_UPDATE_CURRENT)
 
-    fun getCallReceiverAction(context: Context) =
-        "${context.applicationContext.packageName}.$CALL_RECEIVER_ACTION"
+    fun getCallReceiverAction(context: Context) = "${context.applicationContext.packageName}.$CALL_RECEIVER_ACTION"
 }

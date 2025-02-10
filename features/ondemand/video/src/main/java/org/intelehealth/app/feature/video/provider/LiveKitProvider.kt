@@ -61,16 +61,19 @@ object LiveKitProvider {
 //            videoCodec = VideoCodec.VP8.codecName
     )
 
+    @Suppress("unused")
     private fun provideRoomOptions(
         localAudioTrackOptions: LocalAudioTrackOptions,
         localVideoTrackOptions: LocalVideoTrackOptions,
         audioTrackPublishDefaults: AudioTrackPublishDefaults,
         videoTrackPublishDefaults: VideoTrackPublishDefaults
-    ) = RoomOptions(
-        audioTrackCaptureDefaults = localAudioTrackOptions,
-        audioTrackPublishDefaults = audioTrackPublishDefaults,
-        adaptiveStream = true
-    )
+    ): RoomOptions {
+        return RoomOptions(
+            audioTrackCaptureDefaults = localAudioTrackOptions,
+            audioTrackPublishDefaults = audioTrackPublishDefaults,
+            adaptiveStream = true
+        )
+    }
 
     private fun provideAudioSwitchHandler(@ApplicationContext context: Context) =
         AudioSwitchHandler(context)

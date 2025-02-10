@@ -30,13 +30,11 @@ data class CallArgs(
     var nurseName: String? = null,
     var patientName: String? = null,
     var nurseId: String? = null,
-    @SerializedName("connectToDrId")
-    var doctorUuid: String? = null,
+    @SerializedName("connectToDrId") var doctorUuid: String? = null,
     var visitId: String? = null,
     var doctorId: String? = null,
     var appToken: String? = null,
-    @SerializedName("device_token")
-    var deviceToken: String? = "",
+    @SerializedName("device_token") var deviceToken: String? = "",
     var timestamp: Long = 0,
     var sound: Boolean = true,
 
@@ -72,6 +70,8 @@ data class CallArgs(
     fun isMissedCall() = callStatus.isMissed()
 
     fun isBusyCall() = callStatus.isBusy()
+
+    fun isValidMissedCall() = isIncomingCall() && !isCallDeclined() && !isMissedCall() && !isCallAccepted()
 
     fun toJsonArg() = JSONObject().apply {
         put("patientId", patientId)
@@ -115,31 +115,10 @@ data class CallArgs(
     )
 
     companion object {
-
+        @Suppress("unused", "MaxLineLength")
         fun dummy(): CallArgs {
-            val json = "{" +
-                    "  \"actionType\": \"VIDEO_CALL\"," +
-                    "  \"appToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6ImM0MWNmMWU5LTMxNWUtNGFlNi05ZTIwLWNiNzJmZTMwZDg4MyIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiZXhwIjoiMTAgZGF5cyJ9LCJpYXQiOjE2OTcyODk4MDksIm5iZiI6MTY5NzI4OTgwOSwiZXhwIjoxNjk3MzExNDA5LCJpc3MiOiJkZXZrZXkiLCJzdWIiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkiLCJqdGkiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkifQ.LTJJ_BF4c8hZo2Cfe7ItPnP5-GUXfqgQqYIkiSSiZG8\"," +
-                    "  \"assignorNurseName\": \"\"," +
-                    "  \"callEnded\": false," +
-                    "  \"device_token\": \"\"," +
-                    "  \"doctorId\": \"30cd7a4f-421e-45c1-b64f-392705fd4eae\"," +
-                    "  \"doctorName\": \"Waghela Mithun Ravjibhai\"," +
-                    "  \"id\": \"3d86222b-9645-4fff-af8a-fab8e772f8bf\"," +
-                    "  \"isIncomingCall\": false," +
-                    "  \"nurseId\": \"c1efa41d-3c43-45d6-9e3a-472823b61a59\"," +
-                    "  \"nurseName\": \"mithunnurse\"," +
-                    "  \"shift_change\": \"\"," +
-                    "  \"patientUuid\": \"\"," +
-                    "  \"providerID\": \"\"," +
-                    "  \"roomId\": \"c41cf1e9-315e-4ae6-9e20-cb72fe30d883\"," +
-                    "  \"socketUrl\": \"https://ezazi.intelehealth.org:3004?userId\\u003dc1efa41d-3c43-45d6-9e3a-472823b61a59\\u0026name\\u003dmithunnurse\"," +
-                    "  \"tag\": \"\"," +
-                    "  \"timestamp\": 1697289811433," +
-                    "  \"url\": \"wss://ezazi.intelehealth.org:9090\"," +
-                    "  \"visitId\": \"52b1d64c-5843-44e9-b042-8019263e151b\"," +
-                    "  \"visitUuid\": \"\"" +
-                    "}"
+            val json =
+                "{" + "  \"actionType\": \"VIDEO_CALL\"," + "  \"appToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2aWRlbyI6eyJyb29tSm9pbiI6dHJ1ZSwicm9vbSI6ImM0MWNmMWU5LTMxNWUtNGFlNi05ZTIwLWNiNzJmZTMwZDg4MyIsImNhblB1Ymxpc2giOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwiZXhwIjoiMTAgZGF5cyJ9LCJpYXQiOjE2OTcyODk4MDksIm5iZiI6MTY5NzI4OTgwOSwiZXhwIjoxNjk3MzExNDA5LCJpc3MiOiJkZXZrZXkiLCJzdWIiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkiLCJqdGkiOiJjMWVmYTQxZC0zYzQzLTQ1ZDYtOWUzYS00NzI4MjNiNjFhNTkifQ.LTJJ_BF4c8hZo2Cfe7ItPnP5-GUXfqgQqYIkiSSiZG8\"," + "  \"assignorNurseName\": \"\"," + "  \"callEnded\": false," + "  \"device_token\": \"\"," + "  \"doctorId\": \"30cd7a4f-421e-45c1-b64f-392705fd4eae\"," + "  \"doctorName\": \"Waghela Mithun Ravjibhai\"," + "  \"id\": \"3d86222b-9645-4fff-af8a-fab8e772f8bf\"," + "  \"isIncomingCall\": false," + "  \"nurseId\": \"c1efa41d-3c43-45d6-9e3a-472823b61a59\"," + "  \"nurseName\": \"mithunnurse\"," + "  \"shift_change\": \"\"," + "  \"patientUuid\": \"\"," + "  \"providerID\": \"\"," + "  \"roomId\": \"c41cf1e9-315e-4ae6-9e20-cb72fe30d883\"," + "  \"socketUrl\": \"https://ezazi.intelehealth.org:3004?userId\\u003dc1efa41d-3c43-45d6-9e3a-472823b61a59\\u0026name\\u003dmithunnurse\"," + "  \"tag\": \"\"," + "  \"timestamp\": 1697289811433," + "  \"url\": \"wss://ezazi.intelehealth.org:9090\"," + "  \"visitId\": \"52b1d64c-5843-44e9-b042-8019263e151b\"," + "  \"visitUuid\": \"\"" + "}"
             return Gson().fromJson(json, CallArgs::class.java)
         }
     }

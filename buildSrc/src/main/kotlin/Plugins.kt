@@ -22,7 +22,7 @@ object PluginVersion {
     const val KGP = "1.6.21"
     const val NAVIGATION = "2.4.2"
     const val KTLINT = "10.3.0"
-    const val DETEKT = "1.20.0"
+    const val DETEKT = "1.23.7"
     const val BEN_MANES_VERSIONS = "0.42.0"
     const val DAGGER_HILT = "2.51.1"
 }

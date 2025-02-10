@@ -10,6 +10,7 @@ import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import org.intelehealth.common.extensions.hide
+import java.util.Locale
 
 /**
  * Created by Vaghela Mithun R. on 07-06-2023 - 19:19.
@@ -79,38 +80,26 @@ class VideoCallViewModel(url: String, token: String, application: Application) :
         IntentFilter().apply {
             addAction(CALL_END_FROM_WEB_INTENT_ACTION)
             ContextCompat.registerReceiver(
-                context,
-                callEndBroadcastReceiver,
-                this,
-                ContextCompat.RECEIVER_NOT_EXPORTED
+                context, callEndBroadcastReceiver, this, ContextCompat.RECEIVER_NOT_EXPORTED
             )
         }
 
         IntentFilter().apply {
 //            addAction(AwsS3Utils.ACTION_FILE_UPLOAD_DONE)
             ContextCompat.registerReceiver(
-                context,
-                imageUrlFormatBroadcastReceiver,
-                this,
-                ContextCompat.RECEIVER_NOT_EXPORTED
+                context, imageUrlFormatBroadcastReceiver, this, ContextCompat.RECEIVER_NOT_EXPORTED
             )
         }
 
         IntentFilter(Intent.ACTION_HEADSET_PLUG).apply {
             ContextCompat.registerReceiver(
-                context,
-                microphonePluggedStatusReceiver,
-                this,
-                ContextCompat.RECEIVER_NOT_EXPORTED
+                context, microphonePluggedStatusReceiver, this, ContextCompat.RECEIVER_NOT_EXPORTED
             )
         }
 
         IntentFilter("android.intent.action.PHONE_STATE").apply {
             ContextCompat.registerReceiver(
-                context,
-                phoneStateBroadcastReceiver,
-                this,
-                ContextCompat.RECEIVER_NOT_EXPORTED
+                context, phoneStateBroadcastReceiver, this, ContextCompat.RECEIVER_NOT_EXPORTED
             )
         }
 
@@ -123,26 +112,24 @@ class VideoCallViewModel(url: String, token: String, application: Application) :
         context.unregisterReceiver(phoneStateBroadcastReceiver)
     }
 
-    private val callDurationTimer = object : CountDownTimer(WAIT_TIMER.toLong(), 1000) {
+    private val callDurationTimer = object : CountDownTimer(WAIT_TIMER.toLong(), COUNT_DOWN_INTERVAL) {
         override fun onTick(millisUntilFinished: Long) {
             var timerMilli: Long = WAIT_TIMER - millisUntilFinished
-            val secondsInMilli: Long = 1000
-            val minutesInMilli = secondsInMilli * 60
-            val hoursInMilli = minutesInMilli * 60
-            val elapsedHours = timerMilli / hoursInMilli
-            timerMilli %= hoursInMilli
-            val elapsedMinutes = timerMilli / minutesInMilli
-            timerMilli %= minutesInMilli
-            val elapsedSeconds = timerMilli / secondsInMilli
-            val displayTimeString =
-                String.format("%02d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds)
+            val elapsedHours = timerMilli / HOUR_IN_MILLIS
+            timerMilli %= HOUR_IN_MILLIS
+            val elapsedMinutes = timerMilli / MINUTE_IN_MILLIS
+            timerMilli %= MINUTE_IN_MILLIS
+            val elapsedSeconds = timerMilli / SECOND_IN_MILLIS
+            val displayTimeString = String.format(
+                Locale.getDefault(), "%02d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds
+            )
             callDurationTimerData.postValue(displayTimeString)
         }
 
         override fun onFinish() {}
     }
 
-    private val callTimeoutTimer = object : CountDownTimer(CALL_PICKUP_EXP_TIME, 1000) {
+    private val callTimeoutTimer = object : CountDownTimer(CALL_PICKUP_EXP_TIME, COUNT_DOWN_INTERVAL) {
         override fun onTick(millisUntilFinished: Long) {
             remainTimeupMilliseconds = millisUntilFinished
         }
@@ -161,9 +148,12 @@ class VideoCallViewModel(url: String, token: String, application: Application) :
     fun stopCallTimer() = callDurationTimer.cancel()
 
     companion object {
-        const val CALL_END_FROM_WEB_INTENT_ACTION =
-            "org.intelehealth.app.CALL_END_FROM_WEB_INTENT_ACTION"
+        const val CALL_END_FROM_WEB_INTENT_ACTION = "org.intelehealth.app.CALL_END_FROM_WEB_INTENT_ACTION"
         const val WAIT_TIMER = 6 * 60 * 60 * 1000
         const val CALL_PICKUP_EXP_TIME = 60 * 1000L
+        const val COUNT_DOWN_INTERVAL = 1000L
+        private const val SECOND_IN_MILLIS = 1000L
+        private const val MINUTE_IN_MILLIS = 60 * SECOND_IN_MILLIS
+        const val HOUR_IN_MILLIS = 60 * MINUTE_IN_MILLIS
     }
 }

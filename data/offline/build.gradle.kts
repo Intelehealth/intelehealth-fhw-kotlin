@@ -1,6 +1,7 @@
 import extensions.androidTestDeps
 import extensions.offlineModuleDeps
 import extensions.unitTestDeps
+import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.library)
@@ -65,4 +66,12 @@ dependencies {
 //    testImplementation(libs.junit)
 //    androidTestImplementation(libs.androidx.junit)
 //    androidTestImplementation(libs.androidx.espresso.core)
+}
+tasks.withType<Detekt> {
+    config.setFrom(files("$rootDir/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    reports {
+        html.required.set(true)
+        html.outputLocation.set(file("$rootDir/detekt/reports/data-offline.html"))
+    }
 }

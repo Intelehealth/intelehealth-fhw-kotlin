@@ -25,7 +25,7 @@ class RtcEngine private constructor(
     val callLogIntentClass: String
 ) {
 
-    class Builder() {
+    class Builder {
         private var callUrl: String = ""
         private var socketUrl: String = ""
         private var callIntentClass: Class<*>? = null

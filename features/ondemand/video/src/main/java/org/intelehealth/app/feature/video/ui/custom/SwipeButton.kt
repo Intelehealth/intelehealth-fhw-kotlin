@@ -45,9 +45,7 @@ class SwipeButton : FrameLayout, View.OnTouchListener {
     constructor(context: Context) : this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int
+        context: Context, attrs: AttributeSet?, defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
         obtainAttrs(context, attrs, defStyleAttr)
     }
@@ -87,7 +85,7 @@ class SwipeButton : FrameLayout, View.OnTouchListener {
         bounceAnimator = ObjectAnimator.ofFloat(binding.fabAction, "translationY", animDistance, 0f)
         bounceAnimator.interpolator = BounceInterpolator()
         bounceAnimator.startDelay = animDelay.toLong()
-        bounceAnimator.duration = 2500
+        bounceAnimator.duration = ANIM_DURATION
         bounceAnimator.repeatCount = ValueAnimator.INFINITE
         bounceAnimator.repeatMode = ValueAnimator.REVERSE
         bounceAnimator.start()
@@ -100,61 +98,58 @@ class SwipeButton : FrameLayout, View.OnTouchListener {
             val newY = viewY.coerceAtMost(it.rawY)
             val swipe = viewY - newY
             when (it.action) {
-                MotionEvent.ACTION_MOVE -> {
-                    view.animate().y(newY)
-                        .setDuration(0)
-                        .alpha(1 - (swipe / MIN_SWIPE_DISTANCE) + 0.2f)
-                        .start()
-                    if (::swipeEventListener.isInitialized) swipeEventListener.onSwipe(this)
-                    if (swipe > MIN_SWIPE_DISTANCE)
-                        binding.tvSwipeHint.text = resources.getString(R.string.release_now)
-                }
-
-                MotionEvent.ACTION_UP -> {
-                    Timber.tag(TAG).d("ACTION_UP")
-                    if (swipe > MIN_SWIPE_DISTANCE) {
-                        Timber.tag(TAG).d("$swipe > $MIN_SWIPE_DISTANCE")
-                        if (::swipeEventListener.isInitialized) swipeEventListener.onCompleted(this)
-                    } else {
-                        if (::swipeEventListener.isInitialized) swipeEventListener.onReleased(this)
-                    }
-
-                    view.animate().alpha(1f)
-                        .y(viewY)
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setDuration(0).start()
-                    binding.tvSwipeHint.isInvisible = true
-                    binding.swipeUpIndicator.isVisible = arrowVisibility
-                    bounceAnimator.start()
-                }
-
-                MotionEvent.ACTION_DOWN -> {
-                    binding.hint = context.resources.getString(R.string.call_swipe_up)
-                    binding.tvSwipeHint.isInvisible = false
-                    binding.swipeUpIndicator.isVisible = false
-                    bounceAnimator.pause()
-                    view.animate()
-                        .scaleX(1.2f)
-                        .scaleY(1.2f)
-                        .setDuration(0)
-                        .start()
-                    if (::swipeEventListener.isInitialized) swipeEventListener.onTap(this)
-                }
+                MotionEvent.ACTION_MOVE -> onActionMove(view, newY, swipe)
+                MotionEvent.ACTION_UP -> onActionUp(view, swipe)
+                MotionEvent.ACTION_DOWN -> onActionDown(view)
             }
 
         }
         return true
     }
 
-    private fun complete(swiped: Float) {
-        if (swiped > MIN_SWIPE_DISTANCE) {
-            if (::swipeEventListener.isInitialized) swipeEventListener.onCompleted(this)
-        }
+    private fun onActionMove(view: View, newY: Float, swipe: Float) {
+        view.animate().y(newY).setDuration(0).alpha(MAX_ALPHA - (swipe / MIN_SWIPE_DISTANCE) + MIN_ALPHA).start()
+        if (::swipeEventListener.isInitialized) swipeEventListener.onSwipe(this)
+        if (swipe > MIN_SWIPE_DISTANCE) binding.tvSwipeHint.text = resources.getString(R.string.release_now)
     }
+
+    private fun onActionUp(view: View, swipe: Float) {
+        Timber.tag(TAG).d("ACTION_UP")
+        if (swipe > MIN_SWIPE_DISTANCE) {
+            Timber.tag(TAG).d("$swipe > $MIN_SWIPE_DISTANCE")
+            if (::swipeEventListener.isInitialized) swipeEventListener.onCompleted(this)
+        } else {
+            if (::swipeEventListener.isInitialized) swipeEventListener.onReleased(this)
+        }
+
+        view.animate().alpha(MAX_ALPHA).y(viewY).scaleX(SCALE).scaleY(SCALE).setDuration(0).start()
+        binding.tvSwipeHint.isInvisible = true
+        binding.swipeUpIndicator.isVisible = arrowVisibility
+        bounceAnimator.start()
+    }
+
+    private fun onActionDown(view: View) {
+        binding.hint = context.resources.getString(R.string.call_swipe_up)
+        binding.tvSwipeHint.isInvisible = false
+        binding.swipeUpIndicator.isVisible = false
+        bounceAnimator.pause()
+        view.animate().scaleX(MAX_SCALE).scaleY(MAX_SCALE).setDuration(0).start()
+        if (::swipeEventListener.isInitialized) swipeEventListener.onTap(this)
+    }
+
+//    private fun complete(swiped: Float) {
+//        if (swiped > MIN_SWIPE_DISTANCE) {
+//            if (::swipeEventListener.isInitialized) swipeEventListener.onCompleted(this)
+//        }
+//    }
 
     companion object {
         const val TAG = "AnimCallActionButton"
         const val MIN_SWIPE_DISTANCE = 250f
+        const val ANIM_DURATION = 2500L
+        const val MAX_SCALE = 1.2f
+        const val SCALE = 1.0f
+        const val MAX_ALPHA = 1f
+        const val MIN_ALPHA = 0.2f
     }
 }

@@ -38,9 +38,7 @@ import org.intelehealth.common.extensions.hide
 import kotlin.coroutines.coroutineContext
 
 open class CallViewModel(
-    private val url: String,
-    private val token: String,
-    private val application: Application
+    private val url: String, private val token: String, private val application: Application
 ) : ViewModel() {
 
 //    val options = RoomOptions(
@@ -166,6 +164,7 @@ open class CallViewModel(
         }
     }
 
+    @Suppress("CyclomaticComplexMethod")
     private suspend fun collectEvents() {
         room.state.name
         room.events.collect {
@@ -228,15 +227,13 @@ open class CallViewModel(
             if (it.publication.kind == Track.Kind.AUDIO) {
                 mutableMicEnabled.postValue(
                     getParticipantStatusMap(
-                        it.participant,
-                        it.publication.muted
+                        it.participant, it.publication.muted
                     )
                 )
             } else if (it.publication.kind == Track.Kind.VIDEO) {
                 mutableCameraEnabled.postValue(
                     getParticipantStatusMap(
-                        it.participant,
-                        it.publication.muted
+                        it.participant, it.publication.muted
                     )
                 )
             }
@@ -249,15 +246,13 @@ open class CallViewModel(
             if (it.publication.kind == Track.Kind.AUDIO) {
                 mutableMicEnabled.postValue(
                     getParticipantStatusMap(
-                        it.participant,
-                        it.publication.muted
+                        it.participant, it.publication.muted
                     )
                 )
             } else if (it.publication.kind == Track.Kind.VIDEO) {
                 mutableCameraEnabled.postValue(
                     getParticipantStatusMap(
-                        it.participant,
-                        it.publication.muted
+                        it.participant, it.publication.muted
                     )
                 )
             }
@@ -278,8 +273,7 @@ open class CallViewModel(
     }
 
     private fun onConnectivityChanged(it: RoomEvent.ConnectionQualityChanged) {
-        if (it.participant is RemoteParticipant)
-            mutableRemoteConnectionQuality.postValue(it.quality)
+        if (it.participant is RemoteParticipant) mutableRemoteConnectionQuality.postValue(it.quality)
     }
 
 //    private fun manageTrackPublicationOnConnectivityChanged(it: RoomEvent.ConnectionQualityChanged) {
@@ -333,20 +327,19 @@ open class CallViewModel(
         }
     }
 
-    private fun observeSpeaking(participant: Participant) {
-        viewModelScope.launch {
-            participant::isSpeaking.flow.collect { isSpeaking ->
-                mutableIsSpeakingStatus.postValue(getParticipantStatusMap(participant, isSpeaking))
-            }
-        }
-    }
+//    private fun observeSpeaking(participant: Participant) {
+//        viewModelScope.launch {
+//            participant::isSpeaking.flow.collect { isSpeaking ->
+//                mutableIsSpeakingStatus.postValue(getParticipantStatusMap(participant, isSpeaking))
+//            }
+//        }
+//    }
 
-    private fun getParticipantStatusMap(participant: Participant, flag: Boolean) =
-        HashMap<String, Boolean>().apply {
-            val key = if (participant == room.localParticipant) LOCAL_PARTICIPANT
-            else REMOTE_PARTICIPANT
-            put(key, flag)
-        }
+    private fun getParticipantStatusMap(participant: Participant, flag: Boolean) = HashMap<String, Boolean>().apply {
+        val key = if (participant == room.localParticipant) LOCAL_PARTICIPANT
+        else REMOTE_PARTICIPANT
+        put(key, flag)
+    }
 
 //    private fun getRemoteParticipantIdentity(remoteParticipant: Participant) {
 //        viewModelScope.launch {
@@ -373,16 +366,15 @@ open class CallViewModel(
 //        }
 //    }
 
-    private fun checkRemoteParticipantConnectivity(remoteParticipant: Participant) {
-        viewModelScope.launch {
-            remoteParticipant::connectionQuality.flow
-                .collect { quality ->
-                    mutableRemoteConnectionQuality.postValue(quality)
-//                    viewBinding.connectionQuality.visibility =
-//                        if (quality == ConnectionQuality.POOR) View.VISIBLE else View.INVISIBLE
-                }
-        }
-    }
+//    private fun checkRemoteParticipantConnectivity(remoteParticipant: Participant) {
+//        viewModelScope.launch {
+//            remoteParticipant::connectionQuality.flow.collect { quality ->
+//                    mutableRemoteConnectionQuality.postValue(quality)
+////                    viewBinding.connectionQuality.visibility =
+////                        if (quality == ConnectionQuality.POOR) View.VISIBLE else View.INVISIBLE
+//                }
+//        }
+//    }
 
     private fun getVideoTrack(participant: Participant): VideoTrack? {
         return participant.getTrackPublication(Track.Source.CAMERA)?.track as? VideoTrack
@@ -438,19 +430,9 @@ open class CallViewModel(
                 launch { collectEvents() }
 
                 RtcEngine.connectInRoom(url, token)
-//                room.connect(
-//                    url = url,
-//                    token = token,
-//                    options = ConnectOptions(
-//                        audio = true, video = true, autoSubscribe = true
-//                    )
-//                )
-
-//                room.audioHandler.start()
-
                 setupLocalTrack()
                 setupRemoteTrack()
-            } catch (e: Throwable) {
+            } catch (e: ExceptionInInitializerError) {
                 mutableError.value = e
             }
         }
@@ -464,16 +446,14 @@ open class CallViewModel(
 
             mutableMicEnabled.postValue(
                 getParticipantStatusMap(
-                    localParticipant,
-                    localParticipant.isMicrophoneEnabled()
+                    localParticipant, localParticipant.isMicrophoneEnabled()
                 )
             )
 
             localParticipant.setCameraEnabled(true)
             mutableCameraEnabled.postValue(
                 getParticipantStatusMap(
-                    localParticipant,
-                    localParticipant.isCameraEnabled()
+                    localParticipant, localParticipant.isCameraEnabled()
                 )
             )
 
@@ -592,9 +572,8 @@ open class CallViewModel(
     }
 
     fun flipCamera() {
-        val videoTrack = room.localParticipant.getTrackPublication(Track.Source.CAMERA)
-            ?.track as? LocalVideoTrack
-            ?: return
+        val videoTrack =
+            room.localParticipant.getTrackPublication(Track.Source.CAMERA)?.track as? LocalVideoTrack ?: return
 
         val newPosition = when (videoTrack.options.position) {
             CameraPosition.FRONT -> CameraPosition.BACK
