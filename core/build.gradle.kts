@@ -58,18 +58,4 @@ dependencies {
     coreModuleDeps()
     unitTestDeps()
     androidTestDeps()
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.appcompat)
-//    implementation(libs.material)
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-}
-tasks.withType<Detekt> {
-    config.setFrom(files("$rootDir/detekt/detekt.yml"))
-    buildUponDefaultConfig = true
-    reports {
-        html.required.set(true)
-        html.outputLocation.set(file("$rootDir/detekt/reports/core.html"))
-    }
 }

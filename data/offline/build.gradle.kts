@@ -59,19 +59,7 @@ android {
 }
 
 dependencies {
-
     offlineModuleDeps()
     unitTestDeps()
     androidTestDeps()
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
-}
-tasks.withType<Detekt> {
-    config.setFrom(files("$rootDir/detekt/detekt.yml"))
-    buildUponDefaultConfig = true
-    reports {
-        html.required.set(true)
-        html.outputLocation.set(file("$rootDir/detekt/reports/data-offline.html"))
-    }
 }

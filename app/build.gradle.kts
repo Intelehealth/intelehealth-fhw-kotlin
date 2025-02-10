@@ -75,12 +75,3 @@ dependencies {
 }
 
 apply(plugin = "com.google.gms.google-services")
-
-tasks.withType<Detekt> {
-    config.setFrom(files("$rootDir/detekt/detekt.yml"))
-    buildUponDefaultConfig = true
-    reports {
-        html.required.set(true)
-        html.outputLocation.set(file("$rootDir/detekt/reports/app.html"))
-    }
-}

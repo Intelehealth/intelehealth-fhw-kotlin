@@ -34,10 +34,10 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-#      - name: Run Detekt
-#        uses: natiginfo/action-detekt-all@1.23.7
-#        with:
-#          args: --config detekt/detekt.yml
+      - name: Run Detekt
+        uses: natiginfo/action-detekt-all@1.23.7
+        with:
+          args: --config detekt/detekt.yml
 #
 #      - name: Generate Detekt Report
 #        if: always() # Ensure this step runs even if previous steps fail
@@ -46,26 +46,6 @@ jobs:
 #          name: detekt-report
 #          path: detekt/reports/detekt.html
 
-      - name: Generate Detekt report
-        run: |
-          ./gradlew detekt
-
-      - name: Archive Detekt report
-        if: always() # Ensure this step runs even if previous steps fail
-        uses: actions/upload-artifact@v4
-        with:
-          name: detekt-report
-          path: build/reports/detekt
-
-      - name: Commit and push Detekt report
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add build/reports/detekt
-          git commit -m "Add Detekt report"
-          git push
-          env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #  save-report: # This job is save generated Detekt report to the repository
 #    needs: detekt

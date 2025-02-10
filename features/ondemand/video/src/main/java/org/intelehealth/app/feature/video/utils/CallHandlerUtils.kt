@@ -71,7 +71,7 @@ object CallHandlerUtils {
     }
 
     private fun getCallLogHandler(context: Context) = CallLogHandler(
-        CallLogRepository(CallDatabase.getInstance(context).rtcCallLogDao()), PreferenceHelper(context)
+        CallLogRepository(CallDatabase.getInstance(context).rtcCallLogDao())
     )
 
     private fun generateCallLog(callArgs: CallArgs) = VideoCallLog(
