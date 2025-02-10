@@ -45,7 +45,7 @@ output-reports:
   active: true
   exclude:
     - 'TxtOutputReport'
-    # - 'XmlOutputReport'
+    - 'XmlOutputReport'
     # - 'HtmlOutputReport'
     - 'MdOutputReport'
     - 'SarifOutputReport'
