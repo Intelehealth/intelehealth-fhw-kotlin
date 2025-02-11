@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import kotlinx.coroutines.delay
 import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 
 /**

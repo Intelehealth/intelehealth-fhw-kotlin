@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import org.intelehealth.data.offline.entity.FollowUpStatusCount
 import org.intelehealth.data.offline.entity.Observation
-import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 
 /**
  * Created by Vaghela Mithun R. on 02-04-2024 - 10:24.

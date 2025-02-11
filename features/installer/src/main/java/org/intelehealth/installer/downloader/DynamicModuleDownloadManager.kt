@@ -1,8 +1,8 @@
 package org.intelehealth.installer.downloader
 
 import android.content.Context
-import android.os.CountDownTimer
 import android.util.Log
+import com.github.ajalt.timberkt.Timber
 import com.google.android.play.core.splitinstall.SplitInstallException
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -91,7 +91,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
         splitInstallManager.startInstall(request).addOnSuccessListener { sessionId ->
             mySessionId = sessionId
         }.addOnFailureListener { e ->
-            Log.d(TAG, "Exception: $e")
+            Timber.tag(TAG).d("Exception: $e")
             handleInstallFailure((e as SplitInstallException).errorCode)
         }
     }
@@ -107,7 +107,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
         splitInstallManager.startInstall(builder.build()).addOnSuccessListener { sessionId ->
             mySessionId = sessionId
         }.addOnFailureListener { e ->
-            Log.d(TAG, "Exception: $e")
+            Timber.tag(TAG).d("Exception: $e")
             handleInstallFailure((e as SplitInstallException).errorCode)
         }
     }
@@ -153,14 +153,14 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 
         val installedModules = splitInstallManager.installedModules.toList()
         splitInstallManager.deferredUninstall(installedModules).addOnSuccessListener {
-            Log.d(TAG, "Uninstalling $installedModules")
+            Timber.tag(TAG).d("Uninstalling $installedModules")
         }
     }
 
     /** Request uninstall of all features. */
     fun requestUninstall(modules: List<String>) {
         splitInstallManager.deferredUninstall(modules).addOnSuccessListener {
-            Log.d(TAG, "Uninstalling $modules")
+            Timber.tag(TAG).d("Uninstalling $modules")
             println("${TAG}=>Uninstalling $modules")
         }.addOnCompleteListener {
             println("${TAG}=>Uninstalling $modules completed")
@@ -233,7 +233,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 
                 SplitInstallSessionStatus.INSTALLED -> {
                     println("${TAG}=>INSTALLED")
-                    Log.d(TAG, "Dynamic Module downloaded")
+                    Timber.tag(TAG).d("Dynamic Module downloaded")
                     callback?.onInstallSuccess()
 //                    cancelNotificationWithMessage("Installation complete")
                 }

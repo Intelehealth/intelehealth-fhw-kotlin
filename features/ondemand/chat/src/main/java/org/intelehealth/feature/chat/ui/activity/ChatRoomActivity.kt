@@ -1,6 +1,5 @@
 package org.intelehealth.feature.chat.ui.activity
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,16 +16,15 @@ import org.intelehealth.feature.chat.R
 import org.intelehealth.feature.chat.data.ChatDataSource
 import org.intelehealth.feature.chat.data.ChatRepository
 import org.intelehealth.feature.chat.databinding.ActivityChatBinding
-import org.intelehealth.feature.chat.room.entity.ChatMessage
 import org.intelehealth.feature.chat.model.DayHeader
 import org.intelehealth.feature.chat.model.ItemHeader
 import org.intelehealth.feature.chat.provider.RetrofitProvider
 import org.intelehealth.feature.chat.room.ChatDatabase
+import org.intelehealth.feature.chat.room.entity.ChatMessage
 import org.intelehealth.feature.chat.ui.adapter.ChatMessageAdapter
 import org.intelehealth.feature.chat.ui.viewmodel.ChatViewModel
 import org.intelehealth.features.ondemand.mediator.model.ChatRoomConfig
 import org.intelehealth.installer.activity.BaseSplitCompActivity
-import kotlin.random.Random
 
 /**
  * Created by Vaghela Mithun R. on 08-11-2024 - 12:33.

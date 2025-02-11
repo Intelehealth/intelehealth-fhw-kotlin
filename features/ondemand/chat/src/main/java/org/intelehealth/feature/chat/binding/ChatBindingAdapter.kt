@@ -1,7 +1,6 @@
 package org.intelehealth.feature.chat.binding
 
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import org.intelehealth.feature.chat.R
 import org.intelehealth.feature.chat.model.MessageStatus
