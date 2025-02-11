@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import org.intelehealth.common.R
 import org.intelehealth.common.databinding.FragmentCircularProgressbarBinding
-import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 
 /**
  * Created by Vaghela Mithun R. on 10-01-2025 - 12:54.
