@@ -1,4 +1,4 @@
-package org.intelehealth.common.ui.listener
+package org.intelehealth.common.service
 
 import androidx.lifecycle.LifecycleOwner
 import okhttp3.internal.http2.ErrorCode
@@ -24,7 +24,7 @@ interface ServiceStateListener {
             it ?: return@observe
             if (it.equals(ErrorCode.INTERNAL_ERROR)) {
                 onProgressFinish()
-                onError(ErrorModel(500,0, 0))
+                onError(ErrorModel(HttpStatusCode.INTERNAL_SERVER_ERROR, 0, 0))
             }
         }
     }

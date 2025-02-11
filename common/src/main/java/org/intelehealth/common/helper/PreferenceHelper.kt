@@ -44,7 +44,7 @@ class PreferenceHelper @Inject constructor(@ApplicationContext private val conte
         } else if (value is Enum<*>) {
             editor.putString(key, value.toString())
         } else if (value != null) {
-            throw RuntimeException("Attempting to save non-supported preference")
+            throw UnsupportedOperationException("Attempting to save non-supported preference")
         }
         editor.commit()
     }

@@ -11,6 +11,8 @@ import com.google.firebase.messaging.FirebaseMessaging
  * Mob   : +919727206702
  **/
 object FcmTokenGenerator {
+    private const val POST_DELAY_TIME = 500L
+
     @JvmStatic
     fun getDeviceToken(onNewToken: (String) -> Unit) {
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
@@ -20,7 +22,7 @@ object FcmTokenGenerator {
                     onNewToken(it.result)
                 }
             } else {
-                Handler(Looper.getMainLooper()).postDelayed({ getDeviceToken(onNewToken) }, 500)
+                Handler(Looper.getMainLooper()).postDelayed({ getDeviceToken(onNewToken) }, POST_DELAY_TIME)
             }
         }
     }

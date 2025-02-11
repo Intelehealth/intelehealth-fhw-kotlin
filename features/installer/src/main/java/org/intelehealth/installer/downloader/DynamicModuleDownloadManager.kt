@@ -1,8 +1,8 @@
 package org.intelehealth.installer.downloader
 
 import android.content.Context
-import android.os.CountDownTimer
 import android.util.Log
+import com.github.ajalt.timberkt.Timber
 import com.google.android.play.core.splitinstall.SplitInstallException
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -62,27 +62,27 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 //        downloadProgressHelper.setContent("Downloading...")
 //        downloadProgressHelper.startNotifying()
 
-        object : CountDownTimer(10000, 1000) {
-            override fun onTick(p0: Long) {
-                val progress = 100 - ((p0 * 100) / 10000).toInt()
-                Log.e("FeatureDownloadService ", "Interval $progress ==> $p0")
-//                downloadProgressHelper.updateProgress(progress)
-            }
-
-            override fun onFinish() {
-//                downloadProgressHelper.setContent("Download complete")
-//                downloadProgressHelper.completeProgress()
-            }
-
-        }.start()
+//        object : CountDownTimer(10000, 1000) {
+//            override fun onTick(p0: Long) {
+//                val progress = 100 - ((p0 * 100) / 10000).toInt()
+//                Log.e("FeatureDownloadService ", "Interval $progress ==> $p0")
+////                downloadProgressHelper.updateProgress(progress)
+//            }
+//
+//            override fun onFinish() {
+////                downloadProgressHelper.setContent("Download complete")
+////                downloadProgressHelper.completeProgress()
+//            }
+//
+//        }.start()
     }
 
-    private fun initNotification() {
-        println("${TAG}=>initNotification")
-//        downloadProgressHelper.setTitle("Intelehealth")
-//        downloadProgressHelper.setContent("Downloading...")
-//        downloadProgressHelper.startNotifying()
-    }
+//    private fun initNotification() {
+//        println("${TAG}=>initNotification")
+////        downloadProgressHelper.setTitle("Intelehealth")
+////        downloadProgressHelper.setContent("Downloading...")
+////        downloadProgressHelper.startNotifying()
+//    }
 
     fun downloadDynamicModule(moduleName: String) {
         val request = SplitInstallRequest.newBuilder().addModule(moduleName).build()
@@ -91,7 +91,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
         splitInstallManager.startInstall(request).addOnSuccessListener { sessionId ->
             mySessionId = sessionId
         }.addOnFailureListener { e ->
-            Log.d(TAG, "Exception: $e")
+            Timber.tag(TAG).d("Exception: $e")
             handleInstallFailure((e as SplitInstallException).errorCode)
         }
     }
@@ -107,7 +107,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
         splitInstallManager.startInstall(builder.build()).addOnSuccessListener { sessionId ->
             mySessionId = sessionId
         }.addOnFailureListener { e ->
-            Log.d(TAG, "Exception: $e")
+            Timber.tag(TAG).d("Exception: $e")
             handleInstallFailure((e as SplitInstallException).errorCode)
         }
     }
@@ -153,14 +153,14 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 
         val installedModules = splitInstallManager.installedModules.toList()
         splitInstallManager.deferredUninstall(installedModules).addOnSuccessListener {
-            Log.d(TAG, "Uninstalling $installedModules")
+            Timber.tag(TAG).d("Uninstalling $installedModules")
         }
     }
 
     /** Request uninstall of all features. */
     fun requestUninstall(modules: List<String>) {
         splitInstallManager.deferredUninstall(modules).addOnSuccessListener {
-            Log.d(TAG, "Uninstalling $modules")
+            Timber.tag(TAG).d("Uninstalling $modules")
             println("${TAG}=>Uninstalling $modules")
         }.addOnCompleteListener {
             println("${TAG}=>Uninstalling $modules completed")
@@ -233,7 +233,7 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 
                 SplitInstallSessionStatus.INSTALLED -> {
                     println("${TAG}=>INSTALLED")
-                    Log.d(TAG, "Dynamic Module downloaded")
+                    Timber.tag(TAG).d("Dynamic Module downloaded")
                     callback?.onInstallSuccess()
 //                    cancelNotificationWithMessage("Installation complete")
                 }

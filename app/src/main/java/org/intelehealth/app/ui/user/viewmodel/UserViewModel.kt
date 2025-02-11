@@ -13,6 +13,7 @@ import org.intelehealth.common.extensions.containsDigit
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
+import org.intelehealth.common.utility.CommonConstants.MIN_PASSWORD_LENGTH
 import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
@@ -125,9 +126,9 @@ class UserViewModel @Inject constructor(
     fun generatePassword(): String {
         val pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
         val rnd = SecureRandom()
-        val sb = StringBuilder(PASSWORD_LEN)
+        val sb = StringBuilder(MIN_PASSWORD_LENGTH)
         @Suppress("UnusedPrivateProperty")
-        for (i in 0 until PASSWORD_LEN) {
+        for (i in 0 until MIN_PASSWORD_LENGTH) {
             sb.append(pattern[rnd.nextInt(pattern.length)])
         }
 
@@ -137,7 +138,6 @@ class UserViewModel @Inject constructor(
     }
 
     companion object {
-        const val PASSWORD_LEN = 8
         const val OTP_EXPIRY_TIME = 60 * 1000L
         const val OTP_EXPIRY_TIME_INTERVAL = 1000L
     }

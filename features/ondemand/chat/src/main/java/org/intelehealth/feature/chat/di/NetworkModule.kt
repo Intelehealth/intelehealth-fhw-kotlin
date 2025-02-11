@@ -13,6 +13,7 @@ import org.intelehealth.app.BuildConfig
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.service.AuthInterceptor
 import org.intelehealth.common.socket.SocketManager
+import org.intelehealth.common.utility.CommonConstants.HTTP_REQ_TIMEOUT
 import org.intelehealth.feature.chat.restapi.ChatRestClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,7 +34,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSocketManager(@ApplicationContext context: Context) = SocketManager.instance
+    fun provideSocketManager() = SocketManager.getInstance()
 
     @Singleton
     @Provides
@@ -48,8 +49,11 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpBuilder(interceptor: HttpLoggingInterceptor) =
-        OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(180, TimeUnit.SECONDS)
-            .readTimeout(180, TimeUnit.SECONDS).writeTimeout(180, TimeUnit.SECONDS).addInterceptor(interceptor)
+        OkHttpClient.Builder().retryOnConnectionFailure(true)
+            .connectTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .writeTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
 
     @Singleton
     @Provides
@@ -70,6 +74,6 @@ class NetworkModule {
     @Provides
     fun provideWebRtcApiClient(
         okhttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory
-    ) = Retrofit.Builder().baseUrl(BuildConfig.SERVER_URL).client(okhttpClient)
+    ): ChatRestClient = Retrofit.Builder().baseUrl(BuildConfig.SERVER_URL).client(okhttpClient)
         .addConverterFactory(gsonConverterFactory).build().create(ChatRestClient::class.java)
 }

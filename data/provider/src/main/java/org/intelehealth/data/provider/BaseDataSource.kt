@@ -15,10 +15,10 @@ import retrofit2.Response
  * Abstract Base Data source class with error handling
  */
 abstract class BaseDataSource(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO, private val networkHelper: NetworkHelper? = null
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val networkHelper: NetworkHelper? = null
 ) {
     companion object {
-        private const val TAG = "BaseDataSource"
         const val NOT_FOUND_404 = 404
         const val BAD_REQUEST_400 = 400
     }
@@ -46,4 +46,3 @@ abstract class BaseDataSource(
 
     private fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: false
 }
-

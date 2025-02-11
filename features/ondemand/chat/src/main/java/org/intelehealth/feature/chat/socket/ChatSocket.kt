@@ -58,21 +58,21 @@ class ChatSocket(private val socketManager: SocketManager) {
         }
     }
 
-    private fun onConversationReadSuccess(it: Array<Any>?) {
-        it?.let {
-            val gson = Gson()
-            val ack = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
-            eventCallbackMap[EVENT_CHAT_READ_ACK_SUCCESS]?.onSuccess(ack)
-        }
-    }
-
-    private fun onConversationRead(it: Array<Any>?) {
-        it?.let {
-            val gson = Gson()
-            val ack = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
-            conversationListener?.onConversationRead(ack[SENDER_ID], ack[RECEIVER_ID])
-        }
-    }
+//    private fun onConversationReadSuccess(it: Array<Any>?) {
+//        it?.let {
+//            val gson = Gson()
+//            val ack = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
+//            eventCallbackMap[EVENT_CHAT_READ_ACK_SUCCESS]?.onSuccess(ack)
+//        }
+//    }
+//
+//    private fun onConversationRead(it: Array<Any>?) {
+//        it?.let {
+//            val gson = Gson()
+//            val ack = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
+//            conversationListener?.onConversationRead(ack[SENDER_ID], ack[RECEIVER_ID])
+//        }
+//    }
 
     private fun onMessageRead(it: Array<Any>?) {
         it?.let {
@@ -90,15 +90,15 @@ class ChatSocket(private val socketManager: SocketManager) {
         }
     }
 
-    private fun onMessageSent(it: Array<Any>?) {
-        it?.let {
-            val gson = Gson()
-            val messageId = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
-            messageId[MESSAGE_ID]?.let { c ->
-                eventCallbackMap[EVENT_MESSAGE_SENT_ACK]?.onSuccess(messageId)
-            }
-        }
-    }
+//    private fun onMessageSent(it: Array<Any>?) {
+//        it?.let {
+//            val gson = Gson()
+//            val messageId = gson.fromJson<HashMap<String, String>>(gson.toJson(it))
+//            messageId[MESSAGE_ID]?.let { c ->
+//                eventCallbackMap[EVENT_MESSAGE_SENT_ACK]?.onSuccess(messageId)
+//            }
+//        }
+//    }
 
     private fun onMessageReceived(it: Array<Any>?) {
         it?.let {
@@ -155,7 +155,7 @@ class ChatSocket(private val socketManager: SocketManager) {
 
         @JvmStatic
         fun getInstance(): ChatSocket = INSTANCE ?: synchronized(this) {
-            INSTANCE ?: ChatSocket(SocketManager.instance).also {
+            INSTANCE ?: ChatSocket(SocketManager.getInstance()).also {
                 INSTANCE = it
             }
         }

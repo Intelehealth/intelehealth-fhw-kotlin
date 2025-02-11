@@ -13,6 +13,7 @@ import org.intelehealth.common.helper.NetworkHelper
 import retrofit2.Response
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.service.BaseResponse
+import org.intelehealth.common.service.HttpStatusCode
 import org.intelehealth.common.utility.NO_NETWORK
 import timber.log.Timber
 
@@ -55,7 +56,7 @@ open class BaseViewModel(
             com.github.ajalt.timberkt.Timber.d { "network call started" }
             val response = networkCall()
             com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
-            if (response.code() == 200) {
+            if (response.code() == HttpStatusCode.OK) {
                 Timber.d("Api success")
                 if (response.body()?.data != null && response.body()?.status is Boolean) {
                     if (response.body()?.status as Boolean) {
@@ -99,7 +100,7 @@ open class BaseViewModel(
         if (isInternetAvailable()) {
             com.github.ajalt.timberkt.Timber.d { "catchNetworkData api calling" }
             val response = networkCall()
-            if (response.code() == 200) {
+            if (response.code() == HttpStatusCode.OK) {
                 Timber.d("Api success")
                 val savedData = saveDataCall(response.body()?.data)
                 val result = Result.Success(savedData, "Success")
@@ -169,9 +170,5 @@ open class BaseViewModel(
                 // do nothing
             }
         }
-    }
-
-    companion object {
-        private const val TAG = "BaseViewModel"
     }
 }

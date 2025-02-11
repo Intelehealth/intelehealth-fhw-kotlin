@@ -77,6 +77,7 @@ class SocketViewModel @Inject constructor(private val socketManager: SocketManag
     private val mutableCallHangUp = MutableLiveData(false)
     val eventCallHangUp = mutableCallHangUp.hide()
 
+    @Suppress("CyclomaticComplexMethod")
     private fun emitter(event: String) = Emitter.Listener {
         when (event) {
             SocketManager.EVENT_BYE -> sayByeToWeb()

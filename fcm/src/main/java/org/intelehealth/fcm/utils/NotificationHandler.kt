@@ -9,10 +9,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.google.firebase.messaging.RemoteMessage.Notification
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
 import org.intelehealth.fcm.FcmBroadcastReceiver
 import org.intelehealth.fcm.FcmNotification
 import org.intelehealth.fcm.model.NotificationBuilderParam
-import org.json.JSONException
 import org.json.JSONObject
 
 
@@ -26,7 +26,7 @@ object NotificationHandler {
     fun isValidJson(json: String): Boolean {
         try {
             JSONObject(json)
-        } catch (e: JSONException) {
+        } catch (e: JsonParseException) {
             return false
         }
         return true

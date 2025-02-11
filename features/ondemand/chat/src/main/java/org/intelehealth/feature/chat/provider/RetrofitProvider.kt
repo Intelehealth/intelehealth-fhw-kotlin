@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.intelehealth.app.BuildConfig
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.service.AuthInterceptor
+import org.intelehealth.common.utility.CommonConstants.HTTP_REQ_TIMEOUT
 import org.intelehealth.feature.chat.restapi.ChatRestClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,8 +48,8 @@ object RetrofitProvider {
     private fun provideOkHttpRtcClient(okHttpBuilder: OkHttpClient.Builder): OkHttpClient = okHttpBuilder.build()
 
     private fun provideOkHttpBuilder(interceptor: HttpLoggingInterceptor) =
-        OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS).writeTimeout(60, TimeUnit.SECONDS).addInterceptor(interceptor)
+        OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS).writeTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS).addInterceptor(interceptor)
 
     private fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY

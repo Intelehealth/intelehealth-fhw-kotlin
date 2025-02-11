@@ -14,7 +14,8 @@ import org.intelehealth.feature.chat.socket.ChatSocket
  **/
 
 class ChatClient(
-    private val chatSocket: ChatSocket, private val messageHandler: MessageHandler
+    private val chatSocket: ChatSocket,
+    private val messageHandler: MessageHandler
 ) : ConnectionListener {
 
     init {
@@ -32,8 +33,11 @@ class ChatClient(
 
     fun isConnected() = chatSocket.isConnected()
 
-    fun sendMessage(chatMessage: ChatMessage, callback: EventCallback<String>? = null) =
-        chatSocket.sentMessage(chatMessage)
+    fun sendMessage(
+        chatMessage: ChatMessage,
+        @Suppress("UNUSED_PARAMETER")
+        callback: EventCallback<String>? = null
+    ) = chatSocket.sentMessage(chatMessage)
 
     fun ackMessageAsRead(messageId: Int) = chatSocket.ackMessageRead(messageId)
 

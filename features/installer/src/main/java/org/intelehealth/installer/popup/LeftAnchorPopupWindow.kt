@@ -10,4 +10,4 @@ import android.view.View
  **/
 class LeftAnchorPopupWindow(
     context: Context, anchorView: View, listener: OnDownloadCompleteListener
-) : DownloadPopupWindow(context, anchorView, listener) {}
+) : DownloadPopupWindow(context, anchorView, listener)

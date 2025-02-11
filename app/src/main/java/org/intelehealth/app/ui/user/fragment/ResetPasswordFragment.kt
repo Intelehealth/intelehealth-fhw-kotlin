@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentResetPasswordBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
-import org.intelehealth.app.ui.user.viewmodel.UserViewModel.Companion.PASSWORD_LEN
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.mapWithResourceId
 import org.intelehealth.common.extensions.passwordMatchWithConfirmPassword
@@ -22,6 +21,7 @@ import org.intelehealth.common.extensions.showTooltip
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.extensions.validatePasswordPattern
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
+import org.intelehealth.common.utility.CommonConstants.MIN_PASSWORD_LENGTH
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -87,8 +87,9 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
     private fun changeSaveButtonState() {
         val newPassword = binding.textInputNewPassword.text
         val confirmPassword = binding.textInputConfirmPassword.text
-        val validNewPassword = newPassword?.isNotEmpty() == true && newPassword.length >= PASSWORD_LEN
-        val validConfirmPassword = confirmPassword?.isNotEmpty() == true && confirmPassword.length >= PASSWORD_LEN
+        val validNewPassword = newPassword?.isNotEmpty() == true && newPassword.length >= MIN_PASSWORD_LENGTH
+        val validConfirmPassword =
+            confirmPassword?.isNotEmpty() == true && confirmPassword.length >= MIN_PASSWORD_LENGTH
         binding.btnResetPasswordSave.isEnabled = validNewPassword.and(validConfirmPassword)
     }
 

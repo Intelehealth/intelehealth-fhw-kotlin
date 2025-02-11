@@ -1,8 +1,10 @@
 package org.intelehealth.common.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import org.intelehealth.common.databinding.ActivityCircularProgressbarBinding
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 
 /**
  * Created by Vaghela Mithun R. on 11-12-2024 - 11:09.
@@ -17,7 +19,7 @@ abstract class CircularProgressActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        progressMax(100)
+        progressMax(MAX_PROGRESS)
         onProgress(0)
         onViewCreated()
         setupClickListeners()
@@ -40,6 +42,7 @@ abstract class CircularProgressActivity : AppCompatActivity() {
         binding.txtErrorMsg.text = message
     }
 
+    @SuppressLint("SetTextI18n")
     fun onProgress(progress: Int) {
         runOnUiThread {
             binding.progressIndicator.progress = progress
@@ -53,9 +56,5 @@ abstract class CircularProgressActivity : AppCompatActivity() {
 
     fun progressTask(status: String) {
         binding.txtProgressTask.text = status
-    }
-
-    companion object{
-        const val MAX_PROGRESS = 100
     }
 }

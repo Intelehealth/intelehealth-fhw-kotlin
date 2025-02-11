@@ -45,7 +45,24 @@ import org.intelehealth.data.offline.entity.VisitAttribute
  **/
 
 @Database(
-    entities = [Appointment::class, Concept::class, Encounter::class, FollowupScheduleNotification::class, LocalNotification::class, MediaRecord::class, Observation::class, Patient::class, PatientAttribute::class, PatientAttributeTypeMaster::class, PatientLocation::class, Provider::class, ProviderAttribute::class, User::class, Visit::class, VisitAttribute::class],
+    entities = [
+        Appointment::class,
+        Concept::class,
+        Encounter::class,
+        FollowupScheduleNotification::class,
+        LocalNotification::class,
+        MediaRecord::class,
+        Observation::class,
+        Patient::class,
+        PatientAttribute::class,
+        PatientAttributeTypeMaster::class,
+        PatientLocation::class,
+        Provider::class,
+        ProviderAttribute::class,
+        User::class,
+        Visit::class,
+        VisitAttribute::class
+    ],
     version = 1,
     exportSchema = false
 )
@@ -72,7 +89,7 @@ abstract class OfflineDatabase : RoomDatabase() {
         private var INSTANCE: OfflineDatabase? = null
 
         //   private val DATABASE_NAME = BuildConfig.FLAVOR_client + "-localrecords.db"
-        private val DATABASE_NAME = "main.db"
+        private const val DATABASE_NAME = "main.db"
 
         /**
          * Get the singleton instance of the database.

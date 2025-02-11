@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import org.intelehealth.common.utility.CommonConstants.MIN_PASSWORD_LENGTH
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -93,7 +94,7 @@ fun TextInputLayout.validatePassword(input: TextInputEditText, @StringRes resId:
     return if (input.text.isNullOrEmpty()) {
         showError(resId)
         false
-    } else if (input.text?.length!! < 4) {
+    } else if (input.text?.length!! < MIN_PASSWORD_LENGTH) {
         showError(ResourceR.string.error_invalid_password)
         false
     } else true
@@ -107,8 +108,7 @@ fun TextInputLayout.validatePasswordPattern(input: TextInputEditText, @StringRes
 }
 
 fun TextInputLayout.passwordMatchWithConfirmPassword(
-    newPassword: TextInputEditText,
-    confirmPassword: TextInputEditText
+    newPassword: TextInputEditText, confirmPassword: TextInputEditText
 ): Boolean {
     return if (!newPassword.text.toString().equals(confirmPassword.text.toString(), ignoreCase = false)) {
         showError(ResourceR.string.error_confirm_password)

@@ -12,8 +12,7 @@ import androidx.lifecycle.MutableLiveData
  * vaghela.mithun@gmail.com
  */
 class IntentResultRegistry constructor(
-    val context: Context,
-    registry: ActivityResultRegistry
+    val context: Context, registry: ActivityResultRegistry
 ) {
     private val resultContracts = ActivityResultContracts.StartActivityForResult()
 
@@ -29,7 +28,7 @@ class IntentResultRegistry constructor(
 //        }
     }
 
-    private fun checkResult(resultOk: Boolean, data: Intent?, result: () -> Unit) {
+    fun checkResult(resultOk: Boolean, data: Intent?, result: () -> Unit) {
         if (resultOk && data != null) result.invoke()
     }
 
