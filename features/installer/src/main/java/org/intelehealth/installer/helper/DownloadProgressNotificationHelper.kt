@@ -9,6 +9,7 @@ import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.delay
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 
 /**
  * Created by Vaghela Mithun R. on 14-10-2024 - 18:44.
@@ -36,7 +37,7 @@ class DownloadProgressNotificationHelper private constructor(context: Context) {
     private val notificationBuilder by lazy {
         NotificationCompat.Builder(context, channelId).setSmallIcon(android.R.drawable.ic_popup_sync)
             .setContentTitle("Intelehealth").setContentText("Downloading").setPriority(NotificationCompat.PRIORITY_LOW)
-            .setOngoing(true).setProgress(100, 0, true).setOnlyAlertOnce(true).setAutoCancel(true)
+            .setOngoing(true).setProgress(MAX_PROGRESS, 0, true).setOnlyAlertOnce(true).setAutoCancel(true)
     }
 
     fun setTitle(title: String) {
@@ -48,7 +49,7 @@ class DownloadProgressNotificationHelper private constructor(context: Context) {
     }
 
     fun updateProgress(progress: Int) {
-        notificationBuilder.setProgress(100, progress, false).setContentText("Downloading $progress%")
+        notificationBuilder.setProgress(MAX_PROGRESS, progress, false).setContentText("Downloading $progress%")
         notificationManager.notify(DYNAMIC_MODULE_DOWNLOAD_NOTIFICATION_ID, notificationBuilder.build())
     }
 

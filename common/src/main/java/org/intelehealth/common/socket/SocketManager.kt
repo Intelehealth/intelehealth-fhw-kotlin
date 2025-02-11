@@ -182,11 +182,11 @@ open class SocketManager @Inject constructor() {
 
     companion object {
         const val TAG = "SocketManager"
-        private var socketManager: SocketManager? = null
+        private var instance: SocketManager? = null
 
         @JvmStatic
-        var instance = socketManager ?: synchronized(this) {
-            socketManager ?: SocketManager().also { socketManager = it }
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: SocketManager().also { instance = it }
         }
 
         const val EVENT_IP_ADDRESS = "ipaddr"

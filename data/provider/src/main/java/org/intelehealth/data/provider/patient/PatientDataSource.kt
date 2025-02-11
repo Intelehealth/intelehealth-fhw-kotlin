@@ -9,8 +9,8 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class PatientDataSource @Inject constructor(
-    private val restClient: RestClient
-) : BaseDataSource() {
 
-}
+class PatientDataSource @Inject constructor(
+    @Suppress("UnusedPrivateProperty")
+    private val restClient: RestClient
+) : BaseDataSource()

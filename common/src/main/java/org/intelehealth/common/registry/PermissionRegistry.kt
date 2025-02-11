@@ -19,15 +19,15 @@ import javax.inject.Inject
  * vaghela.mithun@gmail.com
  */
 
-fun Map<String, Boolean>.allGranted(): Boolean {
-    if (keys.isEmpty()) return false
-
-    keys.forEach {
-        if (get(it) == false) return false
-    }
-
-    return true
-}
+//fun Map<String, Boolean>.allGranted(): Boolean {
+//    if (keys.isEmpty()) return false
+//
+//    keys.forEach {
+//        if (get(it) == false) return false
+//    }
+//
+//    return true
+//}
 
 class PermissionRegistry @Inject constructor(
     val context: Context, registry: ActivityResultRegistry
@@ -36,7 +36,7 @@ class PermissionRegistry @Inject constructor(
     private val grantedData: LiveData<Boolean> get() = granted
 
     private val getPermission = registry.register(REGISTRY_KEY, RequestPermission()) { result ->
-        if (result) granted.postValue(result)
+        if (result) granted.postValue(true)
     }
 
     private val multiPermission = registry.register(REGISTRY_KEY, RequestMultiplePermissions()) {

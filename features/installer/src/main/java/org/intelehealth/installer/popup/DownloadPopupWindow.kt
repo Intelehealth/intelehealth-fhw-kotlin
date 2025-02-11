@@ -19,7 +19,10 @@ import org.intelehealth.installer.downloader.DynamicModuleDownloadManager
  * Mob   : +919727206702
  **/
 abstract class DownloadPopupWindow(
-    private val context: Context, private val anchor: View, private val listener: OnDownloadCompleteListener
+    private val context: Context,
+    @Suppress("UnusedPrivateProperty")
+    private val anchor: View,
+    private val listener: OnDownloadCompleteListener
 ) : PopupWindow(context), DynamicDeliveryCallback, OnDismissListener {
     val downloadManager = DynamicModuleDownloadManager.getInstance(context)
     private val inflater: LayoutInflater = LayoutInflater.from(context)

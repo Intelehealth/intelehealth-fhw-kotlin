@@ -57,6 +57,7 @@ abstract class FBMessageService(private val clazz: Class<*>) : FirebaseMessaging
         println("FBMessageService calling")
     }
 
+    @Suppress("UnusedPrivateMember")
     private fun isAppInForeground() = ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(
         Lifecycle.State.RESUMED
     )

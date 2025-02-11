@@ -1,5 +1,6 @@
 package org.intelehealth.data.provider.sync.data
 
+import android.content.res.Resources.NotFoundException
 import com.google.gson.Gson
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.utility.PreferenceUtils
@@ -21,7 +22,7 @@ class SyncDataSource @Inject constructor(
     fun pullData(pageNo: Int, pageLimit: Int) = getResult {
         val locationStr = preferenceUtils.location
         val location = Gson().fromJson(locationStr, SetupLocation::class.java)
-        location?.uuid ?: throw Exception("Location not found")
+        location?.uuid ?: throw NotFoundException("Location not found")
         apiClient.pullData(
             preferenceUtils.basicAuthToken, location.uuid!!, preferenceUtils.lastSyncedTime, pageNo, pageLimit
         )

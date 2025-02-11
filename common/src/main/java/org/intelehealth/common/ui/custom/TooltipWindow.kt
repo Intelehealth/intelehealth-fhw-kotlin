@@ -46,7 +46,7 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
         val positionX = anchorRect.centerX() - (contentViewWidth / 2)
         val positionY = anchorRect.bottom - (anchorRect.height() / 2)
         showAtLocation(anchor, Gravity.NO_GRAVITY, positionX, positionY)
-        handler.sendEmptyMessageDelayed(MSG_DISMISS_TOOLTIP, 4000)
+        handler.sendEmptyMessageDelayed(MSG_DISMISS_TOOLTIP, MSG_DELAY_MILLIS)
         Timber.d { "showTooltip : $message" }
     }
 
@@ -61,5 +61,6 @@ class TooltipWindow(private val context: Context) : PopupWindow(context) {
 
     companion object {
         const val MSG_DISMISS_TOOLTIP = 1
+        const val MSG_DELAY_MILLIS = 4000L
     }
 }

@@ -9,6 +9,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.intelehealth.common.service.HttpStatusCode
 import org.intelehealth.feature.chat.data.ChatDataSource
 import org.intelehealth.feature.chat.data.ChatRepository
 import org.intelehealth.feature.chat.listener.ConversationListener
@@ -91,7 +92,7 @@ class MessageHandler(
                     chatRepository.getMessages(chatMessage.senderId, chatMessage.receiverId, it)
                 }.await()
 
-                if (response.code() == 200 && response.body() != null) {
+                if (response.code() == HttpStatusCode.OK && response.body() != null) {
                     response.body()?.data?.let {
                         chatRepository.addMessages(it)
                         chatMessage.roomId?.let { it1 ->
@@ -106,14 +107,23 @@ class MessageHandler(
     }
 
     private fun ackMessageReadIfRoomActive(message: ChatMessage) {
-        if (activeRoomId != null && loginUserId != null && activeRoomId == message.roomId && loginUserId == message.receiverId) {
+        if (isLoginUser(message.receiverId) && isRoomActive(message.roomId)) {
             scope.launch {
                 chatRepository.ackMessageRead(message.messageId)
             }
         } else showNotification(message)
     }
 
+    private fun isLoginUser(senderId: String): Boolean {
+        return loginUserId?.let { it == senderId } ?: false
+    }
+
+    private fun isRoomActive(roomId: String?): Boolean {
+        return activeRoomId?.let { it == roomId } ?: false
+    }
+
     private fun showNotification(message: ChatMessage) {
+        Timber.d { "showNotification => ${message.toJson()}" }
 //        val title = ProviderDAO().getProviderName(message.senderId, ProviderDTO.Columns.USER_UUID.value)
 //        val context = IntelehealthApplication.getAppContext()
 //        AppNotification.Builder(context).title(title).body(message.message)

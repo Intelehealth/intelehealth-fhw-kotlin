@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import org.intelehealth.common.R
 import org.intelehealth.common.databinding.FragmentCircularProgressbarBinding
+import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
 
 /**
  * Created by Vaghela Mithun R. on 10-01-2025 - 12:54.
@@ -18,7 +19,7 @@ abstract class CircularProgressFragment : StateFragment(R.layout.fragment_circul
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressMax(100)
+        progressMax(MAX_PROGRESS)
         onProgress(0)
         setupClickListeners()
         initiateProgressTask()

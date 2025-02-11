@@ -62,27 +62,27 @@ class DynamicModuleDownloadManager private constructor(context: Context) {
 //        downloadProgressHelper.setContent("Downloading...")
 //        downloadProgressHelper.startNotifying()
 
-        object : CountDownTimer(10000, 1000) {
-            override fun onTick(p0: Long) {
-                val progress = 100 - ((p0 * 100) / 10000).toInt()
-                Log.e("FeatureDownloadService ", "Interval $progress ==> $p0")
-//                downloadProgressHelper.updateProgress(progress)
-            }
-
-            override fun onFinish() {
-//                downloadProgressHelper.setContent("Download complete")
-//                downloadProgressHelper.completeProgress()
-            }
-
-        }.start()
+//        object : CountDownTimer(10000, 1000) {
+//            override fun onTick(p0: Long) {
+//                val progress = 100 - ((p0 * 100) / 10000).toInt()
+//                Log.e("FeatureDownloadService ", "Interval $progress ==> $p0")
+////                downloadProgressHelper.updateProgress(progress)
+//            }
+//
+//            override fun onFinish() {
+////                downloadProgressHelper.setContent("Download complete")
+////                downloadProgressHelper.completeProgress()
+//            }
+//
+//        }.start()
     }
 
-    private fun initNotification() {
-        println("${TAG}=>initNotification")
-//        downloadProgressHelper.setTitle("Intelehealth")
-//        downloadProgressHelper.setContent("Downloading...")
-//        downloadProgressHelper.startNotifying()
-    }
+//    private fun initNotification() {
+//        println("${TAG}=>initNotification")
+////        downloadProgressHelper.setTitle("Intelehealth")
+////        downloadProgressHelper.setContent("Downloading...")
+////        downloadProgressHelper.startNotifying()
+//    }
 
     fun downloadDynamicModule(moduleName: String) {
         val request = SplitInstallRequest.newBuilder().addModule(moduleName).build()

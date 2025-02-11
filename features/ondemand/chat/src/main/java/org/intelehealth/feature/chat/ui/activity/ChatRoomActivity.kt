@@ -36,7 +36,7 @@ import kotlin.random.Random
 class ChatRoomActivity : BaseSplitCompActivity() {
 
     private lateinit var adapter: ChatMessageAdapter
-    private var isMessageSync = false
+//    private var isMessageSync = false
     private val binding: ActivityChatBinding by lazy {
         ActivityChatBinding.inflate(layoutInflater)
     }
@@ -135,9 +135,9 @@ class ChatRoomActivity : BaseSplitCompActivity() {
         } else chatMessage.senderId
     }
 
-    private fun isLastMessageFromRemoteUser(chatMessage: ChatMessage, block: () -> Unit) {
-        if (chatMessage.senderId != chatViewModel.roomConfig.fromId) block.invoke()
-    }
+//    private fun isLastMessageFromRemoteUser(chatMessage: ChatMessage, block: () -> Unit) {
+//        if (chatMessage.senderId != chatViewModel.roomConfig.fromId) block.invoke()
+//    }
 
     private fun bindConversationList(messages: List<ChatMessage>) {
         val items: ArrayList<ItemHeader> = arrayListOf()

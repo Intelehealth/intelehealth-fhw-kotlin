@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.intelehealth.common.utility.CommonConstants.HTTP_REQ_TIMEOUT
 import org.intelehealth.core.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,8 +21,9 @@ class CoreNetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor) =
-        OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(180, TimeUnit.SECONDS)
-            .readTimeout(180, TimeUnit.SECONDS).writeTimeout(180, TimeUnit.SECONDS).addInterceptor(interceptor).build()
+        OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS).writeTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(interceptor).build()
 
     @Singleton
     @Provides
@@ -42,5 +44,5 @@ class CoreNetworkModule {
     @Provides
     fun provideRetrofitBuilder(
         okhttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory
-    ) = Retrofit.Builder().client(okhttpClient).addConverterFactory(gsonConverterFactory)
+    ): Retrofit.Builder = Retrofit.Builder().client(okhttpClient).addConverterFactory(gsonConverterFactory)
 }

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.onStart
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.utility.NO_NETWORK
 import retrofit2.Response
-import org.intelehealth.common.state.*
+import org.intelehealth.common.state.Result
 
 /**
  * Abstract Base Data source class with error handling
@@ -18,7 +18,6 @@ abstract class BaseDataSource(
     private val networkHelper: NetworkHelper? = null
 ) {
     companion object {
-        private const val TAG = "BaseDataSource"
         const val NOT_FOUND_404 = 404
         const val BAD_REQUEST_400 = 400
     }
@@ -44,4 +43,3 @@ abstract class BaseDataSource(
 
     private fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: true
 }
-

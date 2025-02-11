@@ -9,5 +9,8 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 class PatientRepository @Inject constructor(
-    private val patientDataSource: PatientDataSource, private val patientDao: PatientDao
-) {}
+    @Suppress("UnusedPrivateProperty")
+    private val patientDataSource: PatientDataSource,
+    @Suppress("UnusedPrivateProperty")
+    private val patientDao: PatientDao
+)

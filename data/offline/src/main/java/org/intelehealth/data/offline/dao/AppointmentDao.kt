@@ -35,6 +35,12 @@ interface AppointmentDao : CoreDao<Appointment> {
     @Query("SELECT * FROM tbl_appointments WHERE open_mrs_id = :openMrsId AND voided == 0")
     fun getByOpenMrsId(openMrsId: String): LiveData<Appointment>
 
-    @Query("SELECT SUM(upcoming) as upcoming, SUM(past) as past, total FROM (SELECT CASE WHEN (datetime(A.slot_js_date) >= datetime('now')) THEN 1 ELSE 0 END as upcoming, CASE WHEN (datetime(A.slot_js_date) < datetime('now'))  THEN 1  ELSE 0 END as past, count(A.uuid) as total FROM tbl_appointments A LEFT JOIN tbl_patient P ON P.uuid = A.patient_id WHERE A.status = 'booked')")
+    @Query(
+        "SELECT SUM(upcoming) as upcoming, SUM(past) as past, total FROM " +
+                "(SELECT CASE WHEN (datetime(A.slot_js_date) >= datetime('now')) THEN 1 ELSE 0 END " +
+                "as upcoming, CASE WHEN (datetime(A.slot_js_date) < datetime('now'))  THEN 1  ELSE 0 END " +
+                "as past, count(A.uuid) as total FROM tbl_appointments A " +
+                "LEFT JOIN tbl_patient P ON P.uuid = A.patient_id WHERE A.status = 'booked')"
+    )
     fun getAppointmentStatusCount(): LiveData<AppointmentStatusCount>
 }

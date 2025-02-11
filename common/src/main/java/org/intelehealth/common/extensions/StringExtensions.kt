@@ -14,6 +14,7 @@ import org.intelehealth.common.ui.custom.CustomImageSpan
 import org.intelehealth.resource.R
 import org.intelehealth.common.utility.DateTimeResource
 import org.intelehealth.common.utility.DateTimeUtils
+import org.intelehealth.common.utility.ImageSpanGravity
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -23,9 +24,6 @@ import java.util.concurrent.TimeUnit
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-enum class ImageSpanGravity {
-    TOP, CENTER, BOTTOM, START, END
-}
 
 fun String.toDate(format: String): Date {
     return DateTimeUtils.parseUTCDate(this, format)
@@ -35,6 +33,7 @@ fun String.toLocalDateFormat(format: String): String {
     return this.toDate(DateTimeUtils.DB_FORMAT).toWeekDays(format)
 }
 
+@Suppress("CyclomaticComplexMethod")
 fun String.milliToLogTime(format: String): String {
     val resource = DateTimeResource.getInstance()
     val different = System.currentTimeMillis() - this.toLong()
