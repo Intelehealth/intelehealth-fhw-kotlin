@@ -14,6 +14,7 @@ config:
   # when writing own rules with new properties, exclude the property path e.g.: 'my_rule_set,.*>.*>[my_property]'
   excludes: 'buildSrc'
 
+
 processors:
   active: true
   exclude:
