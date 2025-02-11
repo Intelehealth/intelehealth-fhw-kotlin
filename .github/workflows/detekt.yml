@@ -34,13 +34,13 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-#      - name: Run Detekt
-#        uses: natiginfo/action-detekt-all@1.23.7
-#        with:
-#          args: --config detekt/detekt.yml
-
       - name: Run Detekt
-        run: ./gradlew detekt
+        uses: natiginfo/action-detekt-all@1.23.7
+        with:
+          args: --config detekt/detekt.yml
+
+#      - name: Run Detekt
+#        run: ./gradlew detekt
 #
 #      - name: Generate Detekt Report
 #        if: always() # Ensure this step runs even if previous steps fail
