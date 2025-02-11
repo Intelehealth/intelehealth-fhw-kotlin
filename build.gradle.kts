@@ -24,7 +24,7 @@ subprojects {
         buildUponDefaultConfig = true
         setSource(files("src/main/java", "src/main/kotlin"))
         include("**/*.kt", "**/*.kts")
-        exclude("buildSrc/.*", "**/build/**", "**/generated/**")
+        exclude("**/buildSrc/**", "**/build/**", "**/generated/**")
         reports {
             html.required.set(true)
             html.outputLocation.set(layout.buildDirectory.file("reports/detekt/${project.name}.html"))
