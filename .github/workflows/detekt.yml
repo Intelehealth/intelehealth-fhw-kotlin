@@ -37,7 +37,7 @@ jobs:
       - name: Run Detekt
         uses: natiginfo/action-detekt-all@1.23.7
         with:
-          args: --config detekt/detekt.yml --input src/main/kotlin --excludes buildSrc/.*
+          args: --config detekt/detekt.yml --input src/main/java --excludes buildSrc/.*
 
 #      - name: Run Detekt
 #        run: ./gradlew detekt
