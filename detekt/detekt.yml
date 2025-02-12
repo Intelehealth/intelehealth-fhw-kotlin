@@ -1,6 +1,7 @@
 build:
   maxIssues: 0
   excludeCorrectable: false
+  excludes: 'buildSrc'
   weights:
   # complexity: 2
   # LongParameterList: 1
