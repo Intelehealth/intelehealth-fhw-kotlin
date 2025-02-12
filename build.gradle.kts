@@ -23,10 +23,12 @@ subprojects {
         parallel = true
         buildUponDefaultConfig = true
         setSource(files("src/main/java", "src/main/kotlin"))
-        include("**/*.kt", "**/*.kts")
+//        include("**/*.kt", "**/*.kts")
+        exclude { file ->
+            file.path.contains("buildSrc")
+        }
         reports {
             html.required.set(true)
-//            html.outputLocation.set(file("${project.buildFile}/reports/detekt/${project.name}.html"))
             html.outputLocation.set(layout.buildDirectory.file("reports/detekt/${project.name}.html"))
             xml.required.set(false)
             txt.required.set(false)
