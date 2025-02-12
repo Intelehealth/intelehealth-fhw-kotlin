@@ -40,7 +40,7 @@ jobs:
 #          args: --config detekt/detekt.yml --excludes buildSrc/.*
 
       - name: Run Detekt
-        run: ./gradlew detekt --config detekt/detekt.yml
+        run: ./gradlew detekt
 #
 #      - name: Generate Detekt Report
 #        if: always() # Ensure this step runs even if previous steps fail
