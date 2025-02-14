@@ -75,3 +75,15 @@ dependencies {
 }
 
 apply(plugin = "com.google.gms.google-services")
+
+//import org.gradle.api.tasks.Copy
+//
+//        tasks.register<Copy>("copyGoogleServices") {
+//            from("${rootProject.projectDir}/path/to/other/module/google-services.json")
+//            into("${projectDir}/src/main")
+//            rename { "google-services.json" }
+//        }
+//
+//tasks.named("preBuild").configure {
+//    dependsOn("copyGoogleServices")
+//}

@@ -17,12 +17,12 @@ import org.intelehealth.app.databinding.ActivityHomeBinding
 import org.intelehealth.app.databinding.DrawerHomeNavHeaderBinding
 import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
-import org.intelehealth.common.extensions.ImageSpanGravity
 import org.intelehealth.common.extensions.gotoNextActivity
 import org.intelehealth.common.extensions.imageSpan
 import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
+import org.intelehealth.common.utility.ImageSpanGravity
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.model.SetupLocation
 import javax.inject.Inject

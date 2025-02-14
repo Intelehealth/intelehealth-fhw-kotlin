@@ -1,17 +1,17 @@
-object Analysis {
-    const val ktlint = "0.43.0"
-}
+//object Analysis {
+//    const val ktlint = "0.43.0"
+//}
 
 object Deps {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:8.7.3"
+//    const val androidGradlePlugin = "com.android.tools.build:gradle:8.7.3"
 
-    object Kotlin {
-        private const val version = "1.9.0"
-        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
-        const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
-        const val extensions = "org.jetbrains.kotlin:kotlin-android-extensions:$version"
-        const val scriptingJvm = "org.jetbrains.kotlin:kotlin-scripting-jvm:$version"
-    }
+//    object Kotlin {
+//        private const val version = "1.9.0"
+//        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+//        const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+//        const val extensions = "org.jetbrains.kotlin:kotlin-android-extensions:$version"
+//        const val scriptingJvm = "org.jetbrains.kotlin:kotlin-scripting-jvm:$version"
+//    }
 
     object Coroutines {
         private const val version = "1.9.0"
@@ -151,15 +151,15 @@ object Deps {
         const val volley = "com.android.volley:volley:$version"
     }
 
-    object LeakCanary {
-        private const val version = "2.12"
-        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:$version"
-    }
+//    object LeakCanary {
+//        private const val version = "2.12"
+//        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:$version"
+//    }
 
-    object AWS {
-        private const val version = "2.66.0"
-        const val awsS3 = "com.amazonaws:aws-android-sdk-s3:$version"
-    }
+//    object AWS {
+//        private const val version = "2.66.0"
+//        const val awsS3 = "com.amazonaws:aws-android-sdk-s3:$version"
+//    }
 
     object Firebase {
         const val bom = "com.google.firebase:firebase-bom:33.7.0"
@@ -181,18 +181,23 @@ object Deps {
         const val ccp = "com.hbb20:ccp:$version"
     }
 
-    object Lottie {
-        private const val version = "4.2.0"
-        const val lottie = "com.airbnb.android:lottie:$version"
-    }
+//    object Lottie {
+//        private const val version = "4.2.0"
+//        const val lottie = "com.airbnb.android:lottie:$version"
+//    }
 
-    object ExoPlayer {
-        private const val version = "2.16.1"
-        const val exoPlayer = "com.google.android.exoplayer:exoplayer:$version"
-    }
+//    object ExoPlayer {
+//        private const val version = "2.16.1"
+//        const val exoPlayer = "com.google.android.exoplayer:exoplayer:$version"
+//    }
 
     object Rhino {
         const val android = "io.apisense:rhino-android:1.0"
+    }
+
+    object Detekt {
+        private const val version = "1.23.7"
+        const val formatting = "io.gitlab.arturbosch.detekt:detekt-formatting:$version"
     }
 }
 
@@ -208,43 +213,43 @@ object TestDeps {
         const val navigationTest = "androidx.navigation:navigation-testing:2.7.3"
     }
 
-    object Coroutines {
-        private const val version = "1.7.3"
-        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
-    }
+//    object Coroutines {
+//        private const val version = "1.7.3"
+//        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
+//    }
 
     object JUnit {
         private const val version = "4.13.2"
         const val junit = "junit:junit:$version"
     }
 
-    object MockWebServer {
-        private const val version = "4.11.0"
-        const val mockwebserver = "com.squareup.okhttp3:mockwebserver:$version"
-        const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
-    }
-
-    object MockK {
-        const val mockK = "io.mockk:mockk:1.13.7"
-    }
-
-    object Mockito {
-        private const val version = "5.5.0"
-        const val core = "org.mockito:mockito-core:$version"
-        const val inline = "org.mockito:mockito-inline:$version"
-        const val android = "org.mockito:mockito-android:$version"
-    }
-
-    object RoboElectric {
-        private const val version = "4.10.3"
-        const val robolectric = "org.robolectric:robolectric:$version"
-    }
-
-    object Turbine {
-        private const val version = "1.0.0"
-        const val turbine = "app.cash.turbine:turbine:$version"
-    }
-
-    const val truth = "com.google.truth:truth:1.1.5"
+//    object MockWebServer {
+//        private const val version = "4.11.0"
+//        const val mockwebserver = "com.squareup.okhttp3:mockwebserver:$version"
+//        const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"
+//    }
+//
+//    object MockK {
+//        const val mockK = "io.mockk:mockk:1.13.7"
+//    }
+//
+//    object Mockito {
+//        private const val version = "5.5.0"
+//        const val core = "org.mockito:mockito-core:$version"
+//        const val inline = "org.mockito:mockito-inline:$version"
+//        const val android = "org.mockito:mockito-android:$version"
+//    }
+//
+//    object RoboElectric {
+//        private const val version = "4.10.3"
+//        const val robolectric = "org.robolectric:robolectric:$version"
+//    }
+//
+//    object Turbine {
+//        private const val version = "1.0.0"
+//        const val turbine = "app.cash.turbine:turbine:$version"
+//    }
+//
+//    const val truth = "com.google.truth:truth:1.1.5"
     const val espressoCore = "androidx.test.espresso:espresso-core:3.6.1"
 }

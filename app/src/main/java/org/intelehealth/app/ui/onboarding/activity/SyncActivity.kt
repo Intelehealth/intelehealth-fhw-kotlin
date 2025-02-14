@@ -6,6 +6,7 @@ import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.helper.PreferenceHelper.Companion.AUTH_BASIC_TOKEN
 import org.intelehealth.common.helper.PreferenceHelper.Companion.KEY_PREF_LOCATION_UUID
 import org.intelehealth.common.ui.activity.CircularProgressActivity
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 import org.intelehealth.data.provider.sync.worker.SyncDataWorker
 import javax.inject.Inject
 

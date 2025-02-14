@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.intelehealth.common.utility.CommonConstants.HTTP_REQ_TIMEOUT
 import org.intelehealth.core.BuildConfig
+import org.intelehealth.core.interceptor.LimitedLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -20,7 +21,7 @@ class CoreNetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(interceptor: HttpLoggingInterceptor) =
+    fun provideOkHttpClient(interceptor: LimitedLoggingInterceptor) =
         OkHttpClient.Builder().retryOnConnectionFailure(true).connectTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS).writeTimeout(HTTP_REQ_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(interceptor).build()

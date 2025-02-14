@@ -67,7 +67,7 @@ android {
         nas {
             dimension client
             ext.appId = "org.intelehealth.nas"
-            ext.vCode = 1
+            ext.vCode = 50
             ext.vName = '1.0'
             ext.arcBaseName = "intelehealth_nas-" + versionName + " - " + date
 //            ext.appId "org.intelehealth.nas"

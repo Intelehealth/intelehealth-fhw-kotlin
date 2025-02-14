@@ -1,8 +1,8 @@
 import org.gradle.api.JavaVersion
 
-object Ext {
-    const val ExtVersion = ""
-}
+//object Ext {
+//    const val ExtVersion = ""
+//}
 
 object AndroidConfig {
     const val MIN_SDK = 26
@@ -34,5 +34,5 @@ object AndroidConfig {
     build number that increment only every minute so we should never reach 2100000000.
     */
     private const val projectStartTimeMillis = 1517443200000
-    val versionBuild = ((System.currentTimeMillis() - projectStartTimeMillis) / 6000).toInt()
+//    val versionBuild = ((System.currentTimeMillis() - projectStartTimeMillis) / 6000).toInt()
 }

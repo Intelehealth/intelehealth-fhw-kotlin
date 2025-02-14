@@ -4,8 +4,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
-import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
 import org.intelehealth.common.ui.fragment.CircularProgressFragment
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 import org.intelehealth.common.utility.PreferenceUtils
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR

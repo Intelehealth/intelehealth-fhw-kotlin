@@ -47,6 +47,8 @@ fun DependencyHandler.appModuleDeps() {
     implementation(Deps.AndroidX.Room.ktx)
     kapt(Deps.AndroidX.Room.compiler)
 
+//    detektPlugins(Deps.Detekt.formatting)
+
     // Hilt
     implementation(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
@@ -321,9 +323,9 @@ fun DependencyHandler.featureOnDemandMediatorModuleDeps() {
 /*
 * Add required dependencies to data module
 * */
-fun DependencyHandler.dataModuleDeps() {
-    implementation(project(Modules.common))
-}
+//fun DependencyHandler.dataModuleDeps() {
+//    implementation(project(Modules.common))
+//}
 
 /*
 * Add required dependencies to domain module
@@ -443,18 +445,27 @@ private fun DependencyHandler.api(dependencyNotation: Any): Dependency? = add("a
 @Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.kapt(dependencyNotation: Any): Dependency? = add("kapt", dependencyNotation)
 
+@Suppress("detekt.UnusedPrivateMember")
+private fun DependencyHandler.detektPlugins(dependencyNotation: Any): Dependency? =
+    add("detektPlugins", dependencyNotation)
+
+@Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.testImplementation(dependencyNotation: Any): Dependency? =
     add("testImplementation", dependencyNotation)
 
+@Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.debugImplementation(dependencyNotation: Any): Dependency? =
     add("debugImplementation", dependencyNotation)
 
+@Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.testRuntimeOnly(dependencyNotation: Any): Dependency? =
     add("testRuntimeOnly", dependencyNotation)
 
+@Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.androidTestImplementation(dependencyNotation: Any): Dependency? =
     add("androidTestImplementation", dependencyNotation)
 
+@Suppress("detekt.UnusedPrivateMember")
 private fun DependencyHandler.project(
     path: String, configuration: String? = null
 ): ProjectDependency {
