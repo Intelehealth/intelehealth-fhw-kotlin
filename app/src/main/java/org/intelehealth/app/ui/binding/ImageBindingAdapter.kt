@@ -55,3 +55,24 @@ fun bindProfileImage(imageView: ImageView?, url: String?) {
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imageView)
     }
 }
+
+/**
+ * A [BindingAdapter] function that loads an image from a URL into an
+ * [ImageView] using Glide.
+ *
+ * This function is designed to be used in data binding layouts to simplify
+ * loading images from URLs into [ImageView]s. It uses Glide for efficient
+ * image loading and caching.
+ *
+ * @param imageView The [ImageView] to load the image into.
+ * @param url The URL of the image to load. If `null` or empty, no image is loaded.
+ */
+@BindingAdapter("imgUrl")
+fun bindImage(imageView: ImageView?, url: String?) {
+    if (imageView != null && !url.isNullOrEmpty()) {
+        Glide.with(imageView.context)
+            .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(imageView)
+    }
+}

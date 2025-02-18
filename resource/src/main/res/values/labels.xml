@@ -29,4 +29,6 @@
     <string name="lbl_follow_up_visits">Follow-Up Visits</string>
     <string name="lbl_upcoming">%1$s Upcoming</string>
     <string name="lbl_pending">%1$s Pending</string>
+    <string name="lbl_most_searched">Most Searched</string>
+    <string name="lbl_frequently_asked_ques">Frequently asked questions</string>
 </resources>

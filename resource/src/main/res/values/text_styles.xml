@@ -25,6 +25,10 @@
         <item name="android:textSize">@dimen/std_14sp</item>
     </style>
 
+    <style name="Theme.IDA.TextAppearance.Primary.Label" parent="Theme.IDA.TextAppearance.Primary">
+        <item name="android:textSize">@dimen/std_14sp</item>
+    </style>
+
     <style name="Theme.IDA.TextAppearance.InputBox" parent="Theme.IDA.TextAppearance.Primary">
         <item name="android:textSize">@dimen/std_16sp</item>
     </style>

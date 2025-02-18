@@ -24,6 +24,7 @@
     <dimen name="std_152dp">152dp</dimen>
     <dimen name="std_160dp">160dp</dimen>
     <dimen name="std_192dp">192dp</dimen>
+    <dimen name="std_220dp">220dp</dimen>
     <dimen name="std_256dp">256dp</dimen>
     <dimen name="std_300dp">300dp</dimen>
 
@@ -62,4 +63,6 @@
 
     <dimen name="login_collapsing_layout_height">350dp</dimen>
     <dimen name="dialog_width">@dimen/std_300dp</dimen>
+
+    <dimen name="youtube_thumbnail_width">@dimen/std_220dp</dimen>
 </resources>

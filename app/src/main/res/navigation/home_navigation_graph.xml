@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="org.intelehealth.app.ui.home.fragment.HelpCenterFragment"
+        android:name="org.intelehealth.app.ui.help.fragment.HelpCenterFragment"
         android:label="@string/action_help_home"
         tools:layout="@layout/fragment_help_center" />
 

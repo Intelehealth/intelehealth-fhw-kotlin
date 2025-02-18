@@ -45,5 +45,7 @@ class CoreNetworkModule {
     @Provides
     fun provideRetrofitBuilder(
         okhttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory
-    ): Retrofit.Builder = Retrofit.Builder().client(okhttpClient).addConverterFactory(gsonConverterFactory)
+    ): Retrofit.Builder = Retrofit.Builder()
+        .client(okhttpClient)
+        .addConverterFactory(gsonConverterFactory)
 }

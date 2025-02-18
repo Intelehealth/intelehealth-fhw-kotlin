@@ -5,4 +5,8 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.App.Corner8dpRadius" parent="">
+        <item name="cornerRadius">@dimen/std_8dp</item>
+        <item name="cornerSize">@dimen/std_8dp</item>
+    </style>
 </resources>

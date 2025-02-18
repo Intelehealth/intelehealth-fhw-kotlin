@@ -80,4 +80,13 @@
         <item name="android:textColor">@color/colorTextSecondary</item>
         <item name="android:gravity">center_vertical|start</item>
     </style>
+
+    <style name="Theme.IDA.TextButton.DropDown" parent="Theme.IDA.TextButton">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="fontFamily">@font/dm_sans</item>
+        <item name="icon">@drawable/selector_dropdown_arrow_rotate</item>
+        <item name="iconGravity">end</item>
+        <item name="iconTint">@color/colorDeactivated</item>
+    </style>
 </resources>

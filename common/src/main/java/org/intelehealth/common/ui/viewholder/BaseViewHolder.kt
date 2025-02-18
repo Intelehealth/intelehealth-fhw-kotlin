@@ -11,7 +11,7 @@ import org.intelehealth.common.ui.listener.OnSingleClickListener
  */
 abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnSingleClickListener {
     private lateinit var viewHolderClickListener: ViewHolderClickListener
-    var allowInstantClick = false
+    open var allowInstantClick = false
 
     interface ViewHolderClickListener {
         fun onViewHolderViewClicked(view: View?, position: Int)
