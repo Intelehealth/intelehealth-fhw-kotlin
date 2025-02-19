@@ -31,4 +31,5 @@
     <string name="lbl_pending">%1$s Pending</string>
     <string name="lbl_most_searched">Most Searched</string>
     <string name="lbl_frequently_asked_ques">Frequently asked questions</string>
+    <string name="lbl_level">Level %1$d</string>
 </resources>

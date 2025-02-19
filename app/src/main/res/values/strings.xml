@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">IDAV50</string>
+    <string name="app_name" translatable="false">IDAV50</string>
+    <string name="video_transition" translatable="false">video_transition</string>
 </resources>

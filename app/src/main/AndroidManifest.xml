@@ -41,8 +41,8 @@
 
         <activity
             android:name=".ui.onboarding.activity.OnboardingActivity"
-            android:theme="@style/Theme.IDA"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.IDA">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,6 +57,11 @@
         <activity
             android:name=".ui.patient.activity.PatientRegistrationActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".ui.help.activity.YoutubeVideoPlayerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.IDA.Transparent" />
 
         <!--        <provider-->
         <!--            android:name="androidx.startup.InitializationProvider"-->

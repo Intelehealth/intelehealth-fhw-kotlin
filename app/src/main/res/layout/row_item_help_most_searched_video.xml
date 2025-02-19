@@ -22,6 +22,7 @@
             android:layout_height="0dp"
             android:background="@color/colorDeactivated"
             android:scaleType="centerCrop"
+            android:transitionName="@string/video_transition"
             app:layout_constraintDimensionRatio="22:13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -21,7 +21,12 @@
         android:id="@+id/nav_help"
         android:name="org.intelehealth.app.ui.help.fragment.HelpCenterFragment"
         android:label="@string/action_help_home"
-        tools:layout="@layout/fragment_help_center" />
+        tools:layout="@layout/fragment_help_center">
+
+        <action
+            android:id="@+id/actionHelpToYoutubeVideoPlayer"
+            app:destination="@id/nav_youtube_video_player" />
+    </fragment>
 
     <activity
         android:id="@+id/nav_add_patient"
@@ -40,5 +45,17 @@
         android:name="org.intelehealth.app.ui.home.fragment.AboutUsFragment"
         android:label="@string/action_about_us"
         tools:layout="@layout/fragment_help_center" />
+
+    <activity
+        android:id="@+id/nav_youtube_video_player"
+        android:name="org.intelehealth.app.ui.help.activity.YoutubeVideoPlayerActivity"
+        android:label=""
+        tools:layout="@layout/activity_youtube_video_player">
+
+        <argument
+            android:name="videoId"
+            android:defaultValue="0"
+            app:argType="string" />
+    </activity>
 
 </navigation>

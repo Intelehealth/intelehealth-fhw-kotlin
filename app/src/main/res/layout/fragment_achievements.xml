@@ -3,17 +3,66 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/std_16dp">
 
-        <TextView
-            android:id="@+id/tv_achievements"
-            style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+        <ImageView
+            android:id="@+id/ivAchievementBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/action_my_achievements"
+            android:contentDescription="@string/action_my_achievements"
+            android:src="@drawable/ic_achievements_badge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvUserLevel"
+            style="@style/Theme.IDA.TextAppearance.Heading1.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:text="@string/lbl_level"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/tvUserPoints"
+            app:layout_constraintStart_toEndOf="@id/ivAchievementBadge"
+            app:layout_constraintTop_toTopOf="@id/ivAchievementBadge" />
+
+        <TextView
+            android:id="@+id/tvUserPoints"
+            style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:lineSpacingExtra="@dimen/std_line_space"
+            android:text="1200 Points"
+            app:layout_constraintBottom_toBottomOf="@id/ivAchievementBadge"
+            app:layout_constraintStart_toEndOf="@id/ivAchievementBadge"
+            app:layout_constraintTop_toBottomOf="@id/tvUserLevel" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabAchievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivAchievementBadge"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/selector_color_tab_indicator"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabTextAppearance="@style/Theme.IDA.TextAppearance.Tab" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pagerAchievements"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tabAchievements" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

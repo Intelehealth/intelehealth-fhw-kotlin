@@ -14,6 +14,9 @@ interface UserDao : CoreDao<User> {
     @Query("SELECT * FROM tbl_user WHERE uuid = :uuid")
     suspend fun getUser(uuid: String): User
 
+    @Query("SELECT display_name FROM tbl_user WHERE uuid = :uuid")
+    suspend fun getUserName(uuid: String): String
+
     @Query("UPDATE tbl_user SET last_login_in_time = :lastLoginInTime WHERE uuid = :uuid")
     fun updateLastLoginInTime(lastLoginInTime: String, uuid: String)
 }

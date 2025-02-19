@@ -58,8 +58,10 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_help"
             android:src="@drawable/ic_chat"
+            app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

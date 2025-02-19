@@ -34,6 +34,7 @@ class YoutubeVideoViewHolder(private val binding: RowItemHelpMostSearchedVideoBi
      */
     fun bind(youtubeVideoItem: YoutubeVideoItem) {
         binding.youtubeVideoItem = youtubeVideoItem
+        binding.sivVideoThumbnail.setOnClickListener(this)
         binding.executePendingBindings()
         Timber.d { youtubeVideoItem.toJson() }
     }

@@ -53,6 +53,9 @@ class YoutubeVideoAdapter(
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as YoutubeVideoViewHolder).bind(getItem(position))
+        if (holder is YoutubeVideoViewHolder) {
+            viewHolderClickListener?.let { holder.setViewClickListener(it) }
+            holder.bind(getItem(position))
+        }
     }
 }
