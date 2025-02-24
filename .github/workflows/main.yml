@@ -14,7 +14,7 @@
 
          - uses: actions/checkout@v3
 
-         - uses: detekt/setup-detekt@v1  # Replace "v1" with the desired version
+         - uses: detekt/setup-detekt@v2  # Replace "v1" with the desired version
 
            with:
 
