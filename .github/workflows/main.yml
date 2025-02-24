@@ -1,16 +1,23 @@
-name: Install detekt
+   name: Run Detekt Analysis
 
-on:
-  workflow_dispatch:
+   on: [push, pull_request]
 
-jobs:
-  detekt:
-    runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup detekt
-        uses: peter-murray/setup-detekt@v2
-      
 
-      - name: Run detekt
-        run: detekt-cli --version
+   jobs:
+
+     build:
+
+       runs-on: ubuntu-latest
+
+       steps:
+
+         - uses: actions/checkout@v3
+
+         - uses: detekt/setup-detekt@v1  # Replace "v1" with the desired version
+
+           with:
+
+             detektVersion: 'latest'  # Specify a specific Detekt version if needed
+
+         - run: gradle detekt  # Execute the Detekt command
