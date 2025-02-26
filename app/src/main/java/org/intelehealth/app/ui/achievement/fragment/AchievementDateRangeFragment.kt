@@ -5,7 +5,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentAchievementDataBinding
+import org.intelehealth.app.databinding.FragmentDailyAchievementsBinding
+import org.intelehealth.app.databinding.FragmentDateRangeAchievementsBinding
+import org.intelehealth.app.databinding.FragmentOverallAchievementsBinding
 
 /**
  * Created by Vaghela Mithun R. on 19-02-2025 - 18:39.
@@ -14,11 +16,11 @@ import org.intelehealth.app.databinding.FragmentAchievementDataBinding
  **/
 
 @AndroidEntryPoint
-class AchievementDataFragment : Fragment(R.layout.fragment_achievement_data) {
-    private lateinit var binding: FragmentAchievementDataBinding
+class AchievementDateRangeFragment : Fragment(R.layout.fragment_date_range_achievements) {
+    private lateinit var binding: FragmentDateRangeAchievementsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentAchievementDataBinding.bind(view)
+        binding = FragmentDateRangeAchievementsBinding.bind(view)
     }
 }

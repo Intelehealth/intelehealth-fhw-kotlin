@@ -32,4 +32,6 @@
     <string name="lbl_most_searched">Most Searched</string>
     <string name="lbl_frequently_asked_ques">Frequently asked questions</string>
     <string name="lbl_level">Level %1$d</string>
+    <string name="lbl_from">From</string>
+    <string name="lbl_to">To</string>
 </resources>

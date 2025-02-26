@@ -41,6 +41,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabAchievements"
+            style="@style/Theme.IDA.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_16dp"
@@ -48,12 +49,7 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivAchievementBadge"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/selector_color_tab_indicator"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            app:tabTextAppearance="@style/Theme.IDA.TextAppearance.Tab" />
+            app:layout_constraintTop_toBottomOf="@id/ivAchievementBadge" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pagerAchievements"

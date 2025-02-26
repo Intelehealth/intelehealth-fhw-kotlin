@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="dimension_ratio_full_view_video" translatable="false">22:13</string>
+    <string name="dimension_ratio_achievement_card" translatable="false">1:1</string>
 </resources>

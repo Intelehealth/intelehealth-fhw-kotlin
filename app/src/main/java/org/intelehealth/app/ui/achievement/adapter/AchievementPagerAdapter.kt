@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.intelehealth.app.R
-import org.intelehealth.app.ui.achievement.fragment.AchievementDataFragment
+import org.intelehealth.app.ui.achievement.fragment.AchievementDailyFragment
+import org.intelehealth.app.ui.achievement.fragment.AchievementDateRangeFragment
+import org.intelehealth.app.ui.achievement.fragment.AchievementOverallFragment
 
 /**
  * Created by Vaghela Mithun R. on 19-02-2025 - 18:43.
@@ -24,7 +26,12 @@ class AchievementPagerAdapter(
     override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {
-        return AchievementDataFragment()
+        return when (position) {
+            0 -> AchievementOverallFragment()
+            1 -> AchievementDailyFragment()
+            2 -> AchievementDateRangeFragment()
+            else -> AchievementOverallFragment()
+        }
     }
 
     fun getTitle(position: Int) = fragments[position]

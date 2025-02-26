@@ -69,4 +69,8 @@
     <string name="content_how_to_book_an_appointment">अपॉइंटमेंट कैसे बुक करें?</string>
     <string name="content_how_to_book_an_appointment_ans">रोगी पंजीकृत हो जाने पर और विज़िट बन जाने पर, विज़िट विवरण स्क्रीन पर, \”अपॉइंटमेंट\” बटन पर क्लिक करें। तारीख और समय (उपलब्ध स्लॉट में से) का चयन करें जो रोगी के लिए सुविधाजनक हो। विशेषज्ञ डॉक्टर के साथ अपॉइंटमेंट बुक करने के लिए \”अपॉइंटमेंट बुक करें\” पर क्लिक करें।</string>
     <string name="content_desc_play_video">वीडियो चलाएं</string>
+    <string name="content_patients_added">आपने द्वारा\nशामिल रोगी</string>
+    <string name="content_visits_completed_by_you">आपके द्वारा पूरे किए गए विज़िट</string>
+    <string name="content_your_patient_score">आपकी रोगी संतुष्टि स्कोर</string>
+    <string name="content_daily_avg_time_spent">आपके द्वारा बिताया गया दैनिक औसत समय</string>
 </resources>

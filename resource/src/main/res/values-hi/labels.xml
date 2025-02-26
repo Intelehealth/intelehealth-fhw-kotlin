@@ -32,4 +32,6 @@
     <string name="lbl_most_searched">सबसे अधिक सर्च किया हुआ</string>
     <string name="lbl_frequently_asked_ques">वारंवार विचारले जाणारे प्रश्न</string>
     <string name="lbl_level">लेवल %1$d</string>
+    <string name="lbl_from">से</string>
+    <string name="lbl_to">तक</string>
 </resources>

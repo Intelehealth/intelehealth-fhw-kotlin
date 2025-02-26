@@ -9,4 +9,14 @@
         <item name="cornerRadius">@dimen/std_8dp</item>
         <item name="cornerSize">@dimen/std_8dp</item>
     </style>
+
+    <style name="Theme.IDA.TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabBackground">@drawable/tab_background</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabIndicatorColor">@color/colorAccent</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
+        <item name="tabTextAppearance">@style/Theme.IDA.TextAppearance.Tab</item>
+    </style>
 </resources>
