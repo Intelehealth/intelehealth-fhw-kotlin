@@ -6,4 +6,4 @@ package org.intelehealth.data.provider.utils
  * Mob   : +919727206702
  **/
 
-const val PROVIDER_UUID = "providerUUID"
+//const val PROVIDER_UUID = "providerUUID"

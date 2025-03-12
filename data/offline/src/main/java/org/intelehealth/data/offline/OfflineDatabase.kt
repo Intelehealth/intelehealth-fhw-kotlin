@@ -89,8 +89,8 @@ abstract class OfflineDatabase : RoomDatabase() {
     abstract fun userSessionDao(): UserSessionDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: OfflineDatabase? = null
+//        @Volatile
+//        private var INSTANCE: OfflineDatabase? = null
 
         //   private val DATABASE_NAME = BuildConfig.FLAVOR_client + "-localrecords.db"
         private const val DATABASE_NAME = "main.db"
@@ -98,12 +98,12 @@ abstract class OfflineDatabase : RoomDatabase() {
         /**
          * Get the singleton instance of the database.
          */
-        fun getInstance(context: Context): OfflineDatabase = INSTANCE
-            ?: synchronized(this) {    // synchronized - ensures that at a time only at the max 1 thread will be accessing the database operations.
-                INSTANCE ?: buildDatabase(context.applicationContext).also {
-                    INSTANCE = it
-                }
-            }
+//        fun getInstance(context: Context): OfflineDatabase = INSTANCE
+//            ?: synchronized(this) {    // synchronized - ensures that at a time only at the max 1 thread will be accessing the database operations.
+//                INSTANCE ?: buildDatabase(context.applicationContext).also {
+//                    INSTANCE = it
+//                }
+//            }
 
         /**
          * Set up the database configuration.

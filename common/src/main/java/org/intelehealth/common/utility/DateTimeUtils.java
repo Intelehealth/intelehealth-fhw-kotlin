@@ -22,7 +22,7 @@ public class DateTimeUtils {
     public static final String MESSAGE_TIME_FORMAT = "h:mm a";
     public static final String MESSAGE_DAY_FORMAT = "EEE, dd MMM yyyy";
     public static final String TIME_ZONE_UTC = "UTC";
-    public static final String TIME_ZONE_ISD = "Asia/Kolkata";
+//    public static final String TIME_ZONE_ISD = "Asia/Kolkata";
 
     public static final String TIME_FORMAT = "hh:mm a";
 

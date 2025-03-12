@@ -2,9 +2,7 @@ package org.intelehealth.app.ui.user.observer
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.github.ajalt.timberkt.Timber
 import org.intelehealth.data.provider.user.UserSessionRepository
-import java.util.Date
 import javax.inject.Inject
 
 

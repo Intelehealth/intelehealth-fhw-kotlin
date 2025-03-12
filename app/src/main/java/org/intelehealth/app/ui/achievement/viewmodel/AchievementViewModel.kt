@@ -3,7 +3,6 @@ package org.intelehealth.app.ui.achievement.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.intelehealth.app.model.achievement.Achievement

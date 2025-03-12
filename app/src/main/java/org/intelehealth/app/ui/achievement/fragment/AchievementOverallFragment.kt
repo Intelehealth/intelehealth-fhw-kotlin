@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentDailyAchievementsBinding
 import org.intelehealth.app.databinding.FragmentOverallAchievementsBinding
 import org.intelehealth.app.ui.achievement.viewmodel.AchievementViewModel
 
