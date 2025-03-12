@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="level"
+            type="Integer" />
+
+        <variable
+            name="points"
+            type="Integer" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -21,11 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
-            android:text="@string/lbl_level"
+            android:text="@{@string/lbl_level(level)}"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tvUserPoints"
             app:layout_constraintStart_toEndOf="@id/ivAchievementBadge"
-            app:layout_constraintTop_toTopOf="@id/ivAchievementBadge" />
+            app:layout_constraintTop_toTopOf="@id/ivAchievementBadge"
+            tools:text="Level 1" />
 
         <TextView
             android:id="@+id/tvUserPoints"
@@ -34,10 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
             android:lineSpacingExtra="@dimen/std_line_space"
-            android:text="1200 Points"
+            android:visibility="@{ points > 0 ? View.VISIBLE : View.GONE }"
+            android:text="@{String.valueOf(points)}"
             app:layout_constraintBottom_toBottomOf="@id/ivAchievementBadge"
             app:layout_constraintStart_toEndOf="@id/ivAchievementBadge"
-            app:layout_constraintTop_toBottomOf="@id/tvUserLevel" />
+            app:layout_constraintTop_toBottomOf="@id/tvUserLevel"
+            tools:text="1200 Points" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabAchievements"

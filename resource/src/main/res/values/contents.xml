@@ -69,8 +69,8 @@
     <string name="content_how_to_book_an_appointment">How to book an appointment?</string>
     <string name="content_how_to_book_an_appointment_ans">Once the patient is registered and the visit is created, on visit summary screen, click \"Appointment\" button. Select the date and time (from available slots) which is suitable to the patient. Click on \"Book Appointment\" to complete booking an appointment with the specialist doctor.</string>
     <string name="content_desc_play_video">Play Video</string>
-    <string name="content_patients_added">Patients added by\nyou</string>
+    <string name="content_patients_added">Patients added by you</string>
     <string name="content_visits_completed_by_you">Visits completed by you</string>
-    <string name="content_your_patient_score">Your patient\nsatisfactions score</string>
-    <string name="content_daily_avg_time_spent">Daily average time\nspent by you</string>
+    <string name="content_your_patient_score">Your patient satisfactions score</string>
+    <string name="content_daily_avg_time_spent">Daily average time spent by you</string>
 </resources>

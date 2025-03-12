@@ -3,6 +3,7 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import org.intelehealth.data.offline.entity.Patient
 
 /**
@@ -74,4 +75,13 @@ interface PatientDao : CoreDao<Patient> {
 
     @Query("UPDATE tbl_patient SET synced = :isSync WHERE uuid = :uuid")
     suspend fun updateSyncStatus(uuid: String, isSync: Boolean)
+
+    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId")
+    fun getPatientCountByCreatorId(creatorId: String): Flow<Int>
+
+    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(dateCreated)) = :date")
+    fun getPatientByCreatorIdAndDate(creatorId: String, date: String): Flow<Int>
+
+    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(dateCreated)) BETWEEN :fromDate AND :toDate")
+    fun getPatientByCreatorIdAndDateRange(creatorId: String, fromDate: String, toDate: String): Flow<Int>
 }

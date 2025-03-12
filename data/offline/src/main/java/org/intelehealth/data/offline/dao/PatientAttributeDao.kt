@@ -19,4 +19,11 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
     @Query("SELECT DISTINCT patientUuid FROM tbl_patient_attribute WHERE value = :value")
     fun getPatientsUuidsByValue(value: String): LiveData<List<String>>
 
+    @Query(
+        "SELECT COUNT(PA.patientuuid) as created FROM tbl_patient_attribute PA "
+                + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
+                + "LEFT JOIN tbl_user U ON U.provider_uuid = PA.value "
+                + "WHERE U.uuid = :userId AND PAM.name = :patientAttrName"
+    )
+    suspend fun getCreatedPatientCountByUser(userId: String, patientAttrName: String): Int
 }

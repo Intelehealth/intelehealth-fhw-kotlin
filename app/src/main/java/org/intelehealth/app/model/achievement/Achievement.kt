@@ -1,5 +1,7 @@
 package org.intelehealth.app.model.achievement
 
+import com.google.gson.Gson
+
 /**
  * Created by Vaghela Mithun R. on 26-02-2025 - 16:54.
  * Email : mithun@intelehealth.org
@@ -9,10 +11,9 @@ data class Achievement(
     var patientAdded: Int,
     var completedVisit: Int,
     var satisfactionScore: Double,
-    var spentHrs: Int,
-    var spentMins: Int
+    var timeSpent: String
 ) {
-    fun getSpentTime(): String {
-        return "${spentHrs}h ${spentMins}m"
+    override fun toString(): String {
+        return Gson().toJson(this)
     }
 }

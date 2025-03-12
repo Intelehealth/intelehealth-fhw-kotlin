@@ -21,6 +21,8 @@ class MyAchievementFragment : Fragment(R.layout.fragment_achievements) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAchievementsBinding.bind(view)
+        binding.level = 1
+        binding.points = 0
         bindPagerAdapter()
     }
 

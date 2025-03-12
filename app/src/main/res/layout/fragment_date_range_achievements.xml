@@ -27,13 +27,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFromDate"
             style="@style/Theme.IDA.Button.Tertiary"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/std_16dp"
             android:textColor="@color/colorTextSecondary"
             app:icon="@drawable/ic_calendar"
             app:iconPadding="@dimen/std_8dp"
+            android:gravity="start|center_vertical"
             app:iconTint="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@id/btnToDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFromToDates"
             tools:text="1 March, 2022" />
@@ -51,13 +53,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnToDate"
             style="@style/Theme.IDA.Button.Tertiary"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/std_16dp"
             android:textColor="@color/colorTextSecondary"
             app:icon="@drawable/ic_calendar"
             app:iconPadding="@dimen/std_8dp"
+            android:gravity="start|center_vertical"
             app:iconTint="@color/colorPrimary"
+            app:layout_constraintStart_toEndOf="@id/btnFromDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvToDates"
             tools:text="1 March, 2022" />

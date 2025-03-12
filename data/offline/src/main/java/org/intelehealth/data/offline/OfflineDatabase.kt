@@ -18,6 +18,7 @@ import org.intelehealth.data.offline.dao.PatientLocationDao
 import org.intelehealth.data.offline.dao.ProviderAttributeDao
 import org.intelehealth.data.offline.dao.ProviderDao
 import org.intelehealth.data.offline.dao.UserDao
+import org.intelehealth.data.offline.dao.UserSessionDao
 import org.intelehealth.data.offline.dao.VisitAttributeDao
 import org.intelehealth.data.offline.dao.VisitDao
 import org.intelehealth.data.offline.entity.Appointment
@@ -34,6 +35,7 @@ import org.intelehealth.data.offline.entity.PatientLocation
 import org.intelehealth.data.offline.entity.Provider
 import org.intelehealth.data.offline.entity.ProviderAttribute
 import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.offline.entity.UserSession
 import org.intelehealth.data.offline.entity.Visit
 import org.intelehealth.data.offline.entity.VisitAttribute
 
@@ -60,6 +62,7 @@ import org.intelehealth.data.offline.entity.VisitAttribute
         Provider::class,
         ProviderAttribute::class,
         User::class,
+        UserSession::class,
         Visit::class,
         VisitAttribute::class
     ],
@@ -83,6 +86,7 @@ abstract class OfflineDatabase : RoomDatabase() {
     abstract fun visitDao(): VisitDao
     abstract fun visitAttributeDao(): VisitAttributeDao
     abstract fun userDao(): UserDao
+    abstract fun userSessionDao(): UserSessionDao
 
     companion object {
         @Volatile

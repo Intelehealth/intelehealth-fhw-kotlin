@@ -11,6 +11,7 @@ import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.offline.entity.UserSession
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
@@ -172,5 +173,4 @@ class UserRepository @Inject constructor(
      * @return The result of the network call to reset the password.
      */
     suspend fun resetPassword(userUuid: String, newPassword: String) = dataSource.resetPassword(userUuid, newPassword)
-
 }

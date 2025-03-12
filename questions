@@ -44,3 +44,8 @@ FROM tbl_obs
 WHERE conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" AND (follow_up_date >= date('now') )
 AND encounteruuid not in (select uuid from tbl_encounter WHERE encounter_type_uuid = "629a9d0b-48eb-405e-953d-a5964c88dc30")
 GROUP BY uuid HAVING (follow_up_date is NOT NULL AND LOWER(follow_up_date) != 'no' AND follow_up_date != '' ))
+
+select count(patientuuid) created from tbl_patient_attribute where value = "54b04270-4c96-4ff9-be8c-3c6cb32975b5"
+and person_attribute_type_uuid = "84f94425-789d-4293-a0d8-9dc01dbb4f07"
+and patientuuid IN (select patientuuid from tbl_patient_attribute where value = "30 January, 2025"
+and person_attribute_type_uuid = "ffc8ebee-f70c-4743-bc3c-2fe4ac843245")
