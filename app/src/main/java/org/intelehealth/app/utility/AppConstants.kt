@@ -18,6 +18,7 @@ const val KEY_RESULTS = "results"
 const val IND_COUNTRY_CODE = "91"
 const val IND_MOBILE_LEN = 10
 const val PWD_MIN_LENGTH = 5
+const val INTELEHEALTH_WEB_LINK = "https://intelehealth.org/"
 
 fun getAppPlayStoreUrl(context: Context): String {
     return "https://play.google.com/store/apps/details?id=" + context.applicationContext.packageName

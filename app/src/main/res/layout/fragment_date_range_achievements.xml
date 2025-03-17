@@ -68,7 +68,7 @@
 
         <include
             android:id="@+id/contentAchievement"
-            achievement="@{achievementScore}"
+            app:achievement="@{achievementScore}"
             layout="@layout/content_achievements"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

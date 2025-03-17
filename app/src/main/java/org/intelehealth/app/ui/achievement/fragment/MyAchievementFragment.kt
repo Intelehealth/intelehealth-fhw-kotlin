@@ -1,4 +1,4 @@
-package org.intelehealth.app.ui.home.fragment
+package org.intelehealth.app.ui.achievement.fragment
 
 import android.os.Bundle
 import android.view.View

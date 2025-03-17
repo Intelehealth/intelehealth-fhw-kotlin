@@ -1,6 +1,8 @@
 package org.intelehealth.app.ui.binding
 
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -74,5 +76,16 @@ fun bindImage(imageView: ImageView?, url: String?) {
             .load(url)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(imageView)
+    }
+}
+
+@BindingAdapter("imgResource")
+fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
+    if (imageView != null && resourceId != null) {
+        imageView.setImageDrawable(ContextCompat.getDrawable(imageView.context, resourceId))
+//        Glide.with(imageView.context)
+//            .load(resourceId)
+//            .diskCacheStrategy(DiskCacheStrategy.ALL)
+//            .into(imageView)
     }
 }

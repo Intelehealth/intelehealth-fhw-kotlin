@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -123,28 +124,42 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         binding.drawerLayout.closeDrawers()
         return when (item.itemId) {
+            R.id.nav_achievements -> {
+                navController.navigate(R.id.nav_achievements)
+                true
+            }
+
             R.id.nav_setting -> {
                 navController.navigate(R.id.nav_setting)
                 true
             }
 
+            R.id.nav_about_us -> {
+                navController.navigate(R.id.nav_about_us)
+                true
+            }
+
             R.id.nav_logout -> {
-                showCommonDialog(
-                    DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                        title = ResourceR.string.action_logout,
-                        message = ResourceR.string.content_are_you_sure_logout,
-                        positiveLbl = ResourceR.string.action_logout,
-                        negativeLbl = ResourceR.string.action_cancel,
-                        onPositiveClick = {
-                            userViewModel.logout()
-                            gotoNextActivity(OnboardingActivity::class.java, true)
-                        })
-                )
+                logoutUser()
                 true
             }
 
             else -> false
         }
+    }
+
+    private fun logoutUser() {
+        showCommonDialog(
+            DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
+                         title = ResourceR.string.action_logout,
+                         message = ResourceR.string.content_are_you_sure_logout,
+                         positiveLbl = ResourceR.string.action_logout,
+                         negativeLbl = ResourceR.string.action_cancel,
+                         onPositiveClick = {
+                             userViewModel.logout()
+                             gotoNextActivity(OnboardingActivity::class.java, true)
+                         })
+        )
     }
 
     private fun observeUser() {
@@ -173,11 +188,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
             else if (navController.currentDestination?.id != R.id.nav_home) navController.navigateUp()
             else showCommonDialog(
                 DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                    title = ResourceR.string.dialog_title_exit_app,
-                    message = ResourceR.string.content_are_you_sure_exit,
-                    positiveLbl = ResourceR.string.action_exit,
-                    negativeLbl = ResourceR.string.action_cancel,
-                    onPositiveClick = { finish() })
+                             title = ResourceR.string.dialog_title_exit_app,
+                             message = ResourceR.string.content_are_you_sure_exit,
+                             positiveLbl = ResourceR.string.action_exit,
+                             negativeLbl = ResourceR.string.action_cancel,
+                             onPositiveClick = { finish() })
             )
         }
     }

@@ -55,6 +55,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.aboutus.activity.AboutUsActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.patient.activity.PatientRegistrationActivity"
             android:exported="true" />
 

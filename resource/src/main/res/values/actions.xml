@@ -40,4 +40,5 @@
     <string name="action_exit">Exit</string>
     <string name="action_sync">Sync</string>
     <string name="action_notification">Notification</string>
+    <string name="action_go_to_website">Go to website</string>
 </resources>

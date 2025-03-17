@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_achievements"
-        android:name="org.intelehealth.app.ui.home.fragment.MyAchievementFragment"
+        android:name="org.intelehealth.app.ui.achievement.fragment.MyAchievementFragment"
         android:label="@string/action_my_achievements"
         tools:layout="@layout/fragment_achievements" />
 
@@ -40,11 +40,11 @@
         android:label="@string/action_settings"
         tools:layout="@layout/fragment_help_center" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_about_us"
-        android:name="org.intelehealth.app.ui.home.fragment.AboutUsFragment"
+        android:name="org.intelehealth.app.ui.aboutus.activity.AboutUsActivity"
         android:label="@string/action_about_us"
-        tools:layout="@layout/fragment_help_center" />
+        tools:layout="@layout/activity_about_us" />
 
     <activity
         android:id="@+id/nav_youtube_video_player"

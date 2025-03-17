@@ -38,7 +38,7 @@ fun RecyclerView.setupLinearView(
  *                          `false` otherwise. Defaults to `false`.
  */
 fun RecyclerView.setupHorizontalLinearView(
-    adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>,
+    adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>,
     hasItemDecoration: Boolean = false
 ) {
     layoutManager = LinearLayoutManager(this.context).apply {
