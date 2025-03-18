@@ -34,4 +34,7 @@
     <string name="lbl_level">Level %1$d</string>
     <string name="lbl_from">From</string>
     <string name="lbl_to">To</string>
+    <string name="lbl_language">Language</string>
+    <string name="lbl_protocols">Protocols</string>
+    <string name="lbl_blackout">Blackout</string>
 </resources>

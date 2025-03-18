@@ -75,4 +75,6 @@
     <string name="content_daily_avg_time_spent">Daily average time spent by you</string>
     <string name="content_about_us_text">Intelehealth is a non-profit delivering high-quality healthcare where there is no doctor via telemedicine. Using our open-source technology platform that\'s driven by an innovative digital health assistant, we connect patients and frontline health workers at the last mile with doctors, diagnostics &amp; medications.\n\nIntelehealth has reached millions of patients, connecting thousands of health workers and doctors to deliver health services for communicable and non communicable diseases. We have worked in partnership with Ministries of Health in India &amp; Kyrgyzstan as well as organizations like UNICEF, Jhpiego, MSF, Ekal Arogya and many more. Intelehealth has been recognized by the World Economic Forum and Niti Aayog India as an impactful Digital Public Good.</string>
     <string name="content_about_us_terms_condition">Check out our <a href="https://intelehealth.org/terms-of-use">terms and conditions</a></string>
+    <string name="content_blackout_period">To disable notification between below time period. switch on the blackout period</string>
+    <string name="content_blackout_period_duration">From %1$s To %2$s </string>
 </resources>

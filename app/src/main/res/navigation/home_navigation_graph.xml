@@ -34,11 +34,11 @@
         android:label="@string/action_add_patient"
         tools:layout="@layout/activity_test" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_setting"
-        android:name="org.intelehealth.app.ui.home.fragment.SettingFragment"
+        android:name="org.intelehealth.app.ui.setting.activity.SettingActivity"
         android:label="@string/action_settings"
-        tools:layout="@layout/fragment_help_center" />
+        tools:layout="@layout/activity_setting" />
 
     <activity
         android:id="@+id/nav_about_us"

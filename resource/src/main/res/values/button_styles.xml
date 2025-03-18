@@ -89,4 +89,9 @@
         <item name="iconGravity">end</item>
         <item name="iconTint">@color/colorDeactivated</item>
     </style>
+
+    <style name="Theme.IDA.TextButton.Nav" parent="Theme.IDA.TextButton.DropDown">
+        <item name="icon">@drawable/dropdown_arrow_rotate_270</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

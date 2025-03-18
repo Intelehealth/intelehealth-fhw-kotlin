@@ -3,12 +3,15 @@ package org.intelehealth.app.ui.aboutus.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ActivityAboutUsBinding
 import org.intelehealth.app.ui.aboutus.adapter.AboutUsThumbAdapter
 import org.intelehealth.app.utility.INTELEHEALTH_WEB_LINK
+import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.extensions.enableMovementMethod
 import org.intelehealth.common.extensions.setupHorizontalLinearView
+import org.intelehealth.common.ui.activity.SimpleAppBarActivity
+import org.intelehealth.resource.R
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -16,29 +19,22 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class AboutUsActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class AboutUsActivity : SimpleAppBarActivity() {
     private lateinit var binding: ActivityAboutUsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         binding = ActivityAboutUsBinding.inflate(layoutInflater)
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        setupActionBar()
         activeAutoLinkMethod()
         gotoWebsite()
         setThumbnailList()
     }
 
-    private fun setupActionBar() {
-        binding.appBarLayout.toolbar.title = getString(ResourceR.string.action_about_us)
-        binding.appBarLayout.toolbar.subtitle = ""
-        setSupportActionBar(binding.appBarLayout.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        binding.appBarLayout.toolbar.setNavigationOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-    }
+    override fun getAppBarBinding(): SimpleAppbarBinding = binding.appBarLayout
+
+    override fun getScreenTitle(): String = getString(R.string.action_about_us)
 
     private fun activeAutoLinkMethod() {
         binding.contentViewAboutUs.tvAboutUsTermCondition.enableMovementMethod()

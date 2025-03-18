@@ -59,6 +59,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.setting.activity.SettingActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.patient.activity.PatientRegistrationActivity"
             android:exported="true" />
 

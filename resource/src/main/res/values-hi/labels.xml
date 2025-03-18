@@ -34,4 +34,7 @@
     <string name="lbl_level">लेवल %1$d</string>
     <string name="lbl_from">से</string>
     <string name="lbl_to">तक</string>
+    <string name="lbl_language">भाषा</string>
+    <string name="lbl_protocols">प्रोटोकॉल्स</string>
+    <string name="lbl_blackout">निष्प्रदीप करना</string>
 </resources>
