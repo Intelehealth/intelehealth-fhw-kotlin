@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.intelehealth.app.databinding.LanguageListItemViewUi2Binding
+import org.intelehealth.app.databinding.RowItemLanguageBinding
 import org.intelehealth.common.ui.adapter.BaseRecyclerViewAdapter
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.config.room.entity.ActiveLanguage
@@ -17,7 +18,7 @@ class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
     BaseRecyclerViewAdapter<ActiveLanguage>(context, languages.toMutableList()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return LanguageListItemViewUi2Binding.inflate(inflater, parent, false).let {
+        return RowItemLanguageBinding.inflate(inflater, parent, false).let {
             LanguageViewHolder(it)
         }
     }
@@ -37,7 +38,7 @@ class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
     }
 }
 
-class LanguageViewHolder(private val binding: LanguageListItemViewUi2Binding) :
+class LanguageViewHolder(private val binding: RowItemLanguageBinding) :
     BaseViewHolder(binding.root) {
 
     fun bind(language: ActiveLanguage) {

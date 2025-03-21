@@ -12,8 +12,8 @@ import org.intelehealth.common.databinding.SimpleAppbarBinding
 abstract class SimpleAppBarActivity : AppCompatActivity() {
     private lateinit var appBarBinding: SimpleAppbarBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
         appBarBinding = getAppBarBinding()
         setupActionBar()
     }

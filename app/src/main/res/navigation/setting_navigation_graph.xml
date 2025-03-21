@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setting_navigation_graph"
+    app:startDestination="@id/nav_setting_preferences">
+
+    <fragment
+        android:id="@+id/nav_setting_preferences"
+        android:name="org.intelehealth.app.ui.setting.fragment.SettingPreferenceFragment"
+        android:label="@string/action_settings"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/fragment_setting_preferences">
+        <action
+            android:id="@+id/nav_setting_preference_to_change_language"
+            app:destination="@id/nav_change_languages" />
+
+        <action
+            android:id="@+id/nav_setting_preference_to_download_protocols"
+            app:destination="@id/nav_download_protocols" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_change_languages"
+        android:name="org.intelehealth.app.ui.setting.fragment.ChangeLanguageFragment"
+        android:label="@string/action_change_language"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/fragment_change_language" />
+
+    <fragment
+        android:id="@+id/nav_download_protocols"
+        android:name="org.intelehealth.app.ui.setting.fragment.DownloadProtocolsFragment"
+        android:label="@string/action_download_protocol"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/fragment_download_protocols">
+        <action
+            android:id="@+id/nav_download_protocols_to_download_progress"
+            app:destination="@id/nav_download_protocol_progress"
+            app:popUpTo="@id/nav_setting_preferences"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_download_protocol_progress"
+        android:name="org.intelehealth.app.ui.setting.fragment.DownloadProtocolProgressFragment"
+        android:label=""
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/fragment_circular_progressbar" />
+
+</navigation>

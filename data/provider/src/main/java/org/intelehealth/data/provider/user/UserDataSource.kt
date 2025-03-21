@@ -6,7 +6,7 @@ import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
-import org.intelehealth.data.provider.BaseDataSource
+import org.intelehealth.common.data.BaseDataSource
 import javax.inject.Inject
 
 /**

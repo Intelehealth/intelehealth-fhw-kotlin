@@ -2,6 +2,7 @@ package org.intelehealth.common.extensions
 
 import android.text.InputFilter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.StringRes
 import androidx.core.widget.doOnTextChanged
@@ -125,4 +126,13 @@ fun isValidPassword(passwd: String?): Boolean {
 
 fun EditText.addFilter(filter: InputFilter) {
     this.filters += filter
+}
+
+fun TextInputLayout.changeButtonStateOnTextChange(input: TextInputEditText, button: Button) {
+    input.doOnTextChanged { text, _, _, _ ->
+        if (text?.length!! > 0) {
+            button.isEnabled = true
+            hideError()
+        } else button.isEnabled = false
+    }
 }

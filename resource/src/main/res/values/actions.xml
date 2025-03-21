@@ -41,4 +41,6 @@
     <string name="action_sync">Sync</string>
     <string name="action_notification">Notification</string>
     <string name="action_go_to_website">Go to website</string>
+    <string name="action_change_language">Change Language</string>
+    <string name="action_download_protocol">Download Protocols</string>
 </resources>

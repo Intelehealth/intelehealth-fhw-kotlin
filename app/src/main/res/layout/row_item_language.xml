@@ -14,11 +14,9 @@
         android:id="@+id/layout_rb_choose_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_16dp"
-        android:layout_marginEnd="@dimen/std_16dp"
         android:background="@color/color_language_bg"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/std_16dp">
+        android:paddingHorizontal="@dimen/std_16dp"
+        android:paddingVertical="@dimen/std_8dp">
 
         <RadioButton
             android:id="@+id/rb_choose_language"
@@ -30,7 +28,6 @@
             android:clickable="false"
             android:drawableStart="@drawable/selector_radio_button"
             android:drawablePadding="@dimen/std_16dp"
-            android:padding="@dimen/std_16dp"
             android:text="@{language.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/std_20sp"

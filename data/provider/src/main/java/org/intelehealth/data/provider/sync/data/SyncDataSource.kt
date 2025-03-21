@@ -6,7 +6,7 @@ import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.SetupLocation
-import org.intelehealth.data.provider.BaseDataSource
+import org.intelehealth.common.data.BaseDataSource
 import javax.inject.Inject
 
 /**

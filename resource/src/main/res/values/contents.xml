@@ -77,4 +77,12 @@
     <string name="content_about_us_terms_condition">Check out our <a href="https://intelehealth.org/terms-of-use">terms and conditions</a></string>
     <string name="content_blackout_period">To disable notification between below time period. switch on the blackout period</string>
     <string name="content_blackout_period_duration">From %1$s To %2$s </string>
+    <string name="content_update_app_protocol">Update app protocol!</string>
+    <string name="content_license_key">Please enter the license key to\ndownload the protocols.</string>
+    <string name="content_changing_protocols">Changing protocols</string>
+    <string name="content_wait_while_protocols_changing">Please wait while the protocols are being changed.</string>
+    <string name="content_protocols_successfully_changed">Protocols have been successfully changed!</string>
+    <string name="content_validating_license_key">Please wait\nwhile license key validated</string>
+    <string name="content_downloading">Downloading…</string>
+    <string name="content_download_completed">Download Completed!</string>
 </resources>

@@ -1,11 +1,17 @@
 package org.intelehealth.app.ui.setting.activity
 
 import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivitySettingBinding
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
-import org.intelehealth.resource.R
+import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Vaghela Mithun R. on 18-03-2025 - 12:23.
@@ -16,13 +22,42 @@ import org.intelehealth.resource.R
 class SettingActivity : SimpleAppBarActivity() {
     private lateinit var binding: ActivitySettingBinding
 
+    // Navigation controller for the activity
+    private val navController by lazy {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navSetting) as NavHostFragment
+        navHostFragment.navController
+    }
+
+    // AppBarConfiguration for the activity
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivitySettingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        setupNavigation()
+    }
+
+    /**
+     * Setup navigation controller with toolbar
+     */
+    private fun setupNavigation() {
+        // Create an AppBarConfiguration with the correct top-level destinations
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        val toolbar = binding.appBarLayout.toolbar
+        // Hook your navigation controller to toolbar
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun getAppBarBinding(): SimpleAppbarBinding = binding.appBarLayout
 
-    override fun getScreenTitle(): String = getString(R.string.action_settings)
+    override fun getScreenTitle(): String = getString(ResourceR.string.action_settings)
 }

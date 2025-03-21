@@ -202,6 +202,15 @@ fun DependencyHandler.commonModuleDeps() {
     // Hilt
     api(Deps.Dagger.hiltAndroid)
     kapt(Deps.Dagger.hiltAndroidCompiler)
+
+    // Work Manager
+    api(Deps.AndroidX.Work.runtimeKtx)
+
+    // Hilt
+    api(Deps.Dagger.hiltAndroid)
+    kapt(Deps.Dagger.hiltAndroidCompiler)
+    api(Deps.Dagger.hiltWorker)
+    kapt(Deps.Dagger.hiltWorkerKapt)
 }
 
 /*

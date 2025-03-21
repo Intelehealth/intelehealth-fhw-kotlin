@@ -7,4 +7,5 @@
     <string name="hint_new_password">@string/lbl_new_password</string>
     <string name="hint_find_patient">रोगी को खोजें</string>
     <string name="hint_enter_mobile_number">मोबाइल नंबर दर्ज करें</string>
+    <string name="hint_license_key">एंटर लाइसेंस कुंजी</string>
 </resources>

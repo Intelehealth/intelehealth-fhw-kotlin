@@ -1,8 +1,8 @@
 package org.intelehealth.data.provider.consent
 
+import org.intelehealth.common.data.BaseDataSource
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.data.network.RestClient
-import org.intelehealth.data.provider.BaseDataSource
 import javax.inject.Inject
 
 /**

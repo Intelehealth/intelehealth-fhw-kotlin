@@ -17,6 +17,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
@@ -172,6 +173,13 @@ interface RestClient {
     @POST
     suspend fun resetPassword(@Url url: String, @Body map: HashMap<String, String>): Response<UserResponse<Any?>>
 
+    @GET
+    suspend fun downloadMindMapProtocols(
+        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/mindmap/download",
+        @Query("key") licenseKey: String,
+        @Header("Authorization") jwtToken: String
+    ): Response<BaseResponse<Any?, String>>
+
 //    @GET("/openmrs/ws/rest/v1/provider")
 //    suspend fun fetchUserProviderDetails(
 //        @Header("Authorization") authHeader: String, @Query("user") userId: String
@@ -214,8 +222,7 @@ interface RestClient {
 //    @DELETE
 //    suspend fun deleteObsImage(@Url url: String, @Header("Authorization") authHeader: String)
 
-//    @GET("/api/mindmap/download")
-//    suspend fun downloadMindMap(@Query("key") licenseKey: String): Response<DownloadMindMapRes>
+
 //
 //    @GET("/intelehealth/app_update.json")
 //    suspend fun checkAppUpdate(): Response<CheckAppUpdateRes>

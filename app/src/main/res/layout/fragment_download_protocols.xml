@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/std_16dp">
+
+        <ImageView
+            android:id="@+id/ivDownloadProtocol"
+            android:layout_width="@dimen/std_64dp"
+            android:layout_height="@dimen/std_64dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/std_32dp"
+            android:contentDescription="@string/action_download_protocol"
+            android:src="@drawable/ic_protocols"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLblDownloadProtocols"
+            style="@style/Theme.IDA.TextAppearance.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center"
+            android:text="@string/content_update_app_protocol"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivDownloadProtocol"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <TextView
+            android:id="@+id/tvDPLicenseKeyInstructions"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:drawablePadding="@dimen/std_16dp"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/std_line_space"
+            android:text="@string/content_license_key"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLblDownloadProtocols"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+
+        <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+            android:id="@+id/textInputLayoutLicenseKey"
+            style="@style/Theme.IDA.OutlineInputBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_32dp"
+            app:hintEnabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDPLicenseKeyInstructions">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputLicenseKey"
+                style="@style/Theme.IDA.InputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_license_key" />
+
+        </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDownloadProtocols"
+            style="@style/Theme.IDA.Button.Next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_32dp"
+            android:text="@string/action_download_protocol"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textInputLayoutLicenseKey"
+            tools:text="@string/action_download_protocol" />
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/ivDPLicenseKeyValidating"-->
+        <!--            android:layout_width="@dimen/std_64dp"-->
+        <!--            android:layout_height="@dimen/std_64dp"-->
+        <!--            android:layout_gravity="center_horizontal"-->
+        <!--            android:layout_marginTop="@dimen/std_32dp"-->
+        <!--            android:contentDescription="@string/action_download_protocol"-->
+        <!--            android:src="@drawable/ic_loading_timer"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/btnSetup" />-->
+
+        <TextView
+            android:id="@+id/tvDPLicenseKeyValidating"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:drawableTop="@drawable/ic_loading_timer"
+            android:drawablePadding="@dimen/std_32dp"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/std_line_space"
+            android:text="@string/content_validating_license_key"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnDownloadProtocols"
+            tools:ignore="UseCompatTextViewDrawableXml" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

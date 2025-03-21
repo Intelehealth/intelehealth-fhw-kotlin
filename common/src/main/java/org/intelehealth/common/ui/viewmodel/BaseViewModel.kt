@@ -18,7 +18,8 @@ import org.intelehealth.common.utility.NO_NETWORK
 import timber.log.Timber
 
 open class BaseViewModel(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO, private val networkHelper: NetworkHelper? = null
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val networkHelper: NetworkHelper? = null
 ) : ViewModel() {
     private val loadingData = MutableLiveData<Boolean>()
 

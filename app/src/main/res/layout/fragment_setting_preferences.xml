@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/std_16dp">
@@ -32,6 +33,7 @@
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeLanguage"
                 style="@style/Theme.IDA.TextButton.Nav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,6 +68,7 @@
                 tools:ignore="UseCompatTextViewDrawableXml" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdateProtocols"
                 style="@style/Theme.IDA.TextButton.Nav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,6 +139,7 @@
                     app:layout_constraintTop_toBottomOf="@id/dividerBlackout" />
 
                 <TextView
+                    android:id="@+id/tvBlackoutPeriodTime"
                     style="@style/Theme.IDA.TextAppearance.InputBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

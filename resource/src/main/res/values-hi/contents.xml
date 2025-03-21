@@ -77,4 +77,12 @@
     <string name="content_about_us_terms_condition">हमारे <a href="https://intelehealth.org/terms-of-use">नियम व शर्तें देखें</a></string>
     <string name="content_blackout_period">नीचे दी गई समय अवधि के बीच अधिसूचना को अक्षम करने के लिए, ब्लैकआउट अवधि चालू करें</string>
     <string name="content_blackout_period_duration">%1$s से %2$s तक</string>
+    <string name="content_update_app_protocol">ऐप प्रोटोकॉल अपडेट करें!</string>
+    <string name="content_license_key">प्रोटोकॉल डाउनलोड करने के लिए कृपया\n‘लाइसेंस की’ एंटर करें।</string>
+    <string name="content_changing_protocols">प्रोटोकॉल बदलना</string>
+    <string name="content_wait_while_protocols_changing">प्रोटोकॉल बदले जाने तक कृपया प्रतीक्षा करें।</string>
+    <string name="content_protocols_successfully_changed">प्रोटोकॉल सफलतापूर्वक बदल दिए गए हैं!</string>
+    <string name="content_validating_license_key">कृपया लाइसेंस कुंजी सत्यापित होने तक\nप्रतीक्षा करें</string>
+    <string name="content_downloading">डाउनलोड हो रहा है…</string>
+    <string name="content_download_completed">डाउनलोड पूरा हुआ!</string>
 </resources>
