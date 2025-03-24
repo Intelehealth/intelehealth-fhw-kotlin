@@ -1,18 +1,12 @@
 package org.intelehealth.app.ui.setting.fragment
 
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.intelehealth.app.R
-import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
 import org.intelehealth.app.ui.setting.viewmodel.SettingViewModel
-import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.ui.fragment.CircularProgressFragment
 import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
-import org.intelehealth.common.utility.PreferenceUtils
-import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
 
 /**
