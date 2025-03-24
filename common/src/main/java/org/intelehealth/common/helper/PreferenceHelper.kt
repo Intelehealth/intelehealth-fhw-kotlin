@@ -27,6 +27,7 @@ class PreferenceHelper @Inject constructor(@ApplicationContext private val conte
         const val FCM_TOKEN = "fcm_token"
         const val USER_LOGGED_IN_STATUS = "user_logged_in_status"
         const val USER_ID = "user_id"
+        const val KEY_BLACKOUT_PERIOD_ACTIVE_STATUS = "blackout_period_active_status"
     }
 
     fun save(key: String?, value: Any?) {

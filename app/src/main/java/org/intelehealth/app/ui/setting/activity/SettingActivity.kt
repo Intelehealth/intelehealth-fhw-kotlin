@@ -3,9 +3,6 @@ package org.intelehealth.app.ui.setting.activity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivitySettingBinding
@@ -37,8 +34,8 @@ class SettingActivity : SimpleAppBarActivity() {
         setContentView(binding.root)
     }
 
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
+    override fun onActionBarSet() {
+        super.onActionBarSet()
         setupNavigation()
     }
 
@@ -47,15 +44,19 @@ class SettingActivity : SimpleAppBarActivity() {
      */
     private fun setupNavigation() {
         // Create an AppBarConfiguration with the correct top-level destinations
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        val toolbar = binding.appBarLayout.toolbar
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        val toolbar = binding.appBarLayout.toolbar
         // Hook your navigation controller to toolbar
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+//        toolbar.setupWithNavController(navController, appBarConfiguration)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            // Set the title of the screen
+            binding.appBarLayout.toolbar.title = destination.label
+        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp() || super.onSupportNavigateUp()
+//    }
 
     override fun getAppBarBinding(): SimpleAppbarBinding = binding.appBarLayout
 

@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
         android:padding="@dimen/std_16dp">
 
         <ImageView
@@ -103,6 +104,7 @@
             android:gravity="center"
             android:lineSpacingExtra="@dimen/std_line_space"
             android:text="@string/content_validating_license_key"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

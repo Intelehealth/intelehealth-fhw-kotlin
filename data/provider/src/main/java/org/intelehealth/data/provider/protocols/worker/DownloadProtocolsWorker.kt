@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.github.ajalt.timberkt.Timber
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -125,6 +126,9 @@ class DownloadProtocolsWorker @AssistedInject constructor(
             }
             zipEntry = zis.nextEntry
             progress = ((totalRead * 100) / contentLength).toInt()
+            Timber.d { "Progress: $progress" }
+            Timber.d { "Total Read: $totalRead" }
+            Timber.d { "Content Length: $contentLength" }
             setProgress(workDataOf(WORK_PROGRESS to progress))
         }
         zis.closeEntry()

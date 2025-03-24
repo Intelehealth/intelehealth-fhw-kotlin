@@ -7,6 +7,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
 import org.intelehealth.app.ui.setting.viewmodel.SettingViewModel
+import org.intelehealth.common.extensions.showSuccessSnackBar
+import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.ui.fragment.CircularProgressFragment
 import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 import org.intelehealth.common.utility.PreferenceUtils
@@ -34,7 +36,8 @@ class DownloadProtocolProgressFragment : CircularProgressFragment() {
             onProgress(it)
             if (it == MAX_PROGRESS) {
                 progressTask(getString(ResourceR.string.content_download_completed))
-                findNavController().popBackStack(R.id.nav_setting_preferences, true)
+                findNavController().popBackStack()
+                showToast(ResourceR.string.content_protocols_successfully_changed)
             }
         }
     }

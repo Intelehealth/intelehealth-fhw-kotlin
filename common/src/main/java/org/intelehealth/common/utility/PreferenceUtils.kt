@@ -47,4 +47,8 @@ class PreferenceUtils @Inject constructor(private val preferenceHelper: Preferen
     var userId: String
         get() = preferenceHelper.get(PreferenceHelper.USER_ID, "")
         set(value) = preferenceHelper.save(PreferenceHelper.USER_ID, value)
+
+    var blackoutActiveStatus: Boolean
+        get() = preferenceHelper.get(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, false)
+        set(value) = preferenceHelper.save(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, value)
 }

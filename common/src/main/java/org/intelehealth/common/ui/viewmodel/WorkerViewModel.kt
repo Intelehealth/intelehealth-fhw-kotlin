@@ -6,6 +6,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.github.ajalt.timberkt.Timber
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.helper.NetworkHelper
@@ -40,9 +41,17 @@ open class WorkerViewModel(
 
     private fun handleWorkInfoState(workInfo: WorkInfo) {
         when (workInfo.state) {
-            WorkInfo.State.SUCCEEDED -> mutableWorkerProgress.postValue(MAX_PROGRESS)
+            WorkInfo.State.SUCCEEDED -> handleSuccessState()
             WorkInfo.State.FAILED -> handleFailState(workInfo)
             else -> handleProgressState(workInfo)
+        }
+    }
+
+    private fun handleSuccessState() {
+        mutableWorkerProgress.postValue(MAX_PROGRESS)
+        viewModelScope.launch {
+            delay(500)
+            mutableWorkerProgress.postValue(0)
         }
     }
 

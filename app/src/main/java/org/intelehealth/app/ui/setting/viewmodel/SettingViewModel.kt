@@ -7,6 +7,7 @@ import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.intelehealth.common.helper.NetworkHelper
@@ -30,6 +31,9 @@ class SettingViewModel @Inject constructor(
     private var languageState = MutableStateFlow(preferenceUtils.currentLanguage)
     val languageStateData: LiveData<String> get() = languageState.asLiveData()
 
+    private var blackoutState = MutableStateFlow(preferenceUtils.blackoutActiveStatus)
+    val blackoutStateData: LiveData<Boolean> get() = blackoutState.asLiveData()
+
     private var validateLicenseKeyState = MutableStateFlow(false)
     val validateLicenseKeyStateData: LiveData<Boolean> get() = validateLicenseKeyState.asLiveData()
 
@@ -37,6 +41,13 @@ class SettingViewModel @Inject constructor(
         viewModelScope.launch {
             preferenceUtils.currentLanguage = language
             languageState.emit(preferenceUtils.currentLanguage)
+        }
+    }
+
+    fun setBlackoutPeriodStatus(status: Boolean) {
+        viewModelScope.launch {
+            preferenceUtils.blackoutActiveStatus = status
+            blackoutState.emit(preferenceUtils.blackoutActiveStatus)
         }
     }
 
@@ -55,6 +66,8 @@ class SettingViewModel @Inject constructor(
         super.handleOtherWorkStatus(status)
         viewModelScope.launch {
             validateLicenseKeyState.emit(status == DownloadProtocolsWorker.PROTOCOL_LICENSE_KEY_VALIDATED)
+            delay(500)
+            validateLicenseKeyState.emit(false)
         }
     }
 }

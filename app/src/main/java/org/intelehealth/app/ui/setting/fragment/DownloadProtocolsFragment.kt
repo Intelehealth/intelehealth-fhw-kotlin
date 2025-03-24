@@ -2,6 +2,7 @@ package org.intelehealth.app.ui.setting.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +41,7 @@ class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_proto
 
     private fun handleLicenseKeyValidation() {
         viewModel.validateLicenseKeyStateData.observe(viewLifecycleOwner) {
+            binding.tvDPLicenseKeyValidating.isVisible = false
             if (it) findNavController().navigate(
                 DownloadProtocolsFragmentDirections.navDownloadProtocolsToDownloadProgress()
             )
@@ -51,6 +53,7 @@ class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_proto
             it ?: return@setOnClickListener
             it.isEnabled = false
             val licenseKey = binding.textInputLicenseKey.text.toString()
+            binding.tvDPLicenseKeyValidating.isVisible = true
             viewModel.startDownloadProtocolWorker(licenseKey)
             binding.textInputLicenseKey.text?.clear()
         }
@@ -58,6 +61,7 @@ class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_proto
 
     override fun onFailed(reason: String) {
         super.onFailed(reason)
+        binding.tvDPLicenseKeyValidating.isVisible = false
         showErrorSnackBar(message = reason)
     }
 }

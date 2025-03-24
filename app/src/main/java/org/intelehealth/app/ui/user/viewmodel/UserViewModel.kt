@@ -153,6 +153,7 @@ class UserViewModel @Inject constructor(
      */
     fun updateUser(user: User, onUpdated: () -> Unit) {
         viewModelScope.launch {
+            userRepository.updateUserLoggedInStatus(true)
             userRepository.updateUser(user)
             withContext(Dispatchers.Main) { onUpdated() }
         }

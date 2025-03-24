@@ -2,6 +2,7 @@ package org.intelehealth.common.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 
 /**
@@ -27,8 +28,12 @@ abstract class SimpleAppBarActivity : AppCompatActivity() {
         appBarBinding.toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
+        onActionBarSet()
     }
 
     abstract fun getAppBarBinding(): SimpleAppbarBinding
     abstract fun getScreenTitle(): String
+    open fun onActionBarSet() {
+        Timber.d { "onActionBarSet" }
+    }
 }

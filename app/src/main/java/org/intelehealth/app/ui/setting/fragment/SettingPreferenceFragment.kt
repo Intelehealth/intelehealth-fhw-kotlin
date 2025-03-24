@@ -35,6 +35,12 @@ class SettingPreferenceFragment : Fragment(R.layout.fragment_setting_preferences
     private fun setBlackoutPeriod() {
         val blackoutPeriod = getString(ResourceR.string.content_blackout_period_duration, "9:00 PM", "6:00 AM")
         binding.tvBlackoutPeriodTime.text = blackoutPeriod
+
+        settingViewModel.blackoutStateData.observe(viewLifecycleOwner) { binding.blackoutStatus = it }
+
+        binding.switchBlackout.setOnCheckedChangeListener { _, isChecked ->
+            settingViewModel.setBlackoutPeriodStatus(isChecked)
+        }
     }
 
     private fun fetchSelectedLanguage() {
