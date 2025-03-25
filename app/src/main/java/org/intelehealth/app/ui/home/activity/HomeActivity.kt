@@ -176,8 +176,8 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
 
         headerBinding.btnEditProfile.setOnClickListener {
-//            navController.navigate(R.id.nav_profile)
             binding.drawerLayout.closeDrawers()
+            navController.navigate(R.id.nav_my_profile)
         }
     }
 

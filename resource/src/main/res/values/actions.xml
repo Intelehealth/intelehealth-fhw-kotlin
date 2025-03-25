@@ -43,4 +43,7 @@
     <string name="action_go_to_website">Go to website</string>
     <string name="action_change_language">Change Language</string>
     <string name="action_download_protocol">Download Protocols</string>
+    <string name="action_change_photo"><u>Change photo</u></string>
+    <string name="action_change_password">Change password</string>
+    <string name="action_fingerprint_lock">Fingerprint Lock</string>
 </resources>

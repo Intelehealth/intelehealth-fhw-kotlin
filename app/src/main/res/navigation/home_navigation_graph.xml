@@ -29,6 +29,12 @@
     </fragment>
 
     <activity
+        android:id="@+id/nav_my_profile"
+        android:name="org.intelehealth.app.ui.user.activity.UserProfileActivity"
+        android:label="@string/title_my_profile"
+        tools:layout="@layout/activity_user_profile" />
+
+    <activity
         android:id="@+id/nav_add_patient"
         android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
         android:label="@string/action_add_patient"

@@ -67,6 +67,10 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.user.activity.UserProfileActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.help.activity.YoutubeVideoPlayerActivity"
             android:exported="true"
             android:theme="@style/Theme.IDA.Transparent" />

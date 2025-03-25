@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/std_16dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivUserProfilePicture"
+                android:layout_width="@dimen/std_72dp"
+                android:layout_height="@dimen/std_72dp"
+                android:background="@color/colorDeactivated"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangePhoto"
+                style="@style/Theme.IDA.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_change_photo"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/std_14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUserProfilePicture" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btnChangePassword"
+                style="@style/Theme.IDA.TextAppearance.Body.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_security_lock"
+                android:drawableEnd="@drawable/dropdown_arrow_rotate_270"
+                android:drawablePadding="@dimen/std_16dp"
+                android:paddingVertical="@dimen/std_12dp"
+                android:text="@string/action_change_password"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnChangePhoto" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btnSetFingerprintLock"
+                style="@style/Theme.IDA.TextAppearance.Body.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_security_fingerprint_lock"
+                android:drawablePadding="@dimen/std_16dp"
+                android:paddingVertical="@dimen/std_12dp"
+                android:text="@string/action_fingerprint_lock"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@id/switchFingerprintLock"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnChangePassword" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchFingerprintLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                app:layout_constraintBottom_toBottomOf="@id/btnSetFingerprintLock"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnSetFingerprintLock" />
+
+            <TextView
+                android:id="@+id/tvLblUsername"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_username"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSetFingerprintLock" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutUsername"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblUsername">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputUsername"
+                    style="@style/Theme.IDA.InputBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_username" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblProfileFName"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_first_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutUsername" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutFName"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileFName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputFName"
+                    style="@style/Theme.IDA.InputBox.Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_username" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblProfileMName"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_middle_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutFName" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutMName"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileMName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputMName"
+                    style="@style/Theme.IDA.InputBox.Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_username" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblProfileLName"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_last_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutMName" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutLName"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileLName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputLName"
+                    style="@style/Theme.IDA.InputBox.Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_username" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblProfileGender"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_gender"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutLName"
+                tools:text="Gender" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:weightSum="3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileGender"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMale"
+                    style="@style/Theme.IDA.CheckableButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_male"
+                    app:icon="@drawable/ic_gender_male" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFemale"
+                    style="@style/Theme.IDA.CheckableButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_female"
+                    app:icon="@drawable/ic_gender_female" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnOther"
+                    style="@style/Theme.IDA.CheckableButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_other"
+                    app:icon="@drawable/ic_gender_other" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/tvLblProfileDob"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_date_of_birth"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toggleGender" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutDob"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileDob"
+                app:layout_constraintWidth_percent="0.5">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputDob"
+                    style="@style/Theme.IDA.InputBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lbl_date_of_birth" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblProfileAge"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_age"
+                app:layout_constraintStart_toStartOf="@id/textInputLayoutAge"
+                app:layout_constraintTop_toBottomOf="@id/toggleGender" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutAge"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblProfileAge"
+                app:layout_constraintWidth_percent="0.45">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputAge"
+                    style="@style/Theme.IDA.InputBox.Phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/lbl_age" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblUserPhoneNumber"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_phone_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutDob" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccpUserCountryCode"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/std_48dp"
+                android:background="@drawable/otp_input_bg"
+                android:gravity="center_vertical"
+                app:ccp_countryPreference="us,in"
+                app:ccp_textSize="@dimen/std_16sp"
+                app:layout_constraintBottom_toBottomOf="@id/textInputLayoutUserPhoneNumber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textInputLayoutUserPhoneNumber"
+                app:layout_constraintWidth_percent="0.35" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutUserPhoneNumber"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblUserPhoneNumber"
+                app:layout_constraintWidth_percent="0.6">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputUserPhoneNumber"
+                    style="@style/Theme.IDA.InputBox.Phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_phone_number" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <TextView
+                android:id="@+id/tvLblUserEmail"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutUserPhoneNumber" />
+
+            <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                android:id="@+id/textInputLayoutUserEmail"
+                style="@style/Theme.IDA.OutlineInputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hintEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblUserEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputUserEmail"
+                    style="@style/Theme.IDA.InputBox.Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_enter_your_email" />
+
+            </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveUserProfile"
+                style="@style/Theme.IDA.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_32dp"
+                android:text="@string/action_save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutUserEmail" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

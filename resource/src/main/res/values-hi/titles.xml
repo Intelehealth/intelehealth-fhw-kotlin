@@ -12,6 +12,7 @@
     <string name="title_forgot_password">पासवर्ड भूल गए</string>
     <string name="title_reset_password">पासवर्ड रीसेट करें</string>
     <string name="title_login">लॉगिन</string>
+    <string name="title_my_profile">मेरा प्रोफ़ाइल</string>
 
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>

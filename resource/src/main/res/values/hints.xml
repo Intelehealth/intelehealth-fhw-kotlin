@@ -8,4 +8,9 @@
     <string name="hint_find_patient">Find patient</string>
     <string name="hint_enter_mobile_number">Enter mobile number</string>
     <string name="hint_license_key">Enter license key</string>
+    <string name="hint_enter_first_name">Enter your first name</string>
+    <string name="hint_enter_middle_name">Enter your middle name</string>
+    <string name="hint_enter_last_name">Enter your last name</string>
+    <string name="hint_enter_phone_number">Enter phone number</string>
+    <string name="hint_enter_your_email">Enter email id</string>
 </resources>

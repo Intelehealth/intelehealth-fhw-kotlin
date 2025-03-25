@@ -37,4 +37,16 @@
     <string name="lbl_language">Language</string>
     <string name="lbl_protocols">Protocols</string>
     <string name="lbl_blackout">Blackout</string>
+    <string name="lbl_gender">Gender</string>
+    <string name="lbl_male">Male</string>
+    <string name="lbl_female">Female</string>
+    <string name="lbl_other">Other</string>
+    <string name="lbl_first_name">First name</string>
+    <string name="lbl_middle_name">Middle name</string>
+    <string name="lbl_last_name">Last name</string>
+    <string name="lbl_age">Age</string>
+    <string name="lbl_date_of_birth">Date of birth</string>
+    <string name="lbl_phone_number">Phone number</string>
+    <string name="lbl_email">Email</string>
+
 </resources>

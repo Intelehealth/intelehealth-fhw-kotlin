@@ -37,4 +37,15 @@
     <string name="lbl_language">भाषा</string>
     <string name="lbl_protocols">प्रोटोकॉल्स</string>
     <string name="lbl_blackout">निष्प्रदीप करना</string>
+    <string name="lbl_first_name">पहला नाम</string>
+    <string name="lbl_middle_name">मध्य नाम</string>
+    <string name="lbl_last_name">उपनाम</string>
+    <string name="lbl_gender">लिंग</string>
+    <string name="lbl_male">पुरुष</string>
+    <string name="lbl_female">महिला</string>
+    <string name="lbl_other">अन्य</string>
+    <string name="lbl_age">आयु</string>
+    <string name="lbl_date_of_birth">जन्म तिथि</string>
+    <string name="lbl_phone_number">फ़ोन नंबर</string>
+    <string name="lbl_email">ईमेल</string>
 </resources>

@@ -43,4 +43,7 @@
     <string name="action_go_to_website">वेबसाइट पर जाएं</string>
     <string name="action_change_language">भाषा बदलें</string>
     <string name="action_download_protocol">डाउनलोड प्रोटोकॉल</string>
+    <string name="action_change_photo"><u>फोटो बदलें</u></string>
+    <string name="action_change_password">पासवर्ड बदलें</string>
+    <string name="action_fingerprint_lock">फ़िंगरप्रिंट लॉक</string>
 </resources>

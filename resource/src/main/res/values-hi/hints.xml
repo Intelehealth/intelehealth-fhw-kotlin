@@ -8,4 +8,9 @@
     <string name="hint_find_patient">रोगी को खोजें</string>
     <string name="hint_enter_mobile_number">मोबाइल नंबर दर्ज करें</string>
     <string name="hint_license_key">एंटर लाइसेंस कुंजी</string>
+    <string name="hint_enter_first_name">पहला नाम एंटर करें</string>
+    <string name="hint_enter_middle_name">मध्य नाम एंटर करें</string>
+    <string name="hint_enter_last_name">उपनाम एंटर करें</string>
+    <string name="hint_enter_phone_number">फ़ोन नंबर एंटर करें</string>
+    <string name="hint_enter_your_email">ईमेल आईडी एंटर करें</string>
 </resources>
