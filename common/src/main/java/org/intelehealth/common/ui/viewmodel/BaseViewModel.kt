@@ -1,5 +1,6 @@
 package org.intelehealth.common.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -95,7 +96,8 @@ open class BaseViewModel(
     }.flowOn(dispatcher)
 
     fun <L, T> catchNetworkData(
-        networkCall: suspend () -> Response<out BaseResponse<String, T>>, saveDataCall: suspend (T?) -> L
+        networkCall: suspend () -> Response<out BaseResponse<String, T>>,
+        saveDataCall: suspend (T?) -> L
     ) = flow {
         com.github.ajalt.timberkt.Timber.d { "catchNetworkData" }
         if (isInternetAvailable()) {
@@ -110,6 +112,29 @@ open class BaseViewModel(
             } else {
                 Timber.e("Api error ${response.body()?.message}")
                 emit(Result.Error(response.body()?.message))
+            }
+        } else dataConnectionStatus.postValue(false)
+    }.onStart {
+        emit(Result.Loading("Please wait..."))
+    }.flowOn(dispatcher)
+
+    fun <L, R> executeNetworkCallAndSaveInLocal(
+        networkCall: suspend () -> Response<R>,
+        saveDataCall: suspend (R?) -> L
+    ) = flow {
+        Log.d("BaseViewModel", "executeNetworkCallAndSaveInLocal: ")
+        com.github.ajalt.timberkt.Timber.d { "executeNetworkCallAndSaveInLocal" }
+        if (isInternetAvailable()) {
+            com.github.ajalt.timberkt.Timber.d { "catchNetworkData api calling" }
+            val response = networkCall()
+            if (response.code() == HttpStatusCode.OK) {
+                Timber.d("Api success")
+                val savedData = saveDataCall(response.body())
+                val result = Result.Success(savedData, "Success")
+                emit(result)
+            } else {
+                Timber.e("Api error ${response.body()}")
+                emit(Result.Error(response.errorBody()?.string()))
             }
         } else dataConnectionStatus.postValue(false)
     }.onStart {

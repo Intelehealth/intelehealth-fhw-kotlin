@@ -6,7 +6,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.extensions.containsDigit
@@ -18,8 +21,10 @@ import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.UserResponse
 import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
 import org.intelehealth.data.provider.user.UserRepository
 import java.security.SecureRandom
 import javax.inject.Inject
@@ -120,6 +125,13 @@ class UserViewModel @Inject constructor(
             }
         }
     }
+
+
+    fun fetchUserProfile() = executeNetworkCallAndSaveInLocal(
+        { userRepository.fetchUserProfile() }, { userRepository.saveProfileData(it) }
+    ).asLiveData()
+
+//    fun fetchUserProfile() = viewModelScope.launch { userRepository.fetchUserProfile() }
 
     /**
      * Retrieves the live user data from the repository.

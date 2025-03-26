@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="user"
+            type="org.intelehealth.data.offline.entity.User" />
+    </data>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -96,7 +103,8 @@
                     style="@style/Theme.IDA.InputBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_username" />
+                    android:hint="@string/hint_enter_username"
+                    android:text="@{user.userName}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -124,7 +132,8 @@
                     style="@style/Theme.IDA.InputBox.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_username" />
+                    android:hint="@string/hint_enter_first_name"
+                    android:text="@{user.firstName}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -152,7 +161,8 @@
                     style="@style/Theme.IDA.InputBox.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_username" />
+                    android:hint="@string/hint_enter_middle_name"
+                    android:text="@{user.middleName}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -180,7 +190,8 @@
                     style="@style/Theme.IDA.InputBox.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_username" />
+                    android:hint="@string/hint_enter_last_name"
+                    android:text="@{user.lastName}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -201,6 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/std_4dp"
                 android:weightSum="3"
+                gender="@{user.gender}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileGender"
@@ -260,7 +272,8 @@
                     style="@style/Theme.IDA.InputBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lbl_date_of_birth" />
+                    android:hint="@string/lbl_date_of_birth"
+                    android:text="@{user.dob}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -289,7 +302,8 @@
                     style="@style/Theme.IDA.InputBox.Phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/lbl_age" />
+                    android:hint="@string/lbl_age"
+                    android:text="@{String.valueOf(user.age)}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -330,7 +344,8 @@
                     style="@style/Theme.IDA.InputBox.Phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_phone_number" />
+                    android:hint="@string/hint_enter_phone_number"
+                    android:text="@{user.phoneNumber}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
@@ -358,7 +373,8 @@
                     style="@style/Theme.IDA.InputBox.Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_enter_your_email" />
+                    android:hint="@string/hint_enter_your_email"
+                    android:text="@{user.emailId}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 

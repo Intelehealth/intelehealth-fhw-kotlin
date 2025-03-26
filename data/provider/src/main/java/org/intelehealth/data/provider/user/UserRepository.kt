@@ -1,6 +1,9 @@
 package org.intelehealth.data.provider.user
 
 import android.util.Base64
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import org.intelehealth.common.extensions.milliToLogTime
 import org.intelehealth.common.extensions.toDate
 import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DB_FORMAT
@@ -9,8 +12,11 @@ import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
+import org.intelehealth.data.provider.utils.PersonAttributeType
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
@@ -106,6 +112,13 @@ class UserRepository @Inject constructor(
     fun getLiveUser() = userDao.getLiveUser(preferenceUtils.userId)
 
     /**
+     * Retrieves the live user data from the local database.
+     *
+     * @return The user data.
+     */
+    suspend fun getUser() = userDao.getUser(preferenceUtils.userId)
+
+    /**
      * Retrieves the user's name from the local database.
      *
      * @return The user's name.
@@ -172,4 +185,32 @@ class UserRepository @Inject constructor(
      * @return The result of the network call to reset the password.
      */
     suspend fun resetPassword(userUuid: String, newPassword: String) = dataSource.resetPassword(userUuid, newPassword)
+
+    suspend fun fetchUserProfile() = dataSource.fetchUserProfile(
+        preferenceUtils.basicAuthToken,
+        preferenceUtils.userId
+    )
+
+    suspend fun saveProfileData(data: HashMap<String, List<Profile>>?) {
+        data?.get(KEY_RESULT)?.let { list -> if (list.isNotEmpty()) mappingProfileData(list[0]) }
+    }
+
+    private suspend fun mappingProfileData(profile: Profile) {
+        withContext(Dispatchers.IO) {
+            val user = async { getUser() }.await()
+            user.apply {
+                firstName = profile.person?.preferredName?.givenName
+                middleName = profile.person?.preferredName?.middleName
+                lastName = profile.person?.preferredName?.familyName
+                gender = profile.person?.gender
+                age = profile.person?.age
+                dob = profile.person?.dateOfBirth
+                profile.attributes?.forEach { attr ->
+                    if (attr.attributeTpe?.uuid == PersonAttributeType.EMAIL.value) emailId = attr.value
+                    else if (attr.attributeTpe?.uuid == PersonAttributeType.PHONE_NUMBER.value) phoneNumber = attr.value
+                    else if (attr.attributeTpe?.uuid == PersonAttributeType.COUNTRY_CODE.value) countryCode = attr.value
+                }
+            }.also { updateUser(it) }
+        }
+    }
 }

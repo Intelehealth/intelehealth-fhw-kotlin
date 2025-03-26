@@ -12,7 +12,7 @@ enum class EncounterType(val value: String) {
 }
 
 enum class ObsConcept(val value: String) {
-//    BLOOD_PRESSURE("5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
+    //    BLOOD_PRESSURE("5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
 //    PULSE("5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
 //    TEMPERATURE("5088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
 //    RESPIRATORY_RATE("5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
@@ -23,4 +23,10 @@ enum class ObsConcept(val value: String) {
     FOLLOW_UP("e8caffd6-5d22-41c4-8d6a-bc31a44d0c86"),
     RATING("78284507-fb71-4354-9b34-046ab205e18f"),
 //    COMMENTS("36d207d6-bee7-4b3e-9196-7d053c6eddce"),
+}
+
+enum class PersonAttributeType(val value: String) {
+    EMAIL("226c0494-d67e-47b4-b7ec-b368064844bd"),
+    PHONE_NUMBER("e3a7e03a-5fd0-4e6c-b2e3-938adb3bbb37"),
+    COUNTRY_CODE("2d4d8e6d-21c4-4710-a3ad-4daf5c0dfbbb")
 }

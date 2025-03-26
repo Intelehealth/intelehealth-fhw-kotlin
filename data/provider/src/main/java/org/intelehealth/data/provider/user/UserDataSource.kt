@@ -46,9 +46,13 @@ class UserDataSource @Inject constructor(
         map = hashMapOf(KEY_NEW_PASSWORD to newPassword)
     )
 
+    suspend fun fetchUserProfile(basicAuth: String, userId: String) =
+        restClient.fetchUserProfile(userId = userId, authHeader = basicAuth)
+
     companion object {
         const val KEY_USER_UUID = "userUuid"
         const val KEY_NEW_PASSWORD = "newPassword"
         const val KEY_OLD_PASSWORD = "oldPassword"
+        const val KEY_RESULT = "results"
     }
 }

@@ -7,6 +7,7 @@ import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.network.model.response.UserResponse
 import retrofit2.Response
@@ -179,6 +180,13 @@ interface RestClient {
         @Query("key") licenseKey: String,
         @Header("Authorization") jwtToken: String
     ): Response<BaseResponse<Any?, String>>
+
+    @GET("/openmrs/ws/rest/v1/provider")
+    suspend fun fetchUserProfile(
+        @Query("user") userId: String,
+        @Query("v") v: String = "custom:(uuid,person:(uuid,display,gender,age,birthdate,preferredName),attributes)",
+        @Header("Authorization") authHeader: String
+    ): Response<HashMap<String, List<Profile>>>
 
 //    @GET("/openmrs/ws/rest/v1/provider")
 //    suspend fun fetchUserProviderDetails(

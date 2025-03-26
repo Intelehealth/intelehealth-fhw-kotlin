@@ -29,12 +29,3 @@ data class User(
 
     @SerializedName("person") @Expose val person: Person,
 )
-
-data class Person(
-    @SerializedName("uuid") val uuid: String,
-
-    @SerializedName("display") val display: String,
-)
-
-
-

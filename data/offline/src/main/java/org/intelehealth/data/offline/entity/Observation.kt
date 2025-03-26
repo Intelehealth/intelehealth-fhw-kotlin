@@ -28,28 +28,3 @@ data class Observation(
     @SerializedName("syncd") var synced: Boolean = false,
     @ColumnInfo("concept_set_uuid") @SerializedName("conceptsetuuid") var conceptSetUuid: String? = null,
 ) : Parcelable
-
-data class ObsJsonResponse(
-
-    @SerializedName("uuid") var uuid: String,
-    @SerializedName("display") var display: String,
-    @SerializedName("concept") var concept: Concept,
-    @SerializedName("person") var person: Person,
-    @SerializedName("obsDatetime") var obsDatetime: String,
-    @SerializedName("accessionNumber") var accessionNumber: String,
-    @SerializedName("obsGroup") var obsGroup: String,
-    @SerializedName("valueCodedName") var valueCodedName: String,
-    @SerializedName("groupMembers") var groupMembers: String,
-    @SerializedName("comment") var comment: String,
-    @SerializedName("location") var location: String,
-    @SerializedName("order") var order: String,
-    @SerializedName("encounter") var encounter: Encounter,
-    @SerializedName("voided") var voided: Boolean,
-    @SerializedName("value") var value: Person,
-    @SerializedName("valueModifier") var valueModifier: String,
-    @SerializedName("formFieldPath") var formFieldPath: String,
-    @SerializedName("formFieldNamespace") var formFieldNamespace: String,
-    @SerializedName("links") var links: List<Link>,
-    @SerializedName("resourceVersion") var resourceVersion: String
-
-)
