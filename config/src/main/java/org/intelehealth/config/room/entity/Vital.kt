@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-@Entity(tableName = "tbl_patient_vital")
-data class PatientVital(
+@Entity(tableName = "tbl_vital_field")
+data class Vital(
     val name: String,
 
     @SerializedName("key")

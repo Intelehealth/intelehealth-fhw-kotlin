@@ -1,9 +1,9 @@
 package org.intelehealth.data.provider.user
 
-import android.util.Base64
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import okhttp3.Credentials
 import org.intelehealth.common.extensions.milliToLogTime
 import org.intelehealth.common.extensions.toDate
 import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DB_FORMAT
@@ -17,7 +17,6 @@ import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
 import org.intelehealth.data.provider.utils.PersonAttributeType
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 /**
@@ -70,11 +69,10 @@ class UserRepository @Inject constructor(
      * @param password The user's password.
      * @return The result of the login operation.
      */
-    fun login(username: String, password: String) =
-        Base64.encodeToString(("$username:$password").toByteArray(StandardCharsets.UTF_8), Base64.NO_WRAP).let {
-            preferenceUtils.basicAuthToken = "Basic $it"
-            dataSource.login(preferenceUtils.basicAuthToken)
-        }
+    fun login(username: String, password: String) = Credentials.basic(username, password).let {
+        preferenceUtils.basicAuthToken = it
+        dataSource.login(preferenceUtils.basicAuthToken)
+    }
 
     /**
      * Saves the JWT token to shared preferences.

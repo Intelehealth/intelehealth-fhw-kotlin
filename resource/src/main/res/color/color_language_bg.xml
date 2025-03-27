@@ -3,5 +3,6 @@
     <!--    <item android:color="@color/cardTintLightGreen" android:state_pressed="true" />-->
     <item android:color="@color/colorAccentLightCard" android:state_selected="true" />
     <item android:color="@color/colorAccentLightCard" android:state_checked="true" />
+    <item android:color="@color/colorLightGray" android:state_enabled="false" />
     <item android:color="@color/white" />
 </selector>

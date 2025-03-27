@@ -1,4 +1,4 @@
-package org.intelehealth.config.presenter.fields.data
+package org.intelehealth.config.presenter.fields.patient.data
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.intelehealth.config.room.dao.PatientRegFieldDao

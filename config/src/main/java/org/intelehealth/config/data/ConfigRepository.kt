@@ -55,7 +55,7 @@ class ConfigRepository @Inject constructor(
             groupingPatientRegFields(config.patientRegFields.personal, FieldGroup.PERSONAL)
             groupingPatientRegFields(config.patientRegFields.address, FieldGroup.ADDRESS)
             groupingPatientRegFields(config.patientRegFields.other, FieldGroup.OTHER)
-            configDb.patientVitalDao().save(config.patientVitals)
+            configDb.patientVitalDao().save(config.vitals)
             config.patientVisitSummery.apply {
                 chatSection = if (config.webrtcSection) config.webrtcStatus.chat else false
                 videoSection = if (config.webrtcSection) config.webrtcStatus.video else false

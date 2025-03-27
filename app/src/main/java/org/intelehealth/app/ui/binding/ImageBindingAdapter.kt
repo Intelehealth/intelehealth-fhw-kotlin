@@ -6,8 +6,21 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
+import com.bumptech.glide.signature.ObjectKey
+import com.github.ajalt.timberkt.Timber
+import okhttp3.Credentials
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import org.intelehealth.app.R
 import org.intelehealth.app.model.IntroContent
+import org.intelehealth.app.utility.PERSON_IMAGE_BASE_PATH
+import org.intelehealth.common.helper.PreferenceHelper
+import org.intelehealth.common.utility.PreferenceUtils
 import java.io.File
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 /**
  * Created by Vaghela Mithun R. on 25-04-2024 - 11:22.
@@ -15,7 +28,7 @@ import java.io.File
  * Mob   : +919727206702
  **/
 
-const val PROFILE_PIC_SIZE_MULTIPLIER = 0.25f
+const val PROFILE_PIC_SIZE_MULTIPLIER = 0.30f
 
 /**
  * A [BindingAdapter] function that loads an image into an [ImageView] based on the
@@ -58,6 +71,15 @@ fun bindProfileImage(imageView: ImageView?, url: String?) {
     }
 }
 
+@BindingAdapter("personImageId")
+fun bindPersonImage(imageView: ImageView?, personId: String?) {
+    if (imageView != null && !personId.isNullOrEmpty()) {
+        val path = PERSON_IMAGE_BASE_PATH + personId
+        Timber.d { "Person image path => $path" }
+        loadImageWithAuth(imageView, path)
+    }
+}
+
 /**
  * A [BindingAdapter] function that loads an image from a URL into an
  * [ImageView] using Glide.
@@ -87,5 +109,24 @@ fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
 //            .load(resourceId)
 //            .diskCacheStrategy(DiskCacheStrategy.ALL)
 //            .into(imageView)
+    }
+}
+
+fun loadImageWithAuth(imageView: ImageView, url: String) {
+    PreferenceUtils(PreferenceHelper(imageView.context.applicationContext)).apply {
+        val glideUrl = GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", basicAuthToken).build())
+
+        val requestBuilder = Glide.with(imageView.context).asDrawable()
+            .sizeMultiplier(PROFILE_PIC_SIZE_MULTIPLIER)
+
+        Glide.with(imageView.context)
+            .load(glideUrl)
+            .thumbnail(requestBuilder)
+            .centerCrop()
+            .placeholder(org.intelehealth.resource.R.drawable.avatar1)
+            .error(org.intelehealth.resource.R.drawable.avatar1)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .signature(ObjectKey(5L))
+            .into(imageView)
     }
 }

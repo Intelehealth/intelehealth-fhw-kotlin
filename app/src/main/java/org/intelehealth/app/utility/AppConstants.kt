@@ -1,6 +1,7 @@
 package org.intelehealth.app.utility
 
 import android.content.Context
+import org.intelehealth.app.BuildConfig
 
 /**
  * Created by Vaghela Mithun R. on 31-12-2024 - 17:08.
@@ -19,6 +20,8 @@ const val IND_COUNTRY_CODE = "91"
 const val IND_MOBILE_LEN = 10
 const val PWD_MIN_LENGTH = 5
 const val INTELEHEALTH_WEB_LINK = "https://intelehealth.org/"
+const val PERSON_IMAGE_BASE_PATH = "${BuildConfig.SERVER_URL}/openmrs/ws/rest/v1/personimage/"
+
 
 fun getAppPlayStoreUrl(context: Context): String {
     return "https://play.google.com/store/apps/details?id=" + context.applicationContext.packageName

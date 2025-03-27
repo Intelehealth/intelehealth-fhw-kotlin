@@ -21,6 +21,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivUserProfilePicture"
+                personImageId="@{user.personId}"
                 android:layout_width="@dimen/std_72dp"
                 android:layout_height="@dimen/std_72dp"
                 android:background="@color/colorDeactivated"
@@ -94,6 +95,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblUsername">
@@ -123,6 +125,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileFName">
@@ -152,6 +155,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileMName">
@@ -181,6 +185,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileLName">
@@ -208,11 +213,11 @@
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/toggleGender"
+                gender="@{user.gender}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/std_4dp"
                 android:weightSum="3"
-                gender="@{user.gender}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileGender"
@@ -225,6 +230,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text="@string/lbl_male"
                     app:icon="@drawable/ic_gender_male" />
 
@@ -234,6 +240,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text="@string/lbl_female"
                     app:icon="@drawable/ic_gender_female" />
 
@@ -243,6 +250,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:text="@string/lbl_other"
                     app:icon="@drawable/ic_gender_other" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -262,6 +270,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileDob"
@@ -292,6 +301,7 @@
                 style="@style/Theme.IDA.OutlineInputBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLblProfileAge"
@@ -384,6 +394,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/std_32dp"
+                android:enabled="false"
                 android:text="@string/action_save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

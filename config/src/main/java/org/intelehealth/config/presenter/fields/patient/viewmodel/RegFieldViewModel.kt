@@ -1,4 +1,4 @@
-package org.intelehealth.config.presenter.fields.viewmodel
+package org.intelehealth.config.presenter.fields.patient.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.config.presenter.fields.data.RegFieldRepository
+import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.utility.FieldGroup
 import javax.inject.Inject

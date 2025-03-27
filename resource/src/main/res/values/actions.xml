@@ -46,4 +46,6 @@
     <string name="action_change_photo"><u>Change photo</u></string>
     <string name="action_change_password">Change password</string>
     <string name="action_fingerprint_lock">Fingerprint Lock</string>
+    <string name="action_take_photo">Take Photo</string>
+    <string name="action_choose_from_gallery">Choose from Gallery</string>
 </resources>

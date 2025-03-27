@@ -1,4 +1,4 @@
-package org.intelehealth.config.utility
+package org.intelehealth.config.presenter.fields.vital.utils
 
 /**
  * Created by Lincon Pradhan R. on 24-06-2024 - 15:30.
@@ -7,7 +7,7 @@ package org.intelehealth.config.utility
  *
  * Patient vital config keys
  */
-class PatientVitalConfigKeys private constructor(){
+class VitalConfigKeys private constructor(){
     companion object{
         const val WEIGHT = "weight_kg"
         const val HEIGHT = "height_cm"

@@ -18,4 +18,5 @@
     <string name="dialog_title_patient_registered">Patient Registered!</string>
     <string name="dialog_title_exit_app">Exit App</string>
     <string name="dialog_title_network_failure">Network failure!</string>
+    <string name="dialog_title_select_image">Select Image</string>
 </resources>

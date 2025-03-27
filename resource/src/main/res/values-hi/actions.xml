@@ -46,4 +46,6 @@
     <string name="action_change_photo"><u>फोटो बदलें</u></string>
     <string name="action_change_password">पासवर्ड बदलें</string>
     <string name="action_fingerprint_lock">फ़िंगरप्रिंट लॉक</string>
+    <string name="action_take_photo">फोटो लो</string>
+    <string name="action_choose_from_gallery">गैलरी से चयन करो</string>
 </resources>

@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentUserProfileBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
+import org.intelehealth.common.ui.fragment.ChangePhotoFragment
 import org.intelehealth.common.ui.fragment.StateFragment
 
 /**
@@ -17,7 +19,7 @@ import org.intelehealth.common.ui.fragment.StateFragment
  * Mob   : +919727206702
  **/
 @AndroidEntryPoint
-class UserProfileFragment : StateFragment(R.layout.fragment_user_profile) {
+class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) {
     override val viewModel: UserViewModel by viewModels<UserViewModel>()
     private lateinit var binding: FragmentUserProfileBinding
 
@@ -25,10 +27,11 @@ class UserProfileFragment : StateFragment(R.layout.fragment_user_profile) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentUserProfileBinding.bind(view)
         observerUserData()
+        binding.ivUserProfilePicture.setOnClickListener { requestPermission() }
     }
 
     private fun observerUserData() {
-        viewModel.fetchUserProfile().observe(viewLifecycleOwner) {}
+        viewModel.fetchUserProfile().observe(viewLifecycleOwner) { Timber.d { it.status.name } }
         viewModel.getUser().observe(viewLifecycleOwner) {
             binding.user = it
         }

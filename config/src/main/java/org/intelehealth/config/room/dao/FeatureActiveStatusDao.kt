@@ -2,13 +2,8 @@ package org.intelehealth.config.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import org.intelehealth.config.room.entity.ActiveLanguage
-import org.intelehealth.config.room.entity.ConfigDictionary
 import org.intelehealth.config.room.entity.FeatureActiveStatus
-import org.intelehealth.config.room.entity.PatientVital
 
 /**
  * Created by Vaghela Mithun R. on 15-03-2024 - 16:10.

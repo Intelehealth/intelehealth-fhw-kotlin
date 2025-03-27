@@ -85,4 +85,5 @@
     <string name="content_validating_license_key">कृपया लाइसेंस कुंजी सत्यापित होने तक\nप्रतीक्षा करें</string>
     <string name="content_downloading">डाउनलोड हो रहा है…</string>
     <string name="content_download_completed">डाउनलोड पूरा हुआ!</string>
+    <string name="content_reject_permission_warning">यदि आप अनुमति को अस्वीकार करते हैं,तो आप इस सेवा का उपयोग नहीं कर सकते| कृपया सेटिंग-> अनुमति पर चालू करें</string>
 </resources>

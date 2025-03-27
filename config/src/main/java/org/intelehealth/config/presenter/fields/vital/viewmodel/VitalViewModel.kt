@@ -1,8 +1,8 @@
-package org.intelehealth.config.presenter.fields.viewmodel
+package org.intelehealth.config.presenter.fields.vital.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.config.presenter.fields.data.PatientVitalRepository
+import org.intelehealth.config.presenter.fields.vital.data.VitalRepository
 import javax.inject.Inject
 
 /**
@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Mob   :
  **/
 @HiltViewModel
-class PatientVitalViewModel @Inject constructor(
-    private val repository: PatientVitalRepository
+class VitalViewModel @Inject constructor(
+    private val repository: VitalRepository
 ) : BaseViewModel() {
 
     fun getAllEnabledLiveFields() = repository.getAllEnabledLiveFields()
