@@ -26,7 +26,7 @@ enum class ObsConcept(val value: String) {
 }
 
 enum class PersonAttributeType(val value: String) {
-    EMAIL("226c0494-d67e-47b4-b7ec-b368064844bd"),
-    PHONE_NUMBER("e3a7e03a-5fd0-4e6c-b2e3-938adb3bbb37"),
-    COUNTRY_CODE("2d4d8e6d-21c4-4710-a3ad-4daf5c0dfbbb")
+    EMAIL("d472dd87-c406-4c3f-a7ac-7a36749cd0bf"),
+    PHONE_NUMBER("c5ccb5ad-1d2c-4b54-b00b-baaf93aed302"),
+    COUNTRY_CODE("a0358bfa-e220-412f-9fb3-504687135575")
 }

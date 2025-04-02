@@ -85,8 +85,16 @@ fun TextInputLayout.validateDigit(
     @StringRes resId: Int,
     minDigit: Int,
 ): Boolean {
+    return validateDigit(input, context.getString(resId), minDigit)
+}
+
+fun TextInputLayout.validateDigit(
+    input: TextInputEditText,
+    error: String,
+    minDigit: Int,
+): Boolean {
     return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit) {
-        showError(resId)
+        showError(error)
         false
     } else true
 }
@@ -135,4 +143,16 @@ fun TextInputLayout.changeButtonStateOnTextChange(input: TextInputEditText, butt
             hideError()
         } else button.isEnabled = false
     }
+}
+
+fun TextInputLayout.validateEmail(input: TextInputEditText, @StringRes resId: Int): Boolean {
+    return if (!isValidEmail(input.text.toString())) {
+        showError(resId)
+        false
+    } else true
+}
+
+fun isValidEmail(email: String): Boolean {
+    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    return email.matches(emailPattern.toRegex())
 }

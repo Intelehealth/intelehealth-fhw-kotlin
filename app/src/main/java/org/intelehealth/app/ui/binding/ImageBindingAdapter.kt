@@ -75,6 +75,7 @@ fun bindProfileImage(imageView: ImageView?, url: String?) {
 fun bindPersonImage(imageView: ImageView?, personId: String?) {
     if (imageView != null && !personId.isNullOrEmpty()) {
         val path = PERSON_IMAGE_BASE_PATH + personId
+//        bindImage(imageView, "https://dev.intelehealth.org/di/02920f0d-1d8d-486b-9821-5e222cb57bc9_image.png")
         Timber.d { "Person image path => $path" }
         loadImageWithAuth(imageView, path)
     }

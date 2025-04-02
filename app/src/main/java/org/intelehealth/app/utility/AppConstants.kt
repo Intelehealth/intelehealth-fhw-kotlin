@@ -18,6 +18,7 @@ const val TRIAGING_RULE_FILE_NAME = "triaging_referral_rules.json"
 const val KEY_RESULTS = "results"
 const val IND_COUNTRY_CODE = "91"
 const val IND_MOBILE_LEN = 10
+const val OTHER_MOBILE_LEN = 15
 const val PWD_MIN_LENGTH = 5
 const val INTELEHEALTH_WEB_LINK = "https://intelehealth.org/"
 const val PERSON_IMAGE_BASE_PATH = "${BuildConfig.SERVER_URL}/openmrs/ws/rest/v1/personimage/"

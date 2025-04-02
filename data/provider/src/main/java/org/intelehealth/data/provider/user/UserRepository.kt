@@ -12,10 +12,15 @@ import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_ATTRIBUTE_TYPE_ID
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_FILE
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_PERSON_ID
 import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
+import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_VALUE
 import org.intelehealth.data.provider.utils.PersonAttributeType
 import javax.inject.Inject
 
@@ -204,11 +209,52 @@ class UserRepository @Inject constructor(
                 age = profile.person?.age
                 dob = profile.person?.dateOfBirth
                 profile.attributes?.forEach { attr ->
-                    if (attr.attributeTpe?.uuid == PersonAttributeType.EMAIL.value) emailId = attr.value
-                    else if (attr.attributeTpe?.uuid == PersonAttributeType.PHONE_NUMBER.value) phoneNumber = attr.value
-                    else if (attr.attributeTpe?.uuid == PersonAttributeType.COUNTRY_CODE.value) countryCode = attr.value
+                    if (attr.uuid == PersonAttributeType.EMAIL.value) emailId = attr.value
+                    else if (attr.uuid == PersonAttributeType.PHONE_NUMBER.value) phoneNumber = attr.value
+                    else if (attr.uuid == PersonAttributeType.COUNTRY_CODE.value) countryCode = attr.value
                 }
             }.also { updateUser(it) }
         }
     }
+
+    fun updateUserProfile(
+        personId: String,
+        editableDetails: UserProfileEditableDetails
+    ) = dataSource.updateUserProfileEditableDetails(
+        basicAuth = preferenceUtils.basicAuthToken,
+        personId = personId,
+        editableDetails = editableDetails
+    )
+
+    suspend fun createUserProfileAttribute(
+        providerId: String,
+        attributeUuid: String,
+        value: String
+    ) = dataSource.createUserProfileAttribute(
+        basicAuth = preferenceUtils.basicAuthToken,
+        providerId = providerId,
+        attributeUuid = attributeUuid,
+        value = value
+    )
+
+
+    suspend fun updateUserProfileAttribute(
+        providerId: String,
+        attributeUuid: String,
+        value: String
+    ) = dataSource.updateUserProfileAttribute(
+        basicAuth = preferenceUtils.basicAuthToken,
+        providerId = providerId,
+        attributeUuid = attributeUuid,
+        value = value
+    )
+
+    suspend fun updateUserProfilePicture(
+        personId: String,
+        image: String
+    ) = dataSource.updateUserProfilePicture(
+        basicAuth = preferenceUtils.basicAuthToken,
+        personId = personId,
+        image = image
+    )
 }

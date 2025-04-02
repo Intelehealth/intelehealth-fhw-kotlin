@@ -8,6 +8,11 @@
         <variable
             name="user"
             type="org.intelehealth.data.offline.entity.User" />
+
+        <variable
+            name="mobileLength"
+            type="Integer" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -355,6 +360,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_enter_phone_number"
+                    android:maxLength="@{mobileLength}"
                     android:text="@{user.phoneNumber}" />
 
             </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
@@ -400,6 +406,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayoutUserEmail" />
+
+            <include
+                android:id="@+id/progressView"
+                layout="@layout/view_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

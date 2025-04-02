@@ -6,7 +6,9 @@ import org.intelehealth.data.network.model.SetupLocation
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.response.PersonAttributes
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.network.model.response.UserResponse
@@ -188,21 +190,35 @@ interface RestClient {
         @Header("Authorization") authHeader: String
     ): Response<HashMap<String, List<Profile>>>
 
-//    @GET("/openmrs/ws/rest/v1/provider")
-//    suspend fun fetchUserProviderDetails(
-//        @Header("Authorization") authHeader: String, @Query("user") userId: String
-//    ): Response<List<SetupLocation>>
-//
-//    @POST
-//    @Headers("Accept: application/json")
-//    suspend fun pushApiDetails(
-//        @Url url: String, @Header("Authorization") authHeader: String, @Body pushRequestApiCall: PushRequestApiCall
-//    ): Response<PushRequestApiCall>
-//
-//    @GET
-//    suspend fun downloadPersonProfilePicture(
-//        @Url url: String, @Header("Authorization") authHeader: String
-//    ): Response<ResponseBody>
+    @POST("/openmrs/ws/rest/v1/person/{userUuid}")
+    suspend fun updateUserProfileEditableDetails(
+        @Header("Authorization") authHeader: String,
+        @Path("userUuid") personId: String,
+        @Body editableDetails: UserProfileEditableDetails
+    ): Response<Profile>
+
+    @POST("/openmrs/ws/rest/v1/provider/{userUuid}/attribute")
+    suspend fun createUserProfileAttribute(
+        @Header("Authorization") authHeader: String,
+        @Path("userUuid") providerId: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
+
+    //
+    @POST("/openmrs/ws/rest/v1/provider/{providerId}/attribute/{attributeUuid}")
+    suspend fun updateUserProfileAttribute(
+        @Header("Authorization") authHeader: String,
+        @Path("providerId") providerId: String,
+        @Path("attributeUuid") attributeUuid: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
+
+    //
+    @POST("openmrs/ws/rest/v1/personimage")
+    suspend fun uploadProfilePicture(
+        @Header("Authorization") authHeader: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
 //
 //    @POST
 //    suspend fun uploadPersonProfilePicture(

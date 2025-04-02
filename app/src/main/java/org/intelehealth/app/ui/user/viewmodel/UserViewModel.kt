@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.extensions.containsDigit
+import org.intelehealth.common.extensions.toBase64
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
@@ -20,12 +20,14 @@ import org.intelehealth.common.utility.CommonConstants.MIN_PASSWORD_LENGTH
 import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
-import org.intelehealth.data.network.model.response.Profile
+import org.intelehealth.data.network.model.response.PersonAttributes
 import org.intelehealth.data.network.model.response.UserResponse
 import org.intelehealth.data.offline.entity.User
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
 import org.intelehealth.data.provider.user.UserRepository
+import org.intelehealth.data.provider.utils.PersonAttributeType
+import retrofit2.Response
 import java.security.SecureRandom
 import javax.inject.Inject
 
@@ -62,6 +64,7 @@ class UserViewModel @Inject constructor(
     private val lastSyncTime = MutableLiveData<String>()
     val lastSyncData: LiveData<String> = lastSyncTime
 
+    lateinit var user: User
 
     /**
      * Retrieves and posts the application's last sync time to [lastSyncTime].
@@ -128,7 +131,8 @@ class UserViewModel @Inject constructor(
 
 
     fun fetchUserProfile() = executeNetworkCallAndSaveInLocal(
-        { userRepository.fetchUserProfile() }, { userRepository.saveProfileData(it) }
+        { userRepository.fetchUserProfile() },
+        { userRepository.saveProfileData(it) }
     ).asLiveData()
 
 //    fun fetchUserProfile() = viewModelScope.launch { userRepository.fetchUserProfile() }
@@ -268,8 +272,7 @@ class UserViewModel @Inject constructor(
         val pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz"
         val rnd = SecureRandom()
         val sb = StringBuilder(MIN_PASSWORD_LENGTH)
-        @Suppress("UnusedPrivateProperty")
-        for (i in 0 until MIN_PASSWORD_LENGTH) {
+        @Suppress("UnusedPrivateProperty") for (i in 0 until MIN_PASSWORD_LENGTH) {
             sb.append(pattern[rnd.nextInt(pattern.length)])
         }
 
@@ -277,6 +280,77 @@ class UserViewModel @Inject constructor(
             sb.toString()
         } else generatePassword()
     }
+
+    fun updateUserProfile(user: User, editableDetails: UserProfileEditableDetails): LiveData<Result<PersonAttributes>> {
+        val callQueue = ArrayList<suspend () -> Response<PersonAttributes>>()
+
+        viewModelScope.launch {
+
+            editableDetails.profilePicture?.let {
+                val base64 = async { it.toBase64() }.await()
+                base64?.let { image -> callQueue.add { userRepository.updateUserProfilePicture(user.personId, image) } }
+            }
+
+            editableDetails.email?.let {
+                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.EMAIL) }
+            }
+            editableDetails.phoneNumber?.let {
+                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.PHONE_NUMBER) }
+            }
+            editableDetails.countryCode?.let {
+                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.COUNTRY_CODE) }
+            }
+
+//            userRepository.updateUser(user)
+
+            // require queueing api request with result state
+            // multiple api call in a single return result
+        }
+
+        return startNetworkQueueingCall(callQueue)
+    }
+
+    private fun startNetworkQueueingCall(
+        queue: List<suspend () -> Response<PersonAttributes>>
+    ) = executeNetworkCallInQueue(queue).asLiveData()
+
+    private suspend fun attributeTypeCall(
+        user: User,
+        value: String,
+        type: PersonAttributeType
+    ): Response<PersonAttributes> {
+        Timber.d { "User email ${user.emailId} == $value " }
+        Timber.d { "User phoneNumber ${user.phoneNumber} == $value " }
+        Timber.d { "User countryCode ${user.countryCode} == $value " }
+
+        val isEditable = when (type) {
+            PersonAttributeType.EMAIL -> !user.emailId.isNullOrEmpty() && value != user.emailId
+            PersonAttributeType.PHONE_NUMBER -> !user.phoneNumber.isNullOrEmpty() && value != user.phoneNumber
+            PersonAttributeType.COUNTRY_CODE -> !user.countryCode.isNullOrEmpty() && value != user.countryCode
+        }
+
+        Timber.d { "Editable => $isEditable" }
+        return if (isEditable) getUpdateAttributeCall(value, type.value, user.providerId)
+        else getCreateAttributeCall(value, type.value, user.providerId)
+    }
+
+    private suspend fun getCreateAttributeCall(
+        value: String,
+        typeId: String,
+        providerId: String
+    ) = userRepository.createUserProfileAttribute(
+        providerId, typeId, value
+    )
+
+
+    private suspend fun getUpdateAttributeCall(
+        value: String,
+        typeId: String,
+        providerId: String
+    ) = userRepository.updateUserProfileAttribute(
+        providerId, typeId, value
+    )
+
 
     companion object {
         const val OTP_EXPIRY_TIME = 60 * 1000L

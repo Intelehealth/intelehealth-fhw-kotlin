@@ -1,11 +1,14 @@
 package org.intelehealth.common.extensions
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
+import android.util.Base64
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -14,6 +17,8 @@ import org.intelehealth.common.utility.DateTimeResource
 import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.common.utility.ImageSpanGravity
 import org.intelehealth.resource.R
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.Calendar
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -125,4 +130,20 @@ fun String.mapWithResourceId(context: Context): String {
 
 fun String.containsDigit(): Boolean {
     return this.any { it.isDigit() }
+}
+
+fun String.toBase64(): String? {
+    return try {
+        val file = File(this)
+        if (!file.exists()) return null
+
+        val bitmap = BitmapFactory.decodeFile(this)
+        val outputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        val byteArray = outputStream.toByteArray()
+        Base64.encodeToString(byteArray, Base64.DEFAULT)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
 }

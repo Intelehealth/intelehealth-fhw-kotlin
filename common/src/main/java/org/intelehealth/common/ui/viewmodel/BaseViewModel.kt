@@ -56,34 +56,71 @@ open class BaseViewModel(
     ) = flow {
         if (isInternetAvailable()) {
             com.github.ajalt.timberkt.Timber.d { "network call started" }
-            val response = networkCall()
-            com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
-            if (response.code() == HttpStatusCode.OK) {
-                Timber.d("Api success")
-                if (response.body()?.data != null && response.body()?.status is Boolean) {
-                    if (response.body()?.status as Boolean) {
-                        val result = Result.Success(response.body()?.data, "Success")
-                        result.message = response.body()?.message
-                        emit(result)
-                        return@flow
-                    } else {
-                        emit(Result.Fail(response.body()?.message))
-                        return@flow
-                    }
-                } else {
-                    val result = Result.Success(response.body()?.data, "Success")
-                    result.message = response.body()?.message
-                    emit(result)
-                    return@flow
-                }
-            } else {
-                Timber.e("Api error ${response.body()?.message}")
-                emit(Result.Error(response.body()?.message))
-            }
+            emit(checkNetworkCallState(networkCall))
         } else dataConnectionStatus.postValue(false)
     }.onStart {
         emit(Result.Loading("Please wait..."))
     }.flowOn(dispatcher)
+
+    private suspend fun <S, R> checkNetworkCallState(networkCall: suspend () -> Response<out BaseResponse<S, R>>): Result<R> {
+        val response = networkCall()
+        com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
+        if (response.code() == HttpStatusCode.OK) {
+            Timber.d("Api success")
+            if (response.body()?.data != null && response.body()?.status is Boolean) {
+                if (response.body()?.status as Boolean) {
+                    val result = Result.Success(response.body()?.data, "Success")
+                    result.message = response.body()?.message
+                    return result
+                } else {
+                    return Result.Fail(response.body()?.message)
+                }
+            } else {
+                val result = Result.Success(response.body()?.data, "Success")
+                result.message = response.body()?.message
+                return result
+            }
+        } else {
+            Timber.e("Api error ${response.body()?.message}")
+            return Result.Error(response.body()?.message)
+        }
+    }
+
+    private suspend fun <R> checkNetworkCallStateResponse(networkCall: suspend () -> Response<R>): Result<R> {
+        val response = networkCall()
+        com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
+        if (response.code() == HttpStatusCode.OK) {
+            Timber.d("Api success")
+            val result = Result.Success(response.body(), "Success")
+            return result
+        } else {
+            Timber.e("Api error ${response.body()}")
+            return Result.Error(response.errorBody()?.string())
+        }
+    }
+
+    fun <T> executeNetworkCallInQueue(
+        networkCalls: List<suspend () -> Response<T>>
+    ) = flow {
+        if (isInternetAvailable()) {
+            com.github.ajalt.timberkt.Timber.d { "Queue network call started" }
+            val state = executeQueue(networkCalls = networkCalls, index = 0)
+            emit(state)
+        } else dataConnectionStatus.postValue(false)
+    }.onStart {
+        emit(Result.Loading("Please wait..."))
+    }.flowOn(dispatcher)
+
+    private suspend fun <R> executeQueue(
+        networkCalls: List<suspend () -> Response<R>>,
+        index: Int
+    ): Result<R> {
+        val state = checkNetworkCallStateResponse(networkCalls[index])
+        if (state.status == Result.State.SUCCESS && (index + 1) < networkCalls.size) {
+            executeQueue(networkCalls = networkCalls, index = index + 1)
+        }
+        return state
+    }
 
     fun executeLocalInsertUpdateQuery(
         queryCall: () -> Boolean

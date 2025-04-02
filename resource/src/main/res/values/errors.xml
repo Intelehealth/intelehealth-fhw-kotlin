@@ -15,4 +15,5 @@
     <string name="error_sync_failed_server_error">Sync failed, server error</string>
     <string name="error_confirm_password">New password and confirm password must be same.</string>
     <string name="error_password_validation">Password length must be greater or equal to 8 and with combination of small, capital characters and digits</string>
+    <string name="error_invalid_mobile_number">Min length of mobile number is %1$d</string>
 </resources>
