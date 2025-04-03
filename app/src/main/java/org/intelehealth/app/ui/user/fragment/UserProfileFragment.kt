@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.ajalt.timberkt.Timber
@@ -20,6 +21,7 @@ import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.validateDigit
 import org.intelehealth.common.extensions.validateEmail
 import org.intelehealth.common.ui.fragment.ChangePhotoFragment
+import org.intelehealth.common.utility.PathUtils
 import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.resource.R as ResourceR
@@ -44,12 +46,23 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
         hideErrorOnTextChanged()
         setMobileNumberLength()
         changeSaveButtonStateOnChanged()
+        setFingerprintAppLockState()
     }
 
     private fun changeSaveButtonStateOnChanged() {
         binding.textInputUserEmail.doOnTextChanged { _, _, _, _ -> activeButtonOnDetailChanged() }
         binding.textInputUserPhoneNumber.doOnTextChanged { _, _, _, _ -> activeButtonOnDetailChanged() }
         binding.ccpUserCountryCode.setOnCountryChangeListener { activeButtonOnDetailChanged() }
+    }
+
+    private fun setFingerprintAppLockState() {
+        val isActive = viewModel.isBiometricAvailable()
+        binding.btnSetFingerprintLock.isEnabled = isActive
+        binding.switchFingerprintLock.isEnabled = isActive
+        binding.switchFingerprintLock.isChecked = viewModel.fingerprintAppLock.value ?: false
+        binding.switchFingerprintLock.setOnCheckedChangeListener { _, b ->
+            viewModel.changeFingerprintAppLockState(b)
+        }
     }
 
     private fun setMobileNumberLength() {
@@ -63,6 +76,10 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
     private fun handleClickEvent() {
         binding.btnChangePhoto.setOnClickListener { requestPermission() }
         binding.btnSaveUserProfile.setOnClickListener { validateForm { saveProfile() } }
+        binding.btnChangePassword.setOnClickListener {
+            val direction = UserProfileFragmentDirections.navProfileToChangePassword()
+            findNavController().navigate(direction)
+        }
     }
 
     private fun hideErrorOnTextChanged() {
@@ -85,8 +102,10 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
 
     private fun observerUserData() {
         viewModel.fetchUserProfile().observe(viewLifecycleOwner) { Timber.d { it.status.name } }
-        viewModel.getUser().observe(viewLifecycleOwner) {
-            binding.user = it
+        viewModel.getUser().observe(viewLifecycleOwner) { user ->
+            binding.user = user
+            val countryCode: Int = user.countryCode?.let { return@let it.toInt() } ?: IND_COUNTRY_CODE.toInt()
+            binding.ccpUserCountryCode.setCountryForPhoneCode(countryCode)
         }
     }
 
@@ -119,6 +138,7 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
     }
 
     private fun saveProfile() {
+        binding.btnSaveUserProfile.isEnabled = false
         UserProfileEditableDetails(
             profilePicture = binding.ivUserProfilePicture.tag?.toString(),
             email = binding.textInputUserEmail.text?.toString(),
@@ -128,12 +148,36 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
     }
 
     private fun updateProfile(user: User, editableDetails: UserProfileEditableDetails) {
+        if (editableDetails.profilePicture != null) {
+            PathUtils(requireContext()).getPath(binding.ivUserProfilePicture.tag as Uri).apply {
+                Timber.d { "Path => $this" }
+                editableDetails.profilePicture = this
+            }.also { requestUpdateProfile(user, editableDetails) }
+        } else requestUpdateProfile(user, editableDetails)
+    }
+
+    private fun requestUpdateProfile(user: User, editableDetails: UserProfileEditableDetails) {
         viewModel.updateUserProfile(user, editableDetails).observe(viewLifecycleOwner) {
+            it ?: return@observe
             viewModel.handleResponse(it) {
-                showSuccessSnackBar(binding.btnSaveUserProfile, ResourceR.string.content_snackbar_success)
-//                viewModel.updateUser(user)
+                user.profileVersion = System.currentTimeMillis()
+                user.emailId = editableDetails.email
+                user.countryCode = editableDetails.countryCode
+                user.phoneNumber = editableDetails.phoneNumber
+                updateUserLocalProfile(user)
             }
         }
+    }
+
+    private fun updateUserLocalProfile(user: User) {
+        viewModel.updateUser(user) {
+            showSuccessSnackBar(binding.btnSaveUserProfile, ResourceR.string.content_profile_updated_successfully)
+        }
+    }
+
+    override fun retryOnNetworkLost() {
+        super.retryOnNetworkLost()
+        binding.btnSaveUserProfile.performClick()
     }
 
     override fun getAnchorView(): View = binding.btnSaveUserProfile

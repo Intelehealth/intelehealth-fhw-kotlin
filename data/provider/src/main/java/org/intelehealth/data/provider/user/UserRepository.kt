@@ -16,11 +16,7 @@ import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_ATTRIBUTE_TYPE_ID
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_FILE
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_PERSON_ID
 import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_VALUE
 import org.intelehealth.data.provider.utils.PersonAttributeType
 import javax.inject.Inject
 
@@ -43,7 +39,9 @@ import javax.inject.Inject
  * @property userDao The [UserDao] instance for interacting with the local database.
  */
 class UserRepository @Inject constructor(
-    private val dataSource: UserDataSource, private val preferenceUtils: PreferenceUtils, private val userDao: UserDao
+    private val dataSource: UserDataSource,
+    private val preferenceUtils: PreferenceUtils,
+    private val userDao: UserDao
 ) {
     /**
      * Retrieves the application's last sync time and formats it for display.
@@ -257,4 +255,10 @@ class UserRepository @Inject constructor(
         personId = personId,
         image = image
     )
+
+    fun fingerprintAppLock() = preferenceUtils.fingerprintAppLock
+
+    fun changeFingerprintAppLockState(state: Boolean) {
+        preferenceUtils.fingerprintAppLock = state
+    }
 }

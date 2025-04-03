@@ -71,13 +71,13 @@ fun bindProfileImage(imageView: ImageView?, url: String?) {
     }
 }
 
-@BindingAdapter("personImageId")
-fun bindPersonImage(imageView: ImageView?, personId: String?) {
+@BindingAdapter(value = ["personImageId", "profileVersion"], requireAll = true)
+fun bindPersonImage(imageView: ImageView?, personId: String?, profileVersion: Long) {
     if (imageView != null && !personId.isNullOrEmpty()) {
         val path = PERSON_IMAGE_BASE_PATH + personId
 //        bindImage(imageView, "https://dev.intelehealth.org/di/02920f0d-1d8d-486b-9821-5e222cb57bc9_image.png")
         Timber.d { "Person image path => $path" }
-        loadImageWithAuth(imageView, path)
+        loadImageWithAuth(imageView, path, profileVersion)
     }
 }
 
@@ -113,7 +113,7 @@ fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
     }
 }
 
-fun loadImageWithAuth(imageView: ImageView, url: String) {
+fun loadImageWithAuth(imageView: ImageView, url: String, profileVersion: Long) {
     PreferenceUtils(PreferenceHelper(imageView.context.applicationContext)).apply {
         val glideUrl = GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", basicAuthToken).build())
 
@@ -127,7 +127,7 @@ fun loadImageWithAuth(imageView: ImageView, url: String) {
             .placeholder(org.intelehealth.resource.R.drawable.avatar1)
             .error(org.intelehealth.resource.R.drawable.avatar1)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
-            .signature(ObjectKey(5L))
+            .signature(ObjectKey(profileVersion))
             .into(imageView)
     }
 }

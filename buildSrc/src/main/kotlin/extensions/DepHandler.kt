@@ -24,6 +24,9 @@ fun DependencyHandler.appModuleDeps() {
     //jsoup to parse html
     implementation(Deps.Jsoup.jsoup)
 
+    //fingerprint lock
+    implementation(Deps.AndroidX.Biometric.biometric)
+
     //CCP Library
     implementation(Deps.CCPLibrary.ccp)
 

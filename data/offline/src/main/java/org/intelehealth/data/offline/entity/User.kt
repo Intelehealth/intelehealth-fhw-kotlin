@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import org.intelehealth.common.utility.DateTimeUtils
 
 /**
  * Created by - Prajwal W. on 26/09/24.
@@ -34,5 +35,14 @@ data class User(
     @ColumnInfo("person_uuid") @SerializedName("person_uuid") var personId: String,
     @ColumnInfo("session_id") @SerializedName("sessionId") var sessionId: String,
     @ColumnInfo("first_login_in_time") @SerializedName("first_login_in_time") var firstLoginInTime: String,
-    @ColumnInfo("last_login_in_time") @SerializedName("first_login_in_time") var lastLoginInTime: String
-) : Parcelable
+    @ColumnInfo("last_login_in_time") @SerializedName("last_login_in_time") var lastLoginInTime: String,
+    @ColumnInfo("profile_version") @SerializedName("last_login_in_time") var profileVersion: Long = 0L,
+) : Parcelable {
+    fun dobInDisplayFormat(): String = dob?.let {
+        return@let DateTimeUtils.utcToLocalDate(
+            it,
+            DateTimeUtils.USER_DOB_DB_FORMAT,
+            DateTimeUtils.MMM_DD_YYYY_FORMAT
+        )
+    } ?: ""
+}

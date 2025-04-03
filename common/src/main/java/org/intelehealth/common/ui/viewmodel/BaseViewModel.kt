@@ -89,24 +89,41 @@ open class BaseViewModel(
     private suspend fun <R> checkNetworkCallStateResponse(networkCall: suspend () -> Response<R>): Result<R> {
         val response = networkCall()
         com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
-        if (response.code() == HttpStatusCode.OK) {
+        return isSuccessCode(response.code(), onSuccess = {
             Timber.d("Api success")
             val result = Result.Success(response.body(), "Success")
-            return result
-        } else {
+            return@isSuccessCode result
+        }, onFail = {
             Timber.e("Api error ${response.body()}")
-            return Result.Error(response.errorBody()?.string())
-        }
+            return@isSuccessCode Result.Error(response.errorBody()?.string())
+        })
+    }
+
+    private fun <R> isSuccessCode(
+        code: Int,
+        onSuccess: () -> Result<R>,
+        onFail: () -> Result<R>
+    ): Result<R> {
+        return if (code == HttpStatusCode.OK || code == HttpStatusCode.CREATED || code == HttpStatusCode.ACCEPTED) {
+            onSuccess()
+        } else onFail()
     }
 
     fun <T> executeNetworkCallInQueue(
         networkCalls: List<suspend () -> Response<T>>
     ) = flow {
+
+        if (networkCalls.isEmpty()) {
+            emit(Result.Fail("Queue is empty"))
+            return@flow
+        }
+
         if (isInternetAvailable()) {
             com.github.ajalt.timberkt.Timber.d { "Queue network call started" }
             val state = executeQueue(networkCalls = networkCalls, index = 0)
             emit(state)
         } else dataConnectionStatus.postValue(false)
+
     }.onStart {
         emit(Result.Loading("Please wait..."))
     }.flowOn(dispatcher)
@@ -127,9 +144,9 @@ open class BaseViewModel(
     ) = flow {
         val status = queryCall.invoke()
         if (status) emit(Result.Success(true, ""))
-        else emit(Result.Error<Boolean>("Failed"))
+        else emit(Result.Error("Failed"))
     }.onStart {
-        emit(Result.Loading<Boolean>("Please wait..."))
+        emit(Result.Loading("Please wait..."))
     }.flowOn(dispatcher)
 
     fun <L, T> catchNetworkData(
@@ -159,7 +176,7 @@ open class BaseViewModel(
         networkCall: suspend () -> Response<R>,
         saveDataCall: suspend (R?) -> L
     ) = flow {
-        Log.d("BaseViewModel", "executeNetworkCallAndSaveInLocal: ")
+        Timber.tag("BaseViewModel").d("executeNetworkCallAndSaveInLocal: ")
         com.github.ajalt.timberkt.Timber.d { "executeNetworkCallAndSaveInLocal" }
         if (isInternetAvailable()) {
             com.github.ajalt.timberkt.Timber.d { "catchNetworkData api calling" }

@@ -78,8 +78,13 @@ object Deps {
         }
 
         object Preference {
-            const val version = "1.2.1"
+            private const val version = "1.2.1"
             const val preferenceKtx = "androidx.preference:preference-ktx:$version"
+        }
+
+        object Biometric {
+            private const val version = "1.1.0"
+            const val biometric = "androidx.biometric:biometric:$version"
         }
     }
 
@@ -223,7 +228,7 @@ object TestDeps {
         const val junit = "junit:junit:$version"
     }
 
-//    object MockWebServer {
+    //    object MockWebServer {
 //        private const val version = "4.11.0"
 //        const val mockwebserver = "com.squareup.okhttp3:mockwebserver:$version"
 //        const val okhttpIdlingResource = "com.jakewharton.espresso:okhttp3-idling-resource:1.0.0"

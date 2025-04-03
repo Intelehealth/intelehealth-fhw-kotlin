@@ -37,4 +37,9 @@ abstract class BaseProgressFragment(@LayoutRes layoutResId: Int) : StateFragment
         super.hideLoading()
         progressBinding.progressLayout.hide()
     }
+
+    override fun onConnectionLost() {
+        super.onConnectionLost()
+        hideLoading()
+    }
 }

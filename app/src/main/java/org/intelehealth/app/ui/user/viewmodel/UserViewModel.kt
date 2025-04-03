@@ -3,6 +3,7 @@ package org.intelehealth.app.ui.user.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +12,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.intelehealth.app.utility.BiometricAuth
 import org.intelehealth.common.extensions.containsDigit
+import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.extensions.toBase64
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
@@ -49,8 +52,13 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository, networkHelper: NetworkHelper
+    private val userRepository: UserRepository,
+    private val biometricAuth: BiometricAuth,
+    networkHelper: NetworkHelper
 ) : BaseViewModel(networkHelper = networkHelper) {
+
+    private val mutableFingerprintAppLock = MutableLiveData(userRepository.fingerprintAppLock())
+    val fingerprintAppLock = mutableFingerprintAppLock.hide()
 
     /**
      * LiveData for observing the OTP countdown time.
@@ -283,28 +291,24 @@ class UserViewModel @Inject constructor(
 
     fun updateUserProfile(user: User, editableDetails: UserProfileEditableDetails): LiveData<Result<PersonAttributes>> {
         val callQueue = ArrayList<suspend () -> Response<PersonAttributes>>()
+        var resultData: LiveData<Result<PersonAttributes>> = MutableLiveData()
 
         viewModelScope.launch {
 
             editableDetails.profilePicture?.let {
                 val base64 = async { it.toBase64() }.await()
                 base64?.let { image -> callQueue.add { userRepository.updateUserProfilePicture(user.personId, image) } }
-            }
+            } ?: Timber.d { "Image is null" }
 
             editableDetails.email?.let {
-                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.EMAIL) }
+                attributeTypeCall(user, it, PersonAttributeType.EMAIL) { callQueue.add { it } }
             }
             editableDetails.phoneNumber?.let {
-                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.PHONE_NUMBER) }
+                attributeTypeCall(user, it, PersonAttributeType.PHONE_NUMBER) { callQueue.add { it } }
             }
             editableDetails.countryCode?.let {
-                callQueue.add { attributeTypeCall(user, it, PersonAttributeType.COUNTRY_CODE) }
+                attributeTypeCall(user, it, PersonAttributeType.COUNTRY_CODE) { callQueue.add { it } }
             }
-
-//            userRepository.updateUser(user)
-
-            // require queueing api request with result state
-            // multiple api call in a single return result
         }
 
         return startNetworkQueueingCall(callQueue)
@@ -317,11 +321,9 @@ class UserViewModel @Inject constructor(
     private suspend fun attributeTypeCall(
         user: User,
         value: String,
-        type: PersonAttributeType
-    ): Response<PersonAttributes> {
-        Timber.d { "User email ${user.emailId} == $value " }
-        Timber.d { "User phoneNumber ${user.phoneNumber} == $value " }
-        Timber.d { "User countryCode ${user.countryCode} == $value " }
+        type: PersonAttributeType,
+        networkCall: suspend (Response<PersonAttributes>) -> Unit
+    ) {
 
         val isEditable = when (type) {
             PersonAttributeType.EMAIL -> !user.emailId.isNullOrEmpty() && value != user.emailId
@@ -329,9 +331,14 @@ class UserViewModel @Inject constructor(
             PersonAttributeType.COUNTRY_CODE -> !user.countryCode.isNullOrEmpty() && value != user.countryCode
         }
 
-        Timber.d { "Editable => $isEditable" }
-        return if (isEditable) getUpdateAttributeCall(value, type.value, user.providerId)
-        else getCreateAttributeCall(value, type.value, user.providerId)
+        val isNew = when (type) {
+            PersonAttributeType.EMAIL -> !isEditable && user.emailId.isNullOrEmpty()
+            PersonAttributeType.PHONE_NUMBER -> !isEditable && user.phoneNumber.isNullOrEmpty()
+            PersonAttributeType.COUNTRY_CODE -> !isEditable && user.countryCode.isNullOrEmpty()
+        }
+
+        if (isEditable) networkCall(getUpdateAttributeCall(value, type.value, user.providerId))
+        else if (isNew) networkCall(getCreateAttributeCall(value, type.value, user.providerId))
     }
 
     private suspend fun getCreateAttributeCall(
@@ -351,6 +358,12 @@ class UserViewModel @Inject constructor(
         providerId, typeId, value
     )
 
+    fun changeFingerprintAppLockState(state: Boolean) {
+        mutableFingerprintAppLock.postValue(state)
+        userRepository.changeFingerprintAppLockState(state)
+    }
+
+    fun isBiometricAvailable() = biometricAuth.isBiometricAvailable()
 
     companion object {
         const val OTP_EXPIRY_TIME = 60 * 1000L

@@ -51,4 +51,8 @@ class PreferenceUtils @Inject constructor(private val preferenceHelper: Preferen
     var blackoutActiveStatus: Boolean
         get() = preferenceHelper.get(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, false)
         set(value) = preferenceHelper.save(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, value)
+
+    var fingerprintAppLock: Boolean
+        get() = preferenceHelper.get(PreferenceHelper.KEY_FINGERPRINT_APP_LOCK, false)
+        set(value) = preferenceHelper.save(PreferenceHelper.KEY_FINGERPRINT_APP_LOCK, value)
 }

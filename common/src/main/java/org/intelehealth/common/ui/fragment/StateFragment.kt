@@ -36,6 +36,7 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
 
         viewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
             it ?: return@observe
+            onConnectionLost()
             if (!it) showNetworkLostSnackBar(
                 getAnchorView(), R.string.error_could_not_connect_with_server
             ) { retryOnNetworkLost() }
@@ -60,5 +61,9 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
 
     open fun onError(reason: String) {
         Timber.e { reason }
+    }
+
+    open fun onConnectionLost() {
+        Timber.e { "onConnectionLost" }
     }
 }
