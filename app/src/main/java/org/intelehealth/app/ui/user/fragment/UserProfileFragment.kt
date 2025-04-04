@@ -157,20 +157,18 @@ class UserProfileFragment : ChangePhotoFragment(R.layout.fragment_user_profile) 
     }
 
     private fun requestUpdateProfile(user: User, editableDetails: UserProfileEditableDetails) {
-        viewModel.updateUserProfile(user, editableDetails).observe(viewLifecycleOwner) {
-            it ?: return@observe
-            viewModel.handleResponse(it) {
-                user.profileVersion = System.currentTimeMillis()
-                user.emailId = editableDetails.email
-                user.countryCode = editableDetails.countryCode
-                user.phoneNumber = editableDetails.phoneNumber
-                updateUserLocalProfile(user)
-            }
+        viewModel.updateUserProfile(user, editableDetails) {
+            user.profileVersion = System.currentTimeMillis()
+            user.emailId = editableDetails.email
+            user.countryCode = editableDetails.countryCode
+            user.phoneNumber = editableDetails.phoneNumber
+            updateUserLocalProfile(user)
         }
     }
 
     private fun updateUserLocalProfile(user: User) {
         viewModel.updateUser(user) {
+            binding.ivUserProfilePicture.tag = null
             showSuccessSnackBar(binding.btnSaveUserProfile, ResourceR.string.content_profile_updated_successfully)
         }
     }

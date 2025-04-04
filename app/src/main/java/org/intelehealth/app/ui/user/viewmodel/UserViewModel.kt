@@ -289,35 +289,85 @@ class UserViewModel @Inject constructor(
         } else generatePassword()
     }
 
-    fun updateUserProfile(user: User, editableDetails: UserProfileEditableDetails): LiveData<Result<PersonAttributes>> {
+    /**
+     * Updates the user's profile information.
+     *
+     * This function handles updating various user profile attributes, including
+     * profile picture, email, phone number, and country code. It uses a queue
+     * to manage network calls for each attribute update and executes them
+     * sequentially.
+     *
+     * @param user The [User] object representing the user whose profile is being updated.
+     * @param editableDetails A [UserProfileEditableDetails] object containing the
+     *   attributes to be updated.  If a field in this object is null, it will be
+     *   skipped and not updated.
+     * @param onResult A callback function that is invoked with the updated
+     *   [PersonAttributes] if the update is successful.
+     */
+    fun updateUserProfile(
+        user: User,
+        editableDetails: UserProfileEditableDetails,
+        onResult: (PersonAttributes) -> Unit
+    ) = viewModelScope.launch {
         val callQueue = ArrayList<suspend () -> Response<PersonAttributes>>()
-        var resultData: LiveData<Result<PersonAttributes>> = MutableLiveData()
-
-        viewModelScope.launch {
-
+        // Update profile picture if provided
+        withContext(Dispatchers.IO) {
             editableDetails.profilePicture?.let {
-                val base64 = async { it.toBase64() }.await()
-                base64?.let { image -> callQueue.add { userRepository.updateUserProfilePicture(user.personId, image) } }
+                async { it.toBase64() }.await()?.let { image ->
+                    callQueue.add { userRepository.updateUserProfilePicture(user.personId, image) }
+                } ?: Timber.d { "Image didn't converted into base64" }
             } ?: Timber.d { "Image is null" }
+            Timber.d { "Image process" }
+        }
 
+        // Update email if provided
+        withContext(Dispatchers.IO) {
             editableDetails.email?.let {
                 attributeTypeCall(user, it, PersonAttributeType.EMAIL) { callQueue.add { it } }
             }
+            Timber.d { "email process" }
+        }
+
+        // Update phone number if provided
+        withContext(Dispatchers.IO) {
             editableDetails.phoneNumber?.let {
                 attributeTypeCall(user, it, PersonAttributeType.PHONE_NUMBER) { callQueue.add { it } }
             }
+            Timber.d { "phoneNumber process" }
+        }
+
+        // Update country code if provided
+        withContext(Dispatchers.IO) {
             editableDetails.countryCode?.let {
                 attributeTypeCall(user, it, PersonAttributeType.COUNTRY_CODE) { callQueue.add { it } }
             }
+            Timber.d { "countryCode process" }
         }
 
-        return startNetworkQueueingCall(callQueue)
+        // Execute network calls in queue and handle the response
+        withContext(Dispatchers.IO) {
+            executeNetworkCallInQueue(callQueue).collect { handleResponse(it) { success -> onResult(success) } }
+            Timber.d { "executeNetworkCallInQueue process" }
+        }
     }
 
-    private fun startNetworkQueueingCall(
-        queue: List<suspend () -> Response<PersonAttributes>>
-    ) = executeNetworkCallInQueue(queue).asLiveData()
 
+    /**
+     * Determines the appropriate network call for updating or creating a user attribute.
+     *
+     * This function checks if a given user attribute (email, phone number, or country code)
+     * needs to be updated (if it exists and is different) or created (if it doesn't exist).
+     * It then invokes the provided [networkCall] lambda with the corresponding API call
+     * to either update or create the attribute.
+     *
+     * @param user The [User] object representing the user whose attribute is being modified.
+     * @param value The new value for the attribute.
+     * @param type The [PersonAttributeType] indicating the type of attribute being modified
+     *   (e.g., EMAIL, PHONE_NUMBER, COUNTRY_CODE).
+     * @param networkCall A lambda function that accepts a [Response<PersonAttributes>]
+     *   representing the network call to be executed.  This lambda should add the
+     *   provided call to a queue or execute it directly.
+     */
     private suspend fun attributeTypeCall(
         user: User,
         value: String,
@@ -325,22 +375,39 @@ class UserViewModel @Inject constructor(
         networkCall: suspend (Response<PersonAttributes>) -> Unit
     ) {
 
+        // Check if the attribute is editable (exists and the new value is different)
         val isEditable = when (type) {
             PersonAttributeType.EMAIL -> !user.emailId.isNullOrEmpty() && value != user.emailId
             PersonAttributeType.PHONE_NUMBER -> !user.phoneNumber.isNullOrEmpty() && value != user.phoneNumber
             PersonAttributeType.COUNTRY_CODE -> !user.countryCode.isNullOrEmpty() && value != user.countryCode
         }
 
+        // Check if the attribute is new (doesn't exist)
         val isNew = when (type) {
             PersonAttributeType.EMAIL -> !isEditable && user.emailId.isNullOrEmpty()
             PersonAttributeType.PHONE_NUMBER -> !isEditable && user.phoneNumber.isNullOrEmpty()
             PersonAttributeType.COUNTRY_CODE -> !isEditable && user.countryCode.isNullOrEmpty()
         }
 
+        // Invoke the appropriate network call based on whether the attribute is editable or new
         if (isEditable) networkCall(getUpdateAttributeCall(value, type.value, user.providerId))
         else if (isNew) networkCall(getCreateAttributeCall(value, type.value, user.providerId))
     }
 
+    /**
+     * Creates a network call to create a new user profile attribute.
+     *
+     * This function constructs and returns a network call (likely a Retrofit call)
+     * that, when executed, will create a new attribute for the user's profile.
+     *
+     * @param value The value of the attribute to be created.
+     * @param typeId The identifier for the type of attribute (e.g., "email", "phone_number").
+     *   This should correspond to the value expected by your API.
+     * @param providerId The identifier for the user's provider.
+     * @return A [Response<PersonAttributes>] representing the network call to create the attribute.
+     *   When this call is executed, it will return a response containing the updated
+     *   [PersonAttributes] if successful.
+     */
     private suspend fun getCreateAttributeCall(
         value: String,
         typeId: String,
@@ -349,7 +416,20 @@ class UserViewModel @Inject constructor(
         providerId, typeId, value
     )
 
-
+    /**
+     * Creates a network call to update an existing user profile attribute.
+     *
+     * This function constructs and returns a network call (likely a Retrofit call)
+     * that, when executed, will update an existing attribute in the user's profile.
+     *
+     * @param value The new value for the attribute.
+     * @param typeId The identifier for the type of attribute being updated (e.g., "email", "phone_number").
+     *   This should correspond to the value expected by your API.
+     * @param providerId The identifier for the user's provider.
+     * @return A [Response<PersonAttributes>] representing the network call to update the attribute.
+     *   When this call is executed, it will return a response containing the updated
+     *   [PersonAttributes] if successful.
+     */
     private suspend fun getUpdateAttributeCall(
         value: String,
         typeId: String,
@@ -358,15 +438,43 @@ class UserViewModel @Inject constructor(
         providerId, typeId, value
     )
 
+    /**
+     * Changes the state of the fingerprint app lock.
+     *
+     * This function updates the application's fingerprint lock state, both in the
+     * user interface (via [mutableFingerprintAppLock]) and persistently (via
+     * [userRepository.changeFingerprintAppLockState]).
+     *
+     * @param state A boolean value representing the new state of the fingerprint
+     *   app lock. `true` enables the lock, `false` disables it.
+     */
     fun changeFingerprintAppLockState(state: Boolean) {
         mutableFingerprintAppLock.postValue(state)
         userRepository.changeFingerprintAppLockState(state)
     }
 
+    /**
+     * Checks if biometric authentication (e.g., fingerprint, face unlock) is available on the device.
+     *
+     * This function delegates the check to the [biometricAuth] object and returns
+     * its result.
+     *
+     * @return `true` if biometric authentication is available, `false` otherwise.
+     */
     fun isBiometricAvailable() = biometricAuth.isBiometricAvailable()
 
+    /**
+     * Contains constant values related to OTP (One-Time Password) handling.
+     */
     companion object {
+        /**
+         * The default expiry time for an OTP, in milliseconds (60 seconds).
+         */
         const val OTP_EXPIRY_TIME = 60 * 1000L
+
+        /**
+         * The time interval for checking OTP expiry, in milliseconds (1 second).
+         */
         const val OTP_EXPIRY_TIME_INTERVAL = 1000L
     }
 
