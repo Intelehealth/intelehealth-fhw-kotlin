@@ -48,4 +48,5 @@
     <string name="lbl_date_of_birth">जन्म तिथि</string>
     <string name="lbl_phone_number">फ़ोन नंबर</string>
     <string name="lbl_email">ईमेल</string>
+    <string name="lbl_current_password">वर्तमान पासवर्ड</string>
 </resources>

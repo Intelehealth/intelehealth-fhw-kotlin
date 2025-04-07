@@ -87,4 +87,5 @@
     <string name="content_download_completed">Download Completed!</string>
     <string name="content_reject_permission_warning"><![CDATA[If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]]]></string>
     <string name="content_profile_updated_successfully">Profile updated successfully!</string>
+    <string name="content_recommend_after_password_change">Your password has been successfully updated. For your security, you have been logged out from application. Please log in again with your new password to continue.</string>
 </resources>

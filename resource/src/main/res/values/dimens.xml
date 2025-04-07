@@ -29,6 +29,7 @@
     <dimen name="std_220dp">220dp</dimen>
     <dimen name="std_256dp">256dp</dimen>
     <dimen name="std_300dp">300dp</dimen>
+    <dimen name="std_320dp">320dp</dimen>
 
     <dimen name="stander_padding">@dimen/std_16dp</dimen>
     <dimen name="normal_padding">@dimen/std_8dp</dimen>
@@ -64,7 +65,7 @@
     <dimen name="stroke_size">1dp</dimen>
 
     <dimen name="login_collapsing_layout_height">350dp</dimen>
-    <dimen name="dialog_width">@dimen/std_300dp</dimen>
+    <dimen name="dialog_width">@dimen/std_320dp</dimen>
 
     <dimen name="youtube_thumbnail_width">@dimen/std_220dp</dimen>
     <dimen name="tab_indicator_height">@dimen/std_2dp</dimen>

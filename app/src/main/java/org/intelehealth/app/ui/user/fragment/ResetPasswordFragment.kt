@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentResetPasswordBinding
+import org.intelehealth.app.databinding.ViewNewPasswordBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.mapWithResourceId
@@ -43,10 +44,8 @@ import org.intelehealth.resource.R as ResourceR
  * The fragment uses [navArgs] to receive the user's UUID as an argument.
  */
 @AndroidEntryPoint
-class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_password) {
+class ResetPasswordFragment : NewPasswordFragment(R.layout.fragment_reset_password) {
     private lateinit var binding: FragmentResetPasswordBinding
-    override val viewModel by viewModels<UserViewModel>()
-    private val args by navArgs<ResetPasswordFragmentArgs>()
 
     /**
      * Called immediately after [onCreateView] has returned, but before any saved state has been restored in to the view.
@@ -55,26 +54,10 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding = FragmentResetPasswordBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
         bindProgressView(binding.progressView)
         handleButtonClick()
-        changeSaveButtonStateOnTextChange()
-    }
-
-    /**
-     * Generates a random password and sets it in the new password and confirm password fields.
-     *
-     * This function calls [UserViewModel.generatePassword] to generate a random password
-     * and then sets it in the `textInputNewPassword` and `textInputConfirmPassword`
-     * EditTexts. It also updates the save button state.
-     */
-    private fun generatePassword() {
-        viewModel.generatePassword().apply {
-            binding.textInputNewPassword.setText(this)
-            binding.textInputConfirmPassword.setText(this)
-            changeSaveButtonState()
-        }
     }
 
     /**
@@ -82,9 +65,6 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
      *
      * This function sets click listeners for the following buttons:
      * - `btnHelp`: Starts a WhatsApp intent to contact support.
-     * - `btnResetPasswordSave`: Validates the fields and requests a password reset.
-     * - `tvGenerateNewPassword`: Generates a new password.
-     * - `tvGenerateNewPassword` compound drawable: Shows a tooltip.
      * - `toolbar` navigation icon: Pops the back stack.
      */
     private fun handleButtonClick() {
@@ -95,74 +75,9 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
             )
         }
 
-        binding.btnResetPasswordSave.setOnClickListener {
-            validateFields {
-                requestResetPassword()
-            }
-        }
-
-        binding.tvGenerateNewPassword.setOnClickListener { generatePassword() }
-        binding.tvGenerateNewPassword.setCompoundDrawableClick(Gravity.END) {
-            it.showTooltip(ResourceR.string.content_generate_password_tooltip_text)
-        }
-
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
-    /**
-     * Changes the save button state based on text changes in the password fields.
-     *
-     * This function sets text change listeners for the `textInputNewPassword` and
-     * `textInputConfirmPassword` EditTexts. When the text changes, it updates the
-     * save button state and hides any error messages.
-     */
-    private fun changeSaveButtonStateOnTextChange() {
-        binding.textInputNewPassword.doOnTextChanged { _, _, _, _ ->
-            changeSaveButtonState()
-            binding.textInputLayoutNewPassword.hideError()
-        }
-        binding.textInputConfirmPassword.doOnTextChanged { _, _, _, _ ->
-            changeSaveButtonState()
-            binding.textInputLayoutConfirmPassword.hideError()
-        }
-    }
-
-    /**
-     * Changes the save button state based on the validity of the password fields.
-     *
-     * This function checks if the new password and confirm password fields are
-     * valid (not empty and at least [MIN_PASSWORD_LENGTH] characters long) and
-     * enables or disables the `btnResetPasswordSave` button accordingly.
-     */
-    private fun changeSaveButtonState() {
-        val newPassword = binding.textInputNewPassword.text
-        val confirmPassword = binding.textInputConfirmPassword.text
-        val validNewPassword = newPassword?.isNotEmpty() == true && newPassword.length >= MIN_PASSWORD_LENGTH
-        val validConfirmPassword =
-            confirmPassword?.isNotEmpty() == true && confirmPassword.length >= MIN_PASSWORD_LENGTH
-        binding.btnResetPasswordSave.isEnabled = validNewPassword.and(validConfirmPassword)
-    }
-
-    /**
-     * Validates the password fields.
-     *
-     * This function validates the new password and confirm password fields using
-     * [validatePasswordPattern] and [passwordMatchWithConfirmPassword]. If both
-     * fields are valid, it invokes the provided callback.
-     *
-     * @param onValid A callback to be invoked if the fields are valid.
-     */
-    private fun validateFields(onValid: () -> Unit) {
-        val validPassword = binding.textInputLayoutNewPassword.validatePasswordPattern(
-            binding.textInputNewPassword, ResourceR.string.error_password_validation
-        )
-
-        val validConfirmPassword = binding.textInputLayoutConfirmPassword.passwordMatchWithConfirmPassword(
-            binding.textInputNewPassword, binding.textInputConfirmPassword
-        )
-
-        if (validPassword.and(validConfirmPassword)) onValid()
-    }
 
     /**
      * Requests a password reset.
@@ -171,32 +86,20 @@ class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_passw
      * reset with the new password. It observes the result and shows a success
      * message or an error message accordingly.
      */
-    private fun requestResetPassword() {
+    override fun requestResetPassword() {
         viewModel.resetPassword(
-            args.userUuid, binding.textInputNewPassword.text.toString()
+            args.userUuid, binding.viewNewPassword.textInputNewPassword.text.toString()
         ).observe(viewLifecycleOwner, {
             it ?: return@observe
             viewModel.allowNullDataResponse(it) {
-                showSuccessSnackBar(binding.btnResetPasswordSave, ResourceR.string.content_password_reset_successful)
+                showSuccessSnackBar(
+                    binding.viewNewPassword.btnResetPasswordSave,
+                    ResourceR.string.content_password_reset_successful
+                )
                 findNavController().popBackStack()
             }
         })
     }
 
-    /**
-     * Returns the anchor view for the snackbar.
-     *
-     * @return The anchor view.
-     */
-    override fun getAnchorView(): View = binding.btnResetPasswordSave
-
-    /**
-     * Called when a network request fails.
-     *
-     * @param reason The reason for the failure.
-     */
-    override fun onFailed(reason: String) {
-        super.onFailed(reason)
-        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
-    }
+    override fun attachNewPasswordView(): ViewNewPasswordBinding = binding.viewNewPassword
 }

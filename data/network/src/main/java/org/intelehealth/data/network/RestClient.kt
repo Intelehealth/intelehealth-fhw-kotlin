@@ -132,12 +132,12 @@ interface RestClient {
      * Changes the user's password.
      *
      * @param map A [HashMap] containing the password change parameters.
-     * @param authHeader The authorization header.
+     * @param bearerToken The authorization header.
      * @return A [Response] containing a [ResponseBody].
      */
     @POST("/openmrs/ws/rest/v1/password")
     suspend fun changePassword(
-        @Body map: HashMap<String, String>, @Header("Authorization") authHeader: String
+        @Body map: HashMap<String, String>, @Header("Authorization") bearerToken: String
     ): Response<ResponseBody>
 
     /**

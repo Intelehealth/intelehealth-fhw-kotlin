@@ -31,15 +31,11 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
         viewModel.errorDataResult.observe(viewLifecycleOwner) {
             it ?: return@observe
             onError(it.message ?: getString(R.string.content_something_went_wrong))
-            showErrorSnackBar(getAnchorView(), R.string.content_something_went_wrong)
         }
 
         viewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
             it ?: return@observe
-            onConnectionLost()
-            if (!it) showNetworkLostSnackBar(
-                getAnchorView(), R.string.error_could_not_connect_with_server
-            ) { retryOnNetworkLost() }
+            if (!it) onConnectionLost()
         }
 
         viewModel.loading.observe(viewLifecycleOwner) {
@@ -61,9 +57,13 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
 
     open fun onError(reason: String) {
         Timber.e { reason }
+        showErrorSnackBar(getAnchorView(), R.string.content_something_went_wrong)
     }
 
     open fun onConnectionLost() {
         Timber.e { "onConnectionLost" }
+        showNetworkLostSnackBar(
+            getAnchorView(), R.string.error_could_not_connect_with_server
+        ) { retryOnNetworkLost() }
     }
 }

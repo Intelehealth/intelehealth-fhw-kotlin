@@ -24,11 +24,11 @@ class PreferenceUtils @Inject constructor(private val preferenceHelper: Preferen
         get() = preferenceHelper.get(PreferenceHelper.KEY_PREF_LOCATION_UUID, "")
         set(value) = preferenceHelper.save(PreferenceHelper.KEY_PREF_LOCATION_UUID, value)
 
-    var authToken: String
+    var jwtToken: String
         get() = preferenceHelper.get(PreferenceHelper.JWT_AUTH_TOKEN, "")
         set(value) = preferenceHelper.save(PreferenceHelper.JWT_AUTH_TOKEN, value)
 
-    var basicAuthToken: String
+    var basicToken: String
         get() = preferenceHelper.get(PreferenceHelper.AUTH_BASIC_TOKEN, "")
         set(value) = preferenceHelper.save(PreferenceHelper.AUTH_BASIC_TOKEN, value)
 

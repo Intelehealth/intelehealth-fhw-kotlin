@@ -14,6 +14,6 @@ class ProtocolsRepository @Inject constructor(
 ) {
     fun getDownloadProtocolsUrl(licenseKey: String) = protocolsDataSource.getDownloadProtocolsUrl(
         licenseKey = licenseKey,
-        jwtToken = "Bearer ${preferenceUtils.authToken}"
+        jwtToken = "Bearer ${preferenceUtils.jwtToken}"
     )
 }

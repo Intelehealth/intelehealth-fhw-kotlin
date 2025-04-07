@@ -28,11 +28,11 @@ class UserDataSource @Inject constructor(
         )
     }
 
-    fun changePassword(basicAuth: String, oldPassword: String, newPassword: String) = getResult {
+    fun changePassword(bearerToken: String, oldPassword: String, newPassword: String) = getResult {
         restClient.changePassword(
             hashMapOf(
                 KEY_OLD_PASSWORD to oldPassword, KEY_NEW_PASSWORD to newPassword
-            ), basicAuth
+            ), bearerToken
         )
     }
 

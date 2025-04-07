@@ -10,17 +10,11 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.signature.ObjectKey
 import com.github.ajalt.timberkt.Timber
-import okhttp3.Credentials
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.intelehealth.app.R
 import org.intelehealth.app.model.IntroContent
 import org.intelehealth.app.utility.PERSON_IMAGE_BASE_PATH
 import org.intelehealth.common.helper.PreferenceHelper
 import org.intelehealth.common.utility.PreferenceUtils
 import java.io.File
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 /**
  * Created by Vaghela Mithun R. on 25-04-2024 - 11:22.
@@ -115,7 +109,7 @@ fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
 
 fun loadImageWithAuth(imageView: ImageView, url: String, profileVersion: Long) {
     PreferenceUtils(PreferenceHelper(imageView.context.applicationContext)).apply {
-        val glideUrl = GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", basicAuthToken).build())
+        val glideUrl = GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", basicToken).build())
 
         val requestBuilder = Glide.with(imageView.context).asDrawable()
             .sizeMultiplier(PROFILE_PIC_SIZE_MULTIPLIER)

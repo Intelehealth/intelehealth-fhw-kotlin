@@ -73,8 +73,8 @@ class UserRepository @Inject constructor(
      * @return The result of the login operation.
      */
     fun login(username: String, password: String) = Credentials.basic(username, password).let {
-        preferenceUtils.basicAuthToken = it
-        dataSource.login(preferenceUtils.basicAuthToken)
+        preferenceUtils.basicToken = it
+        dataSource.login(preferenceUtils.basicToken)
     }
 
     /**
@@ -83,7 +83,7 @@ class UserRepository @Inject constructor(
      * @param jwtToken The JWT token to save.
      */
     fun saveJWTToken(jwtToken: String) {
-        preferenceUtils.authToken = jwtToken
+        preferenceUtils.jwtToken = jwtToken
     }
 
     /**
@@ -159,7 +159,10 @@ class UserRepository @Inject constructor(
      * @return The result of the network call to change the password.
      */
     fun changePassword(oldPassword: String, newPassword: String) = dataSource.changePassword(
-        preferenceUtils.basicAuthToken, oldPassword, newPassword
+        preferenceUtils.basicToken.let {
+            val token = it.split(" ")[1]
+            return@let "Bearer $token"
+        }, oldPassword, newPassword
     )
 
     /**
@@ -188,7 +191,7 @@ class UserRepository @Inject constructor(
     suspend fun resetPassword(userUuid: String, newPassword: String) = dataSource.resetPassword(userUuid, newPassword)
 
     suspend fun fetchUserProfile() = dataSource.fetchUserProfile(
-        preferenceUtils.basicAuthToken,
+        preferenceUtils.basicToken,
         preferenceUtils.userId
     )
 
@@ -219,7 +222,7 @@ class UserRepository @Inject constructor(
         personId: String,
         editableDetails: UserProfileEditableDetails
     ) = dataSource.updateUserProfileEditableDetails(
-        basicAuth = preferenceUtils.basicAuthToken,
+        basicAuth = preferenceUtils.basicToken,
         personId = personId,
         editableDetails = editableDetails
     )
@@ -229,7 +232,7 @@ class UserRepository @Inject constructor(
         attributeUuid: String,
         value: String
     ) = dataSource.createUserProfileAttribute(
-        basicAuth = preferenceUtils.basicAuthToken,
+        basicAuth = preferenceUtils.basicToken,
         providerId = providerId,
         attributeUuid = attributeUuid,
         value = value
@@ -241,7 +244,7 @@ class UserRepository @Inject constructor(
         attributeUuid: String,
         value: String
     ) = dataSource.updateUserProfileAttribute(
-        basicAuth = preferenceUtils.basicAuthToken,
+        basicAuth = preferenceUtils.basicToken,
         providerId = providerId,
         attributeUuid = attributeUuid,
         value = value
@@ -251,7 +254,7 @@ class UserRepository @Inject constructor(
         personId: String,
         image: String
     ) = dataSource.updateUserProfilePicture(
-        basicAuth = preferenceUtils.basicAuthToken,
+        basicAuth = preferenceUtils.basicToken,
         personId = personId,
         image = image
     )

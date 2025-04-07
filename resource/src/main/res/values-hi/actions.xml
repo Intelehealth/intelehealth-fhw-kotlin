@@ -48,4 +48,5 @@
     <string name="action_fingerprint_lock">फ़िंगरप्रिंट लॉक</string>
     <string name="action_take_photo">फोटो लो</string>
     <string name="action_choose_from_gallery">गैलरी से चयन करो</string>
+    <string name="action_sign_back_in">वापस साइन इन करें</string>
 </resources>

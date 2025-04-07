@@ -13,4 +13,5 @@
     <string name="hint_enter_last_name">उपनाम एंटर करें</string>
     <string name="hint_enter_phone_number">फ़ोन नंबर एंटर करें</string>
     <string name="hint_enter_your_email">ईमेल आईडी एंटर करें</string>
+    <string name="hint_enter_current_password">वर्तमान पासवर्ड दर्ज करें</string>
 </resources>

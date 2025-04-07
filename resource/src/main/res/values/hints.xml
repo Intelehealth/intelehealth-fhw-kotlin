@@ -13,4 +13,5 @@
     <string name="hint_enter_last_name">Enter your last name</string>
     <string name="hint_enter_phone_number">Enter phone number</string>
     <string name="hint_enter_your_email">Enter email id</string>
+    <string name="hint_enter_current_password">Enter current password</string>
 </resources>
