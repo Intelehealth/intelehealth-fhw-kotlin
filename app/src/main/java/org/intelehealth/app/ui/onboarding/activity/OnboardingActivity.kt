@@ -24,8 +24,6 @@ import org.intelehealth.resource.R as ResourceR
 class OnboardingActivity : BaseStatusBarActivity() {
 
     private val launcherViewModel by viewModels<LauncherViewModel>()
-//    private val triagingRuleViewModel by viewModels<TriagingRuleViewModel>()
-
     private val binding by lazy { ActivityOnboardingBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +31,6 @@ class OnboardingActivity : BaseStatusBarActivity() {
         setContentView(binding.root)
         launcherViewModel.updateFcmToken()
         checkForceUpdate()
-//        triagingRuleViewModel.loadTriagingRuleData(TRIAGING_RULE_FILE_NAME)
-//        triagingRuleViewModel.triagingResultData.observe(this, {
-//            Timber.d { "Triaging Rule Data : $it" }
-//        })
     }
 
     fun checkForceUpdate() {
