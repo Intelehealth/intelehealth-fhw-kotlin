@@ -23,6 +23,7 @@ import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.ImageSpanGravity
 import org.intelehealth.common.utility.PreferenceUtils
+import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.data.network.model.SetupLocation
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
@@ -39,6 +40,7 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     lateinit var preferenceUtils: PreferenceUtils
 
     private val userViewModel: UserViewModel by viewModels()
+    private val afsViewModel: ActiveFeatureStatusViewModel by viewModels()
     private lateinit var headerBinding: DrawerHomeNavHeaderBinding
 
     // Binding for the activity

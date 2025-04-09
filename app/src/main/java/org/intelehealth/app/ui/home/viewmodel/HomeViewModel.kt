@@ -12,7 +12,9 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: HomeRepository) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: HomeRepository
+) : BaseViewModel() {
     fun getVisitStatusCount() = repository.getVisitStatusCount()
 
     fun getFollowUpStatusCount() = repository.getFollowUpStatusCount()

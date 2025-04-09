@@ -6,14 +6,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import org.intelehealth.config.room.dao.ConfigDao
-import org.intelehealth.config.room.dao.FeatureActiveStatusDao
+import org.intelehealth.config.room.dao.ActiveFeatureStatusDao
 import org.intelehealth.config.room.dao.LanguageDao
 import org.intelehealth.config.room.dao.PatientRegFieldDao
 import org.intelehealth.config.room.dao.VitalDao
 import org.intelehealth.config.room.dao.SpecializationDao
 import org.intelehealth.config.room.entity.ActiveLanguage
 import org.intelehealth.config.room.entity.ConfigDictionary
-import org.intelehealth.config.room.entity.FeatureActiveStatus
+import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.room.entity.Vital
 import org.intelehealth.config.room.entity.Specialization
@@ -29,7 +29,7 @@ import org.intelehealth.config.room.entity.Specialization
         Specialization::class,
         ActiveLanguage::class,
         PatientRegistrationFields::class,
-        FeatureActiveStatus::class,
+        ActiveFeatureStatus::class,
         Vital::class
     ],
     version = 1,
@@ -47,7 +47,7 @@ abstract class ConfigDatabase : RoomDatabase() {
 
     abstract fun patientVitalDao(): VitalDao
 
-    abstract fun featureActiveStatusDao(): FeatureActiveStatusDao
+    abstract fun featureActiveStatusDao(): ActiveFeatureStatusDao
 
     companion object {
 

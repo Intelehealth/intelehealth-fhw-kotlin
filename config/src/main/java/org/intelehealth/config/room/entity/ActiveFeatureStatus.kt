@@ -9,8 +9,8 @@ import com.google.gson.annotations.SerializedName
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-@Entity(tableName = "tbl_feature_active_status")
-data class FeatureActiveStatus(
+@Entity(tableName = "tbl_active_feature_status")
+data class ActiveFeatureStatus(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     @SerializedName("notes_section")

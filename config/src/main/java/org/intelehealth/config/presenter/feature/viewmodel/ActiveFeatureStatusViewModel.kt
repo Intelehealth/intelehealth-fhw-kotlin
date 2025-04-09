@@ -2,7 +2,7 @@ package org.intelehealth.config.presenter.feature.viewmodel
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.config.presenter.feature.data.FeatureActiveStatusRepository
+import org.intelehealth.config.presenter.feature.data.ActiveFeatureStatusRepository
 import javax.inject.Inject
 
 /**
@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class FeatureActiveStatusViewModel @Inject constructor(
-    private val repository: FeatureActiveStatusRepository
+class ActiveFeatureStatusViewModel @Inject constructor(
+    private val repository: ActiveFeatureStatusRepository
 ) : BaseViewModel() {
-    fun fetchFeaturesActiveStatus() = repository.getFeaturesActiveStatus()
+    fun fetchActiveFeatureStatus() = repository.getActiveFeatureStatus()
 }
