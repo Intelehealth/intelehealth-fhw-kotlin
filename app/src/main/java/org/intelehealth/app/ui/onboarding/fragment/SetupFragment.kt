@@ -26,6 +26,14 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * A fragment that handles user setup, including location selection and
+ * authentication.
+ *
+ * This fragment allows the user to select their location from a list and
+ * completes the setup process by authenticating the user. It interacts with
+ * the [LocationViewModel] to fetch and save location data.
+ */
 @AndroidEntryPoint
 class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
     private lateinit var binding: FragmentSetupBinding
@@ -41,6 +49,13 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
         handleLostNetwork()
     }
 
+    /**
+     * Observes the network connection status and displays a snackbar if the
+     * connection is lost.
+     *
+     * The snackbar provides an option to retry the operation when the network
+     * is available again.
+     */
     private fun handleLostNetwork() {
         locationViewModel.dataConnectionStatus.observe(viewLifecycleOwner) {
             it ?: return@observe
@@ -50,14 +65,23 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
         }
     }
 
+    /**
+     * Fetches the available locations and binds them to the location selection
+     * dropdown.
+     *
+     * This method observes the location data from the [LocationViewModel],
+     * processes the response, and populates the location dropdown with the
+     * retrieved locations. It also sets up a listener to handle location
+     * selection changes.
+     */
     private fun fetchLocation() {
-        locationViewModel.getLocation().observe(viewLifecycleOwner, {
+        locationViewModel.getLocation().observe(viewLifecycleOwner) {
             it ?: return@observe
             locationViewModel.handleResponse(it) { result ->
                 Timber.d { Gson().toJson(result) }
                 result[KEY_RESULTS]?.let { locations -> bindLocation(locations) }
             }
-        })
+        }
 
         binding.viewAuthenticationForm.autotvSelectLocation.setOnItemClickListener { _, _, position, _ ->
             locationAdapter.getItem(position)?.let { location ->
@@ -67,6 +91,14 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
         }
     }
 
+    /**
+     * Binds the list of locations to the location selection dropdown.
+     *
+     * This method creates an [ArrayAdapter] from the provided list of
+     * [SetupLocation] objects and sets it as the adapter for the dropdown.
+     *
+     * @param locations The list of locations to display in the dropdown.
+     */
     private fun bindLocation(locations: List<SetupLocation>) {
         Timber.d { Gson().toJson(locations) }
         locationAdapter = ArrayAdapterUtils.getObjectArrayAdapter(requireContext(), locations)

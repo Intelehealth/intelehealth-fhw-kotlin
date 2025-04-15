@@ -17,25 +17,25 @@ interface PatientDao : CoreDao<Patient> {
     fun getPatientByUuid(uuid: String): LiveData<Patient>
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
-    fun getPatientByOpenMrsId(openMrsId: String): LiveData<List<Patient>>
+    fun getPatientByOpenMrsId(openMrsId: String): LiveData<Patient>
 
     @Query("SELECT * FROM tbl_patient WHERE phone_number = :phoneNumber")
-    fun getPatientByPhoneNumber(phoneNumber: String): LiveData<List<Patient>>
+    fun getPatientByPhoneNumber(phoneNumber: String): LiveData<Patient>
 
-    @Query("SELECT * FROM tbl_patient WHERE city_village = :city")
-    fun getCityPatients(city: String): LiveData<List<Patient>>
-
-    @Query("SELECT * FROM tbl_patient WHERE state_province = :state")
-    fun getStatePatients(state: String): LiveData<List<Patient>>
-
-    @Query("SELECT * FROM tbl_patient WHERE country = :country")
-    fun getCountryPatients(country: String): LiveData<List<Patient>>
+//    @Query("SELECT * FROM tbl_patient WHERE city_village = :city")
+//    fun getCityPatients(city: String): LiveData<List<Patient>>
+//
+//    @Query("SELECT * FROM tbl_patient WHERE state_province = :state")
+//    fun getStatePatients(state: String): LiveData<List<Patient>>
+//
+//    @Query("SELECT * FROM tbl_patient WHERE country = :country")
+//    fun getCountryPatients(country: String): LiveData<List<Patient>>
 
     @Query("SELECT * FROM tbl_patient WHERE gender = :gender")
     fun getGenderWisePatients(gender: String): LiveData<List<Patient>>
 
-    @Query("SELECT * FROM tbl_patient WHERE postal_code = :postalCode")
-    fun getPostalCodeWisePatients(postalCode: String): LiveData<List<Patient>>
+//    @Query("SELECT * FROM tbl_patient WHERE postal_code = :postalCode")
+//    fun getPostalCodeWisePatients(postalCode: String): LiveData<List<Patient>>
 
     @Query("SELECT * FROM tbl_patient WHERE creatoruuid = :creatorId")
     fun getPatientByCreatorId(creatorId: String): LiveData<List<Patient>>
@@ -64,11 +64,11 @@ interface PatientDao : CoreDao<Patient> {
     @Query("UPDATE tbl_patient SET phone_number = :phoneNumber WHERE uuid = :uuid")
     suspend fun updatePhoneNumber(uuid: String, phoneNumber: String)
 
-    @Query("UPDATE tbl_patient SET address1 = :address1 WHERE uuid = :uuid")
-    suspend fun updateAddress1(uuid: String, address1: Boolean)
-
-    @Query("UPDATE tbl_patient SET address2 = :address2 WHERE uuid = :uuid")
-    suspend fun updateAddress2(address2: String, uuid: String)
+//    @Query("UPDATE tbl_patient SET address1 = :address1 WHERE uuid = :uuid")
+//    suspend fun updateAddress1(uuid: String, address1: Boolean)
+//
+//    @Query("UPDATE tbl_patient SET address2 = :address2 WHERE uuid = :uuid")
+//    suspend fun updateAddress2(address2: String, uuid: String)
 
     @Query("UPDATE tbl_patient SET dead = :dead WHERE uuid = :uuid")
     suspend fun updateDeadStatus(dead: String, uuid: String)
@@ -79,9 +79,12 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId")
     fun getPatientCountByCreatorId(creatorId: String): Flow<Int>
 
-    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(dateCreated)) = :date")
+    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(created_at)) = :date")
     fun getPatientByCreatorIdAndDate(creatorId: String, date: String): Flow<Int>
 
-    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(dateCreated)) BETWEEN :fromDate AND :toDate")
+    @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(created_at)) BETWEEN :fromDate AND :toDate")
     fun getPatientByCreatorIdAndDateRange(creatorId: String, fromDate: String, toDate: String): Flow<Int>
+
+    @Query("SELECT * FROM tbl_patient WHERE synced = :synced AND voided = 0")
+    suspend fun getAllUnsyncedPatients(synced: Boolean = false): List<Patient>
 }

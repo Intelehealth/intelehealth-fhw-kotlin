@@ -11,6 +11,12 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
     @Query("SELECT * FROM tbl_patient_attribute WHERE patientUuid = :patientUuid")
     fun getAttributesByPatientUuid(patientUuid: String): LiveData<List<PatientAttribute>>
 
+    @Query("SELECT * FROM tbl_patient_attribute WHERE patientUuid = :patientUuid")
+    suspend fun getPatientAttributesByPatientUuid(patientUuid: String): List<PatientAttribute>
+
+    @Query("SELECT * FROM tbl_patient_attribute WHERE patientUuid IN ( :patientIds ) AND voided = 0 AND synced = 0")
+    suspend fun getPatientAttributes(patientIds: List<String>): List<PatientAttribute>
+
     @Query("SELECT * FROM tbl_patient_attribute WHERE patientUuid = :patientUuid AND person_attribute_type_uuid = :personAttributeTypeUuid")
     fun getAttributesByPatientUuidAndPersonAttributeTypeUuid(
         patientUuid: String, personAttributeTypeUuid: String

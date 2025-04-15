@@ -2,6 +2,24 @@
 //    const val ktlint = "0.43.0"
 //}
 
+/**
+ * Object holding dependency versions and coordinates for the project.
+ *
+ * This object centralizes the management of library versions and their
+ * corresponding Gradle dependency coordinates. It is organized into nested
+ * objects representing different library groups (e.g., Coroutines, AndroidX,
+ * Dagger, Retrofit) to improve readability and maintainability.  Each library
+ * group typically has a `version` constant defining the default version for
+ * libraries within that group, and individual `const val` declarations for
+ * specific library artifacts with their coordinates.
+ *
+ * Using this `Deps` object promotes consistency in dependency versions across
+ * the project and simplifies updating dependencies.  Instead of hardcoding
+ * version numbers and coordinates in `build.gradle.kts` files, you can reference
+ * the constants defined in this object.
+ *
+ * Example usage in a `build.gradle.kts` file:
+ **/
 object Deps {
 //    const val androidGradlePlugin = "com.android.tools.build:gradle:8.7.3"
 

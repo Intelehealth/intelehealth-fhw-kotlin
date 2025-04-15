@@ -15,6 +15,17 @@ import org.intelehealth.app.ui.achievement.fragment.AchievementOverallFragment
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * Pager adapter for displaying achievement-related fragments in a ViewPager2.
+ *
+ * This adapter manages the different achievement views (Overall, Daily, Date Range)
+ * as fragments within a ViewPager2. It uses a FragmentStateAdapter to efficiently
+ * handle fragment lifecycle and state.
+ *
+ * @param fragmentManager The FragmentManager for the activity or fragment hosting the ViewPager2.
+ * @param lifecycle The Lifecycle of the activity or fragment hosting the ViewPager2.
+ * @param context The context in which the adapter is being used, used to access resources.
+ */
 class AchievementPagerAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
@@ -34,5 +45,11 @@ class AchievementPagerAdapter(
         }
     }
 
+    /**
+     * Returns the title for the fragment at the given position.
+     *
+     * @param position The position of the fragment in the ViewPager2.
+     * @return The title string for the fragment.
+     */
     fun getTitle(position: Int) = fragments[position]
 }

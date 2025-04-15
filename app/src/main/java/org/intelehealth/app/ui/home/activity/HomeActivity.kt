@@ -33,6 +33,13 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * The main activity of the application, serving as the entry point after successful login.
+ *
+ * This activity hosts the main navigation structure, including a navigation drawer,
+ * bottom navigation, and a toolbar. It manages user authentication state, displays
+ * user information in the navigation drawer header, and handles navigation events.
+ */
 @AndroidEntryPoint
 class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSelectedListener {
     // Inject preference utils
@@ -69,7 +76,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     }
 
     /**
-     * Setup navigation controller with toolbar, drawer layout, bottom navigation view
+     * Sets up the navigation controller with the toolbar, drawer layout, and bottom navigation view.
+     *
+     * This method configures the [NavController] with the [AppBarConfiguration] to
+     * manage the interaction between the toolbar, drawer, and navigation graph.
+     * It also sets up listeners for navigation events in the drawer and bottom navigation.
      */
     private fun setupNavigation() {
         // Create an AppBarConfiguration with the correct top-level destinations
@@ -89,7 +100,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     }
 
     /**
-     * Change title and subtitle as destination changed
+     * Changes the title and subtitle of the toolbar based on the current navigation destination.
+     *
+     * This method listens for changes in the navigation destination and updates the
+     * toolbar's title and subtitle accordingly.  For the home destination, it calls
+     * [displayHomeTitle] to show the location and last sync time.
      */
     private fun changeTitleAsDestinationChanged() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -101,7 +116,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     }
 
     /**
-     * Display home title with location and last synced time
+     * Displays the home screen title, including the user's location and last sync time.
+     *
+     * This method retrieves the user's location from preferences and displays it as
+     * the toolbar title, along with an icon. It also calls [showLastSyncTime] to
+     * display the last data synchronization time as the toolbar subtitle.
      */
     private fun displayHomeTitle() {
         preferenceUtils.location.let {
@@ -114,6 +133,12 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    /**
+     * Displays the last data synchronization time as the toolbar subtitle.
+     *
+     * This method observes the last sync time from the [UserViewModel] and updates
+     * the toolbar subtitle with a formatted string indicating the last sync time.
+     */
     private fun showLastSyncTime() {
         userViewModel.appLastSyncTime()
         userViewModel.lastSyncData.observe(this) {
@@ -149,6 +174,13 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    /**
+     * Initiates the user logout process.
+     *
+     * This method displays a confirmation dialog to the user. If the user confirms,
+     * it calls the [UserViewModel] to perform the logout and navigates to the
+     * [OnboardingActivity].
+     */
     private fun logoutUser() {
         showCommonDialog(
             DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
@@ -163,6 +195,12 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         )
     }
 
+    /**
+     * Observes the user data from the [UserViewModel] and updates the navigation drawer header.
+     *
+     * This method observes the user data and updates the UI elements in the
+     * navigation drawer header with the retrieved user information.
+     */
     private fun observeUser() {
         userViewModel.getUser().observe(this) {
             it ?: return@observe
@@ -170,6 +208,12 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    /**
+     * Sets up the navigation drawer header view.
+     *
+     * This method inflates the header view, binds it using data binding, and sets up
+     * click listeners for the close drawer button and the edit profile button.
+     */
     private fun setupHeaderView() {
         val headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHomeNavHeaderBinding.bind(headerView)
@@ -183,6 +227,15 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    /**
+     * Handles the back button press event.
+     *
+     * This method overrides the default back button behavior to provide custom
+     * navigation logic. It checks if the navigation drawer is open and closes it
+     * if it is. Otherwise, it attempts to navigate up in the navigation hierarchy.
+     * If the user is already at the top-level "home" destination, it displays a
+     * confirmation dialog to exit the application.
+     */
     private fun handleBackPressEvent() {
         onBackPressedDispatcher.addCallback(this, true) {
             if (binding.drawerLayout.isOpen) binding.drawerLayout.closeDrawers()
@@ -198,6 +251,13 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    /**
+     * Updates the user's device token on the server.
+     *
+     * This method calls the [UserViewModel] to send the user's device token
+     * to the server. It observes the result of this operation and logs the
+     * status of the update using Timber.
+     */
     private fun updateDeviceToken() {
         userViewModel.sendUserDeviceToken().observe(this) {
             it ?: return@observe

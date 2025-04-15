@@ -29,34 +29,126 @@ import android.widget.FrameLayout
  * Mob   : +919727206702
  **/
 
+/**
+ * Displays a short toast message.
+ *
+ * This extension function on [ComponentActivity] simplifies showing a toast
+ * message.  It uses the application context to create the toast and displays
+ * it for a short duration.
+ *
+ * @param message The message to display in the toast.
+ */
 fun ComponentActivity.showToast(message: String) {
     Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
 }
 
+/**
+ * Displays a short toast message using a string resource.
+ *
+ * This extension function on [ComponentActivity] simplifies showing a toast
+ * message.  It uses the application context to create the toast and displays
+ * it for a short duration.
+ *
+ * @param resId The resource ID of the string to display in the toast.
+ */
 fun ComponentActivity.showToast(@StringRes resId: Int) {
     Toast.makeText(applicationContext, getString(resId), Toast.LENGTH_SHORT).show()
 }
 
+/**
+ * Displays a success-themed Snackbar with an icon.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with a success theme, including a success icon. It uses the
+ * [showSnackBarWithIcon] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The string resource ID of the success message to display.
+ */
 fun ComponentActivity.showSuccessSnackBar(anchorView: View? = null, @StringRes message: Int) {
     showSnackBarWithIcon(anchorView, getString(message), ResourceR.drawable.ic_success)
 }
 
+/**
+ * Displays an error-themed Snackbar with an icon.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with an error theme, including an error icon. It uses the
+ * [showSnackBarWithIcon] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The string resource ID of the error message to display.
+ */
 fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, @StringRes message: Int) {
     showSnackBarWithIcon(anchorView, getString(message), ResourceR.drawable.ic_error, ResourceR.color.red)
 }
 
+/**
+ * Displays a success-themed Snackbar with an icon.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with a success theme, including a success icon. It uses the
+ * [showSnackBarWithIcon] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The success message to display.
+ */
 fun ComponentActivity.showSuccessSnackBar(anchorView: View? = null, message: String) {
     showSnackBarWithIcon(anchorView, message, ResourceR.drawable.ic_success)
 }
 
+/**
+ * Displays an error-themed Snackbar with an icon.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with an error theme, including an error icon. It uses the
+ * [showSnackBarWithIcon] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The error message to display.
+ */
 fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, message: String) {
     showSnackBarWithIcon(anchorView, message, ResourceR.drawable.ic_error, ResourceR.color.red)
 }
 
+/**
+ * Displays a Snackbar indicating that the network is lost.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with a network lost theme, including an error icon. It uses the
+ * [showSnackBarWithIcon] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The string resource ID of the network lost message to display.
+ */
 fun ComponentActivity.showNetworkLostSnackBar(anchorView: View? = null, @StringRes message: Int, action: () -> Unit) {
     showSnackBarWithAction(anchorView, getString(message), ResourceR.color.red, action = action)
 }
 
+/**
+ * Displays a Snackbar with an icon.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with a custom icon and color. It uses the
+ * [buildSnackBar] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The message to display in the Snackbar.
+ * @param iconResId The resource ID of the icon to display in the Snackbar.
+ * @param colorResId The resource ID of the color to use for the Snackbar background.
+ */
 fun ComponentActivity.showSnackBarWithIcon(
     anchorView: View? = null,
     message: String,
@@ -64,6 +156,21 @@ fun ComponentActivity.showSnackBarWithIcon(
     @ColorRes colorResId: Int = ResourceR.color.white
 ) = buildSnackBar(anchorView, message, iconResId, colorResId).show()
 
+/**
+ * Displays a Snackbar with an action button.
+ *
+ * This extension function on [ComponentActivity] shows a [com.google.android.material.snackbar.Snackbar]
+ * with a custom action button. It uses the
+ * [buildSnackBar] function (assumed to be defined elsewhere in your
+ * project) to handle the actual Snackbar display.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The message to display in the Snackbar.
+ * @param colorResId The resource ID of the color to use for the Snackbar background.
+ * @param actionText The resource ID of the text for the action button.
+ * @param action The action to perform when the action button is clicked.
+ */
 fun ComponentActivity.showSnackBarWithAction(
     anchorView: View? = null,
     message: String,
@@ -79,6 +186,19 @@ fun ComponentActivity.showSnackBarWithAction(
     snackBar.show()
 }
 
+/**
+ * Builds a Snackbar with a custom icon and color.
+ *
+ * This extension function on [ComponentActivity] creates a [com.google.android.material.snackbar.Snackbar]
+ * with a custom icon and color. It uses the
+ * [SnackbarViewBinding] to inflate the layout for the Snackbar.
+ *
+ * @param anchorView An optional [View] to anchor the Snackbar to. If `null`, the
+ *   Snackbar will appear at the bottom of the screen.
+ * @param message The message to display in the Snackbar.
+ * @param iconResId The resource ID of the icon to display in the Snackbar.
+ * @param colorResId The resource ID of the color to use for the Snackbar background.
+ */
 private fun ComponentActivity.buildSnackBar(
     anchorView: View? = null,
     message: String,
@@ -100,14 +220,46 @@ private fun ComponentActivity.buildSnackBar(
     return snackbar
 }
 
+/**
+ * Displays an alert dialog with the specified parameters.
+ *
+ * This extension function on [ComponentActivity] simplifies showing an alert
+ * dialog. It uses the [showOkDialog] function (assumed to be defined elsewhere
+ * in your project) to handle the actual dialog display.
+ *
+ * @param dialogParams The parameters for the dialog, including title, message,
+ *   and button text.
+ */
 fun ComponentActivity.showAlertDialog(dialogParams: DialogParams) {
     showOkDialog(dialogParams)
 }
 
+/**
+ * Displays a custom dialog with the specified parameters.
+ *
+ * This extension function on [ComponentActivity] simplifies showing a custom
+ * dialog. It uses the [showCustomDialog] function (assumed to be defined
+ * elsewhere in your project) to handle the actual dialog display.
+ *
+ * @param dialogParams The parameters for the dialog, including title, message,
+ *   and button text.
+ */
 fun ComponentActivity.showCommonDialog(dialogParams: DialogParams) {
     showCustomDialog(dialogParams)
 }
 
+/**
+ * Navigates to the next activity.
+ *
+ * This extension function on [ComponentActivity] simplifies starting a new
+ * activity. It takes an optional lambda function to modify the intent before
+ * starting the activity.
+ *
+ * @param clazz The class of the activity to navigate to.
+ * @param finish Whether to finish the current activity after starting the new one.
+ * @param onIntent An optional lambda function to modify the intent before starting
+ *   the new activity.
+ */
 fun ComponentActivity.gotoNextActivity(
     clazz: Class<out AppCompatActivity>, finish: Boolean = false, onIntent: ((Intent) -> Intent)? = null
 ) {
@@ -118,6 +270,16 @@ fun ComponentActivity.gotoNextActivity(
     if (finish) finish()
 }
 
+/**
+ * Changes the language of the application.
+ *
+ * This extension function on [ComponentActivity] changes the application's
+ * language to the specified language code. It updates the locale and
+ * configuration accordingly.
+ *
+ * @param language The language code to set (e.g., "en", "fr").
+ * @return The updated context with the new language.
+ */
 @Suppress("DEPRECATION")
 fun ComponentActivity.changeLanguage(language: String): Context {
     if (!language.equals("", ignoreCase = true)) {

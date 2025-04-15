@@ -18,7 +18,7 @@ interface ObservationDao : CoreDao<Observation> {
     @Query("SELECT * FROM tbl_obs WHERE uuid = :uuid")
     fun getObservationByUuid(uuid: String): LiveData<Observation>
 
-    @Query("SELECT * FROM tbl_obs WHERE encounteruuid = :encounterId")
+    @Query("SELECT * FROM tbl_obs WHERE encounteruuid = :encounterId AND voided = 0 AND synced = 0")
     fun getObservationByEncounterId(encounterId: String): LiveData<List<Observation>>
 
     @Query("SELECT * FROM tbl_obs WHERE conceptuuid = :conceptId")
@@ -36,7 +36,7 @@ interface ObservationDao : CoreDao<Observation> {
     @Query("UPDATE tbl_obs SET obsservermodifieddate = :obsModifiedDate WHERE uuid = :uuid")
     suspend fun updateServerModifiedDate(obsModifiedDate: String, uuid: String)
 
-    @Query("UPDATE tbl_obs SET modified_date = :modifiedDate WHERE uuid = :uuid")
+    @Query("UPDATE tbl_obs SET updated_at = :modifiedDate WHERE uuid = :uuid")
     suspend fun updateModifiedDate(modifiedDate: String, uuid: String)
 
     @Query("UPDATE tbl_obs SET value = :value WHERE uuid = :uuid")
@@ -85,4 +85,7 @@ interface ObservationDao : CoreDao<Observation> {
         fromDate: String,
         toDate: String
     ): Flow<Double?>
+
+    @Query("SELECT * FROM tbl_obs WHERE encounteruuid IN (:encounterIds) AND synced = 0 AND voided = 0")
+    fun getAllUnsyncedObservations(encounterIds: List<String>): List<Observation>
 }

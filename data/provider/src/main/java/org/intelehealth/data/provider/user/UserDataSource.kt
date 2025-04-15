@@ -7,6 +7,12 @@ import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.common.data.BaseDataSource
+import org.intelehealth.data.network.KEY_ATTRIBUTE_TYPE_ID
+import org.intelehealth.data.network.KEY_FILE
+import org.intelehealth.data.network.KEY_NEW_PASSWORD
+import org.intelehealth.data.network.KEY_OLD_PASSWORD
+import org.intelehealth.data.network.KEY_PERSON_ID
+import org.intelehealth.data.network.KEY_VALUE
 import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import javax.inject.Inject
 
@@ -98,14 +104,14 @@ class UserDataSource @Inject constructor(
         basicAuth, hashMapOf(KEY_PERSON_ID to personId, KEY_FILE to image)
     )
 
-    companion object {
-        const val KEY_USER_UUID = "userUuid"
-        const val KEY_NEW_PASSWORD = "newPassword"
-        const val KEY_OLD_PASSWORD = "oldPassword"
-        const val KEY_RESULT = "results"
-        const val KEY_PERSON_ID = "person"
-        const val KEY_FILE = "base64EncodedImage"
-        const val KEY_VALUE = "value"
-        const val KEY_ATTRIBUTE_TYPE_ID = "attributeType"
-    }
+//    companion object {
+//        const val KEY_USER_UUID = "userUuid"
+//        const val KEY_NEW_PASSWORD = "newPassword"
+//        const val KEY_OLD_PASSWORD = "oldPassword"
+//        const val KEY_RESULT = "results"
+//        const val KEY_PERSON_ID = "person"
+//        const val KEY_FILE = "base64EncodedImage"
+//        const val KEY_VALUE = "value"
+//        const val KEY_ATTRIBUTE_TYPE_ID = "attributeType"
+//    }
 }

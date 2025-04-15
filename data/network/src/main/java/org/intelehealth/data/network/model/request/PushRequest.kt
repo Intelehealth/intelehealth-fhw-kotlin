@@ -1,11 +1,13 @@
 package org.intelehealth.data.network.model.request
 
+import com.google.gson.Gson
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import org.intelehealth.data.network.model.response.Person
 import org.intelehealth.data.offline.entity.Encounter
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.Provider
+import org.intelehealth.data.offline.entity.UnSyncedEncounter
 import org.intelehealth.data.offline.entity.Visit
 
 /**
@@ -13,29 +15,23 @@ import org.intelehealth.data.offline.entity.Visit
  * Email: prajwalwaingankar@gmail.com
  * Mobile: +917304154312
  **/
-data class PushRequestApiCall(
+data class PushRequest(
     @SerializedName("appointments")
-    @Expose
     private var appointments: List<BookAppointmentRequest>? = null,
 
     @SerializedName("persons")
-    @Expose
     private var persons: List<Person>? = null,
 
     @SerializedName("patients")
-    @Expose
-    private var patients: List<Patient>? = null,
+    private var patients: List<HashMap<String, Any>>? = null,
 
     @SerializedName("visits")
-    @Expose
     private var visits: List<Visit>? = null,
 
     @SerializedName("encounters")
-    @Expose
-    private var encounters: List<Encounter>? = null,
+    private var encounters: List<UnSyncedEncounter>? = null,
 
     @SerializedName("providers")
-    @Expose
     private var providers: List<Provider>? = null
 )
 
@@ -122,4 +118,6 @@ data class BookAppointmentRequest(
     @SerializedName("sync")
     @Expose
     private var sync: String? = null
-)
+) {
+    override fun toString(): String = Gson().toJson(this)
+}

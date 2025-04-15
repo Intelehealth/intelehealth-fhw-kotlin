@@ -120,7 +120,7 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             User(
                 userId = loginResponse.user.uuid,
-                displayName = loginResponse.user.person.display,
+                displayName = loginResponse.user.person.display ?: "",
                 userName = loginResponse.user.username,
                 password = "",
                 systemId = loginResponse.user.systemId,
@@ -138,6 +138,14 @@ class UserViewModel @Inject constructor(
     }
 
 
+    /**
+     * Fetches the user profile from the repository and saves it locally.
+     *
+     * This function executes a network call to fetch the user profile data
+     * and saves it in the local database.
+     *
+     * @return A [LiveData] emitting the result of the network call.
+     */
     fun fetchUserProfile() = executeNetworkCallAndSaveInLocal(
         { userRepository.fetchUserProfile() },
         { userRepository.saveProfileData(it) }

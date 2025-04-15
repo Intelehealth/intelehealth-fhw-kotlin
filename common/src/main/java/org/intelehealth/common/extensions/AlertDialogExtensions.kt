@@ -10,6 +10,12 @@ import org.intelehealth.resource.R
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * Extension function to change the theme of AlertDialog buttons and text.
+ * This function sets the typeface of the message, title, and buttons to a custom font.
+ *
+ * @receiver AlertDialog The AlertDialog instance on which this function is called.
+ */
 fun AlertDialog.changeButtonTheme() {
     // Getting the view elements
     window?.findViewById<TextView>(android.R.id.message)?.typeface =
@@ -20,6 +26,12 @@ fun AlertDialog.changeButtonTheme() {
     window?.findViewById<TextView>(android.R.id.button2)?.typeface = ResourcesCompat.getFont(context, R.font.lato_bold)
 }
 
+/**
+ * Extension function to remove the background of an AlertDialog and set it to transparent.
+ * This function also sets the window flags to blur the background behind the dialog.
+ *
+ * @receiver AlertDialog The AlertDialog instance on which this function is called.
+ */
 fun AlertDialog.removeBackground() {
     // set transparent background
     window?.setBackgroundDrawableResource(android.R.color.transparent)

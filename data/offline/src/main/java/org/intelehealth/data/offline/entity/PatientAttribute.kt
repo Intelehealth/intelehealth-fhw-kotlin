@@ -10,13 +10,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "tbl_patient_attribute")
 data class PatientAttribute(
-    @PrimaryKey
-    @SerializedName("uuid") var uuid: String,
     @SerializedName("value") var value: String? = null,
     @ColumnInfo("person_attribute_type_uuid") @SerializedName("person_attribute_type_uuid")
     var personAttributeTypeUuid: String? = null,
     @ColumnInfo("patientuuid") @SerializedName("patientuuid") var patientUuid: String? = null,
-    @ColumnInfo("modified_date") @SerializedName("modified_date") var modifiedDate: String? = null,
-    @SerializedName("voided") var voided: Int = 0,
-    @SerializedName("syncd") var synced: Boolean = false
-) : Parcelable
+    @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
+) : BaseEntity(), Parcelable

@@ -15,10 +15,9 @@ import kotlinx.parcelize.Parcelize
 data class PatientLocation(
     @SerializedName("name") var name: String,
     @PrimaryKey
-    @ColumnInfo("locationuuid") @SerializedName("locationuuid") val locationUuid: String,
+    @ColumnInfo("locationuuid") @SerializedName("locationuuid") override var uuid: String,
     @SerializedName("retired") val retired: Int? = null,
-    @ColumnInfo("modified_date") @SerializedName("modified_date") var modifiedDate: String? = null,
-    var voided: Int = 0,
+    @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
     @SerializedName("syncd")
-    var synced: Boolean = false
-) : Parcelable
+    override var synced: Boolean = false
+) : BaseEntity(), Parcelable

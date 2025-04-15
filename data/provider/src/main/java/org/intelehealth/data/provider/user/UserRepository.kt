@@ -9,6 +9,7 @@ import org.intelehealth.common.extensions.toDate
 import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DB_FORMAT
 import org.intelehealth.common.utility.DateTimeUtils.LAST_SYNC_DISPLAY_FORMAT
 import org.intelehealth.common.utility.PreferenceUtils
+import org.intelehealth.data.network.KEY_RESULT
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
@@ -16,7 +17,6 @@ import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.entity.User
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_RESULT
 import org.intelehealth.data.provider.utils.PersonAttributeType
 import javax.inject.Inject
 

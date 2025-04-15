@@ -1,9 +1,9 @@
 package org.intelehealth.common.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import org.intelehealth.common.state.Result
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.service.HttpStatusCode
 import org.intelehealth.common.utility.NO_NETWORK
-import timber.log.Timber
+import kotlinx.coroutines.flow.catch
 
 open class BaseViewModel(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -37,7 +37,7 @@ open class BaseViewModel(
     @JvmField
     var errorDataResult: LiveData<Throwable> = errorResult
 
-    var dataConnectionStatus = MutableLiveData<Boolean>(true)
+    var dataConnectionStatus = MutableLiveData(true)
 
 
     fun <L> executeLocalQuery(
@@ -48,25 +48,31 @@ open class BaseViewModel(
             emit(Result.Error<L>("No record found"))
         }
     }.onStart {
-        emit(Result.Loading<L>("Please wait..."))
+        emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
     fun <S, R> executeNetworkCall(
         networkCall: suspend () -> Response<out BaseResponse<S, R>>
     ) = flow {
         if (isInternetAvailable()) {
-            com.github.ajalt.timberkt.Timber.d { "network call started" }
+            Timber.d { "network call started" }
             emit(checkNetworkCallState(networkCall))
         } else dataConnectionStatus.postValue(false)
     }.onStart {
         emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
     private suspend fun <S, R> checkNetworkCallState(networkCall: suspend () -> Response<out BaseResponse<S, R>>): Result<R> {
         val response = networkCall()
-        com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
+        Timber.d { "response.status => ${response.code()}" }
         if (response.code() == HttpStatusCode.OK) {
-            Timber.d("Api success")
+            Timber.d{"Api success"}
             if (response.body()?.data != null && response.body()?.status is Boolean) {
                 if (response.body()?.status as Boolean) {
                     val result = Result.Success(response.body()?.data, "Success")
@@ -81,20 +87,20 @@ open class BaseViewModel(
                 return result
             }
         } else {
-            Timber.e("Api error ${response.body()?.message}")
+            Timber.e{"Api error ${response.body()?.message}"}
             return Result.Error(response.body()?.message)
         }
     }
 
     private suspend fun <R> checkNetworkCallStateResponse(networkCall: suspend () -> Response<R>): Result<R> {
         val response = networkCall()
-        com.github.ajalt.timberkt.Timber.d { "response.status => ${response.code()}" }
+        Timber.d { "response.status => ${response.code()}" }
         return isSuccessCode(response.code(), onSuccess = {
-            Timber.d("Api success")
+            Timber.d{"Api success"}
             val result = Result.Success(response.body(), "Success")
             return@isSuccessCode result
         }, onFail = {
-            Timber.e("Api error ${response.body()}")
+            Timber.e{"Api error ${response.body()}"}
             return@isSuccessCode Result.Error(response.errorBody()?.string())
         })
     }
@@ -119,13 +125,16 @@ open class BaseViewModel(
         }
 
         if (isInternetAvailable()) {
-            com.github.ajalt.timberkt.Timber.d { "Queue network call started" }
+            Timber.d { "Queue network call started" }
             val state = executeQueue(networkCalls = networkCalls, index = 0)
             emit(state)
         } else dataConnectionStatus.postValue(false)
 
     }.onStart {
         emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
     private suspend fun <R> executeQueue(
@@ -153,23 +162,26 @@ open class BaseViewModel(
         networkCall: suspend () -> Response<out BaseResponse<String, T>>,
         saveDataCall: suspend (T?) -> L
     ) = flow {
-        com.github.ajalt.timberkt.Timber.d { "catchNetworkData" }
+        Timber.d { "catchNetworkData" }
         if (isInternetAvailable()) {
-            com.github.ajalt.timberkt.Timber.d { "catchNetworkData api calling" }
+            Timber.d { "catchNetworkData api calling" }
             val response = networkCall()
             if (response.code() == HttpStatusCode.OK) {
-                Timber.d("Api success")
+                Timber.d{"Api success"}
                 val savedData = saveDataCall(response.body()?.data)
                 val result = Result.Success(savedData, "Success")
                 result.message = response.body()?.message
                 emit(result)
             } else {
-                Timber.e("Api error ${response.body()?.message}")
+                Timber.e{"Api error ${response.body()?.message}"}
                 emit(Result.Error(response.body()?.message))
             }
         } else dataConnectionStatus.postValue(false)
     }.onStart {
         emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
     fun <L, R> executeNetworkCallAndSaveInLocal(
@@ -177,22 +189,25 @@ open class BaseViewModel(
         saveDataCall: suspend (R?) -> L
     ) = flow {
         Timber.tag("BaseViewModel").d("executeNetworkCallAndSaveInLocal: ")
-        com.github.ajalt.timberkt.Timber.d { "executeNetworkCallAndSaveInLocal" }
+        Timber.d { "executeNetworkCallAndSaveInLocal" }
         if (isInternetAvailable()) {
-            com.github.ajalt.timberkt.Timber.d { "catchNetworkData api calling" }
+            Timber.d { "catchNetworkData api calling" }
             val response = networkCall()
             if (response.code() == HttpStatusCode.OK) {
-                Timber.d("Api success")
+                Timber.d{"Api success"}
                 val savedData = saveDataCall(response.body())
                 val result = Result.Success(savedData, "Success")
                 emit(result)
             } else {
-                Timber.e("Api error ${response.body()}")
+                Timber.e{"Api error ${response.body()}"}
                 emit(Result.Error(response.errorBody()?.string()))
             }
         } else dataConnectionStatus.postValue(false)
     }.onStart {
         emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
     fun isInternetAvailable(): Boolean = networkHelper?.isNetworkConnected() ?: false

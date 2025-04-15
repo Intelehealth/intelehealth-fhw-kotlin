@@ -21,6 +21,18 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * ViewModel responsible for managing application settings.
+ *
+ * This ViewModel handles settings-related operations, including:
+ * - Managing the currently selected language.
+ * - Controlling the blackout period status.
+ * - Validating license keys for protocol downloads.
+ * - Initiating the protocol download process.
+ *
+ * It interacts with [PreferenceUtils] to persist settings and uses
+ * [WorkManager] to handle background tasks.
+ */
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val preferenceUtils: PreferenceUtils,
@@ -28,15 +40,23 @@ class SettingViewModel @Inject constructor(
     workManager: WorkManager
 ) : WorkerViewModel(workManager = workManager, networkHelper = networkHelper) {
 
-    private var languageState = MutableStateFlow(preferenceUtils.currentLanguage)
-    val languageStateData: LiveData<String> get() = languageState.asLiveData()
+    private val languageState = MutableStateFlow(preferenceUtils.currentLanguage)
+    val languageStateData: LiveData<String> = languageState.asLiveData()
 
-    private var blackoutState = MutableStateFlow(preferenceUtils.blackoutActiveStatus)
-    val blackoutStateData: LiveData<Boolean> get() = blackoutState.asLiveData()
+    private val blackoutState = MutableStateFlow(preferenceUtils.blackoutActiveStatus)
+    val blackoutStateData: LiveData<Boolean> = blackoutState.asLiveData()
 
-    private var validateLicenseKeyState = MutableStateFlow(false)
-    val validateLicenseKeyStateData: LiveData<Boolean> get() = validateLicenseKeyState.asLiveData()
+    private val validateLicenseKeyState = MutableStateFlow(false)
+    val validateLicenseKeyStateData: LiveData<Boolean> = validateLicenseKeyState.asLiveData()
 
+    /**
+     * Sets the application's language.
+     *
+     * This method updates the current language in [PreferenceUtils] and emits
+     * the new language to [languageState].
+     *
+     * @param language The language code of the new language.
+     */
     fun setLanguage(language: String) {
         viewModelScope.launch {
             preferenceUtils.currentLanguage = language
@@ -44,6 +64,14 @@ class SettingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Sets the status of the blackout period.
+     *
+     * This method updates the blackout period status in [PreferenceUtils] and
+     * emits the new status to [blackoutState].
+     *
+     * @param status `true` to enable the blackout period, `false` to disable it.
+     */
     fun setBlackoutPeriodStatus(status: Boolean) {
         viewModelScope.launch {
             preferenceUtils.blackoutActiveStatus = status
@@ -51,6 +79,15 @@ class SettingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Starts the protocol download worker.
+     *
+     * This method creates a [OneTimeWorkRequestBuilder] for the
+     * [DownloadProtocolsWorker], sets the license key as input data, and
+     * enqueues the work request using [enqueueOneTimeWorkRequest].
+     *
+     * @param licenseKey The license key required to download the protocols.
+     */
     fun startDownloadProtocolWorker(licenseKey: String) {
         val inputData = Data.Builder()
             .putString(DownloadProtocolsWorker.PROTOCOL_LICENSE_KEY, licenseKey)

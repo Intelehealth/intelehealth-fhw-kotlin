@@ -19,6 +19,13 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * Displays the "About Us" information for the application.
+ *
+ * This activity shows details about the app, including a description,
+ * a link to the website, and potentially a list of images or thumbnails.
+ * It extends [SimpleAppBarActivity] to provide a consistent app bar.
+ */
 @AndroidEntryPoint
 class AboutUsActivity : SimpleAppBarActivity() {
     private lateinit var binding: ActivityAboutUsBinding
@@ -36,16 +43,25 @@ class AboutUsActivity : SimpleAppBarActivity() {
 
     override fun getScreenTitle(): String = getString(R.string.action_about_us)
 
+    /**
+     * Enables clickable links (e.g., URLs, phone numbers) in the "About Us" text.
+     */
     private fun activeAutoLinkMethod() {
         binding.contentViewAboutUs.tvAboutUsTermCondition.enableMovementMethod()
     }
 
+    /**
+     * Sets up a click listener for the "Go to Website" button.
+     */
     private fun gotoWebsite() {
         binding.contentViewAboutUs.btnGoToWebsite.setOnClickListener {
             startIntelehealthWebsiteIntent()
         }
     }
 
+    /**
+     * Launches an intent to open the Intelehealth website in a browser.
+     */
     private fun startIntelehealthWebsiteIntent() {
         Intent(Intent.ACTION_VIEW, Uri.parse(INTELEHEALTH_WEB_LINK)).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -53,11 +69,18 @@ class AboutUsActivity : SimpleAppBarActivity() {
         }
     }
 
+    /**
+     * Sets up the adapter and layout manager for the thumbnail list (if any).
+     */
     private fun setThumbnailList() {
         AboutUsThumbAdapter(this, arrayListOf<Int>().apply {
-            add(ResourceR.drawable.about_us_11)
+            add(R.drawable.about_us_11) // Assuming R.drawable.about_us_11 is a placeholder
         }).apply {
             binding.contentViewAboutUs.rvAboutUsThumbnail.setupHorizontalLinearView(this)
         }
+    }
+
+    companion object {
+        private const val INTELEHEALTH_WEB_LINK = "https://www.intelehealth.org/" // Replace with actual link if different
     }
 }

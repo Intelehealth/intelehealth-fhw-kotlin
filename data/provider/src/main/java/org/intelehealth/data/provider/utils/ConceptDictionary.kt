@@ -9,6 +9,7 @@ package org.intelehealth.data.provider.utils
 enum class EncounterType(val value: String) {
     VISIT_COMPLETE("bd1fbfaa-f5fb-4ebd-b75c-564506fc309e"),
     PATIENT_EXIT_SURVEY("629a9d0b-48eb-405e-953d-a5964c88dc30"),
+    EMERGENCY("ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c")
 }
 
 enum class ObsConcept(val value: String) {
@@ -29,4 +30,12 @@ enum class PersonAttributeType(val value: String) {
     EMAIL("d472dd87-c406-4c3f-a7ac-7a36749cd0bf"),
     PHONE_NUMBER("c5ccb5ad-1d2c-4b54-b00b-baaf93aed302"),
     COUNTRY_CODE("a0358bfa-e220-412f-9fb3-504687135575")
+}
+
+enum class PersonIdentifier(val value: String) {
+    IDENTIFIER_OPENMRS_ID("05a29f94-c0ed-11e2-94be-8c13b969e334"),
+}
+
+enum class ProviderRole(val value: String) {
+    NURSE("73bbb069-9781-4afc-a9d1-54b6b2270e04"),
 }

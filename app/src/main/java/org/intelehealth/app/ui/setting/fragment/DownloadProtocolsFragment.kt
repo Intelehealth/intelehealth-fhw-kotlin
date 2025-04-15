@@ -18,6 +18,14 @@ import org.intelehealth.common.ui.fragment.StateFragment
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * A fragment that allows the user to download new protocols by entering a
+ * license key.
+ *
+ * This fragment provides a UI for entering a license key and initiating the
+ * protocol download process. It interacts with the [SettingViewModel] to
+ * validate the license key and start the download.
+ */
 @AndroidEntryPoint
 class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_protocols) {
     private lateinit var binding: FragmentDownloadProtocolsBinding
@@ -32,6 +40,14 @@ class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_proto
         handleLicenseKeyValidation()
     }
 
+    /**
+     * Enables or disables the download button based on the text entered in the
+     * license key field.
+     *
+     * This method uses an extension function to monitor changes in the license
+     * key text field and update the enabled state of the download button
+     * accordingly.
+     */
     private fun changeButtonStateOnTextChange() {
         binding.textInputLayoutLicenseKey.changeButtonStateOnTextChange(
             binding.textInputLicenseKey,
@@ -39,15 +55,31 @@ class DownloadProtocolsFragment : StateFragment(R.layout.fragment_download_proto
         )
     }
 
+    /**
+     * Observes the license key validation state and navigates to the download
+     * progress screen if the key is valid.
+     *
+     * This method observes a LiveData from the [SettingViewModel] that indicates
+     * whether the entered license key is valid. If the key is valid, it
+     * navigates to the [DownloadProtocolProgressFragment].
+     */
     private fun handleLicenseKeyValidation() {
-        viewModel.validateLicenseKeyStateData.observe(viewLifecycleOwner) {
+        viewModel.validateLicenseKeyStateData.observe(viewLifecycleOwner) { isValid ->
             binding.tvDPLicenseKeyValidating.isVisible = false
-            if (it) findNavController().navigate(
+            if (isValid) findNavController().navigate(
                 DownloadProtocolsFragmentDirections.navDownloadProtocolsToDownloadProgress()
             )
         }
     }
 
+    /**
+     * Handles the click event for the download button.
+     *
+     * This method retrieves the entered license key, disables the button to
+     * prevent multiple clicks, displays a validating message, and calls the
+     * [SettingViewModel] to start the protocol download process with the
+     * provided license key. It also clears the license key text field.
+     */
     private fun handleButtonClick() {
         binding.btnDownloadProtocols.setOnClickListener {
             it ?: return@setOnClickListener

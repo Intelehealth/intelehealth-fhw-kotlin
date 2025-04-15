@@ -15,6 +15,13 @@ import org.intelehealth.app.model.IntroContent
  */
 private const val ARG_PARAM1 = "param1"
 
+/**
+ * A fragment that displays a single introduction slide.
+ *
+ * This fragment is responsible for rendering the content of an individual
+ * introduction slide. It receives the slide content as a serializable
+ * [IntroContent] object via its arguments and binds it to the views in its layout.
+ */
 @AndroidEntryPoint
 class IntroSlideFragment : Fragment(R.layout.fragment_intro_slider) {
     private lateinit var binding: FragmentIntroSliderBinding
@@ -34,6 +41,16 @@ class IntroSlideFragment : Fragment(R.layout.fragment_intro_slider) {
     }
 
     companion object {
+        private const val ARG_PARAM1 = "intro_content"
+
+        /**
+         * Creates a new instance of [IntroSlideFragment] with the given content.
+         *
+         * @param introContent The [IntroContent] object representing the content
+         *                     to display in the slide.
+         * @return A new instance of [IntroSlideFragment] with the content set as
+         *         arguments.
+         */
         @JvmStatic
         fun newInstance(introContent: IntroContent) = IntroSlideFragment().apply {
             arguments = Bundle().apply {

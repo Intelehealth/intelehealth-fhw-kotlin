@@ -6,6 +6,7 @@ import org.intelehealth.data.network.model.SetupLocation
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.request.PushRequest
 import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
 import org.intelehealth.data.network.model.response.PersonAttributes
@@ -95,6 +96,12 @@ interface RestClient {
         @Path("lastPullExecutedTime") lastPullExecutedTime: String,
         @Path("pageNo") pageNo: Int,
         @Path("pageLimit") pageLimit: Int
+    ): Response<BaseResponse<String, PullResponse>>
+
+    @POST("/EMR-Middleware/webapi/push/pushdata")
+    suspend fun pushData(
+        @Header("Authorization") header: String,
+        @Body body: PushRequest
     ): Response<BaseResponse<String, PullResponse>>
 
     /**

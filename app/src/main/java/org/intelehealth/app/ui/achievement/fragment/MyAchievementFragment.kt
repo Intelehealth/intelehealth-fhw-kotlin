@@ -14,6 +14,15 @@ import org.intelehealth.app.ui.achievement.adapter.AchievementPagerAdapter
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+
+/**
+ * Fragment to display the user's achievements.
+ *
+ * This fragment serves as a container for different achievement-related
+ * fragments, such as daily, date range, and overall achievements. It uses
+ * a ViewPager2 and TabLayout to allow users to navigate between different
+ * achievement views.
+ */
 @AndroidEntryPoint
 class MyAchievementFragment : Fragment(R.layout.fragment_achievements) {
     private lateinit var binding: FragmentAchievementsBinding
@@ -26,6 +35,13 @@ class MyAchievementFragment : Fragment(R.layout.fragment_achievements) {
         bindPagerAdapter()
     }
 
+    /**
+     * Sets up the ViewPager2 with a TabLayout to display different achievement fragments.
+     *
+     * This method initializes the [AchievementPagerAdapter] and attaches it to the
+     * ViewPager2. It also sets up the TabLayout to display the titles of the fragments,
+     * using [TabLayoutMediator] to synchronize the TabLayout with the ViewPager2.
+     */
     private fun bindPagerAdapter() {
         val adapter = AchievementPagerAdapter(childFragmentManager, lifecycle, requireContext())
         binding.pagerAchievements.adapter = adapter

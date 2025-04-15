@@ -14,6 +14,16 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * A fragment that displays a circular progress indicator while downloading and
+ * applying new protocols.
+ *
+ * This fragment is responsible for showing a progress UI during the protocol
+ * update process. It interacts with the [SettingViewModel] to monitor the
+ * download progress and update the UI accordingly. Upon successful download
+ * and application of the new protocols, it navigates back to the previous
+ * screen and displays a success message.
+ */
 @AndroidEntryPoint
 class DownloadProtocolProgressFragment : CircularProgressFragment() {
     override val viewModel: SettingViewModel by activityViewModels<SettingViewModel>()
@@ -25,6 +35,14 @@ class DownloadProtocolProgressFragment : CircularProgressFragment() {
         handleDataSyncProgress()
     }
 
+    /**
+     * Observes the protocol download progress and updates the UI.
+     *
+     * This method observes the progress reported by the [SettingViewModel] and
+     * updates the progress indicator. When the progress reaches 100%, it
+     * updates the displayed task, navigates back to the previous screen, and
+     * shows a success message.
+     */
     private fun handleDataSyncProgress() {
         viewModel.workerProgress.observe(viewLifecycleOwner) {
             onProgress(it)

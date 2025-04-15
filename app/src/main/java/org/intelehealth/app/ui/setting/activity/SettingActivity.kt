@@ -14,6 +14,13 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * An activity that hosts the application settings screens.
+ *
+ * This activity uses a [NavHostFragment] to manage navigation between different
+ * settings screens. It displays a toolbar with the title of the current
+ * settings screen.
+ */
 @AndroidEntryPoint
 class SettingActivity : SimpleAppBarActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -36,7 +43,8 @@ class SettingActivity : SimpleAppBarActivity() {
     }
 
     /**
-     * Setup navigation controller with toolbar
+     * Sets up the navigation controller and synchronizes the toolbar title with
+     * the current destination.
      */
     private fun setupNavigation() {
         navController.addOnDestinationChangedListener { _, destination, _ ->

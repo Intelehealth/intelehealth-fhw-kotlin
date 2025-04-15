@@ -4,6 +4,20 @@ import org.gradle.api.JavaVersion
 //    const val ExtVersion = ""
 //}
 
+/**
+ * Object holding Android-specific configuration values for the project.
+ *
+ * This object centralizes the management of Android-related configuration
+ * settings, such as minimum, target, and compile SDK versions, the test
+ * instrumentation runner, Java and JVM target versions, and application
+ * identification details. It also includes versioning information (name and
+ * code) and a mechanism for generating a build number based on the current
+ * time, ensuring that build numbers are monotonically increasing for Play
+ * Store uploads.
+ *
+ * Using this `AndroidConfig` object promotes consistency in Android
+ * configuration across the project and simplifies updating these settings.
+ */
 object AndroidConfig {
     const val MIN_SDK = 26
     const val TARGET_SDK = 35
@@ -11,6 +25,7 @@ object AndroidConfig {
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
     val JAVA_VERSION = JavaVersion.VERSION_21
     const val JVM_TARGET = "21"
+
     object IDA {
         const val APPLICATION_ID = "org.intelehealth.app"
         const val VERSION_NAME = "1.0.0"

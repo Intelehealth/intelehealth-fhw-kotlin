@@ -38,10 +38,13 @@ interface ProviderDao : CoreDao<Provider> {
     @Query("UPDATE tbl_provider SET voided = :voided WHERE uuid = :uuid")
     fun updateProviderVoided(voided: String, uuid: String)
 
-    @Query("UPDATE tbl_provider SET modified_date = :modifiedDate WHERE uuid = :uuid")
+    @Query("UPDATE tbl_provider SET updated_at = :modifiedDate WHERE uuid = :uuid")
     fun updateProviderModifiedDate(modifiedDate: String, uuid: String)
 
     @Query("UPDATE tbl_provider SET synced = :sync WHERE uuid = :uuid")
     fun updateProviderSync(sync: String, uuid: String)
+
+    @Query("SELECT * FROM tbl_provider WHERE synced = :synced AND voided = 0")
+    fun getAllUnsyncedProviders(synced: Boolean = false): List<Provider>?
 
 }

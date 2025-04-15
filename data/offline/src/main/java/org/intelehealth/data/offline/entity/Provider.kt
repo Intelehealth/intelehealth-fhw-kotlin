@@ -4,13 +4,18 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "tbl_provider")
 data class Provider(
-    @PrimaryKey @SerializedName(value = "uuid", alternate = arrayOf("providerid")) var uuid: String,
+//    @PrimaryKey
+//    @SerializedName(value = "uuid", alternate = arrayOf("providerid"))
+//    @Expose
+//    override var uuid: String,
     @SerializedName("identifier") var identifier: String? = null,
     @ColumnInfo("given_name") @SerializedName("given_name") var givenName: String? = null,
     @ColumnInfo("family_name") @SerializedName("family_name") var familyName: String? = null,
@@ -22,11 +27,12 @@ data class Provider(
     @SerializedName("gender") var gender: String? = null,
     @SerializedName("imagePath") var imagePath: String? = null,
     @ColumnInfo("country_code") @SerializedName("countryCode") var countryCode: String? = null,
-    var voided: Int? = null,
     var role: String? = null,
     var providerId: Int? = null,
     @ColumnInfo("user_uuid") @SerializedName("useruuid") var userUuid: String? = null,
-    @ColumnInfo("modified_date") @SerializedName("modified_date") val modifiedDate: String? = null,
-    var synced: Boolean = false,
-) : Parcelable
-
+    @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
+    @SerializedName("syncd")
+    override var synced: Boolean = false
+) : BaseEntity(), Parcelable {
+    override fun toString(): String = Gson().toJson(this)
+}

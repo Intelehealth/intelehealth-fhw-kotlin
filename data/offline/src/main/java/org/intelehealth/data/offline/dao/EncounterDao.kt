@@ -3,8 +3,10 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RewriteQueriesToDropUnusedColumns
 import kotlinx.coroutines.flow.Flow
 import org.intelehealth.data.offline.entity.Encounter
+import org.intelehealth.data.offline.entity.UnSyncedEncounter
 
 /**
  * Created by Vaghela Mithun R. on 02-04-2024 - 10:24.
@@ -67,4 +69,12 @@ interface EncounterDao : CoreDao<Encounter> {
         fromDate: String,
         toDate: String
     ): Flow<Int>
+
+    //    @RewriteQueriesToDropUnusedColumns
+    @Query(
+        "SELECT E.visituuid, E.encounter_type_uuid, E.encounter_time, E.provider_uuid, E.updated_at, "
+                + "E.uuid, E.created_at, E.synced, E.voided, V.locationuuid as locationId, V.patientuuid as patientId "
+                + "FROM tbl_encounter E LEFT JOIN tbl_visit V ON V.uuid = E.visituuid WHERE E.synced = :synced AND E.voided = 0"
+    )
+    fun getAllUnsyncedEncounters(synced: Boolean = false): List<UnSyncedEncounter>?
 }

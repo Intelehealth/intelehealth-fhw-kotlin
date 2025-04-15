@@ -15,18 +15,46 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * ViewModel for managing and providing achievement-related data to the UI.
+ *
+ * This ViewModel interacts with the [AchievementRepository] to fetch achievement
+ * data based on different criteria (overall, daily, date range) and exposes it
+ * as LiveData for observation by the UI.
+ *
+ * @property achievementRepository The repository used to access achievement data.
+ */
 @HiltViewModel
 class AchievementViewModel @Inject constructor(private val achievementRepository: AchievementRepository) :
     BaseViewModel() {
     private var overallAchievementData = MutableLiveData<Achievement>()
+
+    /**
+     * LiveData for observing overall achievement data.
+     */
     val overallAchievementLiveData: LiveData<Achievement> get() = overallAchievementData
 
     private var dailyAchievementData = MutableLiveData<Achievement>()
+
+    /**
+     * LiveData for observing daily achievement data.
+     */
     val dailyAchievementLiveData: LiveData<Achievement> get() = dailyAchievementData
 
     private var dateRangeAchievementData = MutableLiveData<Achievement>()
+
+    /**
+     * LiveData for observing achievement data within a date range.
+     */
     val dateRangeAchievementLiveData: LiveData<Achievement> get() = dateRangeAchievementData
 
+    /**
+     * Fetches the user's overall achievement data.
+     *
+     * This method retrieves the total completed visits, patients added,
+     * average time spent, and satisfaction score across all time.  It updates
+     * [overallAchievementLiveData] with the combined results.
+     */
     fun fetchOverallAchievement() {
         val achievement = Achievement(0, 0, 0.0, "0")
         viewModelScope.launch {
@@ -62,6 +90,15 @@ class AchievementViewModel @Inject constructor(private val achievementRepository
         }
     }
 
+    /**
+     * Fetches the user's achievement data for a specific date.
+     *
+     * @param date The date for which to retrieve achievements, in "YYYY-MM-DD" format.
+     *
+     * This method retrieves the completed visits, patients added, average time spent,
+     * and satisfaction score for the given date. It updates [dailyAchievementLiveData]
+     * with the combined results.
+     */
     fun fetchDailyAchievement(date: String) {
         val achievement = Achievement(0, 0, 0.0, "0")
         viewModelScope.launch {
@@ -97,6 +134,16 @@ class AchievementViewModel @Inject constructor(private val achievementRepository
         }
     }
 
+    /**
+     * Fetches the user's achievement data within a specified date range.
+     *
+     * @param fromDate The start date of the range, in "YYYY-MM-DD" format.
+     * @param toDate The end date of the range, in "YYYY-MM-DD" format.
+     *
+     * This method retrieves the completed visits, patients added, average time spent,
+     * and satisfaction score within the given date range. It updates
+     * [dateRangeAchievementLiveData] with the combined results.
+     */
     fun fetchDateRangeAchievement(fromDate: String, toDate: String) {
         val achievement = Achievement(0, 0, 0.0, "0")
         viewModelScope.launch {

@@ -96,6 +96,17 @@ fun bindImage(imageView: ImageView?, url: String?) {
     }
 }
 
+/**
+ * Data binding adapter to set an image resource to an ImageView.
+ *
+ * This adapter allows setting an image from drawable resources directly
+ * in the layout XML using the `imgResource` attribute.  It uses
+ * [ContextCompat.getDrawable] to retrieve the drawable and set it on the
+ * ImageView.
+ *
+ * @param imageView The ImageView to which the image should be set.
+ * @param resourceId The resource ID of the drawable image.
+ */
 @BindingAdapter("imgResource")
 fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
     if (imageView != null && resourceId != null) {
@@ -107,6 +118,19 @@ fun bindImageResource(imageView: ImageView?, @DrawableRes resourceId: Int?) {
     }
 }
 
+/**
+ * Loads an image from a URL into an ImageView, including authentication headers and caching.
+ *
+ * This function uses Glide to load an image from the given URL. It adds an
+ * "Authorization" header to the request using a basic token retrieved from
+ * [PreferenceUtils]. It also handles caching, placeholder and error images,
+ * and provides a thumbnail for faster loading. The image is scaled and cropped
+ * to fit the ImageView.
+ *
+ * @param imageView The ImageView into which the image should be loaded.
+ * @param url The URL of the image to load.
+ * @param profileVersion A version identifier for the profile image, used for cache invalidation.
+ */
 fun loadImageWithAuth(imageView: ImageView, url: String, profileVersion: Long) {
     PreferenceUtils(PreferenceHelper(imageView.context.applicationContext)).apply {
         val glideUrl = GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", basicToken).build())

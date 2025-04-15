@@ -12,8 +12,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "tbl_obs")
 data class Observation(
-    @PrimaryKey
-    @SerializedName("uuid") var uuid: String = "",
     @ColumnInfo("encounteruuid") @SerializedName("encounteruuid") var encounterUuid: String? = null,
     @ColumnInfo("conceptuuid") @SerializedName("conceptuuid", alternate = ["concept"]) var conceptUuid: String? = null,
     @SerializedName("value") var value: String? = null,
@@ -22,9 +20,7 @@ data class Observation(
     @Ignore @SerializedName("encounter") @Expose var encounter: String = "",
     @SerializedName("creator", alternate = ["person"]) var creator: String? = null,
     @SerializedName("comment") var comment: String? = null,
-    @SerializedName("voided") var voided: Int? = null,
-    @ColumnInfo("modified_date") @SerializedName("modified_date") var modifiedDate: String? = null,
-    @ColumnInfo("created_date") @SerializedName("created_date") var createdDate: String? = null,
-    @SerializedName("syncd") var synced: Boolean = false,
+    @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
+    @ColumnInfo("created_at") @SerializedName("created_date") override var createdAt: String? = null,
     @ColumnInfo("concept_set_uuid") @SerializedName("conceptsetuuid") var conceptSetUuid: String? = null,
-) : Parcelable
+) : BaseEntity(), Parcelable

@@ -60,10 +60,6 @@ class DownloadProtocolsWorker @AssistedInject constructor(
         workerResult
     }
 
-    private fun setFailResult() {
-        workerResult = Result.failure()
-    }
-
     private suspend fun checkResultState(result: StateResult<BaseResponse<Any?, String>>) {
         // Check if the download was successful
         handleState(result) { withContext(Dispatchers.IO) { handleSuccess(it) } }

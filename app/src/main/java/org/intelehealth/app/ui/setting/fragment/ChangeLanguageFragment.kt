@@ -21,6 +21,13 @@ import org.intelehealth.config.room.entity.ActiveLanguage
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * A fragment that allows the user to change the application's language.
+ *
+ * This fragment displays a list of available languages and allows the user to
+ * select a new language. It interacts with the [SettingViewModel] to update
+ * the selected language.
+ */
 @AndroidEntryPoint
 class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_language),
                                BaseViewHolder.ViewHolderClickListener {
@@ -36,6 +43,13 @@ class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_languag
         handleChangeLanguageClickEvent()
     }
 
+    /**
+     * Handles the click event for the "Change Language" button.
+     *
+     * This method retrieves the selected language from the adapter, updates the
+     * language in the [SettingViewModel], applies the new language, and navigates
+     * back to the previous screen.
+     */
     private fun handleChangeLanguageClickEvent() {
         binding.btnChangeLanguage.setOnClickListener {
             adapter.getList().find { it.selected }?.let {
@@ -46,6 +60,12 @@ class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_languag
         }
     }
 
+    /**
+     * Sets up the RecyclerView to display the list of languages.
+     *
+     * This method initializes the [LanguageAdapter], sets the click listener,
+     * and configures the RecyclerView with a linear layout and the adapter.
+     */
     private fun setupLanguageListView() {
         adapter = LanguageAdapter(requireContext(), emptyList())
         adapter.viewHolderClickListener = this

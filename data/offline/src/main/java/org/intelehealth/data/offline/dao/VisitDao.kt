@@ -42,5 +42,9 @@ interface VisitDao : CoreDao<Visit> {
     )
     fun getVisitStatusCount(visitCompletedId: String, visitSurveyExitId: String): LiveData<PrescriptionStatusCount>
 
+    @Query("SELECT * FROM tbl_visit WHERE synced = :synced AND voided = 0")
+    fun getAllUnsyncedVisits(synced: Boolean = false): List<Visit>
+
+
 //    suspend fun getCompletedByUserCount(userId: String, visitSurveyExitId: String): Int
 }

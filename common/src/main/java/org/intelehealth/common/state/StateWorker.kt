@@ -45,7 +45,7 @@ abstract class StateWorker(ctx: Context, params: WorkerParameters) : CoroutineWo
         workerResult = Result.failure(data)
     }
 
-    private fun setFailResult() {
+    protected fun setFailResult() {
         val data = workDataOf(WORK_STATUS to NO_DATA_FOUND)
         workerResult = Result.failure(data)
     }

@@ -7,6 +7,7 @@ import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.RestClient
 import org.intelehealth.data.network.model.SetupLocation
 import org.intelehealth.common.data.BaseDataSource
+import org.intelehealth.data.network.model.request.PushRequest
 import javax.inject.Inject
 
 /**
@@ -19,12 +20,18 @@ class SyncDataSource @Inject constructor(
     private val preferenceUtils: PreferenceUtils,
     networkHelper: NetworkHelper
 ) : BaseDataSource(networkHelper = networkHelper) {
-    fun pullData(pageNo: Int, pageLimit: Int) = getResult {
-        val locationStr = preferenceUtils.location
-        val location = Gson().fromJson(locationStr, SetupLocation::class.java)
-        location?.uuid ?: throw NotFoundException("Location not found")
-        apiClient.pullData(
-            preferenceUtils.basicToken, location.uuid!!, preferenceUtils.lastSyncedTime, pageNo, pageLimit
-        )
+
+    fun pullData(
+        basicToken: String,
+        locationId: String,
+        lastSyncedTime: String,
+        pageNo: Int,
+        pageLimit: Int
+    ) = getResult {
+        apiClient.pullData(basicToken, locationId, lastSyncedTime, pageNo, pageLimit)
+    }
+
+    fun pushData(basicToken: String, pushRequest: PushRequest) = getResult {
+        apiClient.pushData(basicToken, pushRequest)
     }
 }

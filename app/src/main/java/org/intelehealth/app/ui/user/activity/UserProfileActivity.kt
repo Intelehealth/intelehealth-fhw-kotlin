@@ -14,6 +14,13 @@ import org.intelehealth.common.ui.activity.SimpleAppBarActivity
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * An activity that hosts the user profile screens.
+ *
+ * This activity uses a [NavHostFragment] to manage navigation between different
+ * user profile-related screens. It displays a toolbar with the title of the
+ * current screen.
+ */
 @AndroidEntryPoint
 class UserProfileActivity : SimpleAppBarActivity() {
 
@@ -42,7 +49,8 @@ class UserProfileActivity : SimpleAppBarActivity() {
     }
 
     /**
-     * Setup navigation controller with toolbar
+     * Sets up the navigation controller and synchronizes the toolbar title with
+     * the current destination.
      */
     private fun setupNavigation() {
         navController.addOnDestinationChangedListener { _, destination, _ ->

@@ -16,6 +16,13 @@ import org.intelehealth.app.ui.achievement.viewmodel.AchievementViewModel
  * Mob   : +919727206702
  **/
 
+/**
+ * Fragment to display the user's overall achievements.
+ *
+ * This fragment provides an overview of the user's achievements, including
+ * their total score and other relevant metrics. It fetches the data from
+ * the ViewModel and updates the UI accordingly.
+ */
 @AndroidEntryPoint
 class AchievementOverallFragment : Fragment(R.layout.fragment_overall_achievements) {
     private lateinit var binding: FragmentOverallAchievementsBinding
@@ -27,6 +34,9 @@ class AchievementOverallFragment : Fragment(R.layout.fragment_overall_achievemen
         observeData()
     }
 
+    /**
+     * Observes the overall achievement data from the ViewModel and updates the UI.
+     */
     private fun observeData() {
         viewModel.fetchOverallAchievement()
         viewModel.overallAchievementLiveData.observe(viewLifecycleOwner) { achievement ->

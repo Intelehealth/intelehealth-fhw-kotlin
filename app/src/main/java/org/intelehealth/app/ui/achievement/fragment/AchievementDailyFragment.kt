@@ -19,6 +19,13 @@ import java.util.Date
  * Mob   : +919727206702
  **/
 
+/**
+ * Fragment to display the user's daily achievements.
+ *
+ * This fragment allows users to view their achievements for a specific day.
+ * It includes a date picker to select the day and displays the corresponding
+ * achievement data.
+ */
 @AndroidEntryPoint
 class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) {
     private lateinit var binding: FragmentDailyAchievementsBinding
@@ -31,6 +38,9 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
         setupRecordDate()
     }
 
+    /**
+     * Sets up the initial date and click listener for the date selection button.
+     */
     private fun setupRecordDate() {
         binding.btnCurrentDate.tag = Calendar.getInstance().timeInMillis
 
@@ -46,6 +56,9 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
         fetchRecordData()
     }
 
+    /**
+     * Fetches the achievement data for the currently selected date.
+     */
     private fun fetchRecordData() {
         val timeInMillis = binding.btnCurrentDate.tag as Long
         DateTimeUtils.formatToLocalDate(Date(timeInMillis), DateTimeUtils.YYYY_MM_DD_HYPHEN).apply {
@@ -53,6 +66,9 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
         }
     }
 
+    /**
+     * Observes the daily achievement data from the ViewModel and updates the UI.
+     */
     private fun observeData() {
         viewModel.dailyAchievementLiveData.observe(viewLifecycleOwner) { achievement ->
             binding.apply {
@@ -61,6 +77,11 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
         }
     }
 
+    /**
+     * Shows a date picker dialog to allow the user to select a different date.
+     *
+     * @param selectedDate The currently selected date in milliseconds.
+     */
     private fun showDatePickerDialog(selectedDate: Long) {
         CalendarDialog.Builder()
             .maxDate(Calendar.getInstance().timeInMillis)
@@ -70,6 +91,9 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
             .build().show(childFragmentManager, CalendarDialog.TAG)
     }
 
+    /**
+     * Listener for the date picker dialog.
+     */
     private val dateListener = object : CalendarDialog.OnDatePickListener {
         override fun onDatePick(day: Int, month: Int, year: Int, value: String?) {
             value?.let { binding.btnCurrentDate.text = it }
@@ -77,6 +101,13 @@ class AchievementDailyFragment : Fragment(R.layout.fragment_daily_achievements) 
         }
     }
 
+    /**
+     * Sets the selected date based on the date picker result and fetches new data.
+     *
+     * @param day The selected day of the month.
+     * @param month The selected month (0-indexed).
+     * @param year The selected year.
+     */
     private fun setSelectedDate(day: Int, month: Int, year: Int) {
         Calendar.getInstance().apply {
             set(Calendar.YEAR, year)

@@ -10,8 +10,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "tbl_appointments")
 data class Appointment(
-    @PrimaryKey
-    @SerializedName("uuid") var uuid: String,
     @ColumnInfo("appointment_id") @SerializedName("appointment_id") var appointmentId: Int = 0,
     @ColumnInfo("slot_day") @SerializedName("slot_day") var slotDay: String? = null,
     @ColumnInfo("slot_date") @SerializedName("slot_date") var slotDate: String? = null,
@@ -27,14 +25,12 @@ data class Appointment(
     @ColumnInfo("open_mrs_id") @SerializedName("open_mrs_id") var openMrsId: String? = null,
     @ColumnInfo("patient_id") @SerializedName("patient_id") var patientId: String? = null,
     @SerializedName("status") var status: String? = null,
-    @ColumnInfo("created_at") @SerializedName("created_at") var createdAt: String? = null,
-    @ColumnInfo("updated_at") @SerializedName("updated_at") var updatedAt: String? = null,
+    @ColumnInfo("created_at") @SerializedName("created_at") override var createdAt: String? = null,
+    @ColumnInfo("updated_at") @SerializedName("updated_at") override var updatedAt: String? = null,
     @ColumnInfo("location_uuid") @SerializedName("location_uuid") var locationUuid: String? = null,
     @ColumnInfo("hw_uuid") @SerializedName("hw_uuid") var hwUuid: String? = null,
     @SerializedName("reason") var reason: String? = null,
     @ColumnInfo("prev_slot_day") @SerializedName("prev_slot_day") var prevDaySlot: String? = null,
     @ColumnInfo("prev_slot_date") @SerializedName("prev_slot_date") var prevDateSlot: String? = null,
     @ColumnInfo("prev_slot_time") @SerializedName("prev_slot_time") var prevTimeSlot: String? = null,
-    @SerializedName("voided") var voided: Int = 0,
-    @SerializedName("sync") var sync: Boolean = false,
-) : Parcelable
+) : BaseEntity(), Parcelable

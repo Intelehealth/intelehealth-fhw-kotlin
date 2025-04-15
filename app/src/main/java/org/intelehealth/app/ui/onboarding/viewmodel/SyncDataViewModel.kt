@@ -21,12 +21,23 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * ViewModel responsible for initiating and managing the data synchronization
+ * process.
+ *
+ * This ViewModel interacts with the WorkManager to enqueue a
+ * [SyncDataWorker], which performs the actual data synchronization in the
+ * background.
+ */
 @HiltViewModel
 class SyncDataViewModel @Inject constructor(
     networkHelper: NetworkHelper,
     workManager: WorkManager
 ) : WorkerViewModel(workManager = workManager, networkHelper = networkHelper) {
 
+    /**
+     * Starts the data synchronization process by enqueuing a [SyncDataWorker].
+     */
     fun startDataSync() {
         val configWorkRequest = OneTimeWorkRequestBuilder<SyncDataWorker>().build()
         enqueueOneTimeWorkRequest(configWorkRequest)
