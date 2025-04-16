@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="language"
+            type="org.intelehealth.config.room.entity.ActiveLanguage" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_rb_choose_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:layout_marginEnd="@dimen/std_16dp"
+        android:background="@color/color_language_bg"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/std_16dp">
+
+        <RadioButton
+            android:id="@+id/rb_choose_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:buttonTint="@null"
+            android:checked="@{language.selected}"
+            android:clickable="false"
+            android:drawableStart="@drawable/selector_radio_button"
+            android:drawablePadding="@dimen/std_16dp"
+            android:padding="@dimen/std_16dp"
+            android:text="@{language.name}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/std_20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="English" />
+
+        <TextView
+            android:id="@+id/tvGeneralName"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:text="@{language.generalName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="English" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

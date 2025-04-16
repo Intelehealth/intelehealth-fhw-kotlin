@@ -1,0 +1,12 @@
+- Kotlin Migration
+- Removed all background tasks from ui thread
+- Removed all deprecated methods
+- Removed all unused methods
+- Removed all unused classes
+- Well architected code with proper package structure, naming conventions, dependency injection, MVVM, Clean architecture,
+  modularity, reusability, dynamic feature, proper build system and version upgrade etc
+- Added proper error handling
+- Added proper logging
+- Added proper comments
+- Added proper documentation
+- Improve app consent flow using best systematics approach

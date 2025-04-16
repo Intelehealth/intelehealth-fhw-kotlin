@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_icon_bg"
+    android:paddingVertical="@dimen/std_8dp"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/std_8dp">
+
+
+    <ImageView
+        android:id="@+id/ivNotificationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/action_notification"
+        android:foregroundGravity="center_horizontal"
+        android:src="@drawable/ic_notifications"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vNotificationBadge"
+        android:layout_width="@dimen/std_10dp"
+        android:layout_height="@dimen/std_10dp"
+        android:background="@drawable/ic_notification_badge"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@id/ivNotificationIcon"
+        app:layout_constraintTop_toTopOf="@id/ivNotificationIcon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

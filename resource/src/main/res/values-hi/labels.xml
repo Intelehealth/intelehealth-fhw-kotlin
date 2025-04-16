@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Component labels  -->
+    <string name="lbl_close">बंद करें</string>
+    <string name="lbl_update">अपडेट करें</string>
+    <string name="lbl_cancel">रद्द करें</string>
+    <string name="lbl_ok">ठीक है</string>
+    <string name="lbl_save">सहेजें</string>
+    <string name="lbl_delete">हटाएँ</string>
+    <string name="lbl_edit">संपादित करें</string>
+    <string name="lbl_done">संपन्न</string>
+    <string name="lbl_next">अगला</string>
+    <string name="lbl_previous">पिछला</string>
+    <string name="lbl_retry">पुनः प्रयास करें</string>
+    <string name="lbl_selected_language">भाषा चुनें</string>
+    <string name="lbl_skip">छोड़ें</string>
+    <string name="lbl_setup">सेटअप</string>
+    <string name="lbl_location">स्थान</string>
+    <string name="lbl_username">उपयोगकर्ता नाम</string>
+    <string name="lbl_password">पासवर्ड</string>
+    <string name="lbl_confirm_new_password">नया पासवर्ड कन्फ़र्म करें</string>
+    <string name="lbl_new_password">नया पासवर्ड</string>
+    <string name="lbl_chw_id">CHW ID: %1$s</string>
+    <string name="lbl_mcc_id">MCC ID: %1$s</string>
+    <string name="lbl_edit_profile">प्रोफ़ाइल संपादित करें</string>
+    <string name="lbl_prescription">पर्चे</string>
+    <string name="lbl_open_visits">ओपन विज़िट</string>
+    <string name="lbl_appointments">अपॉइंटमेंट</string>
+    <string name="lbl_follow_up_visits">फ़ॉलो-अप विज़िट</string>
+    <string name="lbl_upcoming">%1$s आगामी</string>
+    <string name="lbl_pending">%1$s लंबित</string>
+    <string name="lbl_most_searched">सबसे अधिक सर्च किया हुआ</string>
+    <string name="lbl_frequently_asked_ques">वारंवार विचारले जाणारे प्रश्न</string>
+    <string name="lbl_level">लेवल %1$d</string>
+    <string name="lbl_from">से</string>
+    <string name="lbl_to">तक</string>
+    <string name="lbl_language">भाषा</string>
+    <string name="lbl_protocols">प्रोटोकॉल्स</string>
+    <string name="lbl_blackout">निष्प्रदीप करना</string>
+    <string name="lbl_first_name">पहला नाम</string>
+    <string name="lbl_middle_name">मध्य नाम</string>
+    <string name="lbl_last_name">उपनाम</string>
+    <string name="lbl_gender">लिंग</string>
+    <string name="lbl_male">पुरुष</string>
+    <string name="lbl_female">महिला</string>
+    <string name="lbl_other">अन्य</string>
+    <string name="lbl_age">आयु</string>
+    <string name="lbl_date_of_birth">जन्म तिथि</string>
+    <string name="lbl_phone_number">फ़ोन नंबर</string>
+    <string name="lbl_email">ईमेल</string>
+    <string name="lbl_current_password">वर्तमान पासवर्ड</string>
+</resources>

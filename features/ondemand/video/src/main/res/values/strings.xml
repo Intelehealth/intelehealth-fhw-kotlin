@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="content_no_logs">No Calls</string>
+    <string name="video_connecting">Connecting...</string>
+    <string name="video_doctor">Doctor Details</string>
+    <string name="video_patient">Patient</string>
+    <string name="video_you">You</string>
+    <string name="lbl_video_call">Video Call</string>
+<!--    <string name="call_logs">Call Logs</string>-->
+
+    <string name="video_on_lbl">Video On!</string>
+    <string name="video_off_lbl">Video Off!</string>
+    <string name="call_end_lbl">Call End!</string>
+    <string name="audio_off_lbl">Audio Off!</string>
+    <string name="audio_on_lbl">Audio On!</string>
+    <string name="video_on_off_button">Video On/off button</string>
+    <string name="flip_camera">Flip camera</string>
+    <string name="call_end_button">Call end button</string>
+    <string name="audio_on_off_button">audio on/off button</string>
+    <string name="video_call">Video Call</string>
+    <string name="you">You</string>
+    <string name="toggle_mic">Toggle microphone on/off</string>
+    <string name="call_swipe_up">Swipe Up</string>
+    <string name="release_now">Release Now</string>
+    <string name="doctor_annotation">Dr.</string>
+    <string name="call_end_aler_txt">Do you want to end the video call ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+</resources>

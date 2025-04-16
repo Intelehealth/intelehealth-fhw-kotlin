@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/std_16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAboutUsThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="1"
+            tools:listitem="@layout/row_item_about_us_slide" />
+
+        <TextView
+            android:id="@+id/tvAboutUsDescription"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:justificationMode="inter_word"
+            android:text="@string/content_about_us_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvAboutUsThumbnail" />
+
+        <TextView
+            android:id="@+id/tvAboutUsTermCondition"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:drawablePadding="@dimen/std_8dp"
+            android:gravity="center_vertical"
+            android:text="@string/content_about_us_terms_condition"
+            android:textColorLink="@color/colorPrimary"
+            app:drawableStartCompat="@drawable/ic_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAboutUsDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToWebsite"
+            style="@style/Theme.IDA.Button.Next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_64dp"
+            android:text="@string/action_go_to_website"
+            app:icon="@drawable/ic_browser"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAboutUsTermCondition" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

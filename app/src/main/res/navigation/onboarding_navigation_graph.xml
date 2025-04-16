@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setup_navigation_graph"
+    app:startDestination="@id/fragmentSplashScreen">
+
+    <fragment
+        android:id="@+id/fragmentSplashScreen"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.SplashFragment"
+        android:label=""
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splash_to_intro"
+            app:destination="@id/fragmentIntroScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentSplashScreen"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_home"
+            app:destination="@id/activityHomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentSplashScreen"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splash_to_login"
+            app:destination="@id/fragmentLoginScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentSplashScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentIntroScreen"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.IntroFragment"
+        android:label=""
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/action_intro_to_ayu_policy"
+            app:destination="@id/fragmentAyuPolicyScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentIntroScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentAyuPolicyScreen"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.AyuPolicyFragment"
+        android:label=""
+        tools:layout="@layout/fragment_ayu_policy">
+        <action
+            android:id="@+id/action_ayu_policy_to_setup"
+            app:destination="@id/fragmentSetupScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentAyuPolicyScreen"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_ayu_policy_to_consent"
+            app:destination="@id/fragmentConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentConsent"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.ConsentFragment"
+        android:label=""
+        tools:layout="@layout/fragment_consent">
+        <argument
+            android:name="consent_type"
+            app:argType="org.intelehealth.app.ui.onboarding.fragment.ConsentType" />
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="screenTitle"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_to_self"
+            app:destination="@id/fragmentConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSetupScreen"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.SetupFragment"
+        android:label=""
+        tools:layout="@layout/fragment_setup">
+        <action
+            android:id="@+id/action_setup_to_sync"
+            app:destination="@id/fragmentSyncScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentSetupScreen"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_setup_to_forgot_password"
+            app:destination="@id/fragmentForgotPasswordScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSyncScreen"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.SyncFragment"
+        android:label=""
+        tools:layout="@layout/fragment_circular_progressbar">
+
+        <argument
+            android:name="user_name"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_sync_to_home"
+            app:destination="@id/activityHomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentSyncScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentLoginScreen"
+        android:name="org.intelehealth.app.ui.user.fragment.LoginFragment"
+        android:label=""
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/activityHomeScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentLoginScreen"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_login_to_forgot_password"
+            app:destination="@id/fragmentForgotPasswordScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentForgotPasswordScreen"
+        android:name="org.intelehealth.app.ui.user.fragment.ForgotPasswordFragment"
+        android:label=""
+        tools:layout="@layout/fragment_forgot_password">
+
+        <argument
+            android:name="requestFor"
+            android:defaultValue="password"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_forgot_password_to_otp_verification"
+            app:destination="@id/fragmentOtpVerificationScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentForgotPasswordScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentOtpVerificationScreen"
+        android:name="org.intelehealth.app.ui.user.fragment.OTPVerificationFragment"
+        android:label=""
+        tools:layout="@layout/fragment_otp_verification">
+        <argument
+            android:name="reqModel"
+            app:argType="org.intelehealth.data.network.model.request.OtpRequestParam" />
+        <action
+            android:id="@+id/action_otp_verification_to_reset_password"
+            app:destination="@id/fragmentResetPasswordScreen"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentOtpVerificationScreen"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentResetPasswordScreen"
+        android:name="org.intelehealth.app.ui.user.fragment.ResetPasswordFragment"
+        android:label=""
+        tools:layout="@layout/fragment_reset_password">
+
+        <argument
+            android:name="userUuid"
+            app:argType="string" />
+        <!--        <action-->
+        <!--            android:id="@+id/action_login_to_home"-->
+        <!--            app:destination="@id/activityHomeScreen" />-->
+    </fragment>
+
+    <activity
+        android:id="@+id/activityHomeScreen"
+        android:name="org.intelehealth.app.ui.home.activity.HomeActivity"
+        tools:layout="@layout/activity_home" />
+
+</navigation>

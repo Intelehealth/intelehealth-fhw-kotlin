@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="blackoutStatus"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
+        android:padding="@dimen/std_16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardElevation="@dimen/std_2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.InputBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/std_16dp"
+                android:drawableStart="@drawable/ic_language"
+                android:drawablePadding="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:text="@string/lbl_language"
+                android:textStyle="bold"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeLanguage"
+                style="@style/Theme.IDA.TextButton.Nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/lbl_language"
+                app:iconPadding="@dimen/std_16dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewProtocols"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardElevation="@dimen/std_2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewLanguage">
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.InputBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="@dimen/std_16dp"
+                android:drawableStart="@drawable/ic_protocols"
+                android:drawablePadding="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:text="@string/lbl_protocols"
+                android:textStyle="bold"
+                tools:ignore="UseCompatTextViewDrawableXml" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdateProtocols"
+                style="@style/Theme.IDA.TextButton.Nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:text="@string/lbl_update"
+                app:iconPadding="@dimen/std_16dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewBlackout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            app:cardCornerRadius="@dimen/std_8dp"
+            app:cardElevation="@dimen/std_2dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardViewProtocols">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_16dp">
+
+                <TextView
+                    android:id="@+id/tvLblBlackout"
+                    style="@style/Theme.IDA.TextAppearance.InputBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_protocols"
+                    android:drawablePadding="@dimen/std_16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/lbl_blackout"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UseCompatTextViewDrawableXml" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchBlackout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:checked="@{blackoutStatus}"
+                    app:layout_constraintBottom_toBottomOf="@id/tvLblBlackout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvLblBlackout" />
+
+                <View
+                    android:id="@+id/dividerBlackout"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:background="@color/colorLightGray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLblBlackout" />
+
+                <TextView
+                    android:id="@+id/tvContentBlackout"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:text="@string/content_blackout_period"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dividerBlackout" />
+
+                <TextView
+                    android:id="@+id/tvBlackoutPeriodTime"
+                    style="@style/Theme.IDA.TextAppearance.InputBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:text="@string/content_blackout_period_duration"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvContentBlackout"
+                    tools:text="From 9:00 PM To 6:00 AM" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

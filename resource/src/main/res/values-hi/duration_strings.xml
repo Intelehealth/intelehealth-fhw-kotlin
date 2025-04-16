@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="an_hour_ago">एक घंटा पहले</string>
+    <string name="hours_ago">%1$s घंटे पहले</string>
+    <string name="a_min_ago">एक मिनट पहले</string>
+    <string name="mins_ago">%1$s मिनट पहले</string>
+    <string name="a_second_ago">एक सेकंड पहले</string>
+    <string name="seconds_ago">%1$s सेकंड पहले</string>
+    <string name="today">आज</string>
+    <string name="today_at">आज पर</string>
+    <string name="yesterday">कल पर</string>
+    <string name="now">अभी</string>
+</resources>

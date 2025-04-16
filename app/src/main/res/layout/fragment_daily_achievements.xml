@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="achievementScore"
+            type="org.intelehealth.app.model.achievement.Achievement" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCurrentDate"
+            style="@style/Theme.IDA.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/std_16dp"
+            android:textColor="@color/colorTextSecondary"
+            app:icon="@drawable/ic_calendar"
+            app:iconPadding="@dimen/std_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1 March, 2022" />
+
+        <include
+            android:id="@+id/contentAchievement"
+            achievement="@{achievementScore}"
+            layout="@layout/content_achievements"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/btnCurrentDate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

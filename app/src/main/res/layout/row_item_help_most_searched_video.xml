@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="youtubeVideoItem"
+            type="org.intelehealth.app.model.help.YoutubeVideoItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/std_16dp"
+        tools:ignore="RtlSymmetry">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/sivVideoThumbnail"
+            imgUrl="@{youtubeVideoItem.thumbnailUrl}"
+            android:layout_width="@dimen/youtube_thumbnail_width"
+            android:layout_height="0dp"
+            android:background="@color/colorDeactivated"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/video_transition"
+            app:layout_constraintDimensionRatio="22:13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner8dpRadius" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnHelpPlayVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/content_desc_play_video"
+            android:src="@drawable/ic_play_video"
+            app:layout_constraintBottom_toBottomOf="@id/sivVideoThumbnail"
+            app:layout_constraintEnd_toEndOf="@id/sivVideoThumbnail"
+            app:layout_constraintStart_toStartOf="@id/sivVideoThumbnail"
+            app:layout_constraintTop_toTopOf="@id/sivVideoThumbnail" />
+
+        <TextView
+            android:id="@+id/tvVideoDesc"
+            style="@style/Theme.IDA.TextAppearance.Primary.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_8dp"
+            android:lineSpacingExtra="@dimen/std_4dp"
+            android:textAlignment="center"
+            android:value="@{youtubeVideoItem.description}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sivVideoThumbnail"
+            tools:text="@string/content_how_to_register" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

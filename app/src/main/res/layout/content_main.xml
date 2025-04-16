@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/appBarLayout"
+            layout="@layout/simple_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/navHome"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?actionBarSize"
+            app:defaultNavHost="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:navGraph="@navigation/home_navigation_graph" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/top_rounded_white_bg"
+            android:foregroundTint="?colorPrimary"
+            app:elevation="8dip"
+            app:itemBackground="@drawable/bottom_nav_tab_background"
+            app:itemIconSize="@dimen/std_24dp"
+            app:itemIconTint="@color/color_bottom_nav_icon"
+            app:itemRippleColor="?attr/colorPrimary"
+            app:itemTextColor="@color/color_bottom_nav_icon"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/menu_home_footer" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

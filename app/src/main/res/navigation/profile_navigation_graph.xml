@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_navigation_graph"
+    app:startDestination="@id/nav_user_profile">
+
+    <fragment
+        android:id="@+id/nav_user_profile"
+        android:name="org.intelehealth.app.ui.user.fragment.UserProfileFragment"
+        android:label="@string/title_my_profile"
+        tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/nav_profile_to_change_password"
+            app:destination="@id/nav_change_password"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_change_password"
+        android:name="org.intelehealth.app.ui.user.fragment.ChangePasswordFragment"
+        android:label="@string/action_change_password"
+        tools:layout="@layout/fragment_change_password" />
+
+</navigation>

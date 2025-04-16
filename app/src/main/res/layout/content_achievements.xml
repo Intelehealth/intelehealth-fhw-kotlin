@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="achievement"
+            type="org.intelehealth.app.model.achievement.Achievement" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/std_16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAchievementPatientAddedCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_8dp"
+            android:background="@drawable/rounded_corner_primary_light_bg"
+            android:padding="@dimen/std_16dp"
+            app:elevation="@dimen/std_8dp"
+            app:layout_constraintBottom_toTopOf="@id/clAchievementSatisfactionScoreCard"
+            app:layout_constraintDimensionRatio="@string/dimension_ratio_achievement_card"
+            app:layout_constraintEnd_toStartOf="@id/clAchievementCompletedVisitCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/action_add_patient"
+                android:src="@drawable/ic_selected_menu_add_patient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_patients_added"
+                android:textColor="@color/colorTextPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPatientAddedValue"
+                style="@style/Theme.IDA.TextAppearance.Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@{String.valueOf(achievement.patientAdded)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1h 20m" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAchievementCompletedVisitCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_8dp"
+            android:background="@drawable/rounded_corner_accent_light_bg"
+            android:padding="@dimen/std_16dp"
+            app:elevation="@dimen/std_8dp"
+            app:layout_constraintBottom_toTopOf="@id/clAchievementTimeSpentCard"
+            app:layout_constraintDimensionRatio="@string/dimension_ratio_achievement_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clAchievementPatientAddedCard"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/action_add_patient"
+                android:src="@drawable/ic_visits_completed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_visits_completed_by_you"
+                android:textColor="@color/colorTextPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvVisitCompletedValue"
+                style="@style/Theme.IDA.TextAppearance.Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@{String.valueOf(achievement.completedVisit)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1h 20m" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAchievementSatisfactionScoreCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:background="@drawable/rounded_corner_accent_light_bg"
+            android:padding="@dimen/std_16dp"
+            app:elevation="@dimen/std_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="@string/dimension_ratio_achievement_card"
+            app:layout_constraintEnd_toStartOf="@id/clAchievementTimeSpentCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clAchievementPatientAddedCard">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/action_add_patient"
+                android:src="@drawable/ic_satisfaction_score"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_your_patient_score"
+                android:textColor="@color/colorTextPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSatisfactionScoreValue"
+                style="@style/Theme.IDA.TextAppearance.Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@{String.valueOf(achievement.satisfactionScore)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1h 20m" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAchievementTimeSpentCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:background="@drawable/rounded_corner_primary_light_bg"
+            android:padding="@dimen/std_16dp"
+            app:elevation="@dimen/std_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="@string/dimension_ratio_achievement_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clAchievementSatisfactionScoreCard"
+            app:layout_constraintTop_toBottomOf="@id/clAchievementCompletedVisitCard">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/action_add_patient"
+                android:src="@drawable/ic_time_spent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/content_daily_avg_time_spent"
+                android:textColor="@color/colorTextPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTimeSpentValue"
+                style="@style/Theme.IDA.TextAppearance.Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@{achievement.timeSpent}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="1h 20m" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

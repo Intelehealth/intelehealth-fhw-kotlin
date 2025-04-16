@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+
+        <TextView
+            android:id="@+id/tv_setup"
+            style="@style/Theme.IDA.Dark.TextAppearance.Heading1.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:gravity="start"
+            android:text="@string/lbl_setup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivSetupIcon" />
+
+        <TextView
+            android:id="@+id/tv_setup_note"
+            style="@style/Theme.IDA.Dark.TextAppearance.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:gravity="start"
+            android:text="@string/content_one_time_setup"
+            app:layout_constraintBottom_toBottomOf="@id/ivSetupIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_setup" />
+
+        <ImageView
+            android:id="@+id/ivSetupIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:contentDescription="@string/lbl_setup"
+            android:src="@drawable/ic_onboarding_setup"
+            app:layout_constraintBottom_toTopOf="@id/viewAuthenticationForm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <include
+            android:id="@+id/viewAuthenticationForm"
+            layout="@layout/view_authentication_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:btnLbl="@{@string/action_setup}"
+            app:isLocationEnabled="@{true}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

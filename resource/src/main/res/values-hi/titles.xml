@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Screens Title -->
+    <string name="title_new_update">नया अपडेट उपलब्ध है</string>
+    <string name="title_error">त्रुटि</string>
+    <string name="title_terms_and_conditions">नियम व शर्तों</string>
+    <string name="title_privacy_policy">गोपनीयता नीति</string>
+    <string name="title_teleconsultation_consent">टेलीकंसल्टेशन सहमति</string>
+    <string name="title_terms_of_use">उपयोग की शर्तें</string>
+    <string name="title_personal_data_consent">व्यक्तिगत डेटा सहमति</string>
+    <string name="title_personal_data_processing_policy">व्यक्तिगत डेटा प्रोसेसिंग नीति</string>
+    <string name="title_forgot_password">पासवर्ड भूल गए</string>
+    <string name="title_reset_password">पासवर्ड रीसेट करें</string>
+    <string name="title_login">लॉगिन</string>
+    <string name="title_my_profile">मेरा प्रोफ़ाइल</string>
+
+    <!-- Dialog Title -->
+    <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
+    <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>
+    <string name="dialog_title_network_failure">नेटवर्क विफलता!</string>
+    <string name="dialog_title_select_image">छवि चुने</string>
+</resources>

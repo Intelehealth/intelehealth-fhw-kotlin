@@ -1,0 +1,47 @@
+[versions]
+agp = "8.8.0"
+detekt = "1.23.7"
+kotlin = "1.9.24"
+#coreKtx = "1.15.0"
+#junit = "4.13.2"
+#junitVersion = "1.2.1"
+#espressoCore = "3.6.1"
+#appcompat = "1.7.0"
+#material = "1.12.0"
+daggerHilt = "2.51.1"
+safeArgs = "2.8.6"
+#serialization = "1.9.24"
+#navigationFragmentKtx = "2.8.6"
+#navigationUiKtx = "2.8.6"
+googleServices = "4.4.2"
+firebaseCrashlytics = "3.0.3"
+#ksp = "1.9.10-1.0.13"
+
+[libraries]
+detekt-cli = { group = "io.gitlab.arturbosch.detekt", name = "detekt-cli", version.ref = "detekt" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+#androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+#junit = { group = "junit", name = "junit", version.ref = "junit" }
+#androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+#androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+#androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+#material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+#androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+#androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
+navigation-safe-args = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeArgs" }
+#androidx-navigation = { id = "androidx.navigation" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+#kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+androidx-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "agp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
+detekt-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnHelp"
+            style="@style/Theme.IDA.TextButton.Help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_8dp"
+            app:icon="@drawable/ic_info"
+            app:iconGravity="end"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toolbar" />
+
+        <include
+            android:id="@+id/forgotPasswordHeader"
+            layout="@layout/view_forgot_password_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_rounded_white_bg"
+            android:orientation="vertical"
+            android:padding="@dimen/std_16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvLblEnterVerificationCode"
+                style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_24dp"
+                android:text="@string/content_enter_verification_coe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvInfoOtpSent"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/content_otp_sent_on_registered_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLblEnterVerificationCode" />
+
+            <include
+                android:id="@+id/viewOtpInputBox"
+                layout="@layout/view_otp_input_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvInfoOtpSent" />
+
+            <LinearLayout
+                android:id="@+id/llResendOtp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewOtpInputBox">
+
+                <TextView
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/content_did_not_received_otp" />
+
+                <TextView
+                    android:id="@+id/tvResendOtp"
+                    style="@style/Theme.IDA.TextAppearance.Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/std_8dp"
+                    android:text="@string/content_resend_otp_in"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerifyOtpContinue"
+                style="@style/Theme.IDA.Button.Next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_64dp"
+                android:text="@string/action_continue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llResendOtp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

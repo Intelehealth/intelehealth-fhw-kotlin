@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_start_typing_location">Start typing or select location</string>
+    <string name="hint_enter_username">Enter your username</string>
+    <string name="hint_enter_password">Enter your password</string>
+    <string name="hint_reenter_new_password">Re-enter new password</string>
+    <string name="hint_new_password">@string/lbl_new_password</string>
+    <string name="hint_find_patient">Find patient</string>
+    <string name="hint_enter_mobile_number">Enter mobile number</string>
+    <string name="hint_license_key">Enter license key</string>
+    <string name="hint_enter_first_name">Enter your first name</string>
+    <string name="hint_enter_middle_name">Enter your middle name</string>
+    <string name="hint_enter_last_name">Enter your last name</string>
+    <string name="hint_enter_phone_number">Enter phone number</string>
+    <string name="hint_enter_your_email">Enter email id</string>
+    <string name="hint_enter_current_password">Enter current password</string>
+</resources>

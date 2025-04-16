@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/layout_parent_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_splash_bg"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/layout_collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/login_collapsing_layout_height"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+                app:title="@string/title_login">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_splash_bg"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_welcome_back"
+                        style="@style/Theme.IDA.Dark.TextAppearance.Heading1.Bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/content_welcome_back"
+                        app:layout_constraintBottom_toTopOf="@id/ivAppLogo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+
+                    <ImageView
+                        android:id="@+id/ivAppLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/std_16dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/app_name"
+                        android:maxHeight="@dimen/inner_screen_logo_height"
+                        android:src="@drawable/splash_logo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_welcome_back" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            android:id="@+id/viewAuthenticationForm"
+            layout="@layout/view_authentication_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            btnLbl="@{@string/title_login}"
+            app:isLocationEnabled="@{false}"
+            android:layout_marginTop="-16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/progressView"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,72 @@
+import extensions.androidTestDeps
+import extensions.featureOnDemandChatModuleDeps
+import extensions.unitTestDeps
+import io.gitlab.arturbosch.detekt.Detekt
+
+//plugins {
+//    id("com.android.dynamic-feature")
+//    id("org.jetbrains.kotlin.android")
+//    id("kotlin-parcelize")
+//    id("kotlin-kapt")
+//    id("dagger.hilt.android.plugin")
+//}
+
+plugins {
+    alias(libs.plugins.androidx.dynamic.feature)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.detekt.plugin)
+}
+
+apply("${rootProject.projectDir}/whitelabel.gradle")
+
+android {
+    namespace = "org.intelehealth.feature.chat"
+    compileSdk = AndroidConfig.COMPILE_SDK
+
+    defaultConfig {
+        minSdk = AndroidConfig.MIN_SDK
+
+        testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+//        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+//            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = AndroidConfig.JAVA_VERSION
+        targetCompatibility = AndroidConfig.JAVA_VERSION
+    }
+
+    kotlinOptions {
+        jvmTarget = AndroidConfig.JVM_TARGET
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+        buildConfig = true
+    }
+
+    kapt {
+        correctErrorTypes = true
+//        arguments {
+//            arg("dagger.hilt.android.internal.disableAndroidSuperclassValidation", "true")
+//            arg("dagger.hilt.android.internal.projectType", "APP")
+//            arg("dagger.hilt.internal.useAggregatingRootProcessor", "true")
+//        }
+    }
+}
+
+dependencies {
+    featureOnDemandChatModuleDeps()
+    unitTestDeps()
+    androidTestDeps()
+}

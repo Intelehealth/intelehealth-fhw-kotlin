@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="thumbId"
+            type="Integer" />
+    </data>
+
+    <com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sivAboutUsThumbnail"
+        imgResource="@{thumbId}"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/std_192dp"
+        android:scaleType="centerCrop"
+        android:background="@color/colorDeactivated"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Corner8dpRadius" />
+</layout>
