@@ -49,4 +49,45 @@
     <string name="lbl_phone_number">फ़ोन नंबर</string>
     <string name="lbl_email">ईमेल</string>
     <string name="lbl_current_password">वर्तमान पासवर्ड</string>
+    <string name="lbl_personal_identification">व्यक्तिगत</string>
+    <string name="lbl_address_identification">पता</string>
+    <string name="lbl_other_identification">अन्य</string>
+    <string name="lbl_city">गांव/कस्बा/शहर</string>
+    <string name="lbl_state">राज्य</string>
+    <string name="lbl_district">जिला</string>
+    <string name="lbl_country">देश</string>
+    <string name="lbl_postal_code">पोस्टल कोड</string>
+    <string name="lbl_years">साल</string>
+    <string name="lbl_months">महीने</string>
+    <string name="lbl_block">ब्लॉक</string>
+    <string name="lbl_household_no">घरेलू संख्या</string>
+    <string name="lbl_other_block">अन्य ब्लॉक</string>
+    <string name="lbl_province">प्रांत</string>
+    <string name="lbl_corresponding_address_1">संबंधित पता 1</string>
+    <string name="lbl_corresponding_address_2">संबंधित पता 2</string>
+    <string name="lbl_no_of_earning_members_are_there_in_the_household">नहीं. घर में कमाने वाले सदस्यों की संख्या</string>
+    <string name="lbl_household_no_survey">घरेलू संख्या*</string>
+    <string name="lbl_social_category">सामाजिक श्रेणी</string>
+    <string name="lbl_economic_category">आर्थिक श्रेणी</string>
+    <string name="lbl_national_id">राष्ट्रीय आईडी (नागरिकता आईडी, आधार नंबर, आदि)</string>
+    <string name="lbl_national_id_other_details">राष्ट्रीय आईडी</string>
+    <string name="lbl_tmh_case_number">TMH केस नंबर</string>
+    <string name="lbl_request_id">अनुरोध आईडी</string>
+    <string name="lbl_discipline">अनुशासन (विशेषता)</string>
+    <string name="lbl_department">विभाग</string>
+    <string name="lbl_relative_phone_number">सापेक्ष फ़ोन नंबर</string>
+    <string name="lbl_inn">INN</string>
+    <string name="lbl_code_of_the_health_facility">स्वास्थ्य सुविधा का कोड</string>
+    <string name="lbl_health_facility_name">स्वास्थ्य सुविधा का नाम</string>
+    <string name="lbl_code_of_the_department">विभाग का कोड</string>
+    <string name="lbl_education">शिक्षा</string>
+    <string name="lbl_occupation">व्यवसाय दर्ज करें</string>
+    <string name="lbl_add_a_picture">फोटो जोड़े</string>
+    <string name="lbl_guardian_name">अभिभावक का नाम</string>
+    <string name="lbl_guardian_type">अभिभावक का प्रकार</string>
+    <string name="lbl_contact_type">संपर्क का प्रकार</string>
+    <string name="lbl_emergency_contact">आपातकालीन संपर्क नंबर</string>
+    <string name="lbl_emergency_contact_name">आपातकालीन संपर्क नाम</string>
+
+
 </resources>

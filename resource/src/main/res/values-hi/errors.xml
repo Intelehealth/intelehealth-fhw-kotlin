@@ -17,4 +17,7 @@
     <string name="error_password_validation">पासवर्ड में कम से कम 8 या इससे अधिक कैरेक्टर होने चाहिए और स्मॉल, कैपिटल कैरेक्टर और डिज़िट्स का संयोजन होना चाहिए।</string>
     <string name="error_invalid_mobile_number">मोबाइल नंबर की न्यूनतम लंबाई %1$d है</string>
     <string name="error_password_exists">पासवर्ड पहले से मौजूद है, कृपया दूसरे पासवर्ड से प्रयास करें</string>
+    <string name="error_profile_picture_is_mandatory">प्रोफ़ाइल चित्र अनिवार्य है</string>
+    <string name="error_mandatory_field">यह फ़ील्ड अनिवार्य है</string>
+    <string name="error_phone_number_and_emergency_number_can_not_be_the_same">फ़ोन नंबर और आपातकालीन नंबर एक जैसा नहीं हो सकता</string>
 </resources>

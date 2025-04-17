@@ -28,6 +28,7 @@ open class PersonAddress(
     @ColumnInfo("state") @SerializedName("stateprovince") var state: String? = null,
     @ColumnInfo("postal_code") @SerializedName("postal_code") var postalCode: String? = null,
     @SerializedName("country") var country: String? = null,
+    @SerializedName("address_of_hf") var addressOfHf: String? = null,
 ) : BaseEntity(), Parcelable {
     override fun toString(): String = Gson().toJson(this)
 }

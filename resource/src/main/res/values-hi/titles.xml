@@ -13,7 +13,10 @@
     <string name="title_reset_password">पासवर्ड रीसेट करें</string>
     <string name="title_login">लॉगिन</string>
     <string name="title_my_profile">मेरा प्रोफ़ाइल</string>
-
+    <string name="title_add_new_patient">Add New Patient</string>
+    <string name="title_other_fuel_type">अन्य ईंधन प्रकार</string>
+    <string name="title_other_lighting_source">अन्य प्रकाश स्रोत</string>
+    <string name="title_other_water_purification">अन्य जल शोधन विधि</string>
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>
