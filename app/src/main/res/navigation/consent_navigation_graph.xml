@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragmentConsent"
+    android:id="@+id/consent_navigation_graph">
+
+    <fragment
+        android:id="@+id/fragmentConsent"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.ConsentFragment"
+        android:label=""
+        tools:layout="@layout/fragment_consent">
+        <argument
+            android:name="consent_type"
+            app:argType="org.intelehealth.app.ui.onboarding.fragment.ConsentType" />
+
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="screenTitle"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_to_self"
+            app:destination="@id/fragmentConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+</navigation>

@@ -1,4 +1,4 @@
-package org.intelehealth.app.ui.patient.config
+package org.intelehealth.config.presenter.fields.patient.infoconfig
 
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 

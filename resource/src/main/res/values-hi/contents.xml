@@ -88,5 +88,6 @@
     <string name="content_reject_permission_warning">यदि आप अनुमति को अस्वीकार करते हैं,तो आप इस सेवा का उपयोग नहीं कर सकते| कृपया सेटिंग-> अनुमति पर चालू करें</string>
     <string name="content_profile_updated_successfully">प्रोफ़ाइल सफलतापूर्वक अपडेट हो गई!</string>
     <string name="content_recommend_after_password_change">आपका पासवर्ड सफलतापूर्वक अपडेट कर दिया गया है। आपकी सुरक्षा के लिए, आपको एप्लिकेशन से लॉग आउट कर दिया गया है। कृपया जारी रखने के लिए अपने नए पासवर्ड से फिर से लॉग इन करें।</string>
-
+    <string name="content_address_to_other_info">Address to Other info</string>
+    <string name="content_personal_to_address_info">Personal to address info</string>
 </resources>

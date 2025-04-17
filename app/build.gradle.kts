@@ -17,6 +17,7 @@ plugins {
 
 apply("${rootProject.projectDir}/whitelabel.gradle")
 apply("${rootProject.projectDir}/variants.gradle")
+apply("resdir.gradle")
 
 android {
     namespace = AndroidConfig.IDA.APPLICATION_ID

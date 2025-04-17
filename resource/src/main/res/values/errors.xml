@@ -17,4 +17,7 @@
     <string name="error_password_validation">Password length must be greater or equal to 8 and with combination of small, capital characters and digits</string>
     <string name="error_invalid_mobile_number">Min length of mobile number is %1$d</string>
     <string name="error_password_exists">Password already exists, Please try with another</string>
+    <string name="error_profile_picture_is_mandatory">Profile picture is mandatory</string>
+    <string name="error_mandatory_field">This field is mandatory</string>
+    <string name="error_phone_number_and_emergency_number_can_not_be_the_same">Phone Number and Emergency Number cannot be the same</string>
 </resources>

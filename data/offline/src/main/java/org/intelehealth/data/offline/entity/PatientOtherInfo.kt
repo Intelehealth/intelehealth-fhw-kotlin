@@ -1,0 +1,41 @@
+package org.intelehealth.data.offline.entity
+
+import androidx.room.Entity
+
+/**
+ * Created by Vaghela Mithun R. on 16-04-2025 - 19:44.
+ * Email : mithun@intelehealth.org
+ * Mob   : +919727206702
+ **/
+@Entity
+data class PatientOtherInfo(
+    var nationalId: String? = null,
+    var occupations: String? = null,
+    var socialCategory: String? = null,
+    var education: String? = null,
+    var tmhCaseNumber: String? = null,
+    var requestId: String? = null,
+    var relativePhoneNumber: String? = null,
+    var discipline: String? = null,
+    var department: String? = null,
+    var inn: String? = null,
+    var healthFacilityName: String? = null,
+    var codeOfDepartment: String? = null,
+    var emergencyContactName: String? = null,
+    var emergencyContactNumber: String? = null,
+    var emergencyContactType: String? = null,
+    var telephone: String? = null,
+    var economicStatus: String? = null,
+    var providerId: String? = null,
+    var occupation: String? = null,
+    var swd: String? = null,
+    var profileImgTimestamp: String? = null,
+    var cast: String? = null,
+    var createdDate: String? = null,
+    var provinces: String? = null,
+    var cities: String? = null,
+    var registrationAddressOfHf: String? = null,
+    var codeOfHealthFacility: String? = null,
+    var householdUuidLinking: String? = null,
+    var block: String? = null,
+)

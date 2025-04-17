@@ -10,5 +10,6 @@ package org.intelehealth.app.model.address
  * @property cities An [ArrayList] of [String] representing the names of cities.
  */
 data class ProvincesAndCities(
-    var provinces: ArrayList<String> = arrayListOf(), var cities: ArrayList<String> = arrayListOf()
+    var provinces: ArrayList<String> = arrayListOf(),
+    var cities: ArrayList<String> = arrayListOf()
 )

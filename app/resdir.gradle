@@ -1,0 +1,18 @@
+android{
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res',
+                        'src\\main\\res\\onboarding',
+                        'src\\main\\res\\user',
+                        'src\\main\\res\\patient',
+                        'src\\main\\res\\home',
+                        'src\\main\\res\\help',
+                        'src\\main\\res\\achievement',
+                        'src\\main\\res\\aboutus',
+                        'src\\main\\res\\setting',
+                        'src\\main\\res\\prescription'
+            }
+        }
+    }
+}

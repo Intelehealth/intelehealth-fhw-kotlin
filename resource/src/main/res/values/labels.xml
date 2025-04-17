@@ -49,4 +49,45 @@
     <string name="lbl_phone_number">Phone number</string>
     <string name="lbl_email">Email</string>
     <string name="lbl_current_password">Current password</string>
+    <string name="lbl_personal_identification">Personal</string>
+    <string name="lbl_address_identification">Address</string>
+    <string name="lbl_other_identification">Other</string>
+    <string name="lbl_city">Village/Town/City</string>
+    <string name="lbl_state">State</string>
+    <string name="lbl_district">District</string>
+    <string name="lbl_country">Country</string>
+    <string name="lbl_postal_code">Postal code</string>
+    <string name="lbl_years"> years </string>
+    <string name="lbl_months"> months</string>
+    <string name="lbl_block">Block</string>
+    <string name="lbl_household_no">Household Number</string>
+    <string name="lbl_other_block">Other Block</string>
+    <string name="lbl_province">Province</string>
+    <string name="lbl_corresponding_address_1">Corresponding Address 1</string>
+    <string name="lbl_corresponding_address_2">Corresponding Address 2</string>
+    <string name="lbl_no_of_earning_members_are_there_in_the_household">No. of earning members are there in the household</string>
+    <string name="lbl_household_no_survey">Household No.*</string>
+    <string name="lbl_social_category">Social Category</string>
+    <string name="lbl_economic_category">Economic Category</string>
+    <string name="lbl_national_id">National ID (Citizenship ID, Aadhar No., etc.)</string>
+    <string name="lbl_national_id_other_details">National ID</string>
+    <string name="lbl_tmh_case_number">TMH Case Number</string>
+    <string name="lbl_request_id">Request ID</string>
+    <string name="lbl_discipline">Discipline (Specialty)</string>
+    <string name="lbl_department">Department</string>
+    <string name="lbl_relative_phone_number">Relative Phone Number</string>
+    <string name="lbl_inn">INN</string>
+    <string name="lbl_code_of_the_health_facility">Code of the Health Facility</string>
+    <string name="lbl_health_facility_name">Health facility name</string>
+    <string name="lbl_code_of_the_department">Code of the Department</string>
+    <string name="lbl_education">Education</string>
+    <string name="lbl_occupation">Occupation</string>
+    <string name="lbl_add_a_picture">Add a picture</string>
+    <string name="lbl_guardian_name">Guardian Name</string>
+    <string name="lbl_guardian_type">Guardian Type</string>
+    <string name="lbl_contact_type">Contact Type</string>
+    <string name="lbl_emergency_contact">Emergency Contact number</string>
+    <string name="lbl_emergency_contact_name">Emergency Contact Name</string>
+
+
 </resources>

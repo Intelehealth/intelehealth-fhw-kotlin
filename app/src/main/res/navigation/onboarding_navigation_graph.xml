@@ -80,6 +80,8 @@
 
     </fragment>
 
+    <!--    <include app:graph="@navigation/consent_navigation_graph" />-->
+
     <fragment
         android:id="@+id/fragmentConsent"
         android:name="org.intelehealth.app.ui.onboarding.fragment.ConsentFragment"

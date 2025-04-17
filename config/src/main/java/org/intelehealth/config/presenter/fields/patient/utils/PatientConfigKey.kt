@@ -1,7 +1,7 @@
 package org.intelehealth.config.presenter.fields.patient.utils
 
-import org.intelehealth.app.ui.patient.config.OtherInfoConfig
-import org.intelehealth.app.ui.patient.config.PersonalInfoConfig
+import org.intelehealth.config.presenter.fields.patient.infoconfig.OtherInfoConfig
+import org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoConfig
 import org.intelehealth.config.presenter.fields.patient.infoconfig.AddressInfoConfig
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 
@@ -34,6 +34,11 @@ object PatientConfigKey {
     const val VILLAGE_TOWN_CITY = "a_village_town_city"
     const val ADDRESS_1 = "a_corresponding_address_1"
     const val ADDRESS_2 = "a_corresponding_address_2"
+    const val PROVINCES = "a_provinces"
+    const val CITIES = "a_cities"
+    const val REGISTRATION_ADDRESS_OF_HF = "a_registration_address_of_health_facility"
+    const val BLOCK = "a_block"
+    const val HOUSEHOLD_NUMBER = "a_household_number"
 
     //OTHERS
     const val NATIONAL_ID = "o_national_id"
@@ -41,6 +46,15 @@ object PatientConfigKey {
     const val SOCIAL_CATEGORY = "o_social_category"
     const val EDUCATION = "o_education"
     const val ECONOMIC_CATEGORY = "o_economic_category"
+    const val TMH_CASE_SUMMARY = "o_tmh_case_number"
+    const val REQUEST_ID = "o_request_id"
+    const val RELATIVE_PHONE_NUM = "o_relative_phone_number"
+    const val DISCIPLINE = "o_discipline"
+    const val DEPARTMENT = "o_department"
+    const val INN = "o_inn"
+    const val CODE_OF_HEALTHY_FACILITY = "o_code_of_the_health_facility"
+    const val HEALTH_FACILITY_NAME = "o_health_facility_name"
+    const val CODE_OF_DEPARTMENT = "o_code_of_the_department"
 
     @JvmStatic
     fun buildPatientPersonalInfoConfig(patientRegistrationFields: List<PatientRegistrationFields>): PersonalInfoConfig {
@@ -77,6 +91,11 @@ object PatientConfigKey {
                     VILLAGE_TOWN_CITY -> cityVillage = it
                     ADDRESS_1 -> address1 = it
                     ADDRESS_2 -> address2 = it
+                    PROVINCES -> province = it
+                    CITIES -> city = it
+                    REGISTRATION_ADDRESS_OF_HF -> registrationAddressOfHf = it
+                    BLOCK -> block = it
+                    HOUSEHOLD_NUMBER -> householdNumber = it
                 }
             }
         }
@@ -92,6 +111,15 @@ object PatientConfigKey {
                     SOCIAL_CATEGORY -> socialCategory = it
                     EDUCATION -> education = it
                     ECONOMIC_CATEGORY -> economicCategory = it
+                    TMH_CASE_SUMMARY -> tmhCaseNumber = it
+                    REQUEST_ID -> requestId = it
+                    RELATIVE_PHONE_NUM -> relativePhoneNumber = it
+                    DISCIPLINE -> discipline = it
+                    DEPARTMENT -> department = it
+                    INN -> inn = it
+                    CODE_OF_HEALTHY_FACILITY -> codeOfHealthyFacility = it
+                    HEALTH_FACILITY_NAME -> healthFacilityName = it
+                    CODE_OF_DEPARTMENT -> codeOfDepartment = it
                 }
             }
         }
