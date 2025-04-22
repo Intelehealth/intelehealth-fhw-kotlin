@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/std_40dp"
+    android:visibility="gone"
+    tools:visibility="visible">
+
+    <ImageView
+        android:id="@+id/search_bg_icon"
+        android:layout_width="@dimen/std_100dp"
+        android:layout_height="@dimen/std_100dp"
+        android:contentDescription="@string/content_search_icon"
+        android:src="@drawable/ic_search_icon_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_pat_not_found_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/error_search_pat_not_found_txt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@null"
+        android:textSize="@dimen/std_20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bg_icon" />
+
+    <TextView
+        android:id="@+id/search_pat_hint_txt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/std_40dp"
+        android:layout_marginTop="@dimen/std_12dp"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/hint_search_pat_txt"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="@null"
+        android:textSize="@dimen/std_16sp"
+        android:translationY="-1.58sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_pat_not_found_txt" />
+
+    <LinearLayout
+        android:id="@+id/add_new_patientTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/std_24dp"
+        android:layout_marginBottom="@dimen/std_20dp"
+        android:background="@drawable/bg_end_visit"
+        android:clickable="true"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_pat_hint_txt">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/content_add_icon"
+            android:src="@drawable/user_plus" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/dm_sans"
+            android:text="@string/title_activity_identification"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

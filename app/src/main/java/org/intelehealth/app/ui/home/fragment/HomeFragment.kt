@@ -1,6 +1,7 @@
 package org.intelehealth.app.ui.home.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
@@ -40,7 +42,20 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         updatePrescriptionStatus()
         updateFollowUpStatus()
         updateAppointmentStatus()
+        handleClick()
     }
+
+    /**
+     * Sets up the click listener
+     *
+     * handling all click listeners here
+     */
+    private fun handleClick() {
+        binding.cardHomePrescription.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription())
+        }
+    }
+
 
     /**
      * Updates the displayed count of prescriptions.

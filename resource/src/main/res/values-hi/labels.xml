@@ -88,6 +88,13 @@
     <string name="lbl_contact_type">संपर्क का प्रकार</string>
     <string name="lbl_emergency_contact">आपातकालीन संपर्क नंबर</string>
     <string name="lbl_emergency_contact_name">आपातकालीन संपर्क नाम</string>
+    <string name="lbl_results_for">के लिए परिणाम</string>
+    <string name="lbl_card_item_date">Follow up on 12 June</string>
+    <string name="lbl_search_gender">M 22</string>
+    <string name="lbl_share">साझा करें</string>
+    <string name="lbl_older_visits">पहले के विज़िट्स</string>
+    <string name="lbl_this_months_visits">इस महीने के विज़िट्स</string>
+    <string name="lbl_close_visit">विज़िट बंद करें</string>
 
 
 </resources>

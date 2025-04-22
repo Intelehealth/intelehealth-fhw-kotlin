@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/std_10dp"
+        android:layout_marginRight="@dimen/std_10dp">
+
+        <!--Search-->
+        <include
+            android:id="@+id/search"
+            layout="@layout/view_search" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/rece_nestedscroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_20dp"
+            android:fillViewport="true"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/search">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Card Header -->
+                <include
+                    android:id="@+id/patientCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_patient_count" />
+
+                <!--No Patient Found-->
+                <include
+                    android:id="@+id/no_patient_found_block"
+                    layout="@layout/no_patient_found_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/patientCount" />
+
+                <!--Filter View-->
+                <include
+                    android:id="@+id/filterView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_filter"
+                    app:layout_constraintTop_toBottomOf="@id/patientCount"
+                    />
+
+                <!--Rcent View-->
+                <include
+                    android:id="@+id/recentView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_recent"
+                    app:layout_constraintTop_toBottomOf="@id/filterView" />
+
+                <!--Older View-->
+                <include
+                    android:id="@+id/olderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_older"
+                    app:layout_constraintTop_toBottomOf="@+id/recentView" />
+
+                <!-- <include
+                     android:id="@+id/filter_menu"
+                     layout="@layout/filter_visitscreen"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:visibility="gone"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toBottomOf="@id/olderView" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="@dimen/std_50dp"
+            android:layout_height="@dimen/std_50dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_white_bg"
+            android:elevation="@dimen/std_2dp"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:indeterminateTintMode="src_atop"
+            android:padding="@dimen/std_5dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

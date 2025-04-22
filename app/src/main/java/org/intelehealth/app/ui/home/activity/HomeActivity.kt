@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivityHomeBinding
 import org.intelehealth.app.databinding.DrawerHomeNavHeaderBinding
+import org.intelehealth.app.ui.home.fragment.HomeFragmentDirections
 import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.gotoNextActivity

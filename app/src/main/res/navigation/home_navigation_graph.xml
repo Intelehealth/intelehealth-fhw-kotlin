@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="org.intelehealth.app.ui.home.fragment.HomeFragment"
         android:label="@string/action_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_prescription"
+            app:destination="@id/nav_prescription" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_achievements"
@@ -63,5 +67,12 @@
             android:defaultValue="0"
             app:argType="string" />
     </activity>
+
+    <activity
+        android:id="@+id/nav_prescription"
+        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"
+        android:label="@string/prescriptions"
+        tools:layout="@layout/activity_prescription" />
+
 
 </navigation>

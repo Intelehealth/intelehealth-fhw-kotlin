@@ -17,6 +17,12 @@
     <string name="title_other_fuel_type">अन्य ईंधन प्रकार</string>
     <string name="title_other_lighting_source">अन्य प्रकाश स्रोत</string>
     <string name="title_other_water_purification">अन्य जल शोधन विधि</string>
+    <string name="title_activity_identification" translatable="false">नया पेशेंट जोड़ें</string>
+    <string name="title_priority_visits">प्राथमिकता विज़िट</string>
+    <string name="title_recent_visit">हाल के विज़िट्स</string>
+    <string name="title_fu_item">Anthony Gonsalves</string>
+    <string name="title_priority">प्राथमिकता</string>
+
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>

@@ -90,4 +90,13 @@
     <string name="content_recommend_after_password_change">आपका पासवर्ड सफलतापूर्वक अपडेट कर दिया गया है। आपकी सुरक्षा के लिए, आपको एप्लिकेशन से लॉग आउट कर दिया गया है। कृपया जारी रखने के लिए अपने नए पासवर्ड से फिर से लॉग इन करें।</string>
     <string name="content_address_to_other_info">Address to Other info</string>
     <string name="content_personal_to_address_info">Personal to address info</string>
+    <string name="content_patients_waiting_for_closure">3 रोगी विज़िट बंद होने का इंतजार कर रहे हैं, कृपया विज़िट समाप्त करें।</string>
+    <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
+
+    //content description
+    <string name="content_search_icon">Search Icon</string>
+    <string name="content_add_icon">Add Icon</string>
+    <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
+
+
 </resources>
