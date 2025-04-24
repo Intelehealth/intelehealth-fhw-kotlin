@@ -15,7 +15,6 @@ class PrescriptionPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> PrescriptionReceiveFragment()
-
             else -> PrescriptionPendingFragment()
 
         }

@@ -9,6 +9,7 @@
     <dimen name="std_10dp">10dp</dimen>
     <dimen name="std_12dp">12dp</dimen>
     <dimen name="std_14dp">14dp</dimen>
+    <dimen name="std_15dp">15dp</dimen>
     <dimen name="std_16dp">16dp</dimen>
     <dimen name="std_17dp">17dp</dimen>
     <dimen name="std_18dp">18dp</dimen>

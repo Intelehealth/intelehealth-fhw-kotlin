@@ -95,6 +95,7 @@
     <string name="lbl_older_visits">पहले के विज़िट्स</string>
     <string name="lbl_this_months_visits">इस महीने के विज़िट्स</string>
     <string name="lbl_close_visit">विज़िट बंद करें</string>
-
+    <string name="lbl_priority_visits">प्राथमिकता विज़िट</string>
+    <string name="lbl_all_visits">सभी विज़िट्स</string>
 
 </resources>

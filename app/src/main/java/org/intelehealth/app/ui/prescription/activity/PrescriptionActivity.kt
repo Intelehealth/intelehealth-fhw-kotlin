@@ -25,7 +25,6 @@ class PrescriptionActivity : SimpleAppBarActivity() {
 
     override fun getScreenTitle(): String = getString(R.string.prescriptions)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

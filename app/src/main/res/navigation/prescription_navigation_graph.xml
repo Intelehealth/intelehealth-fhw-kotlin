@@ -3,12 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/prescription_navigation_graph"
-    app:startDestination="@id/nav_prescription_list"
-    >
+    app:startDestination="@id/nav_prescription_list">
 
     <fragment
         android:id="@+id/nav_prescription_list"
         android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionListFragment"
         android:label="@string/prescriptions"
-        tools:layout="@layout/fragment_prescription_list" />
+        tools:layout="@layout/fragment_prescription_list">
+        <action
+            android:id="@+id/action_nav_prescription_list_to_visitDetailsFragment"
+            app:destination="@id/visitDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/visitDetailsFragment"
+        android:name="org.intelehealth.common.ui.fragment.VisitDetailsFragment"
+        android:label="VisitDetailsFragment" />
 </navigation>

@@ -95,4 +95,7 @@
     <string name="lbl_older_visits">Older Visits</string>
     <string name="lbl_this_months_visits">This month\'s visits</string>
     <string name="lbl_close_visit">Close visit</string>
+    <string name="lbl_priority_visits">Priority Visits</string>
+    <string name="lbl_all_visits">All Visits</string>
+
 </resources>

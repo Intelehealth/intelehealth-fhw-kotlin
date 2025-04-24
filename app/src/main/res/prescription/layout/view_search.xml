@@ -23,7 +23,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:queryHint="@string/search_patient"
-        app:showDividers="none" />
+        app:showDividers="none"
+
+        />
 
     <ImageButton
         android:id="@+id/filterIcon"

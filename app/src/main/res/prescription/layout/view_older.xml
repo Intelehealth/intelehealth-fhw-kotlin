@@ -7,10 +7,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/older"
+        android:id="@+id/olderTitleTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="top"
+        android:padding="@dimen/std_5dp"
         android:lineSpacingExtra="3sp"
         android:text="@string/lbl_older_visits"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
@@ -22,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/older_nodata"
+        android:id="@+id/noDataFoundTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -34,7 +35,7 @@
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/older" />
+        app:layout_constraintTop_toBottomOf="@id/olderTitleTv" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_older"
@@ -47,7 +48,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/older"
+        app:layout_constraintTop_toBottomOf="@id/noDataFoundTv"
         tools:itemCount="2"
         tools:listitem="@layout/prescription_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

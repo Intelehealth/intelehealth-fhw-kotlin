@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/visitReceivedCardHeader"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/visit_received_card_header"
-        android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/std_5dp"
+    android:layout_marginTop="@dimen/std_16dp"
+    android:layout_marginEnd="@dimen/std_5dp"
+    android:layout_marginBottom="@dimen/std_5dp"
+    app:cardCornerRadius="@dimen/std_8dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_5dp"
-        android:layout_marginTop="@dimen/std_16dp"
-        android:layout_marginEnd="@dimen/std_5dp"
-        android:layout_marginBottom="@dimen/std_5dp"
-        app:cardCornerRadius="@dimen/std_8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingStart="@dimen/std_12dp"
+        android:paddingTop="@dimen/std_12dp"
+        android:paddingEnd="@dimen/std_12dp"
+        android:paddingBottom="@dimen/std_12dp">
 
-        <RelativeLayout
-            android:id="@+id/ll_3"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iconVisitDetails"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_12dp"
-            android:layout_marginTop="@dimen/std_12dp"
             android:layout_marginEnd="@dimen/std_12dp"
-            android:layout_marginBottom="@dimen/std_12dp">
+            android:background="@null"
+            android:src="@drawable/visit_header_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/icon_visit_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:src="@drawable/visit_header_icon" />
+        <TextView
+            android:id="@+id/receivedEndVisitNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_12dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/content_patients_waiting_for_closure"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@null"
+            android:textSize="@dimen/std_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iconArrowRight"
+            app:layout_constraintStart_toEndOf="@id/iconVisitDetails"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- label-text -->
-            <TextView
-                android:id="@+id/received_endvisit_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/std_12dp"
-                android:layout_toStartOf="@id/icon_arrowRight"
-                android:layout_toEndOf="@+id/icon_visit_details"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="3sp"
-                android:text="@string/content_patients_waiting_for_closure"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@null"
-                android:textSize="@dimen/std_14sp" />
+        <ImageButton
+            android:id="@+id/iconArrowRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/arrow_right_icon8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/icon_arrowRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:src="@drawable/arrow_right_icon8"
-                android:visibility="gone" />
-
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

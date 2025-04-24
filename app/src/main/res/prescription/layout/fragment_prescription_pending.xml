@@ -1,17 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <FrameLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.prescription.fragment.PrescriptionPendingFragment">
+        android:layout_marginLeft="@dimen/std_10dp"
+        android:layout_marginRight="@dimen/std_10dp">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <!--Search-->
+        <include
+            android:id="@+id/searchView"
+            layout="@layout/view_search" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_20dp"
+            android:fillViewport="true"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@+id/searchView">
 
-    </FrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Card Header -->
+                <include
+                    android:id="@+id/patientCountView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_patient_count" />
+
+                <!--No Patient Found-->
+                <include
+                    android:id="@+id/noPatientFoundBlock"
+                    layout="@layout/view_no_patient_found"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/patientCountView" />
+
+                <!--Filter View-->
+                <include
+                    android:id="@+id/filterView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_filter"
+                    app:layout_constraintTop_toBottomOf="@id/patientCountView"
+                    />
+
+                <!--Recent View-->
+                <include
+                    android:id="@+id/recentView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_recent"
+                    app:layout_constraintTop_toBottomOf="@id/filterView" />
+
+                <!--Older View-->
+                <include
+                    android:id="@+id/olderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/view_older"
+                    app:layout_constraintTop_toBottomOf="@+id/recentView" />
+
+                <include
+                    android:id="@+id/filterMenu"
+                    layout="@layout/view_filter_prescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/olderView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!--Progress bar-->
+        <include
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/std_50dp"
+            android:layout_height="@dimen/std_50dp"
+            layout="@layout/view_progress"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
