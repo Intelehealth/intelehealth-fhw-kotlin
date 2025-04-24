@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.config.room.entity.PatientRegistrationFields
-import org.intelehealth.config.utility.FieldGroup
+import org.intelehealth.config.utility.PatientInfoGroup
 import javax.inject.Inject
 
 /**
@@ -30,31 +30,31 @@ open class RegFieldViewModel @Inject constructor(
     private var otherSectionFieldsData = MutableLiveData<List<PatientRegistrationFields>>()
     val otherSectionFieldsLiveData: LiveData<List<PatientRegistrationFields>> get() = otherSectionFieldsData
 
-    fun fetchEnabledPersonalRegFields() = repository.getAllEnabledGroupField(FieldGroup.PERSONAL)
+    fun fetchEnabledPersonalRegFields() = repository.getAllEnabledGroupField(PatientInfoGroup.PERSONAL)
 
-    fun fetchEnabledAddressRegFields() = repository.getAllEnabledGroupField(FieldGroup.ADDRESS)
+    fun fetchEnabledAddressRegFields() = repository.getAllEnabledGroupField(PatientInfoGroup.ADDRESS)
 
-    fun fetchEnabledOtherRegFields() = repository.getAllEnabledGroupField(FieldGroup.OTHER)
+    fun fetchEnabledOtherRegFields() = repository.getAllEnabledGroupField(PatientInfoGroup.OTHER)
 
     fun fetchEnabledAllRegFields() = repository.getAllEnabledLiveFields()
 
     fun fetchPersonalRegFields() {
         viewModelScope.launch {
-            val personalFields = repository.getGroupFields(FieldGroup.PERSONAL)
+            val personalFields = repository.getGroupFields(PatientInfoGroup.PERSONAL)
             personalSectionFieldsData.postValue(personalFields)
         }
     }
 
     fun fetchAddressRegFields() {
         viewModelScope.launch {
-            val addressFields = repository.getGroupFields(FieldGroup.ADDRESS)
+            val addressFields = repository.getGroupFields(PatientInfoGroup.ADDRESS)
             addressSectionFieldsData.postValue(addressFields)
         }
     }
 
     fun fetchOtherRegFields() {
         viewModelScope.launch {
-            val otherFields = repository.getGroupFields(FieldGroup.OTHER)
+            val otherFields = repository.getGroupFields(PatientInfoGroup.OTHER)
             otherSectionFieldsData.postValue(otherFields)
         }
     }

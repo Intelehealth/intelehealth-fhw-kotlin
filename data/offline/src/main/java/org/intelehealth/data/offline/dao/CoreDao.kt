@@ -18,4 +18,7 @@ interface CoreDao<T> {
 
     @Update
     suspend fun update(obj: T)
+
+    @Update
+    suspend fun bulkUpdate(objList: List<T>)
 }

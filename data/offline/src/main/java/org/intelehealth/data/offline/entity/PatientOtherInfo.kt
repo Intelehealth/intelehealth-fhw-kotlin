@@ -9,8 +9,8 @@ import androidx.room.Entity
  **/
 @Entity
 data class PatientOtherInfo(
+    var patientId: String? = null,
     var nationalId: String? = null,
-    var occupations: String? = null,
     var socialCategory: String? = null,
     var education: String? = null,
     var tmhCaseNumber: String? = null,
@@ -37,5 +37,35 @@ data class PatientOtherInfo(
     var registrationAddressOfHf: String? = null,
     var codeOfHealthFacility: String? = null,
     var householdUuidLinking: String? = null,
-    var block: String? = null,
-)
+    var block: String? = null
+){
+    fun getAttributeNames(): List<String> {
+        return listOfNotNull(
+            nationalId,
+            socialCategory,
+            education,
+            tmhCaseNumber,
+            requestId,
+            relativePhoneNumber,
+            discipline,
+            department,
+            inn,
+            healthFacilityName,
+            codeOfDepartment,
+            emergencyContactName,
+            emergencyContactNumber,
+            emergencyContactType,
+            telephone,
+            economicStatus,
+            occupation,
+            swd,
+            profileImgTimestamp,
+            cast,
+            createdDate,
+            provinces,
+            cities,
+            registrationAddressOfHf,
+            codeOfHealthFacility
+        )
+    }
+}

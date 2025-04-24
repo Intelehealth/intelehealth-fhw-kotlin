@@ -119,7 +119,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_occupation"
-                            android:text="@{otherInfo.occupations}" />
+                            android:text="@{otherInfo.occupation}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 

@@ -1,8 +1,7 @@
 package org.intelehealth.config.presenter.fields.patient.data
 
-import dagger.hilt.android.lifecycle.HiltViewModel
 import org.intelehealth.config.room.dao.PatientRegFieldDao
-import org.intelehealth.config.utility.FieldGroup
+import org.intelehealth.config.utility.PatientInfoGroup
 import javax.inject.Inject
 
 /**
@@ -11,11 +10,11 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 open class RegFieldRepository @Inject constructor(private val regFieldDao: PatientRegFieldDao) {
-    suspend fun getGroupFields(group: FieldGroup) = regFieldDao.getGroupFields(group.value)
+    suspend fun getGroupFields(group: PatientInfoGroup) = regFieldDao.getGroupFields(group.value)
 
     suspend fun getAllRecord() = regFieldDao.getAllRecord()
 
-    fun getAllEnabledGroupField(group: FieldGroup) = regFieldDao.getAllEnabledLiveGroupFields(group.value)
+    fun getAllEnabledGroupField(group: PatientInfoGroup) = regFieldDao.getAllEnabledLiveGroupFields(group.value)
 
     fun getAllEnabledLiveFields() = regFieldDao.getAllEnabledLiveFields()
 

@@ -30,12 +30,12 @@ abstract class BaseProgressFragment(@LayoutRes layoutResId: Int) : StateFragment
 
     override fun showLoading() {
         super.showLoading()
-        progressBinding.progressLayout.show()
+        if (::progressBinding.isInitialized) progressBinding.progressLayout.show()
     }
 
     override fun hideLoading() {
         super.hideLoading()
-        progressBinding.progressLayout.hide()
+        if (::progressBinding.isInitialized) progressBinding.progressLayout.hide()
     }
 
     override fun onConnectionLost() {
