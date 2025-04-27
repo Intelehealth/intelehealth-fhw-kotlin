@@ -2,23 +2,37 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/std_10dp"
-        android:layout_marginRight="@dimen/std_10dp">
+        >
 
         <!--Search-->
         <include
             android:id="@+id/searchView"
-            layout="@layout/view_search" />
+            layout="@layout/view_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_15dp"
+            android:layout_marginTop="@dimen/std_10dp"
+            android:layout_marginEnd="@dimen/std_15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_20dp"
+            android:layout_marginStart="@dimen/std_15dp"
+            android:layout_marginEnd="@dimen/std_15dp"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"
@@ -31,9 +45,12 @@
                 <!--Card Header -->
                 <include
                     android:id="@+id/patientCountView"
+                    layout="@layout/view_patient_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    layout="@layout/view_patient_count" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <!--No Patient Found-->
                 <include
@@ -47,11 +64,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/patientCountView" />
 
-                <!--Filter View-->
+                <!--Result For View-->
                 <include
                     android:id="@+id/filterView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_20dp"
                     layout="@layout/view_filter"
                     app:layout_constraintTop_toBottomOf="@id/patientCountView"
                     />
@@ -61,7 +79,9 @@
                     android:id="@+id/recentView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_10dp"
                     layout="@layout/view_recent"
+                    app:isListEmpty="@{viewModel.isRecentPendingEmpty}"
                     app:layout_constraintTop_toBottomOf="@id/filterView" />
 
                 <!--Older View-->
@@ -84,11 +104,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <!--Progress bar-->
         <include
             android:id="@+id/progressBar"
-            android:layout_width="@dimen/std_50dp"
-            android:layout_height="@dimen/std_50dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             layout="@layout/view_progress"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

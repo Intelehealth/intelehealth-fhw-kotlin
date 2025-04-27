@@ -94,6 +94,12 @@
     <string name="content_visit_details_text">Visit summary</string>
     <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
     <string name="content_calender">Calender</string>
+    <string name="content_chat_fab">chat fab</string>
+    <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
+    <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
+    <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+
+
 
     //content description
     <string name="content_search_icon">Search Icon</string>

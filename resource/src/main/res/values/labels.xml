@@ -90,12 +90,23 @@
     <string name="lbl_emergency_contact_name">Emergency Contact Name</string>
     <string name="lbl_results_for">Results for</string>
     <string name="lbl_card_item_date">Follow up on 12 June</string>
-    <string name="lbl_search_gender">M 22</string>
+    <string name="lbl_gender_with_age">M 22</string>
     <string name="lbl_share">Share</string>
     <string name="lbl_older_visits">Older Visits</string>
     <string name="lbl_this_months_visits">This month\'s visits</string>
     <string name="lbl_close_visit">Close visit</string>
     <string name="lbl_priority_visits">Priority Visits</string>
     <string name="lbl_all_visits">All Visits</string>
+    <string name="lbl_priority">Priority</string>
+    <string name="lbl_remind_doctor">Remind doctor</string>
+    <string name="lbl_visitDetails_text">Visit summary</string>
+    <string name="lbl_dr_speciality">Doctor\'s speciality</string>
+    <string name="lbl_gp_txt">General physician</string>
+    <string name="lbl_details_date">21 May 2022</string>
+    <string name="lbl_visit_id">Visit ID</string>
+    <string name="lbl_openmrs_id">ID-987654jK</string>
+    <string name="lbl_text_visit">Test Fever</string>
+
+
 
 </resources>

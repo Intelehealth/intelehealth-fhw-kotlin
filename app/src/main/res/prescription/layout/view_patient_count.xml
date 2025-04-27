@@ -37,6 +37,7 @@
             android:id="@+id/receivedEndVisitNo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="@dimen/std_12dp"
             android:gravity="center_vertical"
             android:lineSpacingExtra="3sp"

@@ -23,6 +23,9 @@
     <string name="title_fu_item">Anthony Gonsalves</string>
     <string name="title_priority">Priority</string>
     <string name="title_name" translatable="false">%1$s %2$s %3$s</string>
+    <string name="title_visit_summary_patient_details">Visit details</string>
+    <string name="title_past_visits">Past Visits</string>
+
 
 
     <!--  Dialog Title  -->

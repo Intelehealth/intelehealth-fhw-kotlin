@@ -50,4 +50,5 @@
     <string name="action_choose_from_gallery">Choose from Gallery</string>
     <string name="action_sign_back_in">Sign back in</string>
     <string name="action_back">Back</string>
+    <string name="action_end_visit">End visit</string>
 </resources>

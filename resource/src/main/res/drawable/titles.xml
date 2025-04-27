@@ -22,6 +22,7 @@
     <string name="title_recent_visit">हाल के विज़िट्स</string>
     <string name="title_fu_item">Anthony Gonsalves</string>
     <string name="title_priority">प्राथमिकता</string>
+    <string name="title_visit_summary_patient_details">Visit details</string>
 
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>

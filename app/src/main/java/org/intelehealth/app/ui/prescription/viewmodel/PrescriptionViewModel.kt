@@ -10,10 +10,12 @@ import javax.inject.Inject
 class PrescriptionViewModel @Inject constructor() : BaseViewModel() {
     private var _receivedPrescription = MutableLiveData<List<Patient>>()
     var receivedPrescription = _receivedPrescription
-    var isListEmpty = MutableLiveData<Boolean>()
+    var isRecentReceivedEmpty = MutableLiveData<Boolean>()
+    var isRecentPendingEmpty = MutableLiveData<Boolean>()
 
     init {
         fetchReceivedPrescription()
+        fetchPendingPrescription()
     }
 
     private fun fetchReceivedPrescription() {
@@ -38,6 +40,31 @@ class PrescriptionViewModel @Inject constructor() : BaseViewModel() {
             )
         )
 
-        isListEmpty.value = false
+        isRecentReceivedEmpty.value = false
+    }
+
+    private fun fetchPendingPrescription() {
+        _receivedPrescription.value = listOf(
+            Patient(
+                openMrsId = "432323",
+                firstName = "Tanvir",
+                middleName = "Hasan",
+                lastName = "Tvr"
+            ),
+            Patient(
+                openMrsId = "432323",
+                firstName = "Tanvir",
+                middleName = "Hasan",
+                lastName = "Tvr"
+            ),
+            Patient(
+                openMrsId = "432323",
+                firstName = "Tanvir",
+                middleName = "Hasan",
+                lastName = "Tvr"
+            )
+        )
+
+        isRecentPendingEmpty.value = false
     }
 }

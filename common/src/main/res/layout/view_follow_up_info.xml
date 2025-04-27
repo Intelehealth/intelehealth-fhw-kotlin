@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="@dimen/std_12dp"
+    android:paddingEnd="@dimen/std_12dp"
+    android:visibility="visible"
+    tools:visibility="visible">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@color/colorLightGray" />
+
+
+    <TextView
+        android:id="@+id/followupDateTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_marginTop="@dimen/std_16dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="4sp"
+        android:text="@string/lbl_card_item_date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@null"
+        android:textSize="@dimen/std_14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+    <TextView
+        android:id="@+id/followup_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/std_4dp"
+        app:layout_constraintTop_toBottomOf="@id/followupDateTv"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/content_followup_info"
+        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+        android:textColor="@null" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/followup_info"
+        android:layout_below="@+id/followup_info"
+        android:layout_marginTop="@dimen/std_12dp"
+        android:layout_marginBottom="@dimen/std_16dp"
+        android:background="@drawable/icon_followup_enabled" />
+
+    <TextView
+        android:id="@+id/followup_accept_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/std_4dp"
+        android:layout_marginBottom="@dimen/std_12dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/content_followup_visit_info"
+        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+        android:textSize="@dimen/std_14sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/followup_accept_text"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/std_12dp"
+        android:visibility="gone"
+        android:weightSum="2"
+        app:layout_constraintTop_toBottomOf="@+id/followup_accept_text"
+        tools:layout_editor_absoluteX="12dp"
+        tools:visibility="visible">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_white_border"
+            android:padding="@dimen/std_12dp"
+            android:text="@string/action_no"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/std_16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/yes_followup_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_5dp"
+            android:layout_weight="1"
+            android:background="@drawable/ui2_common_primary_bg"
+            android:padding="@dimen/std_12dp"
+            android:text="@string/action_yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/std_16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

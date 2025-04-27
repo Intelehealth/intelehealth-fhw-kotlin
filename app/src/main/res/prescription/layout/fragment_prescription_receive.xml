@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_10dp"
                     layout="@layout/view_recent"
-                    app:isListEmpty="@{viewModel.isListEmpty}"
+                    app:isListEmpty="@{viewModel.isRecentPendingEmpty}"
                     app:layout_constraintTop_toBottomOf="@id/filterView" />
 
                 <!--Older View-->
