@@ -11,11 +11,12 @@ import org.intelehealth.data.offline.entity.Patient
 /**
  * Created by Tanvir Hasan on 24-04-25
  * Email : mhasan@intelehealth.org
+ *
+ * PrescriptionViewHolder: Binds patient data to a list item in the RecyclerView.
+ * Displays patient information and handles clicks on the list item.
+ *
  **/
-
-
 class PrescriptionViewHolder(private val binding: PrescriptionListItemBinding) : BaseViewHolder(binding.root) {
-
     override var allowInstantClick = true
     fun bind(patient: Patient) {
         binding.patient = patient

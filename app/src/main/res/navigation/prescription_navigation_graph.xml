@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_prescription_list"
         android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionListFragment"
-        android:label="@string/prescriptions"
+        android:label="@string/title_prescriptions"
         tools:layout="@layout/fragment_prescription_list">
         <action
             android:id="@+id/action_nav_prescription_list_to_visitDetailsFragment"
@@ -17,6 +17,14 @@
 
     <fragment
         android:id="@+id/visitDetailsFragment"
-        android:name="org.intelehealth.common.ui.fragment.VisitDetailsFragment"
-        android:label="VisitDetailsFragment" />
+        android:name="org.intelehealth.app.ui.visit.fragment.VisitDetailsFragment"
+        android:label="@string/title_visit_details" >
+        <action
+            android:id="@+id/action_visitDetailsFragment_to_prescriptionDetailsFragment"
+            app:destination="@id/prescriptionDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionDetailsFragment"
+        android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionDetailsFragment"
+        android:label="@string/title_prescription_details" />
 </navigation>

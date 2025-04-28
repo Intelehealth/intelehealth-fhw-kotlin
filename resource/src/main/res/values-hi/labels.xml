@@ -106,6 +106,25 @@
     <string name="lbl_visit_id">Visit ID</string>
     <string name="lbl_openmrs_id">ID-987654jK</string>
     <string name="lbl_text_visit">Test Fever</string>
-
+    <string name="lbl_dummy_name">Anthony Gonsalves</string>
+    <string name="lbl_chw_worker">CHW Worker</string>
+    <string name="lbl_chw_name">Test: Kiran Devi Prakash</string>
+    <string name="lbl_dummy_visit_id">Test: XXX543573</string>
+    <string name="lbl_consulted_doctor_details">Consulted Doctor Details</string>
+    <string name="lbl_details">Details</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_no_information">No information</string>
+    <string name="lbl_qualification">Qualification</string>
+    <string name="lbl_speciality">Speciality</string>
+    <string name="lbl_diagnosis">Diagnosis</string>
+    <string name="lbl_prescribed_medication">Prescribed Medications</string>
+    <string name="lbl_drug_name">Drug name</string>
+    <string name="lbl_dos">Dos.</string>
+    <string name="lbl_days">Days</string>
+    <string name="lbl_remarks">Remarks</string>
+    <string name="lbl_advice">Advice</string>
+    <string name="lbl_test">Test</string>
+    <string name="lbl_referred_sp">Referred Specialist</string>
+    <string name="lbl_follow_up">Follow Up</string>
 
 </resources>

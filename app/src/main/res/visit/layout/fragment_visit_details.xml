@@ -17,7 +17,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,18 +25,21 @@
 
                 <!--User Info View-->
                 <include
+                    android:id="@+id/userInfoView"
                     layout="@layout/view_user_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="@dimen/std_12dp"
                     android:layout_marginEnd="@dimen/std_12dp"
+                    android:layout_marginTop="@dimen/std_12dp"
                     />
-
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/detailsCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/userInfoView"
                     android:layout_marginLeft="@dimen/std_12dp"
                     android:layout_marginTop="@dimen/std_24dp"
                     android:layout_marginRight="@dimen/std_12dp"
@@ -89,6 +92,9 @@
                             layout="@layout/view_follow_up_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/std_12dp"
+                            android:layout_marginStart="@dimen/std_12dp"
+                            android:layout_marginEnd="12dp"
                             app:layout_constraintTop_toBottomOf="@id/prescriptionView" />
 
 
@@ -107,9 +113,14 @@
                     layout="@layout/view_past_visit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/std_12dp"
+                    android:layout_marginEnd="@dimen/std_12dp"
+                    android:layout_marginTop="@dimen/std_12dp"
+                    android:layout_marginBottom="@dimen/std_12dp"
+                    android:paddingBottom="@dimen/std_12dp"
                     app:layout_constraintTop_toBottomOf="@+id/detailsCard"
                     />
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
         <!--Call Fab-->
@@ -121,7 +132,6 @@
             android:layout_marginRight="@dimen/std_10dp"
             android:layout_marginBottom="@dimen/std_10dp"
             android:contentDescription="@string/content_chat_fab"
-            android:onClick="startVideoChat"
             android:src="@drawable/icons8_video_call"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
@@ -139,7 +149,6 @@
             android:contentDescription="@string/content_chat_fab"
             android:layout_marginRight="@dimen/std_10dp"
             android:layout_marginBottom="@dimen/std_10dp"
-            android:onClick="startTextChat"
             android:src="@drawable/icons8_chat_new"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

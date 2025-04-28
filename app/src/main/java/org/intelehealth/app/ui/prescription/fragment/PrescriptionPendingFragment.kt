@@ -17,6 +17,13 @@ import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
+/**
+ * Created by Tanvir Hasan on 2-04-25
+ * Email : mhasan@intelehealth.org
+ *
+ * PrescriptionPendingFragment: Displays a list of pending prescriptions.
+ * Uses a RecyclerView to show pending prescriptions and navigates to details on item click.
+ **/
 
 class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_prescription_pending),
     BaseViewHolder.ViewHolderClickListener {
@@ -30,6 +37,10 @@ class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_presc
         bindPrescriptionAdapter()
     }
 
+    /**
+     * Binds the prescription data to the RecyclerView adapter.
+     * Observes the ViewModel for prescription updates and sets up the RecyclerView adapter.
+     */
     private fun bindPrescriptionAdapter() {
         viewModel.receivedPrescription.observe(viewLifecycleOwner) {
             it ?: return@observe
@@ -47,6 +58,13 @@ class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_presc
         }
     }
 
+    /**
+     * Handles the click event on a prescription item in the RecyclerView.
+     * Navigates to the VisitDetailsFragment when a prescription item is clicked.
+     * Params:
+     * view - The clicked view.
+     * position - The position of the clicked item in the RecyclerView.
+     */
     override fun onViewHolderViewClicked(view: View?, position: Int) {
         findNavController().navigate(PrescriptionListFragmentDirections.actionNavPrescriptionListToVisitDetailsFragment())
     }

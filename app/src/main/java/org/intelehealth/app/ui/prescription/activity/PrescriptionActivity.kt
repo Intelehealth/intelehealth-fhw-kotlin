@@ -28,6 +28,7 @@ class PrescriptionActivity : SimpleAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setSupportActionBar(binding.appBarLayout.toolbar)
     }
 
     override fun onActionBarSet() {

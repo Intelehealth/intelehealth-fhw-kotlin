@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/doctorDetailsCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/std_16dp"
+    app:cardCornerRadius="@dimen/std_5dp"
+    app:cardElevation="@dimen/std_5dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/doctorDetailsIcon"
+            android:layout_width="@dimen/std_44dp"
+            android:layout_height="@dimen/std_44dp"
+            android:src="@drawable/dr_details_icon"
+            android:layout_margin="@dimen/std_15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/doctorDetailsTitle"
+            style="@style/Theme.IDA.Dialog.Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/std_10dp"
+            android:layout_marginEnd="@dimen/std_10dp"
+            android:text="@string/lbl_consulted_doctor_details"
+            app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsIcon"
+            app:layout_constraintEnd_toStartOf="@+id/expandBtn"
+            app:layout_constraintStart_toEndOf="@+id/doctorDetailsIcon"
+            app:layout_constraintTop_toTopOf="@+id/doctorDetailsIcon" />
+
+        <ImageButton
+            android:id="@+id/expandBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@null"
+            android:src="@drawable/ui2_ic_chevron_down"
+            app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/doctorDetailsTitle" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/drInfoInfoExpandableLayoutGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="divider, detailsTv, tableLayout"
+            />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/std_32dp"
+            android:layout_marginStart="@dimen/std_12dp"
+            android:layout_marginEnd="@dimen/std_12dp"
+            android:layout_marginBottom="@dimen/std_12dp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/doctorDetailsTitle"/>
+
+        <TextView
+            android:id="@+id/detailsTv"
+            style="@style/Theme.IDA.Dialog.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/std_12dp"
+            android:layout_marginTop="@dimen/std_10dp"
+            android:text="@string/lbl_details"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/std_12dp"
+            android:shrinkColumns="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsTv"
+            tools:layout_editor_absoluteX="12dp">
+
+            <!--Name-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/std_5dp"
+                    android:text="@string/lbl_name"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/textColorLightGary"
+                    android:textSize="@dimen/std_14sp"
+                    app:drawableStartCompat="@drawable/bullet_gray" />
+
+                <TextView
+                    android:id="@+id/drNameTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_no_information"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+
+            <!--Age -->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:layout_weight="2"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_weight="1"
+                    android:text="Age  Gender"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/textColorLightGary"
+                    android:textSize="@dimen/std_14sp"
+                    android:visibility="invisible"
+                    app:drawableStartCompat="@drawable/bullet_gray" />
+
+                <TextView
+                    android:id="@+id/dr_age_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_no_information"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+
+            <!--Qualification-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/std_5dp"
+                    android:text="@string/lbl_qualification"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/textColorLightGary"
+                    android:textSize="@dimen/std_14sp"
+                    app:drawableStartCompat="@drawable/bullet_gray" />
+
+                <TextView
+                    android:id="@+id/qualification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_no_information"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+
+            <!--Speciality-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/std_5dp"
+                    android:text="@string/lbl_speciality"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/textColorLightGary"
+                    android:textSize="@dimen/std_14sp"
+                    app:drawableStartCompat="@drawable/bullet_gray" />
+
+                <TextView
+                    android:id="@+id/dr_speciality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_no_information"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+
+        </TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

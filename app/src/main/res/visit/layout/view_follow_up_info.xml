@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingStart="@dimen/std_12dp"
-    android:paddingEnd="@dimen/std_12dp"
     android:visibility="visible"
     tools:visibility="visible">
 
@@ -66,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_4dp"
         android:layout_marginBottom="@dimen/std_12dp"
+        android:paddingBottom="@dimen/std_12dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="3sp"
         android:text="@string/content_followup_visit_info"

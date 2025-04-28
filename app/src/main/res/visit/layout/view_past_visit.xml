@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/std_16dp"
+    app:cardCornerRadius="@dimen/std_5dp"
+    app:cardElevation="@dimen/std_5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/std_48dp"
+            android:layout_height="@dimen/std_48dp"
+            android:background="@drawable/ic_baseline_lens_24_light_violet"
+            android:padding="12dip"
+            android:src="@drawable/icons8_activity_history_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/std_10dp"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/title_past_visits"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@null"
+            android:textSize="@dimen/std_18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+        <View
+            android:id="@+id/dividerView"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginVertical="@dimen/std_12dp"
+            android:background="@color/colorGreenLightCard"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_past_visits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/std_12dp"
+            app:layout_constraintTop_toBottomOf="@+id/dividerView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

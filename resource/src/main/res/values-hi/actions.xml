@@ -40,6 +40,7 @@
     <string name="action_exit">बाहर निकलें</string>
     <string name="action_sync">सिंक करें</string>
     <string name="action_notification">अधिसूचना</string>
+    <string name="action_more">More</string>
     <string name="action_go_to_website">वेबसाइट पर जाएं</string>
     <string name="action_change_language">भाषा बदलें</string>
     <string name="action_download_protocol">डाउनलोड प्रोटोकॉल</string>
