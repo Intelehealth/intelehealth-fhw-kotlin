@@ -17,6 +17,10 @@
     <string name="title_other_fuel_type">Other fuel type</string>
     <string name="title_other_lighting_source">Other lighting source</string>
     <string name="title_other_water_purification">Other water purification method</string>
+    <string name="title_recent_visit">Recent Visits</string>
+    <string name="title_priority">Priority</string>
+    <string name="title_fu_item">Anthony G</string>
+
     <!--  Dialog Title  -->
     <string name="dialog_title_patient_registered">Patient Registered!</string>
     <string name="dialog_title_exit_app">Exit App</string>
