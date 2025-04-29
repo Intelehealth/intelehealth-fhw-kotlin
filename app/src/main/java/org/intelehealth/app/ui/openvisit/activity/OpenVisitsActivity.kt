@@ -9,7 +9,6 @@ import org.intelehealth.app.ui.openvisit.adapter.OpenVisitRecyclerViewAdapter
 import org.intelehealth.app.ui.openvisit.viewmodel.OpenVisitViewModel
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.extensions.setupLinearView
-import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
 import org.intelehealth.resource.R
 
@@ -32,18 +31,33 @@ class OpenVisitsActivity : SimpleAppBarActivity() {
 
     override fun onActionBarSet() {
         super.onActionBarSet()
-        bindOpenVisitsAdapter()
+        bindRecentOpenVisitsAdapter()
+        bindOlderOpenVisitsAdapter()
     }
 
-    private fun bindOpenVisitsAdapter() {
+    private fun bindRecentOpenVisitsAdapter() {
         viewModel.recentVisitList.observe(this@OpenVisitsActivity) {
             it ?: return@observe
             val adapter = OpenVisitRecyclerViewAdapter(
                 this@OpenVisitsActivity,
                 it.toMutableList()
             )
-            binding.recentView.recyclerRecent.setupLinearView(adapter, false)
             binding.progressBar.root.isVisible = false
+            binding.recentView.recyclerVisit.setupLinearView(adapter, false)
+            binding.recentView.visitTitle = getString(R.string.title_recent_visit)
+        }
+    }
+
+    private fun bindOlderOpenVisitsAdapter() {
+        viewModel.olderVisitList.observe(this@OpenVisitsActivity) {
+            it ?: return@observe
+            val adapter = OpenVisitRecyclerViewAdapter(
+                this@OpenVisitsActivity,
+                it.toMutableList()
+            )
+            binding.progressBar.root.isVisible = false
+            binding.olderView.recyclerVisit.setupLinearView(adapter, false)
+            binding.olderView.visitTitle = getString(R.string.title_older_visit)
         }
     }
 }

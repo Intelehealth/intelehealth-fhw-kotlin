@@ -13,7 +13,7 @@ class OpenVisitViewModel @Inject constructor() : BaseViewModel() {
     private var _olderVisitList = MutableLiveData<List<Patient>>()
 
     val recentVisitList: MutableLiveData<List<Patient>> get() = _recentVisitList
-    val recentOlderList: MutableLiveData<List<Patient>> get() = _olderVisitList
+    val olderVisitList: MutableLiveData<List<Patient>> get() = _olderVisitList
 
     var isRecentVisitEmpty = MutableLiveData<Boolean>()
     var isOlderVisitEmpty = MutableLiveData<Boolean>()
@@ -31,27 +31,13 @@ class OpenVisitViewModel @Inject constructor() : BaseViewModel() {
                 middleName = "Doe",
                 lastName = "Smith",
                 dateOfBirth = "29th June"
-            ),
-            Patient(
-                openMrsId = "2",
-                firstName = "Jane",
-                middleName = "Doe",
-                lastName = "Smith",
-                dateOfBirth = "29th June"
-            ),
-            Patient(
-                openMrsId = "3",
-                firstName = "John",
-                middleName = "Doe",
-                lastName = "Smith",
-                dateOfBirth = "29th June"
             )
         )
         isRecentVisitEmpty.value = false
     }
 
     private fun getOlderOpenVisits() {
-        recentOlderList.value = listOf(
+        olderVisitList.value = listOf(
             Patient(
                 openMrsId = "4",
                 firstName = "John",
@@ -74,6 +60,6 @@ class OpenVisitViewModel @Inject constructor() : BaseViewModel() {
                 dateOfBirth = "29th June"
             )
         )
-        isOlderVisitEmpty.value = true
+        isOlderVisitEmpty.value = false
     }
 }

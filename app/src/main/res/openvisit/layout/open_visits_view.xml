@@ -10,6 +10,10 @@
         <variable
             name="isListEmpty"
             type="java.lang.Boolean" />
+
+        <variable
+            name="visitTitle"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +27,7 @@
             android:gravity="top"
             android:lineSpacingExtra="3sp"
             android:padding="@dimen/std_5dp"
-            android:text="@string/title_recent_visit"
+            android:text="@{visitTitle}"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textSize="@dimen/std_14sp"
             android:textStyle="bold"
@@ -49,7 +53,7 @@
             tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_recent"
+            android:id="@+id/recycler_visit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_16dp"

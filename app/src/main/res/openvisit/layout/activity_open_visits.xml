@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.intelehealth.app.ui.openvisit.viewmodel.OpenVisitViewModel" />
@@ -29,6 +30,7 @@
             android:layout_marginStart="@dimen/std_15dp"
             android:layout_marginTop="@dimen/std_20dp"
             android:layout_marginEnd="@dimen/std_15dp"
+            android:layout_marginBottom="@dimen/std_20dp"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"
@@ -41,11 +43,26 @@
                 <!--Recent View-->
                 <include
                     android:id="@+id/recentView"
-                    layout="@layout/open_visits_view_recent"
+                    layout="@layout/open_visits_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_10dp"
-                    app:isListEmpty="@{viewModel.isRecentVisitEmpty()}" />
+                    app:isListEmpty="@{viewModel.isRecentVisitEmpty()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!--Older View-->
+                <include
+                    android:id="@+id/olderView"
+                    layout="@layout/open_visits_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_10dp"
+                    app:isListEmpty="@{viewModel.isOlderVisitEmpty()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recentView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

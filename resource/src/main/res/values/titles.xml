@@ -18,6 +18,7 @@
     <string name="title_other_lighting_source">Other lighting source</string>
     <string name="title_other_water_purification">Other water purification method</string>
     <string name="title_recent_visit">Recent Visits</string>
+    <string name="title_older_visit">Older Visits</string>
     <string name="title_priority">Priority</string>
     <string name="title_fu_item">Anthony G</string>
     <string name="title_name" translatable="false">%1$s %2$s %3$s</string>
