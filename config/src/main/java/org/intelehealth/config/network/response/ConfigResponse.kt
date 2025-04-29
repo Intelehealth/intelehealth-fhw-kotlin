@@ -1,8 +1,10 @@
 package org.intelehealth.config.network.response
 
 import com.google.gson.annotations.SerializedName
-import org.intelehealth.config.room.entity.ActiveLanguage
 import org.intelehealth.config.room.entity.ActiveFeatureStatus
+import org.intelehealth.config.room.entity.ActiveLanguage
+import org.intelehealth.config.room.entity.ActiveSection
+import org.intelehealth.config.room.entity.Diagnostics
 import org.intelehealth.config.room.entity.Vital
 import org.intelehealth.config.room.entity.Specialization
 
@@ -17,7 +19,7 @@ data class ConfigResponse(
     @SerializedName("patient_registration")
     val patientRegFields: PatientRegFieldConfig,
     @SerializedName("patient_vitals")
-    val vitals: List<Vital>,
+    val patientVitals: List<Vital>,
     @SerializedName("patient_visit_summary")
     val patientVisitSummery: ActiveFeatureStatus,
     @SerializedName("patient_vitals_section")
@@ -32,5 +34,24 @@ data class ConfigResponse(
     var activeStatusPatientOther: Boolean = true,
     @SerializedName("abha_section")
     var activeStatusAbha: Boolean = true,
-    val version: Int = 0
+    val version: Int = 0,
+    @SerializedName("patient_diagnostics")
+    val diagnostics: List<Diagnostics>,
+    @SerializedName("patient_family_member_registration")
+    var activeStatusFamilyRegistration: Boolean = true,
+    @SerializedName("patient_household_survey")
+    var activeStatusHouseholdSurvey: Boolean = true,
+    @SerializedName("roster_questionnaire")
+    val rosterQuestionnaire: RosterQuestionnaireActiveStatus,
+    @SerializedName("roster_questionnaire_section")
+    val rosterQuestionnaireSection: Boolean = true,
+    @SerializedName("patient_diagnostics_section")
+    val patientDiagnosticsSection: Boolean = true,
+    @SerializedName("patient_draft_survey")
+    val patientDraftSurvey: Boolean = true,
+
+    @SerializedName("patient_visit_sections")
+    val patientVisitSection: List<ActiveSection>,
+    @SerializedName("home_screen")
+    val homeScreen: List<ActiveSection>,
 )
