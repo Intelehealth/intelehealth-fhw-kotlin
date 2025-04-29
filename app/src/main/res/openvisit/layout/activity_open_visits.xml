@@ -4,6 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="org.intelehealth.app.ui.openvisit.viewmodel.OpenVisitViewModel" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,11 +41,11 @@
                 <!--Recent View-->
                 <include
                     android:id="@+id/recentView"
-                    layout="@layout/view_recent"
+                    layout="@layout/open_visits_view_recent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_10dp"
-                    app:isListEmpty="@{false}" />
+                    app:isListEmpty="@{viewModel.isRecentVisitEmpty()}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

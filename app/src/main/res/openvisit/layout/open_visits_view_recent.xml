@@ -55,12 +55,13 @@
             android:layout_marginTop="@dimen/std_16dp"
             android:nestedScrollingEnabled="false"
             android:padding="@dimen/std_5dp"
+            android:visibility="@{isListEmpty ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/noDataFoundTv"
             tools:itemCount="2"
-            tools:listitem="@layout/prescription_list_item" />
+            tools:listitem="@layout/open_visit_list_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
