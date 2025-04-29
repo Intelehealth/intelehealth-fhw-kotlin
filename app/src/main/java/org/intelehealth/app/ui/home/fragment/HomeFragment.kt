@@ -10,6 +10,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
@@ -40,6 +41,18 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         updatePrescriptionStatus()
         updateFollowUpStatus()
         updateAppointmentStatus()
+        handleClick()
+    }
+
+    /**
+     * Sets up the click listener
+     *
+     * handling all click listeners here
+     */
+    private fun handleClick() {
+        binding.cardHomeOpenVisits.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
+        }
     }
 
     /**
