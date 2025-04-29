@@ -12,7 +12,6 @@
         android:id="@+id/action_more"
         android:icon="@drawable/three_dots_menu"
         android:title="@string/action_more"
-        app:actionLayout="@layout/menu_item_more"
         app:showAsAction="ifRoom" />
 
 </menu>

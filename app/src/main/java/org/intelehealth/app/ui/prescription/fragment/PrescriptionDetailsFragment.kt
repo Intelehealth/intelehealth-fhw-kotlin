@@ -1,22 +1,16 @@
 package org.intelehealth.app.ui.prescription.fragment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPrescriptionDetailsBinding
 import org.intelehealth.common.ui.fragment.MenuFragment
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewModel
-import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 
 /**
  * Created by Tanvir Hasan on 2-04-25
@@ -36,6 +30,7 @@ class PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionDetailsBinding.bind(view)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
     }
 
@@ -63,7 +58,7 @@ class PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_
 
         return when (menuItem.itemId) {
             R.id.action_more -> {
-                viewModel.optionsVisibility.value = !viewModel.optionsVisibility.value!!
+                viewModel.updateOptionsVisibility()
                 true
             }
 
