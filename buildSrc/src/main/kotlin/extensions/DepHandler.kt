@@ -462,7 +462,7 @@ fun DependencyHandler.featureInstallerModuleDeps() {
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.Constraint.constraintLayout)
 
-    // Retrofit
+    // Play core libraries
     implementation(Deps.Play.featureDelivery)
     implementation(Deps.Play.review)
 

@@ -21,6 +21,7 @@ subprojects {
     tasks.withType<Detekt>().configureEach {
         config.setFrom(files("$rootDir/detekt/detekt.yml"))
         parallel = true
+        autoCorrect = true
         buildUponDefaultConfig = true
         setSource(files("src/main/java", "src/main/kotlin"))
 //        include("**/*.kt", "**/*.kts")
