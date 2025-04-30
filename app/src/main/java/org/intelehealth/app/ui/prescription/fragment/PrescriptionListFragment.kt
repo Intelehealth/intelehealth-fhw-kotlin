@@ -1,19 +1,14 @@
 package org.intelehealth.app.ui.prescription.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentAyuPolicyBinding
 import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
-import org.intelehealth.app.databinding.FragmentSetupBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
 import org.intelehealth.common.ui.fragment.MenuFragment
 
@@ -26,6 +21,7 @@ import org.intelehealth.common.ui.fragment.MenuFragment
  * Uses tabs to separate "Received" and "Pending" prescriptions.
  */
 class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_list) {
+
     private lateinit var binding: FragmentPrescriptionListBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
