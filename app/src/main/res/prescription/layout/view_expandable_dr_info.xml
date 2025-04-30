@@ -18,7 +18,7 @@
             android:id="@+id/doctorDetailsIcon"
             android:layout_width="@dimen/std_44dp"
             android:layout_height="@dimen/std_44dp"
-            android:src="@drawable/dr_details_icon"
+            android:src="@drawable/ic_dr_details"
             android:layout_margin="@dimen/std_15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/doctorDetailsTitle"
-            style="@style/Theme.IDA.Dialog.Title"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            android:src="@drawable/ui2_ic_chevron_down"
+            android:src="@drawable/ic_cupertino_down"
             app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/doctorDetailsTitle" />
@@ -72,7 +72,7 @@
 
         <TextView
             android:id="@+id/detailsTv"
-            style="@style/Theme.IDA.Dialog.Title"
+            style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/std_12dp"
@@ -110,7 +110,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/textColorLightGary"
                     android:textSize="@dimen/std_14sp"
-                    app:drawableStartCompat="@drawable/bullet_gray" />
+                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
                     android:id="@+id/drNameTv"
@@ -142,7 +142,7 @@
                     android:textColor="@color/textColorLightGary"
                     android:textSize="@dimen/std_14sp"
                     android:visibility="invisible"
-                    app:drawableStartCompat="@drawable/bullet_gray" />
+                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
                     android:id="@+id/dr_age_gender"
@@ -172,7 +172,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/textColorLightGary"
                     android:textSize="@dimen/std_14sp"
-                    app:drawableStartCompat="@drawable/bullet_gray" />
+                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
                     android:id="@+id/qualification"
@@ -202,7 +202,7 @@
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/textColorLightGary"
                     android:textSize="@dimen/std_14sp"
-                    app:drawableStartCompat="@drawable/bullet_gray" />
+                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
                     android:id="@+id/dr_speciality"

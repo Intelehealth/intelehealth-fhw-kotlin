@@ -70,7 +70,7 @@
             android:layout_height="20dp"
             android:layout_gravity="center"
             android:contentDescription="@string/content_add_icon"
-            android:src="@drawable/user_plus" />
+            android:src="@drawable/img_user_plus" />
 
         <TextView
             android:layout_width="wrap_content"

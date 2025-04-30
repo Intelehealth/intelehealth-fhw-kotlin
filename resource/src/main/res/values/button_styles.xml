@@ -91,7 +91,7 @@
     </style>
 
     <style name="Theme.IDA.TextButton.Nav" parent="Theme.IDA.TextButton.DropDown">
-        <item name="icon">@drawable/dropdown_arrow_rotate_270</item>
+        <item name="icon">@drawable/ic_cupertino_dropdown_arrow_right</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 

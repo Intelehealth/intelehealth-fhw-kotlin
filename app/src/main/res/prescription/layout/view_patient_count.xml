@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/std_12dp"
             android:background="@null"
-            android:src="@drawable/visit_header_icon"
+            android:src="@drawable/ic_circle_visit_header"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:src="@drawable/arrow_right_icon8"
+            android:src="@drawable/ic_cupertino_arrow_right"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

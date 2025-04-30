@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_2dp"
                     android:background="@null"
-                    android:src="@drawable/cancel_small_crossbtn"
+                    android:src="@drawable/ic_cancel_cross"
                     app:layout_constraintBottom_toBottomOf="@id/filter_priority"
                     app:layout_constraintStart_toEndOf="@id/filter_priority"
                     app:layout_constraintTop_toTopOf="@id/filter_priority"

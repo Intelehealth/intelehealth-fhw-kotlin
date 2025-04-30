@@ -45,7 +45,7 @@ class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_lis
                     resources.getString(
                         if (position == 0) R.string.received else R.string.pending
                     )
-                ).setIcon(org.intelehealth.resource.R.drawable.presc_tablayout_icon)
+                ).setIcon(org.intelehealth.resource.R.drawable.ic_presc_tablayout)
             }.attach()
 
             binding.prescriptionViewPager.setOffscreenPageLimit(1)

@@ -18,7 +18,7 @@
             android:layout_height="@dimen/std_48dp"
             android:background="@drawable/ic_baseline_lens_24_light_violet"
             android:padding="12dip"
-            android:src="@drawable/icons8_activity_history_24"
+            android:src="@drawable/ic_activity_history"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,10 +46,13 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_past_visits"
+            android:id="@+id/pastVisitRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dividerView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

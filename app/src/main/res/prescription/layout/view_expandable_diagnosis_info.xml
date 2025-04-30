@@ -18,7 +18,7 @@
             android:id="@+id/diagnosisIcon"
             android:layout_width="@dimen/std_44dp"
             android:layout_height="@dimen/std_44dp"
-            android:src="@drawable/diagnosis_icon"
+            android:src="@drawable/ic_diagnosis"
             android:layout_margin="@dimen/std_15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/diagnosisTitle"
-            style="@style/Theme.IDA.Dialog.Title"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:background="@null"
-            android:src="@drawable/ui2_ic_chevron_down"
+            android:src="@drawable/ic_cupertino_down"
             app:layout_constraintBottom_toBottomOf="@+id/diagnosisTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/diagnosisTitle" />
@@ -73,13 +73,13 @@
 
         <TextView
             android:id="@+id/diagnosisTv"
-            style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/std_12dp"
             android:text="@string/lbl_no_information"
-            android:textColor="@color/black"
-            android:textSize="@dimen/std_14sp"
+            app:drawableStartCompat="@drawable/shape_bullet_gray"
+            android:drawablePadding="@dimen/std_5dp"
+            style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
             tools:layout_editor_absoluteX="12dp" />

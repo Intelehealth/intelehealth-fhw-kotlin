@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@drawable/common_input_bg"
+        android:background="@drawable/bg_common_input"
         app:queryBackground="@color/transparent"
         android:maxLines="1"
         android:singleLine="true"

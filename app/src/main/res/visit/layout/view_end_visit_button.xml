@@ -6,10 +6,7 @@
     android:id="@+id/endVisitLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/std_12dp"
-    android:layout_marginEnd="@dimen/std_12dp"
-    android:layout_marginBottom="@dimen/std_16dp"
-    android:visibility="gone"
+    android:visibility="visible"
     tools:visibility="visible">
 
 
@@ -22,19 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/endVisitBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divider"
-        android:layout_weight="1"
         android:layout_marginTop="@dimen/std_16dp"
-        android:background="@drawable/ui2_common_primary_bg"
+        android:layout_marginBottom="@dimen/std_16dp"
+        style="@style/Theme.IDA.Button.Primary"
         android:padding="@dimen/std_12dp"
         android:text="@string/action_end_visit"
-        android:textColor="@color/white"
-        android:textSize="@dimen/std_14sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

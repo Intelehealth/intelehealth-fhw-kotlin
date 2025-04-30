@@ -18,7 +18,7 @@
         android:id="@+id/iconPrescDetails"
         android:layout_width="@dimen/std_48dp"
         android:layout_height="@dimen/std_48dp"
-        android:src="@drawable/circle_prescription_icon"
+        android:src="@drawable/ic_circle_prescription"
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/divider"
@@ -60,7 +60,7 @@
         android:background="@null"
         android:paddingHorizontal="10dp"
         android:paddingVertical="10dp"
-        android:src="@drawable/arrow_right_icon8"
+        android:src="@drawable/ic_cupertino_arrow_right"
         app:layout_constraintTop_toTopOf="@id/iconPrescDetails"
         app:layout_constraintBottom_toBottomOf="@id/iconPrescDetails"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -75,18 +75,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/std_16dp"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:visibility="visible"/>
 
     <!-- Cancel Button -->
-    <Button
-        android:id="@+id/btnVsAppointment"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancelBtn"
         android:layout_width="0dp"
-        android:layout_height="@dimen/std_48dp"
-        android:background="@drawable/ui2_common_primary_bg"
+        android:layout_height="wrap_content"
+        style="@style/Theme.IDA.Button.Secondary"
         android:backgroundTint="@color/light_red"
         android:layout_marginTop="@dimen/std_10dp"
-        android:lineHeight="@dimen/std_18dp"
         android:padding="@dimen/std_12dp"
         android:text="@string/action_cancel"
         android:textColor="@color/red"
@@ -96,27 +95,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnVsSendVisit"
         android:layout_marginEnd="@dimen/std_8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:visibility="visible"/>
 
     <!-- Remind Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnVsSendVisit"
         android:layout_width="0dp"
-        android:layout_height="@dimen/std_48dp"
-        android:background="@drawable/ui2_common_primary_bg"
-        android:backgroundTint="@color/backgroundGray"
-        android:lineHeight="@dimen/std_18dp"
+        android:layout_height="wrap_content"
+        style="@style/Theme.IDA.Button.Secondary"
         android:padding="@dimen/std_14dp"
         android:text="@string/lbl_remind_doctor"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/std_14sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/btnVsAppointment"
-        app:layout_constraintStart_toEndOf="@id/btnVsAppointment"
+        app:layout_constraintTop_toTopOf="@id/cancelBtn"
+        app:layout_constraintStart_toEndOf="@id/cancelBtn"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/std_8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
