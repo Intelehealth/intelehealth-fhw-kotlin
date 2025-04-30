@@ -43,7 +43,7 @@
                 <!--Recent View-->
                 <include
                     android:id="@+id/recentView"
-                    layout="@layout/open_visits_view"
+                    layout="@layout/view_open_visits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_10dp"
@@ -55,7 +55,7 @@
                 <!--Older View-->
                 <include
                     android:id="@+id/olderView"
-                    layout="@layout/open_visits_view"
+                    layout="@layout/view_open_visits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_10dp"
