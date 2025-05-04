@@ -5,10 +5,13 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.intelehealth.app.R
+import org.intelehealth.resource.R as resourceR
 import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
+import org.intelehealth.app.ui.achievement.adapter.AchievementPagerAdapter
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
 import org.intelehealth.common.ui.fragment.MenuFragment
 
@@ -26,30 +29,20 @@ class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_lis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionListBinding.bind(view)
-        setupTabAndViewPager()
+        bindViewPager()
     }
 
     /**
      * Sets up the TabLayout and ViewPager to display prescription lists.
      * Configures the ViewPager with an adapter and links it to the TabLayout for tabbed navigation.
      */
-    private fun setupTabAndViewPager() {
-        if (binding.prescriptionViewPager.adapter == null) {
-            val adapter = PrescriptionPagerAdapter(requireActivity())
-            binding.prescriptionViewPager.setAdapter(adapter)
-
-            TabLayoutMediator(
-                binding.prescriptionTabLayout, binding.prescriptionViewPager
-            ) { tab: TabLayout.Tab, position: Int ->
-                tab.setText(
-                    resources.getString(
-                        if (position == 0) R.string.received else R.string.pending
-                    )
-                ).setIcon(org.intelehealth.resource.R.drawable.ic_presc_tablayout)
-            }.attach()
-
-            binding.prescriptionViewPager.setOffscreenPageLimit(1)
-        }
+    private fun bindViewPager() {
+        val adapter = PrescriptionPagerAdapter(requireActivity())
+        binding.prescriptionViewPager.adapter = adapter
+        TabLayoutMediator(binding.prescriptionTabLayout, binding.prescriptionViewPager) { tab, position ->
+            tab.text = adapter.getTitle(position)
+            tab.icon = ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_presc_tablayout)
+        }.attach()
     }
 
     /**

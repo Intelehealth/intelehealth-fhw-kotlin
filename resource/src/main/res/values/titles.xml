@@ -21,13 +21,15 @@
     <string name="title_priority_visits">Priority Visits</string>
     <string name="title_recent_visit">Recent Visits</string>
     <string name="title_priority">Priority</string>
-    <string name="title_name" translatable="false">%1$s %2$s %3$s</string>
+    <string name="title_name" translatable="false">%1$s %2$s</string>
     <string name="title_visit_summary_patient_details">Visit details</string>
     <string name="title_past_visits">Past Visits</string>
     <string name="title_prescriptions">Prescriptions</string>
     <string name="title_visit_details">Visit Details</string>
     <string name="title_prescription_details">Prescription Details</string>
 
+    <string name="title_received">Received</string>
+    <string name="title_pending">Pending</string>
 
 
     <!--  Dialog Title  -->

@@ -39,6 +39,7 @@ import org.intelehealth.app.databinding.PrescriptionListItemBinding
 import org.intelehealth.app.databinding.RowItemHelpFaqBinding
 import org.intelehealth.app.ui.help.viewholder.FAQViewHolder
 import org.intelehealth.app.ui.prescription.viewholder.PrescriptionViewHolder
+import org.intelehealth.data.offline.entity.Prescription
 
 /**
  * Created by Tanvir Hasan on 24/04/25.
@@ -46,8 +47,8 @@ import org.intelehealth.app.ui.prescription.viewholder.PrescriptionViewHolder
  */
 class PrescriptionRecyclerViewAdapter(
     context: Context,
-    patientList: MutableList<Patient>
-) : BaseRecyclerViewAdapter<Patient>(context, patientList) {
+    prescriptions: MutableList<Prescription>
+) : BaseRecyclerViewAdapter<Prescription>(context, prescriptions) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = PrescriptionListItemBinding.inflate(inflater, parent, false)
         return PrescriptionViewHolder(binding)

@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/std_5dp"
-    android:layout_marginVertical="@dimen/std_5dp">
+    android:layout_marginHorizontal="@dimen/std_4dp"
+    android:layout_marginVertical="@dimen/std_4dp">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/prescriptionSearchView"
@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toStartOf="@+id/filterIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="@string/search_patient"
+        app:queryHint="@string/hint_search_patient"
         app:showDividers="none"
 
         />
@@ -34,9 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/std_12dp"
+        android:layout_marginStart="@dimen/std_16dp"
         android:background="@null"
-        android:contentDescription="@string/filter"
+        android:contentDescription="@string/lbl_filter"
         android:src="@drawable/visit_filter_icon"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/prescriptionSearchView"

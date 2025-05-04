@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_prescription_list">
         <action
             android:id="@+id/action_nav_prescription_list_to_visitDetailsFragment"
-            app:destination="@id/visitDetailsFragment" />
+            app:destination="@id/visitDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
 
     <fragment
@@ -21,7 +26,12 @@
         android:label="@string/title_visit_details" >
         <action
             android:id="@+id/action_visitDetailsFragment_to_prescriptionDetailsFragment"
-            app:destination="@id/prescriptionDetailsFragment" />
+            app:destination="@id/prescriptionDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
     </fragment>
     <fragment
         android:id="@+id/prescriptionDetailsFragment"

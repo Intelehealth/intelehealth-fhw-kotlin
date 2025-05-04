@@ -30,9 +30,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="@dimen/std_12dp"
-                    android:layout_marginEnd="@dimen/std_12dp"
-                    android:layout_marginTop="@dimen/std_12dp"
+                    android:layout_marginStart="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_16dp"
                     />
 
                 <com.google.android.material.card.MaterialCardView
@@ -40,13 +40,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/userInfoView"
-                    android:layout_marginLeft="@dimen/std_12dp"
+                    android:layout_marginLeft="@dimen/std_16dp"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:layout_marginRight="@dimen/std_12dp"
-                    android:layout_marginBottom="@dimen/std_12dp"
+                    android:layout_marginRight="@dimen/std_16dp"
+                    android:layout_marginBottom="@dimen/std_16dp"
                     android:elevation="@dimen/std_16dp"
-                    app:cardCornerRadius="@dimen/std_5dp"
-                    app:cardElevation="@dimen/std_5dp">
+                    app:cardCornerRadius="@dimen/std_4dp"
+                    app:cardElevation="@dimen/std_4dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -92,8 +92,8 @@
                             layout="@layout/view_follow_up_info_visit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/std_12dp"
-                            android:layout_marginStart="@dimen/std_12dp"
+                            android:layout_marginBottom="@dimen/std_16dp"
+                            android:layout_marginStart="@dimen/std_16dp"
                             android:layout_marginEnd="12dp"
                             app:layout_constraintTop_toBottomOf="@id/prescriptionView" />
 
@@ -103,7 +103,7 @@
                             layout="@layout/view_end_visit_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/std_12dp"
+                            android:layout_marginStart="@dimen/std_16dp"
                             android:layout_marginEnd="12dp"
                             app:layout_constraintTop_toBottomOf="@+id/followUpView" />
 
@@ -115,11 +115,11 @@
                     layout="@layout/view_past_visit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/std_12dp"
-                    android:layout_marginEnd="@dimen/std_12dp"
-                    android:layout_marginTop="@dimen/std_12dp"
-                    android:layout_marginBottom="@dimen/std_12dp"
-                    android:paddingBottom="@dimen/std_12dp"
+                    android:layout_marginStart="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginBottom="@dimen/std_16dp"
+                    android:paddingBottom="@dimen/std_16dp"
                     app:layout_constraintTop_toBottomOf="@+id/detailsCard"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -131,8 +131,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="@dimen/std_10dp"
-            android:layout_marginBottom="@dimen/std_10dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_8dp"
             android:contentDescription="@string/content_chat_fab"
             android:src="@drawable/ic_video_call"
             android:visibility="gone"
@@ -149,8 +149,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:contentDescription="@string/content_chat_fab"
-            android:layout_marginEnd="@dimen/std_10dp"
-            android:layout_marginBottom="@dimen/std_10dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_8dp"
             android:src="@drawable/ic_chat_new"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

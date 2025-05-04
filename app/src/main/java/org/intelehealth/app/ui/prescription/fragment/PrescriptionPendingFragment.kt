@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPrescriptionPendingBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionRecyclerViewAdapter
@@ -25,6 +26,7 @@ import org.intelehealth.common.ui.viewholder.BaseViewHolder
  * Uses a RecyclerView to show pending prescriptions and navigates to details on item click.
  **/
 
+@AndroidEntryPoint
 class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_prescription_pending),
     BaseViewHolder.ViewHolderClickListener {
     lateinit var binding: FragmentPrescriptionPendingBinding
@@ -42,18 +44,14 @@ class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_presc
      * Observes the ViewModel for prescription updates and sets up the RecyclerView adapter.
      */
     private fun bindPrescriptionAdapter() {
-        viewModel.receivedPrescription.observe(viewLifecycleOwner) {
+        viewModel.pendingPrescription.observe(viewLifecycleOwner) {
             it ?: return@observe
-            //for now added dummy result
-            viewModel.handleResponse(Result.Success(it,"")) { result ->
-                Timber.d { Gson().toJson(result) }
-                val adapter = PrescriptionRecyclerViewAdapter(
-                    requireActivity(),
-                    it.toMutableList()
-                )
-                adapter.viewHolderClickListener = this
-                binding.recentView.recyclerRecent.setupLinearView(adapter, true)
-            }
+            val adapter = PrescriptionRecyclerViewAdapter(
+                requireActivity(),
+                it.toMutableList()
+            )
+            adapter.viewHolderClickListener = this
+            binding.recentView.recyclerRecent.setupLinearView(adapter, true)
 
         }
     }

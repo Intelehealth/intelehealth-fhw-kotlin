@@ -20,9 +20,9 @@
             layout="@layout/view_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_15dp"
-            android:layout_marginTop="@dimen/std_10dp"
-            android:layout_marginEnd="@dimen/std_15dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,9 +31,9 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_20dp"
-            android:layout_marginStart="@dimen/std_15dp"
-            android:layout_marginEnd="@dimen/std_15dp"
+            android:layout_marginTop="@dimen/std_24dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"
@@ -59,18 +59,17 @@
                     layout="@layout/view_no_patient_found"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="90dp"
                     android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/patientCountView" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <!--Result For View-->
                 <include
                     android:id="@+id/filterView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_20dp"
+                    android:layout_marginTop="@dimen/std_24dp"
                     layout="@layout/view_filter"
                     app:layout_constraintTop_toBottomOf="@id/patientCountView"
                     />
@@ -80,7 +79,7 @@
                     android:id="@+id/recentView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_10dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     layout="@layout/view_recent"
                     app:isListEmpty="@{viewModel.isRecentPendingEmpty}"
                     app:layout_constraintTop_toBottomOf="@id/filterView" />

@@ -5,25 +5,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize"
+        android:padding="@dimen/std_16dp">
 
         <!--Top Tabbar Layout-->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/prescriptionTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textAlignment="center"
+            style="@style/Theme.IDA.TabLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabGravity="fill"
-            app:tabIconTint="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabInlineLabel="true"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/black" />
+            />
 
         <!--ViewPager to load prescriptions-->
         <androidx.viewpager2.widget.ViewPager2

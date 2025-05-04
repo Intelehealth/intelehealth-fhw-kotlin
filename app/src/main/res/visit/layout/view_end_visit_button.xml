@@ -27,7 +27,7 @@
         android:layout_marginTop="@dimen/std_16dp"
         android:layout_marginBottom="@dimen/std_16dp"
         style="@style/Theme.IDA.Button.Primary"
-        android:padding="@dimen/std_12dp"
+        android:padding="@dimen/std_16dp"
         android:text="@string/action_end_visit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

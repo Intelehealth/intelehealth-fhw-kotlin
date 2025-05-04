@@ -1,11 +1,4 @@
 <resources>
     <string name="app_name" translatable="false">IDAV50</string>
     <string name="video_transition" translatable="false">video_transition</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="prescriptions">Prescriptions</string>
-    <string name="received">Received</string>
-    <string name="pending">Pending</string>
-    <string name="search_patient">Search patient</string>
-    <string name="filter">Filter</string>
 </resources>

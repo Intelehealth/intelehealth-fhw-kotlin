@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
+import org.intelehealth.resource.R as resourceR
 import org.intelehealth.app.databinding.ActivityPrescriptionBinding
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
@@ -23,7 +24,7 @@ class PrescriptionActivity : SimpleAppBarActivity() {
 
     override fun getAppBarBinding(): SimpleAppbarBinding = binding.appBarLayout
 
-    override fun getScreenTitle(): String = getString(R.string.prescriptions)
+    override fun getScreenTitle(): String = getString(resourceR.string.title_prescriptions)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

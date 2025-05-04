@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
@@ -40,6 +41,19 @@ class PrescriptionReceiveFragment: BaseProgressFragment(R.layout.fragment_prescr
         binding.viewModel = viewModel
         bindProgressView(binding.progressBar)
         bindPrescriptionAdapter()
+        bindScrollListener()
+    }
+
+    private fun bindScrollListener() {
+        binding.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView, _, scrollY, _, oldScrollY ->
+            if (v.getChildAt(v.childCount - 1) != null) {
+                if ((scrollY >= (v.getChildAt(0).measuredHeight - v.measuredHeight))
+                    && scrollY > oldScrollY
+                ) {
+                    viewModel.fetchReceivedPrescription()
+                }
+            }
+        }
     }
 
     private fun bindPrescriptionAdapter() {

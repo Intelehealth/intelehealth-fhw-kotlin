@@ -74,4 +74,6 @@
     <string name="hint_enter_emergency_contact_name">Enter Emergency Contact name</string>
     <string name="hint_enter_guardian_name">Enter Guardian Name</string>
     <string name="hint_search_pat_txt">Use correct Username or ID to search or you can register a new patient.</string>
+    <string name="hint_search_patient">Search patient</string>
+
 </resources>

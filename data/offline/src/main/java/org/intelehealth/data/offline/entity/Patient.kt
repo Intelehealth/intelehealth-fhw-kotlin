@@ -23,6 +23,7 @@ data class Patient(
     @ColumnInfo("profile_version") @SerializedName("profile_version") val profileVersion: Long? = null,
     @ColumnInfo("guardian_name") @SerializedName("guardianName") var guardianName: String? = null,
     @ColumnInfo("guardian_type") @SerializedName("guardianType") val guardianType: String? = null,
+    @ColumnInfo("phone_number") @SerializedName("phone_number") val phoneNumber: String? = null,
     @SerializedName("syncd")
     override var synced: Boolean = false
 ) : PersonAddress(), Parcelable

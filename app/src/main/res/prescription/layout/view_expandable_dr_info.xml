@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/std_16dp"
-    app:cardCornerRadius="@dimen/std_5dp"
-    app:cardElevation="@dimen/std_5dp"
+    app:cardCornerRadius="@dimen/std_4dp"
+    app:cardElevation="@dimen/std_4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,14 +16,15 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/doctorDetailsIcon"
-            android:layout_width="@dimen/std_44dp"
-            android:layout_height="@dimen/std_44dp"
+            android:layout_width="@dimen/std_48dp"
+            android:layout_height="@dimen/std_48dp"
             android:src="@drawable/ic_dr_details"
-            android:layout_margin="@dimen/std_15dp"
+            android:layout_margin="@dimen/std_16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/lbl_consulted_doctor_details"/>
 
         <TextView
             android:id="@+id/doctorDetailsTitle"
@@ -31,8 +32,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/std_10dp"
-            android:layout_marginEnd="@dimen/std_10dp"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_8dp"
             android:text="@string/lbl_consulted_doctor_details"
             app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsIcon"
             app:layout_constraintEnd_toStartOf="@+id/expandBtn"
@@ -43,12 +44,13 @@
             android:id="@+id/expandBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:background="@null"
             android:src="@drawable/ic_cupertino_down"
             app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/doctorDetailsTitle" />
+            app:layout_constraintTop_toTopOf="@+id/doctorDetailsTitle"
+            android:contentDescription="@string/lbl_expand"/>
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/drInfoInfoExpandableLayoutGroup"
@@ -64,9 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/std_32dp"
-            android:layout_marginStart="@dimen/std_12dp"
-            android:layout_marginEnd="@dimen/std_12dp"
-            android:layout_marginBottom="@dimen/std_12dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             android:background="@color/colorLightGray"
             app:layout_constraintTop_toBottomOf="@id/doctorDetailsTitle"/>
 
@@ -75,8 +77,8 @@
             style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/std_12dp"
-            android:layout_marginTop="@dimen/std_10dp"
+            android:layout_margin="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_8dp"
             android:text="@string/lbl_details"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +89,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/std_12dp"
+            android:layout_margin="@dimen/std_16dp"
             android:shrinkColumns="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detailsTv"
@@ -102,14 +104,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_marginStart="@dimen/std_2dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_5dp"
+                    android:drawablePadding="@dimen/std_4dp"
                     android:text="@string/lbl_name"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/textColorLightGary"
-                    android:textSize="@dimen/std_14sp"
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
                     app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
@@ -118,9 +118,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/std_14sp" />
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
+                    />
             </TableRow>
 
             <!--Age -->
@@ -135,9 +134,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
-                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
                     android:layout_weight="1"
-                    android:text="Age  Gender"
+                    android:text=""
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/textColorLightGary"
                     android:textSize="@dimen/std_14sp"
@@ -150,9 +149,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/std_14sp" />
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
+                    />
             </TableRow>
 
             <!--Qualification-->
@@ -165,13 +163,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_5dp"
+                    android:drawablePadding="@dimen/std_4dp"
                     android:text="@string/lbl_qualification"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/textColorLightGary"
-                    android:textSize="@dimen/std_14sp"
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
                     app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
@@ -180,9 +176,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/std_14sp" />
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
+                    />
             </TableRow>
 
             <!--Speciality-->
@@ -195,13 +190,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/std_5dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
                     android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_5dp"
+                    android:drawablePadding="@dimen/std_4dp"
                     android:text="@string/lbl_speciality"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/textColorLightGary"
-                    android:textSize="@dimen/std_14sp"
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
                     app:drawableStartCompat="@drawable/shape_bullet_gray" />
 
                 <TextView
@@ -210,9 +203,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/std_14sp" />
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
+                    />
             </TableRow>
 
         </TableLayout>

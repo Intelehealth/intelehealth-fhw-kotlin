@@ -71,7 +71,7 @@
     <activity
         android:id="@+id/nav_prescription"
         android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"
-        android:label="@string/prescriptions"
+        android:label="@string/title_prescriptions"
         tools:layout="@layout/activity_prescription" />
 
 
