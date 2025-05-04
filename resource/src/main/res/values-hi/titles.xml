@@ -22,4 +22,5 @@
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>
     <string name="dialog_title_network_failure">नेटवर्क विफलता!</string>
     <string name="dialog_title_select_image">छवि चुने</string>
+    <string name="dialog_title_decline_consent">सहमति अस्वीकार करें</string>
 </resources>

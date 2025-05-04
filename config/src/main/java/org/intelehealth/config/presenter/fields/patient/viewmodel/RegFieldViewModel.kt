@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.config.room.entity.PatientRegistrationFields
@@ -18,8 +19,9 @@ import javax.inject.Inject
  **/
 @HiltViewModel
 open class RegFieldViewModel @Inject constructor(
-    private val repository: RegFieldRepository
-) : BaseViewModel() {
+    private val repository: RegFieldRepository,
+    networkHelper: NetworkHelper
+) : BaseViewModel(networkHelper= networkHelper) {
 
     private var personalSectionFieldsData = MutableLiveData<List<PatientRegistrationFields>>()
     val personalSectionFieldsLiveData: LiveData<List<PatientRegistrationFields>> get() = personalSectionFieldsData

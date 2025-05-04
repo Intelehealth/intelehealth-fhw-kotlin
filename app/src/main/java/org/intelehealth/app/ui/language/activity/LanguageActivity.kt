@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import org.intelehealth.common.extensions.changeLanguage
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.language.data.LanguageRepository
-import org.intelehealth.config.presenter.language.factory.LanguageViewModelFactory
 import org.intelehealth.config.presenter.language.viewmodel.LanguageViewModel
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.ActiveLanguage
@@ -30,11 +29,7 @@ import javax.inject.Inject
 abstract class LanguageActivity : AppCompatActivity() {
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
-    private val languageViewModel by viewModels<LanguageViewModel> {
-        val db = ConfigDatabase.getInstance(applicationContext)
-        val repository = LanguageRepository(db.languageDao())
-        LanguageViewModelFactory(repository)
-    }
+    private val languageViewModel by viewModels<LanguageViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

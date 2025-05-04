@@ -1,5 +1,6 @@
 package org.intelehealth.app.model
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -31,4 +32,8 @@ data class Consent(
     @SerializedName("privacy_policy") var privacyPolicy: String? = null,
     @SerializedName("terms_of_use") var termsOfUse: String? = null,
     @SerializedName("personal_data_processing_policy") var personalDataProcessingPolicy: String? = null
-)
+){
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
+}

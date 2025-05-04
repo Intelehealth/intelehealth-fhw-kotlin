@@ -5,25 +5,30 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.databinding.OnRebindCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientAddressInfoBinding
+import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
 import org.intelehealth.app.model.address.Block
 import org.intelehealth.app.model.address.DistData
 import org.intelehealth.app.model.address.ProvincesAndCities
 import org.intelehealth.app.model.address.StateData
 import org.intelehealth.app.model.address.Village
+import org.intelehealth.app.ui.patient.viewmodel.PatientAddressViewModel
 import org.intelehealth.app.utility.LanguageUtils
 import org.intelehealth.common.extensions.hideDigitErrorOnTextChang
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.hideErrorOnTextChang
 import org.intelehealth.common.extensions.validate
 import org.intelehealth.common.extensions.validateDigit
+import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
+import org.intelehealth.config.utility.PatientInfoGroup
 
 
 /**
@@ -31,19 +36,21 @@ import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-//class PatientAddressInfoFragment : Fragment(R.layout.fragment_patient_address_info) {
-//
-//    private lateinit var binding: FragmentPatientAddressInfoBinding
-//    private var isCityVillageEnabled: Boolean = false
-//    private var isOtherBlockSelected: Boolean = false
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding = FragmentPatientAddressInfoBinding.bind(view)
-//        binding.textInputLayDistrict.isEnabled = false
-//        patientViewModel.updatePatientStage(PatientRegStage.ADDRESS)
-//        super.onViewCreated(view, savedInstanceState)
-//    }
-//
+class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_patient_address_info) {
+    override val viewModel: PatientAddressViewModel by viewModels()
+    private lateinit var binding: FragmentPatientAddressInfoBinding
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentPatientAddressInfoBinding.bind(view)
+        binding.textInputLayDistrict.isEnabled = false
+        super.onViewCreated(view, savedInstanceState)
+        fetchPersonalInfoConfig()
+        changeIconStatus(PatientInfoGroup.ADDRESS)
+    }
+
+    override fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding = binding.patientTab
+
+    //
 //    private fun setupCountries() {
 //        val adapter = ArrayAdapterUtils.getArrayAdapter(requireContext(), R.array.countries)
 //        binding.autoCompleteCountry.setAdapter(adapter)
@@ -78,24 +85,28 @@ import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 //        fetchPersonalInfoConfig()
 //    }
 //
-//    private fun fetchPersonalInfoConfig() {
-//        patientViewModel.fetchAddressRegFields().observe(viewLifecycleOwner) {
-//            binding.addressInfoConfig = PatientConfigKey.buildPatientAddressInfoConfig(it)
-//            Timber.d { "Address Config => ${Gson().toJson(binding.addressInfoConfig)}" }
-//            binding.addOnRebindCallback(onRebindCallback)
-//        }
-//    }
-//
-//    private fun setClickListener() {
-//        binding.frag2BtnBack.setOnClickListener {
+    private fun fetchPersonalInfoConfig() {
+        viewModel.fetchAddressRegFields()
+        viewModel.addressSectionFieldsLiveData.observe(viewLifecycleOwner) {
+            binding.addressInfoConfig = PatientConfigKey.buildPatientAddressInfoConfig(it)
+            Timber.d { "Address Config => ${Gson().toJson(binding.addressInfoConfig)}" }
+            setClickListener()
+        }
+    }
+
+    //
+    private fun setClickListener() {
+        binding.frag2BtnBack.setOnClickListener {
 //            setOtherBlockData()
-//            findNavController().popBackStack()
-//        }
-//        binding.frag2BtnNext.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.frag2BtnNext.setOnClickListener {
+            val directions = PatientAddressInfoFragmentDirections.actionAddressToOther("0")
+            findNavController().navigate(directions)
 //            setOtherBlockData()
 //            validateForm { savePatient() }
-//        }
-//    }
+        }
+    }
 //
 //    private fun savePatient() {
 //        patient.apply {
@@ -646,4 +657,4 @@ import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 //            disableOtherBlock()
 //        }
 //    }
-//}
+}

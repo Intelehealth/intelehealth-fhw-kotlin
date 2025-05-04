@@ -27,7 +27,7 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
     private val activeFeatureViewModel: ActiveFeatureStatusViewModel by viewModels()
 
     @Inject
-    protected lateinit var languageUtils: LanguageUtils
+    lateinit var languageUtils: LanguageUtils
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

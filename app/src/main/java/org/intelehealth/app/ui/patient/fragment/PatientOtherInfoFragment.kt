@@ -1,19 +1,36 @@
 package org.intelehealth.app.ui.patient.fragment
 
+import android.os.Bundle
+import android.view.View
+import androidx.databinding.adapters.ViewBindingAdapter.setClickListener
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import org.intelehealth.app.R
+import org.intelehealth.app.databinding.FragmentPatientOtherInfoBinding
+import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
+import org.intelehealth.app.ui.patient.viewmodel.PatientOtherInfoViewModel
+import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
+import org.intelehealth.config.utility.PatientInfoGroup
+
 /**
  * Created by Vaghela Mithun R. on 27-06-2024 - 13:42.
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-//class PatientOtherInfoFragment : BasePatientFragment(R.layout.fragment_patient_other_info) {
-//    private lateinit var binding: FragmentPatientOtherInfoBinding
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        binding = FragmentPatientOtherInfoBinding.bind(view)
-//        patientViewModel.updatePatientStage(PatientRegStage.OTHER)
-//        super.onViewCreated(view, savedInstanceState)
-//    }
-//
+class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patient_other_info) {
+    override val viewModel: PatientOtherInfoViewModel by viewModels()
+    private lateinit var binding: FragmentPatientOtherInfoBinding
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentPatientOtherInfoBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
+        fetchPersonalInfoConfig()
+        changeIconStatus(PatientInfoGroup.OTHER)
+    }
+
+    override fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding = binding.patientTab
+
+    //
 //    private fun setupSocialCategory() {
 //        val adapter = ArrayAdapterUtils.getArrayAdapter(requireContext(), R.array.caste)
 //        binding.autoCompleteSocialCategory.setAdapter(adapter)
@@ -38,18 +55,19 @@ package org.intelehealth.app.ui.patient.fragment
 //        fetchPersonalInfoConfig()
 //    }
 //
-//    private fun fetchPersonalInfoConfig() {
-//        patientViewModel.fetchOtherRegFields().observe(viewLifecycleOwner) {
-//            binding.otherInfoConfig = PatientRegFieldsUtils.buildPatientOtherInfoConfig(it)
+    private fun fetchPersonalInfoConfig() {
+        viewModel.fetchOtherRegFields()
+        viewModel.otherSectionFieldsLiveData.observe(viewLifecycleOwner) {
+            binding.otherInfoConfig = PatientConfigKey.buildPatientOtherInfoConfig(it)
 //            setupSocialCategory()
 //            setupEducations()
 //            setupHealthFacility()
 //            setupEconomicCategory()
 //            applyFilter()
 //            setInputTextChangListener()
-//            setClickListener()
-//        }
-//    }
+            setClickListener()
+        }
+    }
 //
 //    private fun setupEconomicCategory() {
 //        val marathiArray = resources.getStringArray(R.array.economic) // Get Marathi values
@@ -73,12 +91,12 @@ package org.intelehealth.app.ui.patient.fragment
 //    }
 //
 //
-//    private fun setClickListener() {
-//        binding.frag2BtnBack.setOnClickListener { findNavController().popBackStack() }
-//        binding.frag2BtnNext.setOnClickListener {
+    private fun setClickListener() {
+        binding.frag2BtnBack.setOnClickListener { findNavController().popBackStack() }
+        binding.frag2BtnNext.setOnClickListener {
 //            validateForm { savePatient() }
-//        }
-//    }
+        }
+    }
 //
 //    private fun savePatient() {
 //        patient.apply {
@@ -310,4 +328,4 @@ package org.intelehealth.app.ui.patient.fragment
 //        }
 //    }
 //
-//}
+}
