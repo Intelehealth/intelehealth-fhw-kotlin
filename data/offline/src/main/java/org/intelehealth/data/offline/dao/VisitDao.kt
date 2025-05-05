@@ -49,6 +49,19 @@ interface VisitDao : CoreDao<Visit> {
     @Query("SELECT * FROM tbl_visit WHERE synced = :synced AND voided = 0")
     fun getAllUnsyncedVisits(synced: Boolean = false): List<Visit>
 
+    @Query(
+        "SELECT COUNT(DISTINCT p.openmrs_id) " +
+                "FROM tbl_patient p " +
+                "JOIN tbl_visit v ON p.uuid = v.patientuuid " +
+                "JOIN tbl_encounter e ON v.uuid = e.visituuid " +
+                "JOIN tbl_obs o ON e.uuid = o.encounteruuid " +
+                "WHERE e.encounter_type_uuid = :visitCompleteType " +
+                "AND (o.synced = 1 OR o.synced = 'TRUE' OR o.synced = 'true') " +
+                "AND o.voided = 0"
+    )
+    fun getPrescriptionCount(
+        visitCompleteType: String
+    ): LiveData<Int>
 
     @Query(
         "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.phone_number, "

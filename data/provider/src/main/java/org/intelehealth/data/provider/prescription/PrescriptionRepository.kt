@@ -6,6 +6,11 @@ import org.intelehealth.data.provider.utils.EncounterType
 import javax.inject.Inject
 
 class PrescriptionRepository @Inject constructor(private val database: OfflineDatabase) {
+    fun getPrescriptionCount() = database.visitDao().getVisitStatusCount(
+        EncounterType.VISIT_COMPLETE.value,
+        EncounterType.PATIENT_EXIT_SURVEY.value
+    )
+
     fun getReceivedPrescriptions(searchQuery: String, limit: Int, offset: Int) =
         database.visitDao().getReceivedPrescriptions(
             EncounterType.VISIT_COMPLETE.value,

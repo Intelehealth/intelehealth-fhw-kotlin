@@ -32,28 +32,27 @@
         <!-- Frame 100314 -->
         <TextView
             android:id="@+id/noDataFoundTv"
+            style="@style/Theme.IDA.TextAppearance.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/std_4dp"
+            android:layout_marginTop="@dimen/std_32dp"
             android:text="@string/error_no_visit_found"
-            style="@style/Theme.IDA.TextAppearance.Secondary"
-            tools:visibility="visible"
             android:visibility="@{isListEmpty ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recentTitleTv" />
+            app:layout_constraintTop_toBottomOf="@id/recentTitleTv"
+            tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_recent"
+            android:id="@+id/recentRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
-            android:padding="@dimen/std_4dp"
-            android:layout_marginTop="@dimen/std_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noDataFoundTv"
+            app:layout_constraintTop_toBottomOf="@+id/recentTitleTv"
             tools:itemCount="2"
             tools:listitem="@layout/prescription_list_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,13 @@
 package org.intelehealth.app.ui.prescription.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.intelehealth.common.state.Result
+import org.intelehealth.common.enums.LoadingType
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.data.offline.entity.Patient
+import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Prescription
 import org.intelehealth.data.provider.prescription.PrescriptionRepository
 import javax.inject.Inject
@@ -17,60 +16,99 @@ import javax.inject.Inject
 class PrescriptionViewModel @Inject constructor(
     private var prescriptionRepository: PrescriptionRepository
 ) : BaseViewModel() {
-    private var _receivedPrescription = MutableLiveData<List<Prescription>>()
-    var receivedPrescription = _receivedPrescription
+    private var _receivedRecentPrescription =
+        MutableLiveData<MutableList<Prescription>>(mutableListOf())
+    var receivedRecentPrescription = _receivedRecentPrescription
 
-    private var _pendingPrescription = MutableLiveData<List<Prescription>>()
-    var pendingPrescription = _receivedPrescription
+    private var _receivedOlderPrescription =
+        MutableLiveData<MutableList<Prescription>>(mutableListOf())
+    var receivedOlderPrescription = _receivedRecentPrescription
 
-    private var _isLoadingRecentReceived = MutableLiveData<Boolean>()
-    var isLoadingRecentReceived = _isLoadingRecentReceived
+    private var _pendingRecentPrescription = MutableLiveData<List<Prescription>>()
+    var pendingRecentPrescription = _pendingRecentPrescription
 
-    private var _isLoadingOlderReceived = MutableLiveData<Boolean>()
-    var isLoadingOlderReceived = _isLoadingRecentReceived
+    private var _pendingOlderPrescription =
+        MutableLiveData<MutableList<Prescription>>(mutableListOf())
+    var pendingOlderPrescription = _pendingOlderPrescription
 
-    var isRecentReceivedEmpty = MutableLiveData<Boolean>()
-    var isRecentPendingEmpty = MutableLiveData<Boolean>()
+    private var receivedRecentOffset = 0
+    private var receivedOlderOffset = 0
+
+    private var pendingRecentOffset = 0
+    private var pendingOlderOffset = 0
 
     init {
-        fetchReceivedPrescription()
-        fetchPendingPrescription()
+        fetchReceivedPrescription(LoadingType.INITIAL)
+        fetchPendingPrescription(LoadingType.INITIAL)
     }
 
-    fun fetchReceivedPrescription() {
-        viewModelScope.launch {
-            executeLocalQuery {
-                prescriptionRepository.getReceivedPrescriptions(
-                    searchQuery = "",
-                    limit = 20,
-                    offset = _receivedPrescription.value?.size ?: 0
-                )
+    fun prescriptionCount() = prescriptionRepository.getPrescriptionCount()
 
-            }.collectLatest {
-                handleResponse(it) {
-                    _receivedPrescription.value = it
+    fun fetchReceivedPrescription(loadingType: LoadingType) {
+        viewModelScope.launch {
+            executeLocalQuery(
+                queryCallOne = {
+                    prescriptionRepository.getReceivedPrescriptions(
+                        searchQuery = "",
+                        limit = CommonConstants.LIMIT,
+                        offset = receivedRecentOffset
+                    )
+                },
+
+                queryCallTwo = {
+                    prescriptionRepository.getReceivedPrescriptions(
+                        searchQuery = "",
+                        limit = CommonConstants.LIMIT,
+                        offset = receivedOlderOffset
+                    )
+                }
+            ).collectLatest {
+                handleResponse(loadingType, it) {
+                    val data = it as Pair<*, *>
+                    _receivedRecentPrescription.value =
+                        (data.first as List<Prescription>).toMutableList()
+                    _receivedOlderPrescription.value =
+                        (data.second as List<Prescription>).toMutableList()
+
+                    receivedRecentOffset += _receivedRecentPrescription.value?.size ?: 0
+                    receivedOlderOffset += _receivedOlderPrescription.value?.size ?: 0
+
                 }
             }
         }
-
-        isRecentReceivedEmpty.value = false
     }
 
-    private fun fetchPendingPrescription() {
+    fun fetchPendingPrescription(loadingType: LoadingType) {
         viewModelScope.launch {
-            executeLocalQuery {
-                prescriptionRepository.getPendingPrescriptions(
-                    searchQuery = "",
-                    limit = 20,
-                    offset = 0
-                )
+            executeLocalQuery(
+                queryCallOne = {
+                    prescriptionRepository.getPendingPrescriptions(
+                        searchQuery = "",
+                        limit = CommonConstants.LIMIT,
+                        offset = _pendingRecentPrescription.value?.size ?: 0
+                    )
+                },
 
-            }.collectLatest {
-                handleResponse(it) {
-                    _pendingPrescription.value = it
+                queryCallTwo = {
+                    prescriptionRepository.getPendingPrescriptions(
+                        searchQuery = "",
+                        limit = CommonConstants.LIMIT,
+                        offset = _pendingOlderPrescription.value?.size ?: 0
+                    )
+                }
+            ).collectLatest {
+                handleResponse(loadingType, it) {
+                    val data = it as Pair<*, *>
+                    _receivedRecentPrescription.value =
+                        (data.first as List<Prescription>).toMutableList()
+                    _receivedOlderPrescription.value =
+                        (data.second as List<Prescription>).toMutableList()
+
+                    pendingRecentOffset += _pendingRecentPrescription.value?.size ?: 0
+                    pendingOlderOffset += _pendingOlderPrescription.value?.size ?: 0
+
                 }
             }
         }
-        isRecentPendingEmpty.value = false
     }
 }

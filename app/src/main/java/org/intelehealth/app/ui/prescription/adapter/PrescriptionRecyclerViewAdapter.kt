@@ -47,7 +47,7 @@ import org.intelehealth.data.offline.entity.Prescription
  */
 class PrescriptionRecyclerViewAdapter(
     context: Context,
-    prescriptions: MutableList<Prescription>
+    private var prescriptions: MutableList<Prescription>
 ) : BaseRecyclerViewAdapter<Prescription>(context, prescriptions) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = PrescriptionListItemBinding.inflate(inflater, parent, false)
@@ -57,6 +57,12 @@ class PrescriptionRecyclerViewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         viewHolderClickListener?.let { (holder as PrescriptionViewHolder).setViewClickListener(it) }
         (holder as PrescriptionViewHolder).bind(getItem(position))
+    }
+
+    fun updateList(newList: MutableList<Prescription>) {
+        val olderListSize = prescriptions.size
+        prescriptions.addAll(newList)
+        notifyItemRangeChanged(olderListSize-1, newList.size)
     }
 
 }

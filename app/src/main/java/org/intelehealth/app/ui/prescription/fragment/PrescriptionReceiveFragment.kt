@@ -1,10 +1,7 @@
 package org.intelehealth.app.ui.prescription.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,25 +9,18 @@ import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentPrescriptionPendingBinding
 import org.intelehealth.app.databinding.FragmentPrescriptionReceiveBinding
-import org.intelehealth.app.model.help.FAQItem
-import org.intelehealth.app.ui.help.adapter.FAQAdapter
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionRecyclerViewAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
-import org.intelehealth.app.ui.user.viewmodel.UserViewModel
-import org.intelehealth.app.utility.KEY_RESULTS
+import org.intelehealth.common.enums.LoadingType
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.config.presenter.language.viewmodel.LanguageViewModel
-import org.intelehealth.data.offline.entity.Patient
 
 
 @AndroidEntryPoint
-class PrescriptionReceiveFragment: BaseProgressFragment(R.layout.fragment_prescription_receive),
+class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_prescription_receive),
     BaseViewHolder.ViewHolderClickListener {
     lateinit var binding: FragmentPrescriptionReceiveBinding
     override val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
@@ -39,7 +29,7 @@ class PrescriptionReceiveFragment: BaseProgressFragment(R.layout.fragment_prescr
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionReceiveBinding.bind(view)
         binding.viewModel = viewModel
-        bindProgressView(binding.progressBar)
+        bindProgressView(binding.progressBar, binding.progressBarPage)
         bindPrescriptionAdapter()
         bindScrollListener()
     }
@@ -50,26 +40,50 @@ class PrescriptionReceiveFragment: BaseProgressFragment(R.layout.fragment_prescr
                 if ((scrollY >= (v.getChildAt(0).measuredHeight - v.measuredHeight))
                     && scrollY > oldScrollY
                 ) {
-                    viewModel.fetchReceivedPrescription()
+                    viewModel.fetchReceivedPrescription(LoadingType.PAGINATION)
                 }
             }
         }
     }
 
     private fun bindPrescriptionAdapter() {
-        viewModel.receivedPrescription.observe(viewLifecycleOwner) {
+        var recentAdapter: PrescriptionRecyclerViewAdapter? = null
+        var pendingAdapter: PrescriptionRecyclerViewAdapter? = null
+
+        viewModel.receivedRecentPrescription.observe(viewLifecycleOwner) {
             it ?: return@observe
-            //for now added dummy result
-            viewModel.handleResponse(Result.Success(it,"")) { result ->
+            viewModel.handleResponse(Result.Success(it, "")) { result ->
                 Timber.d { Gson().toJson(result) }
-                val adapter = PrescriptionRecyclerViewAdapter(
-                    requireActivity(),
-                    it.toMutableList()
-                )
-                adapter.viewHolderClickListener = this
-                binding.recentView.recyclerRecent.setupLinearView(adapter, true)
+                if (recentAdapter == null) {
+                    recentAdapter = PrescriptionRecyclerViewAdapter(
+                        requireActivity(),
+                        it.toMutableList()
+                    )
+                    recentAdapter?.viewHolderClickListener = this
+                    binding.recentView.recentRv.setupLinearView(recentAdapter!!, false)
+                } else {
+                    recentAdapter?.updateList(it.toMutableList())
+                }
             }
-            
+
+        }
+
+        viewModel.receivedOlderPrescription.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.handleResponse(Result.Success(it, "")) { result ->
+                Timber.d { Gson().toJson(result) }
+                if (pendingAdapter == null) {
+                    pendingAdapter = PrescriptionRecyclerViewAdapter(
+                        requireActivity(),
+                        it.toMutableList()
+                    )
+                    pendingAdapter?.viewHolderClickListener = this
+                    binding.olderView.olderRv.setupLinearView(pendingAdapter!!, false)
+                } else {
+                    pendingAdapter?.updateList(it.toMutableList())
+                }
+            }
+
         }
     }
 

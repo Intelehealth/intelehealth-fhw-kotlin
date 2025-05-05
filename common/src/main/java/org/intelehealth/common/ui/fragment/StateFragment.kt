@@ -42,11 +42,19 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
             it ?: return@observe
             if (it) showLoading() else hideLoading()
         }
+
+        viewModel.loadingPage.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            if (it) showPageLoading() else hidePageLoading()
+        }
     }
 
     open fun getAnchorView(): View? = null
     open fun showLoading() {}
     open fun hideLoading() {}
+
+    open fun showPageLoading() {}
+    open fun hidePageLoading() {}
     open fun retryOnNetworkLost() {
         Timber.d { "Retry on network lost" }
     }
