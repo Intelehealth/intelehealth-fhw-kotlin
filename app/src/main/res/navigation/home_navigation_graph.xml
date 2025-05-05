@@ -72,7 +72,7 @@
 
     <activity
         android:id="@+id/nav_open_visits"
-        android:name="org.intelehealth.app.ui.openvisit.activity.OpenVisitsActivity"
+        android:name="org.intelehealth.app.ui.visit.activity.OpenVisitsActivity"
         android:label="@string/lbl_open_visits"
         tools:layout="@layout/activity_open_visits" />
 

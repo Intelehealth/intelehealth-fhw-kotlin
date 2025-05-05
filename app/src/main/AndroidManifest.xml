@@ -76,7 +76,7 @@
             android:theme="@style/Theme.IDA.Transparent" />
 
         <activity
-            android:name=".ui.openvisit.activity.OpenVisitsActivity"
+            android:name=".ui.visit.activity.OpenVisitsActivity"
             android:exported="true" />
 
         <provider

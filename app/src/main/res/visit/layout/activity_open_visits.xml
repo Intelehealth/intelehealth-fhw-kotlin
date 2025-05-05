@@ -8,14 +8,14 @@
 
         <variable
             name="viewModel"
-            type="org.intelehealth.app.ui.openvisit.viewmodel.OpenVisitViewModel" />
+            type="org.intelehealth.app.ui.visit.viewmodel.OpenVisitViewModel" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.openvisit.activity.OpenVisitsActivity">
+        tools:context=".ui.visit.activity.OpenVisitsActivity">
 
         <include
             android:id="@+id/app_bar_layout"
@@ -27,10 +27,10 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_15dp"
-            android:layout_marginTop="@dimen/std_20dp"
-            android:layout_marginEnd="@dimen/std_15dp"
-            android:layout_marginBottom="@dimen/std_20dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_24dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_24dp"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"

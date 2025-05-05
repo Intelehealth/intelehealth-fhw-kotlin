@@ -1,4 +1,4 @@
-package org.intelehealth.app.ui.openvisit.viewmodel
+package org.intelehealth.app.ui.visit.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel

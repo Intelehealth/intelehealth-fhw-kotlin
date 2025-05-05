@@ -1,10 +1,10 @@
-package org.intelehealth.app.ui.openvisit.adapter
+package org.intelehealth.app.ui.visit.adapter
 
 import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.intelehealth.app.databinding.OpenVisitListItemBinding
-import org.intelehealth.app.ui.openvisit.viewholder.OpenVisitViewHolder
+import org.intelehealth.app.databinding.ItemOpenVisitBinding
+import org.intelehealth.app.ui.visit.viewholder.OpenVisitViewHolder
 import org.intelehealth.common.ui.adapter.BaseRecyclerViewAdapter
 import org.intelehealth.data.offline.entity.Patient
 
@@ -14,7 +14,7 @@ class OpenVisitRecyclerViewAdapter(
 ) : BaseRecyclerViewAdapter<Patient>(context, patientList) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = OpenVisitListItemBinding.inflate(inflater, parent, false)
+        val binding = ItemOpenVisitBinding.inflate(inflater, parent, false)
         return OpenVisitViewHolder(binding)
     }
 

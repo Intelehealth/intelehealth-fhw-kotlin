@@ -12,7 +12,7 @@ android {
                         'src\\main\\res\\aboutus',
                         'src\\main\\res\\setting',
                         'src\\main\\res\\prescription',
-                        'src\\main\\res\\openvisit'
+                        'src\\main\\res\\visit'
             }
         }
     }
