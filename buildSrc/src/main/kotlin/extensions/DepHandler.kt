@@ -271,6 +271,7 @@ fun DependencyHandler.commonModuleDeps() {
     implementation(Deps.AndroidX.Constraint.constraintLayout)
 
     implementation(Deps.Rhino.android)
+    implementation(Deps.AndroidX.Navigation.fragment)
 
     // KTX
     api(Deps.AndroidX.coreKtx)

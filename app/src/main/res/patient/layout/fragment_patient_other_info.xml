@@ -23,47 +23,46 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/std_16dp">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <include
+            android:id="@+id/patientTab"
+            layout="@layout/view_patient_info_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/std_8dp"
             android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/frag2_btn_next"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp">
+            app:layout_constraintTop_toBottomOf="@id/patientTab">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <include
-                    android:id="@+id/patientTab"
-                    layout="@layout/view_patient_info_tab"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_16dp">
 
                 <LinearLayout
                     android:id="@+id/llNationalId"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="@dimen/std_8dp"
+                    android:orientation="vertical"
                     android:visibility="@{otherInfoConfig.nationalId.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/patientTab"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblNationalId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -104,8 +103,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblOccupation"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -146,8 +145,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblSocialCategory"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -188,8 +187,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblEducation"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -230,8 +229,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblEconomicCategory"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -273,8 +272,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblTmhCaseNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -317,8 +316,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblRequestId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -361,8 +360,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/tvEmContactNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -429,8 +428,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblDiscipline"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -471,8 +470,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblInn"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -513,8 +512,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblCodeOfHealthyFacility"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -555,8 +554,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblHealthFacilityName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -597,8 +596,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblCodeOfDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -640,8 +639,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -664,13 +663,13 @@
                             style="@style/Theme.IDA.InputBox.Address1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
                             android:hint="@string/hint_enter_department"
+                            android:inputType="text"
                             android:text="@{otherInfo.department}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/frag2_btn_back"
@@ -678,6 +677,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/action_back"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             android:visibility="@{isEditMode ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/frag2_btn_next"
@@ -691,6 +692,8 @@
             android:layout_marginStart="@dimen/std_16dp"
             android:text="@{isEditMode ? @string/action_save : @string/action_next}"
             app:iconGravity="end"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/frag2_btn_back" />

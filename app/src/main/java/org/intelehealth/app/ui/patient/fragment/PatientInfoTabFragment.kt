@@ -4,12 +4,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
 import org.intelehealth.app.utility.LanguageUtils
+import org.intelehealth.common.extensions.applyLabelAsScreenTitle
 import org.intelehealth.common.ui.fragment.ChangePhotoFragment
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.config.room.entity.ActiveFeatureStatus
@@ -33,6 +35,7 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
         super.onViewCreated(view, savedInstanceState)
         tabBinding = getPatientInfoTabBinding()
         observeActiveFeatureStatus()
+        applyLabelAsScreenTitle()
     }
 
     private fun observeActiveFeatureStatus() {
@@ -80,4 +83,7 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
         Timber.d { "Selected Image URI: $uri" }
     }
 
+    private fun setScreenTitle(title: String) {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
+    }
 }

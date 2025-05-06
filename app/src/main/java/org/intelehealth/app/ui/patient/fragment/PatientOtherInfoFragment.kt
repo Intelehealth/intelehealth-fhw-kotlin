@@ -68,7 +68,8 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
             setClickListener()
         }
     }
-//
+
+    //
 //    private fun setupEconomicCategory() {
 //        val marathiArray = resources.getStringArray(R.array.economic) // Get Marathi values
 //        val englishArray = LanguageUtils.getSpecificLocalResource(requireContext(), "en").getStringArray(R.array.economic)
@@ -94,6 +95,8 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     private fun setClickListener() {
         binding.frag2BtnBack.setOnClickListener { findNavController().popBackStack() }
         binding.frag2BtnNext.setOnClickListener {
+            val direction = PatientOtherInfoFragmentDirections.actionOtherToDetail("0")
+            findNavController().navigate(direction)
 //            validateForm { savePatient() }
         }
     }
