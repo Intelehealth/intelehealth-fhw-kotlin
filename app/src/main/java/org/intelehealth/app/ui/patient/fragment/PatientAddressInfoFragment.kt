@@ -7,6 +7,7 @@ import androidx.databinding.OnRebindCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import org.intelehealth.app.BuildConfig
@@ -39,13 +40,24 @@ import org.intelehealth.config.utility.PatientInfoGroup
 class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_patient_address_info) {
     override val viewModel: PatientAddressViewModel by viewModels()
     private lateinit var binding: FragmentPatientAddressInfoBinding
+    private val args by navArgs<PatientAddressInfoFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentPatientAddressInfoBinding.bind(view)
         binding.textInputLayDistrict.isEnabled = false
+        binding.isEditMode = args.editMode
         super.onViewCreated(view, savedInstanceState)
         fetchPersonalInfoConfig()
         changeIconStatus(PatientInfoGroup.ADDRESS)
+        observeAddressData()
+    }
+
+    private fun observeAddressData() {
+        viewModel.fetchPatientAddress(args.patientId).observe(viewLifecycleOwner) { address ->
+            address ?: return@observe
+            Timber.d { "Address => ${Gson().toJson(address)}" }
+            binding.address = address
+        }
     }
 
     override fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding = binding.patientTab
@@ -101,8 +113,11 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
             findNavController().popBackStack()
         }
         binding.frag2BtnNext.setOnClickListener {
-            val directions = PatientAddressInfoFragmentDirections.actionAddressToOther("0")
-            findNavController().navigate(directions)
+            PatientAddressInfoFragmentDirections.actionAddressToOther(
+                args.patientId, args.editMode
+            ).apply {
+                findNavController().navigate(this)
+            }
 //            setOtherBlockData()
 //            validateForm { savePatient() }
         }

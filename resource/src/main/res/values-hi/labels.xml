@@ -59,6 +59,7 @@
     <string name="lbl_postal_code">पोस्टल कोड</string>
     <string name="lbl_years">साल</string>
     <string name="lbl_months">महीने</string>
+    <string name="lbl_days"> दिन </string>
     <string name="lbl_block">ब्लॉक</string>
     <string name="lbl_household_no">घरेलू संख्या</string>
     <string name="lbl_other_block">अन्य ब्लॉक</string>

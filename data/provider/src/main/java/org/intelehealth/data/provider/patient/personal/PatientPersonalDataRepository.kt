@@ -13,7 +13,7 @@ class PatientPersonalDataRepository @Inject constructor(
     private val patientPersonalDataSource: PatientPersonalDataSource,
     private val patientDao: PatientDao
 ) {
-    fun getPatientById(patientId: String) = patientDao.getLivePatientByUuid(patientId)
+    suspend fun getPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
 
     suspend fun insertPatient(patient: Patient) = patientDao.add(patient)
 

@@ -9,8 +9,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="patient"
-            type="org.intelehealth.data.offline.entity.Patient" />
+            name="address"
+            type="org.intelehealth.data.offline.entity.PersonAddress" />
 
         <variable
             name="addressInfoConfig"
@@ -37,6 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -101,7 +102,7 @@
                                 android:hint="@string/hint_enter_postal_code"
                                 android:inputType="textPostalAddress"
                                 android:maxLength="6"
-                                android:text="@={patient.postalCode}" />
+                                android:text="@={address.postalCode}" />
                         </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                     </LinearLayout>
 
@@ -206,7 +207,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_state"
-                            android:text="@{patient.state}" />
+                            android:text="@{address.state}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -268,7 +269,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_district"
-                            android:text="@{patient.state}" />
+                            android:text="@{address.state}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -396,7 +397,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_registration_address"
-                            android:text="@{patient.addressOfHf}" />
+                            android:text="@{address.addressOfHf}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -520,7 +521,7 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/hint_enter_block"
                                 android:inputType="text"
-                                android:text="@={patient.address3}" />
+                                android:text="@={address.address3}" />
                         </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                     </LinearLayout>
 
@@ -539,8 +540,8 @@
                     tools:visibility="visible">
 
                     <TextView
-                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:id="@+id/lblCityVillage"
+                        style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
@@ -564,7 +565,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_village_town_city"
-                            android:text="@{patient.cityVillage}" />
+                            android:text="@{address.cityVillage}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -607,7 +608,7 @@
                             android:hint="@string/hint_household_number"
                             android:inputType="number"
                             android:maxLength="50"
-                            android:text="@={patient.address6}" />
+                            android:text="@={address.address6}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -649,7 +650,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_patient_address"
-                            android:text="@{patient.address1}" />
+                            android:text="@{address.address1}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
@@ -691,7 +692,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/hint_enter_patient_address"
-                            android:text="@{patient.address2}" />
+                            android:text="@{address.address2}" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 

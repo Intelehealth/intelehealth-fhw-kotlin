@@ -109,30 +109,6 @@ fun DependencyHandler.fcmModuleDeps() {
     api(Deps.AndroidX.Lifecycle.process)
 }
 
-/**
- * Configures the dependencies for the "favorite" feature module.
- *
- * This function adds the necessary dependencies to the module responsible for
- * managing user favorites within the application. It includes dependencies on
- * other project modules (`common`, `app`, `data`), the Navigation component for
- * UI navigation, and Hilt for dependency injection.
- *
- * This function is intended to be used within the `dependencies` block of the
- * "favorite" module's `build.gradle.kts` file.
- */
-fun DependencyHandler.favoriteModuleDeps() {
-    // Libraries
-    implementation(project(Modules.common))
-    implementation(project(Modules.app))
-    implementation(project(Modules.data))
-
-    // Navigation components
-    implementation(Deps.AndroidX.Navigation.fragment)
-
-    // Hilt
-    implementation(Deps.Dagger.hiltAndroid)
-    kapt(Deps.Dagger.hiltAndroidCompiler)
-}
 
 /**
  * Configures the dependencies for the "on-demand" feature modules.

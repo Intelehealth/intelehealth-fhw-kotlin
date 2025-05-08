@@ -65,6 +65,9 @@
         <argument
             android:name="patientId"
             app:argType="string" />
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_address_to_other"
             app:destination="@id/fragmentPatientOtherInfo"
@@ -83,6 +86,10 @@
         <argument
             android:name="patientId"
             app:argType="string" />
+
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
 
         <action
             android:id="@+id/action_other_to_detail"

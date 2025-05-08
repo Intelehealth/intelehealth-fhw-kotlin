@@ -2,9 +2,9 @@ package org.intelehealth.app.ui.patient.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.adapters.ViewBindingAdapter.setClickListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientOtherInfoBinding
 import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
@@ -20,12 +20,22 @@ import org.intelehealth.config.utility.PatientInfoGroup
 class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patient_other_info) {
     override val viewModel: PatientOtherInfoViewModel by viewModels()
     private lateinit var binding: FragmentPatientOtherInfoBinding
+    private val args by navArgs<PatientOtherInfoFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentPatientOtherInfoBinding.bind(view)
         super.onViewCreated(view, savedInstanceState)
+        binding.isEditMode = args.editMode
         fetchPersonalInfoConfig()
         changeIconStatus(PatientInfoGroup.OTHER)
+        observeOtherInfoData()
+    }
+
+    private fun observeOtherInfoData() {
+        viewModel.fetchPatientOtherInfo(args.patientId).observe(viewLifecycleOwner) { result ->
+            result ?: return@observe
+            binding.otherInfo = result
+        }
     }
 
     override fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding = binding.patientTab
@@ -95,7 +105,7 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     private fun setClickListener() {
         binding.frag2BtnBack.setOnClickListener { findNavController().popBackStack() }
         binding.frag2BtnNext.setOnClickListener {
-            val direction = PatientOtherInfoFragmentDirections.actionOtherToDetail("0")
+            val direction = PatientOtherInfoFragmentDirections.actionOtherToDetail(args.patientId)
             findNavController().navigate(direction)
 //            validateForm { savePatient() }
         }

@@ -5,4 +5,16 @@
         <item>Daily</item>
         <item>Date Range</item>
     </string-array>
+
+    <string-array name="contact_type">
+        <item>Self</item>
+        <item>Family</item>
+    </string-array>
+
+    <string-array name="guardian_type">
+        <item>Mother</item>
+        <item>Father</item>
+        <item>Grandparent</item>
+        <item>Spouse</item>
+    </string-array>
 </resources>

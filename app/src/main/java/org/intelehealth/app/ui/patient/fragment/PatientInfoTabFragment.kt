@@ -82,8 +82,4 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
     override fun onProfilePictureSelected(uri: Uri) {
         Timber.d { "Selected Image URI: $uri" }
     }
-
-    private fun setScreenTitle(title: String) {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
-    }
 }

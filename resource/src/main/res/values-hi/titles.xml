@@ -24,4 +24,5 @@
     <string name="dialog_title_network_failure">नेटवर्क विफलता!</string>
     <string name="dialog_title_select_image">छवि चुने</string>
     <string name="dialog_title_decline_consent">सहमति अस्वीकार करें</string>
+    <string name="dialog_title_select_age">आयु चुनें</string>
 </resources>

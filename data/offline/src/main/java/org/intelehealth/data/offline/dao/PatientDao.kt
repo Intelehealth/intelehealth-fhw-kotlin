@@ -19,7 +19,7 @@ interface PatientDao : CoreDao<Patient> {
                 " guardian_type, profile_version, abha_address, abha_number, creatoruuid, created_at, updated_at, voided, synced" +
                 " FROM tbl_patient WHERE uuid = :uuid"
     )
-    fun getLivePatientByUuid(uuid: String): LiveData<Patient>
+    suspend fun getPatientByUuid(uuid: String): Patient
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
     fun getPatientByOpenMrsId(openMrsId: String): LiveData<Patient>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_white_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/std_16dp">
+
+        <TextView
+            style="@style/Theme.IDA.TextAppearance.ScreenTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/dialog_title_select_age"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:orientation="horizontal">
+
+            <NumberPicker
+                android:id="@+id/npYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_8dp"
+                app:layout_constraintEnd_toStartOf="@id/npMonth"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtYears"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:gravity="center"
+                android:padding="@dimen/std_8dp"
+                android:text="@string/lbl_years"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="@id/npYear"
+                app:layout_constraintStart_toStartOf="@id/npYear"
+                app:layout_constraintTop_toBottomOf="@id/npYear" />
+
+
+            <NumberPicker
+                android:id="@+id/npMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_8dp"
+                app:layout_constraintEnd_toStartOf="@id/npDays"
+                app:layout_constraintStart_toEndOf="@id/npYear"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtMonths"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:gravity="center"
+                android:padding="@dimen/std_8dp"
+                android:text="@string/lbl_months"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="@id/npMonth"
+                app:layout_constraintStart_toStartOf="@id/npMonth"
+                app:layout_constraintTop_toBottomOf="@id/npMonth" />
+
+            <NumberPicker
+                android:id="@+id/npDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/npMonth"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtDays"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:gravity="center"
+                android:padding="@dimen/std_8dp"
+                android:text="@string/lbl_days"
+                android:textAllCaps="true"
+                app:layout_constraintEnd_toEndOf="@id/npDays"
+                app:layout_constraintStart_toStartOf="@id/npDays"
+                app:layout_constraintTop_toBottomOf="@id/npDays" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Theme.IDA.Button.Tertiary"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="16dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="16dp"
+                android:text="@string/action_cancel"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOkay"
+                style="@style/Theme.IDA.Button.Primary"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/btnCancel"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingTop="16dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="16dp"
+                android:text="@string/action_ok"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

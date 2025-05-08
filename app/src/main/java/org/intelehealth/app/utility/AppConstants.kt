@@ -22,6 +22,7 @@ const val IND_MOBILE_LEN = 10
 // The length of the mobile number for other countries.
 const val OTHER_MOBILE_LEN = 15
 const val PWD_MIN_LENGTH = 5
+const val MAX_NAME_LENGTH = 25
 const val INTELEHEALTH_WEB_LINK = "https://intelehealth.org/"
 const val PERSON_IMAGE_BASE_PATH = "${BuildConfig.SERVER_URL}/openmrs/ws/rest/v1/personimage/"
 

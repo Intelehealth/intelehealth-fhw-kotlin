@@ -125,7 +125,7 @@ abstract class ConsentFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
      */
     private fun bindConsentData(consent: Consent) {
         binding.contentLoadingProgressBar.hide()
-        Timber.d { "bindConsentData: $consent" }
+//        Timber.d { "bindConsentData: $consent" }
         when (args.consentType) {
             ConsentType.PERSONAL_DATA_POLICY -> {
                 screenTitle(getString(ResourceR.string.title_personal_data_processing_policy))

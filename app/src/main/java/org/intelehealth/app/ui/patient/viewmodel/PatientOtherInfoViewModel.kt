@@ -18,5 +18,6 @@ class PatientOtherInfoViewModel@Inject constructor(
     private val patientOtherInfoRepository: PatientOtherDataRepository,
     private val patientRegFieldRepository: RegFieldRepository
 ) : RegFieldViewModel(patientRegFieldRepository, networkHelper = networkHelper) {
-
+    fun fetchPatientOtherInfo(patientId: String) =
+        patientOtherInfoRepository.getPatientOtherDataById(patientId)
 }

@@ -101,7 +101,7 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
      */
     private fun bindLocation(locations: List<SetupLocation>) {
         Timber.d { Gson().toJson(locations) }
-        locationAdapter = ArrayAdapterUtils.getObjectArrayAdapter(requireContext(), locations)
+        locationAdapter = ArrayAdapterUtils.getSpinnerItemAdapter(requireContext(), locations)
         binding.viewAuthenticationForm.autotvSelectLocation.setAdapter(locationAdapter)
         Timber.d { "Location Adapter set ${locationAdapter.count}" }
     }

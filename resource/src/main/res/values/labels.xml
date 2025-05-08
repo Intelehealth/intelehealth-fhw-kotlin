@@ -59,6 +59,7 @@
     <string name="lbl_postal_code">Postal code</string>
     <string name="lbl_years"> years </string>
     <string name="lbl_months"> months</string>
+    <string name="lbl_days"> days </string>
     <string name="lbl_block">Block</string>
     <string name="lbl_household_no">Household Number</string>
     <string name="lbl_other_block">Other Block</string>

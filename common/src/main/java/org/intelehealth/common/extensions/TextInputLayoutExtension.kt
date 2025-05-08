@@ -156,3 +156,10 @@ fun isValidEmail(email: String): Boolean {
     val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     return email.matches(emailPattern.toRegex())
 }
+
+fun TextInputLayout.validateDropDowb(input: AutoCompleteTextView, @StringRes resId: Int): Boolean {
+    return if (input.text.isNullOrEmpty()) {
+        showError(resId)
+        false
+    } else true
+}
