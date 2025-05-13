@@ -68,7 +68,7 @@
                     tools:visibility="visible">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/patient_imgview"
+                        android:id="@+id/ivPatientDb"
                         config="@{personalConfig.profilePic}"
                         editMode="@{isEditMode}"
                         personImageId="@{patient.uuid}"
@@ -83,9 +83,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/patient_imgview"
+                        android:layout_alignBottom="@id/ivPatientDb"
                         android:layout_marginStart="-20dip"
-                        android:layout_toEndOf="@+id/patient_imgview"
+                        android:layout_toEndOf="@+id/ivPatientDb"
                         android:contentDescription="@string/lbl_add_a_picture"
                         android:elevation="8dip"
                         android:src="@drawable/ic_pick_image" />
@@ -95,7 +95,7 @@
                         style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/patient_imgview"
+                        android:layout_below="@+id/ivPatientDb"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/std_8dp"
                         android:gravity="top"
@@ -525,7 +525,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
-                        android:text="@{ personalConfig.age.mandatory ? @string/lbl_phone_number + ` *` : @string/lbl_phone_number}"
+                        android:text="@{ personalConfig.phone.mandatory ? @string/lbl_phone_number + ` *` : @string/lbl_phone_number}"
                         android:textSize="@null"
                         tools:text="@string/lbl_phone_number" />
 

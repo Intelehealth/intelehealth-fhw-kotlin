@@ -32,7 +32,7 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     }
 
     private fun observeOtherInfoData() {
-        viewModel.fetchPatientOtherInfo(args.patientId).observe(viewLifecycleOwner) { result ->
+        viewModel.patientOtherInfoLiveData.observe(viewLifecycleOwner) { result ->
             result ?: return@observe
             binding.otherInfo = result
         }

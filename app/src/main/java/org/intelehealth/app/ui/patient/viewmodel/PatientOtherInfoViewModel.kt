@@ -13,11 +13,12 @@ import javax.inject.Inject
  * Mob   : +919727206702
  **/
 @HiltViewModel
-class PatientOtherInfoViewModel@Inject constructor(
+class PatientOtherInfoViewModel @Inject constructor(
     networkHelper: NetworkHelper,
     private val patientOtherInfoRepository: PatientOtherDataRepository,
     private val patientRegFieldRepository: RegFieldRepository
-) : RegFieldViewModel(patientRegFieldRepository, networkHelper = networkHelper) {
-    fun fetchPatientOtherInfo(patientId: String) =
-        patientOtherInfoRepository.getPatientOtherDataById(patientId)
-}
+) : PatientViewModel(
+    otherInfoRepository = patientOtherInfoRepository,
+    regFieldRepository = patientRegFieldRepository,
+    networkHelper = networkHelper
+)

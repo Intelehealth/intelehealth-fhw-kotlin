@@ -1,6 +1,6 @@
 package org.intelehealth.app.ui.patient.fragment
 
-import android.app.ProgressDialog.show
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter.LengthFilter
 import android.view.View
@@ -8,7 +8,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.ajalt.timberkt.Timber
+import com.github.ajalt.timberkt.v
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.R
@@ -18,7 +23,6 @@ import org.intelehealth.app.ui.patient.viewmodel.PatientPersonalViewModel
 import org.intelehealth.app.utility.FlavorKeys
 import org.intelehealth.app.utility.IND_MOBILE_LEN
 import org.intelehealth.app.utility.MAX_NAME_LENGTH
-import org.intelehealth.common.databinding.DialogAgePickerBinding
 import org.intelehealth.common.dialog.AgePickerDialog
 import org.intelehealth.common.dialog.CalendarDialog
 import org.intelehealth.common.extensions.hideDigitErrorOnTextChang
@@ -38,10 +42,11 @@ import org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoC
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 import org.intelehealth.config.utility.PatientInfoGroup
 import org.intelehealth.data.offline.entity.Patient
-import org.intelehealth.resource.R as ResourceR
+import org.intelehealth.data.offline.entity.PatientOtherInfo
 import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
+import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Vaghela Mithun R. on 27-06-2024 - 13:42.
@@ -64,6 +69,16 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     override fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding = binding.patientTab
+
+    override fun onProfilePictureSelected(uri: Uri) {
+        binding.ivPatientDb.tag = uri
+        Glide.with(requireContext())
+            .load(uri.toString())
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .error(ResourceR.drawable.avatar1)
+            .placeholder(ResourceR.drawable.avatar1)
+            .into(binding.ivPatientDb)
+    }
 
     private fun observePatientPersonalInfo() {
         viewModel.fetchPersonalInfo(args.patientId).observe(viewLifecycleOwner) {
@@ -153,7 +168,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun setClickListener() {
-        binding.patientImgview.setOnClickListener { requestPermission() }
+        binding.ivPatientDb.setOnClickListener { requestPermission() }
         binding.btnPatientPersonalNext.setOnClickListener {
             validateForm { savePatient() }
         }
@@ -169,34 +184,45 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
 
     //
     private fun savePatient() {
-        binding.patient?.let { navigateToAddress(it.uuid) }
+//        binding.patient?.let { navigateToAddress(it.uuid) }
+        binding.otherInfo = PatientOtherInfo().apply {
+            telephone = binding.countrycodeSpinner.fullNumberWithPlus
+            emergencyContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
+            emergencyContactType = binding.autoCompleteEmContactType.text.toString()
+            emergencyContactName = binding.textInputETECName.text?.toString()
+        }
 
-//        binding.patient?.apply {
-//            bindGenderValue()
-//            firstName = binding.textInputETFName.text?.toString()
-//            middleName = binding.textInputETMName.text?.toString()
-//            lastName = binding.textInputETLName.text?.toString()
-////            phonenumber = binding.countrycodeSpinner.fullNumberWithPlus
-//            guardianName = binding.textInputETGuardianName.text?.toString()
-////            emContactName = binding.textInputETECName.text?.toString()
-////            emContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
-//
-////            patientViewModel.updatedPatient(this)
-//            if (args.patientId.isNullOrEmpty().not()) {
-//                saveAndNavigateToDetails()
-//            } else {
-////                if (viewModel.activeStatusAddressSection) {
-////                    PatientPersonalInfoFragmentDirections.actionPersonalToAddress().apply {
-////                        findNavController().navigate(this)
-////                    }
-////                } else if (patientViewModel.activeStatusOtherSection) {
-////                    PatientPersonalInfoFragmentDirections.navigationPersonalToOther().apply {
-////                        findNavController().navigate(this)
-////                    }
-////                } else saveAndNavigateToDetails()
-//                binding.patient?.let { navigateToAddress(it.uuid) }
-//            }
+//        binding.profilePic?.let { uri ->
+//            binding.patient?.profilePic = uri.toString()
+//            binding.otherInfo?.profileImgTimestamp = System.currentTimeMillis().toString()
 //        }
+
+        binding.patient?.apply {
+            bindGenderValue()
+            firstName = binding.textInputETFName.text?.toString()
+            middleName = binding.textInputETMName.text?.toString()
+            lastName = binding.textInputETLName.text?.toString()
+            guardianName = binding.textInputETGuardianName.text?.toString()
+
+//            patientViewModel.updatedPatient(this)
+            if (args.patientId.isNullOrEmpty().not()) {
+                saveAndNavigateToDetails()
+            } else {
+                viewModel.createPatient(this, binding.otherInfo).observe(viewLifecycleOwner) {
+
+                }
+//                if (viewModel.activeStatusAddressSection) {
+//                    PatientPersonalInfoFragmentDirections.actionPersonalToAddress().apply {
+//                        findNavController().navigate(this)
+//                    }
+//                } else if (patientViewModel.activeStatusOtherSection) {
+//                    PatientPersonalInfoFragmentDirections.navigationPersonalToOther().apply {
+//                        findNavController().navigate(this)
+//                    }
+//                } else saveAndNavigateToDetails()
+                binding.patient?.let { navigateToAddress(it.uuid) }
+            }
+        }
     }
 
     //
@@ -223,7 +249,8 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             binding.btnFemale.isCheckable = false
             binding.btnOther.isCheckable = false
         }
-        binding.toggleGender.addOnButtonCheckedListener { _, checkedId, _ ->
+
+        binding.toggleGender.addOnButtonCheckedListener { _, _, _ ->
             binding.tvGenderError.isVisible = false
             bindGenderValue()
         }
@@ -386,7 +413,6 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             val bEmPhone = validEmergencyPhoneNumber(it, error)
             val bEmContactType = validEmergencyContactType(it, error)
 
-
             if (bProfile.and(bFName).and(bMName).and(bLName).and(bGender)
                     .and(bDob).and(bAge).and(bPhone).and(bGName).and(bGuardianType)
                     .and(bEmName).and(bEmPhone).and(bEmContactType)
@@ -437,13 +463,10 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun validPhoneNumber(config: PersonalInfoConfig, error: Int): Boolean = config.let {
-        if (it.phone?.isEnabled == true && it.phone?.isMandatory == true) {
+        Timber.d { "validPhoneNumber [enable/mandatory]=> ${it.phone?.isEnabled}/${it.phone?.isMandatory}" }
+        return@let if (it.phone?.isEnabled == true && it.phone?.isMandatory == true) {
             binding.textInputLayPhoneNumber.validate(binding.textInputETPhoneNumber, error).and(
-                binding.textInputLayPhoneNumber.validateDigit(
-                    binding.textInputETPhoneNumber,
-                    getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN),
-                    IND_MOBILE_LEN
-                )
+                isValidIndianPhoneNumber(binding.textInputLayPhoneNumber, binding.textInputETPhoneNumber)
             )
 
         } else true
@@ -467,55 +490,40 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
         } else true
     }
 
-    private fun validEmergencyPhoneNumber(config: PersonalInfoConfig, error: Int): Boolean = config.let {
-        if (it.emergencyContactNumber?.isEnabled == true && it.emergencyContactNumber?.isMandatory == true) {
-            Timber.d { "Emergency validation" }
-            binding.textInputLayEMPhoneNumber.validate(
-                binding.textInputETEMPhoneNumber,
-                error
-            ).and(
-                binding.textInputLayEMPhoneNumber.validateDigit(
-                    binding.textInputETEMPhoneNumber,
-                    getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN),
-                    IND_MOBILE_LEN
-                )
-            ).and(binding.textInputETPhoneNumber.text?.let { phone ->
-                val valid =
-                    phone.toString() != binding.textInputETEMPhoneNumber.text.toString()
-                if (!valid) {
-                    binding.textInputLayEMPhoneNumber.error = getString(
-                        ResourceR.string.error_phone_number_and_emergency_number_can_not_be_the_same
-                    )
-                }
-                valid
-            } ?: false)
+    private fun isValidIndianPhoneNumber(inputLayout: TextInputLayout, inputText: TextInputEditText): Boolean {
+        return inputLayout.validateDigit(
+            inputText,
+            getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN),
+            IND_MOBILE_LEN
+        )
+    }
 
-        }
-        // comparing em-contact number with phone number only
-        // when field is not mandatory
-        else {
-            binding.textInputETEMPhoneNumber.let { etEm ->
-                // checking emergency contact number entered or not
-                // if entered, then checking the 10 digits validation and
-                // comparing with phone number
-                if (etEm.text?.isNotEmpty() == true) {
-                    binding.textInputLayEMPhoneNumber.validateDigit(
-                        binding.textInputETEMPhoneNumber,
-                        getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN),
-                        IND_MOBILE_LEN
-                    ).and(binding.textInputETPhoneNumber.text?.let { phone ->
-                        val valid =
-                            phone.toString() != binding.textInputETEMPhoneNumber.text.toString()
-                        if (!valid) {
-                            binding.textInputLayEMPhoneNumber.error = getString(
-                                ResourceR.string.error_phone_number_and_emergency_number_can_not_be_the_same
-                            )
-                        }
-                        valid
-                    } ?: false)
-                } else true
-            }
-        }
+    private fun compareEmergencyContactNumberWithPhoneNumber(phone: String, emPhone: String): Boolean {
+        return if (phone == emPhone) {
+            binding.textInputLayEMPhoneNumber.error = getString(
+                ResourceR.string.error_phone_number_and_emergency_number_can_not_be_the_same
+            )
+            false
+        } else true
+    }
+
+    private fun validateAndCompareEmergencyPhoneNumber() = isValidIndianPhoneNumber(
+        binding.textInputLayEMPhoneNumber,
+        binding.textInputETEMPhoneNumber
+    ).and(binding.textInputETPhoneNumber.text?.let { phone ->
+        val emergencyNumber = binding.textInputETEMPhoneNumber.text.toString()
+        return@let compareEmergencyContactNumberWithPhoneNumber(phone.toString(), emergencyNumber)
+    } ?: true)
+
+    private fun validEmergencyPhoneNumber(config: PersonalInfoConfig, error: Int): Boolean = config.let {
+        Timber.d { "validEmergencyPhoneNumber [enable/mandatory]=> ${it.emergencyContactNumber?.isEnabled}/${it.emergencyContactNumber?.isMandatory}" }
+        val isNotEmpty = binding.textInputETEMPhoneNumber.text?.isNotEmpty() ?: false
+        return@let if (it.emergencyContactNumber?.isEnabled == true && it.emergencyContactNumber?.isMandatory == true) {
+            binding.textInputLayEMPhoneNumber.validate(binding.textInputETEMPhoneNumber, error)
+                .and(validateAndCompareEmergencyPhoneNumber())
+        } else if (it.emergencyContactNumber?.isEnabled == true && isNotEmpty) {
+            validateAndCompareEmergencyPhoneNumber()
+        } else true
     }
 
     private fun validEmergencyContactName(config: PersonalInfoConfig, error: Int): Boolean = config.let {

@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "tbl_patient_attribute")
-data class PatientAttribute(
+open class PatientAttribute(
     @SerializedName("value") var value: String? = null,
     @ColumnInfo("person_attribute_type_uuid") @SerializedName("person_attribute_type_uuid")
     var personAttributeTypeUuid: String? = null,

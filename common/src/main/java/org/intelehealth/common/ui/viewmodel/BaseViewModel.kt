@@ -41,7 +41,7 @@ open class BaseViewModel(
 
 
     fun <L> executeLocalQuery(
-        queryCall: () -> L?
+        queryCall: suspend () -> L?
     ) = flow {
         val localData = queryCall.invoke()
         localData?.let { emit(Result.Success(localData, "")) } ?: kotlin.run {

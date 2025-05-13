@@ -104,5 +104,12 @@ data class PatientAttributeTypeMaster(
         const val EMERGENCY_CONTACT_NAME = "Emergency Contact Name"
         const val EMERGENCY_CONTACT_NUMBER = "Emergency Contact Number"
         const val EMERGENCY_CONTACT_TYPE = "Emergency Contact Type"
+
+        fun listOfPersonalScreenAttributes() = listOf(
+            EMERGENCY_CONTACT_NAME,
+            EMERGENCY_CONTACT_NUMBER,
+            EMERGENCY_CONTACT_TYPE,
+            TELEPHONE,
+        )
     }
 }

@@ -80,6 +80,6 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
     abstract fun getPatientInfoTabBinding(): ViewPatientInfoTabBinding
 
     override fun onProfilePictureSelected(uri: Uri) {
-        Timber.d { "Selected Image URI: $uri" }
+        Timber.d { "Camera Image URI: $uri" }
     }
 }

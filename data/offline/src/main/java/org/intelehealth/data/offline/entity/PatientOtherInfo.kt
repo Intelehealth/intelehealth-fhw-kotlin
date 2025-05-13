@@ -1,6 +1,7 @@
 package org.intelehealth.data.offline.entity
 
 import androidx.room.Entity
+import androidx.room.Ignore
 
 /**
  * Created by Vaghela Mithun R. on 16-04-2025 - 19:44.
@@ -38,34 +39,7 @@ data class PatientOtherInfo(
     var codeOfHealthFacility: String? = null,
     var householdUuidLinking: String? = null,
     var block: String? = null
-){
-    fun getAttributeNames(): List<String> {
-        return listOfNotNull(
-            nationalId,
-            socialCategory,
-            education,
-            tmhCaseNumber,
-            requestId,
-            relativePhoneNumber,
-            discipline,
-            department,
-            inn,
-            healthFacilityName,
-            codeOfDepartment,
-            emergencyContactName,
-            emergencyContactNumber,
-            emergencyContactType,
-            telephone,
-            economicStatus,
-            occupation,
-            swd,
-            profileImgTimestamp,
-            cast,
-            createdDate,
-            provinces,
-            cities,
-            registrationAddressOfHf,
-            codeOfHealthFacility
-        )
-    }
+) {
+    @Ignore
+    var patientMasterAttrs: List<PatientAttributeTypeMaster> = emptyList()
 }

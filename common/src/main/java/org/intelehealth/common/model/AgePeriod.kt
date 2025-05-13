@@ -2,6 +2,7 @@ package org.intelehealth.common.model
 
 import android.content.Context
 import android.content.res.Resources
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.utility.DateTimeResource
 import org.intelehealth.resource.R as ResourceR
 
@@ -26,6 +27,7 @@ data class AgePeriod(
     }
 
     fun format(context: Context, format: DisplayFormat): String {
+        Timber.d { "format: $this" }
         if (years == 0 && months == 0 && days == 0) {
             return "0 Years"
         }
@@ -59,6 +61,7 @@ data class AgePeriod(
     }
 
     private fun formatInYearsMonthsDays(context: Context): String {
+//        Year[11]/Month[0]/Day[0]
         return when {
             years > 0 && months > 0 && days > 0 -> {
                 "$years ${yearResource(context)} $months ${monthResource(context)} $days ${dayResource(context)}"
@@ -68,6 +71,7 @@ data class AgePeriod(
             years == 0 && months == 0 && days > 0 -> "$days ${dayResource(context)}"
             years > 0 && months == 0 && days > 0 -> "$years ${yearResource(context)} $days ${dayResource(context)}"
             years > 0 && months > 0 && days == 0 -> "$years ${yearResource(context)} $months ${monthResource(context)}"
+            years > 0 && months == 0 && days == 0 -> "$years ${yearResource(context)}"
             else -> "0 Years"
         }
     }

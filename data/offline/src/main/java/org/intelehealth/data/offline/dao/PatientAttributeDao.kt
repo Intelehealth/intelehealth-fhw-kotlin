@@ -3,6 +3,7 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import org.intelehealth.data.offline.entity.PatientAttrWithName
 import org.intelehealth.data.offline.entity.PatientAttribute
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientOtherInfo
@@ -68,5 +69,13 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
     )
-    fun getLivePatientOtherDataByUuid(patientId: String): LiveData<PatientOtherInfo>
+    suspend fun getPatientOtherDataByUuid(patientId: String): PatientOtherInfo
+
+    @Query(
+        "SELECT PA.uuid, PA.patient_uuid, PAM.name, PA.value, PA.person_attribute_type_uuid, PA.synced, PA.voided "
+                + "FROM tbl_patient_attribute PA "
+                + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
+                + "WHERE patient_uuid = :patientId AND name IN (:names) GROUP BY patient_uuid"
+    )
+    suspend fun getPatientAttributesByNames(patientId: String, names: List<String>): List<PatientAttrWithName>
 }

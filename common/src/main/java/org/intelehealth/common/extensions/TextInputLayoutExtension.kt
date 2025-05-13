@@ -93,7 +93,7 @@ fun TextInputLayout.validateDigit(
     error: String,
     minDigit: Int,
 ): Boolean {
-    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit) {
+    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit || input.text?.all { it.isDigit().not() } == true) {
         showError(error)
         false
     } else true
