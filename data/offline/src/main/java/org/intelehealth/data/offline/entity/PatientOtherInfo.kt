@@ -2,6 +2,7 @@ package org.intelehealth.data.offline.entity
 
 import androidx.room.Entity
 import androidx.room.Ignore
+import com.google.gson.Gson
 
 /**
  * Created by Vaghela Mithun R. on 16-04-2025 - 19:44.
@@ -42,4 +43,8 @@ data class PatientOtherInfo(
 ) {
     @Ignore
     var patientMasterAttrs: List<PatientAttributeTypeMaster> = emptyList()
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
 }

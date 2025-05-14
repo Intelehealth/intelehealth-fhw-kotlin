@@ -27,6 +27,7 @@ import javax.inject.Inject
 abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhotoFragment(layoutResId) {
     private lateinit var tabBinding: ViewPatientInfoTabBinding
     private val activeFeatureViewModel: ActiveFeatureStatusViewModel by viewModels()
+    lateinit var activeFeaturesStatus: ActiveFeatureStatus
 
     @Inject
     lateinit var languageUtils: LanguageUtils
@@ -45,6 +46,7 @@ abstract class PatientInfoTabFragment(@LayoutRes layoutResId: Int) : ChangePhoto
     }
 
     private fun updatePatientInfoTabVisibility(status: ActiveFeatureStatus) {
+        activeFeaturesStatus = status
         if (status.activeStatusPatientOther.not() && status.activeStatusPatientAddress.not()) {
             tabBinding.root.isVisible = false
         } else {

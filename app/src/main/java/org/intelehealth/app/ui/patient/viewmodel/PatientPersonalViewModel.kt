@@ -4,18 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
-import org.intelehealth.config.presenter.fields.patient.viewmodel.RegFieldViewModel
 import org.intelehealth.data.offline.entity.Patient
-import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientOtherInfo
 import org.intelehealth.data.provider.patient.otherinfo.PatientOtherDataRepository
 import org.intelehealth.data.provider.patient.personal.PatientPersonalDataRepository
@@ -66,6 +63,8 @@ class PatientPersonalViewModel @Inject constructor(
             patientMasterAttrs = patientMasterAttributes
         })
     }) { pResult, oResult ->
+        Timber.d { "Patient Res=> ${pResult.status.name}" }
+        Timber.d { "Other Res=> ${oResult.status.name}" }
         if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
             Result.Success(pResult.data, "Patient created successfully")
         } else {
@@ -77,14 +76,19 @@ class PatientPersonalViewModel @Inject constructor(
         patientPersonalInfoRepository.updatePatient(patient)
     }.zip(executeLocalQuery {
         patientOtherInfoRepository.updatePatientOtherData(
-            patientOtherInfoRepository.getPatientPersonalAttributes(patient.uuid, otherInfo)
+            patientOtherInfoRepository.getPatientPersonalAttributes(patient.uuid, otherInfo).apply {
+                Timber.d { "$this" }
+            }
         )
     }) { pResult, oResult ->
-        if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
+        Timber.d { "Patient Res=> ${pResult.status.name}" }
+        Timber.d { "Other Res=> ${oResult.status.name}" }
+        Timber.d { "Patient Res=> ${pResult.message}" }
+        Timber.d { "Other Res=> ${oResult.message}" }
+
+        return@zip if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
             Result.Success(pResult.data, "Patient updated successfully")
-        } else {
-            Result.Error("Failed to update patient")
-        }
+        } else oResult
     }.asLiveData()
 
 }

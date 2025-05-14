@@ -3,6 +3,7 @@ package org.intelehealth.data.offline.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -25,4 +26,9 @@ data class Patient(
     @ColumnInfo("guardian_type") @SerializedName("guardianType") var guardianType: String? = null,
     @SerializedName("syncd")
     override var synced: Boolean = false
-) : PersonAddress(), Parcelable
+) : PersonAddress(), Parcelable {
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
+}

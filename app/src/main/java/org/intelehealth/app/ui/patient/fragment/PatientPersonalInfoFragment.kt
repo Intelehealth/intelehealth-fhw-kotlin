@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.github.ajalt.timberkt.Timber
-import com.github.ajalt.timberkt.v
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,8 +37,10 @@ import org.intelehealth.common.model.AgePeriod
 import org.intelehealth.common.utility.AgeUtils
 import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.common.utility.DateTimeUtils
+import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoConfig
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
+import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.config.utility.PatientInfoGroup
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientOtherInfo
@@ -72,12 +73,8 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
 
     override fun onProfilePictureSelected(uri: Uri) {
         binding.ivPatientDb.tag = uri
-        Glide.with(requireContext())
-            .load(uri.toString())
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .error(ResourceR.drawable.avatar1)
-            .placeholder(ResourceR.drawable.avatar1)
-            .into(binding.ivPatientDb)
+        Glide.with(requireContext()).load(uri.toString()).diskCacheStrategy(DiskCacheStrategy.NONE)
+            .error(ResourceR.drawable.avatar1).placeholder(ResourceR.drawable.avatar1).into(binding.ivPatientDb)
     }
 
     private fun observePatientPersonalInfo() {
@@ -86,16 +83,19 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             binding.patient = it
             fetchPersonalInfoConfig()
         }
+
+        viewModel.patientOtherInfoLiveData.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            binding.otherInfo = it
+            Timber.d { "OtherInfo => ${binding.otherInfo}" }
+        }
     }
 
     private fun openAgePickerDialog() {
         val agePeriod = selectedDate.toPeriod()
-        AgePickerDialog.Builder()
-            .selectedYear(agePeriod.years)
-            .selectedMonth(agePeriod.months)
-            .selectedDay(agePeriod.days)
-            .agePickListener(agePickerLister)
-            .build().show(childFragmentManager, AgePickerDialog.TAG)
+        AgePickerDialog.Builder().selectedYear(agePeriod.years).selectedMonth(agePeriod.months)
+            .selectedDay(agePeriod.days).agePickListener(agePickerLister).build()
+            .show(childFragmentManager, AgePickerDialog.TAG)
     }
 
     private val agePickerLister = object : AgePickerDialog.OnAgePickListener {
@@ -143,8 +143,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     private fun bindDobValue(calendar: Calendar) {
         selectedDate = calendar.timeInMillis
         val sdf = DateTimeUtils.getSimpleDateFormat(
-            DateTimeUtils.MMM_DD_YYYY_FORMAT,
-            TimeZone.getDefault()
+            DateTimeUtils.MMM_DD_YYYY_FORMAT, TimeZone.getDefault()
         )
         val formattedDate = sdf.format(calendar.time)
         binding.textInputETDob.setText(formattedDate)
@@ -182,67 +181,68 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
         }
     }
 
-    //
+    private fun navigateToOther(patientId: String) {
+        PatientPersonalInfoFragmentDirections.actionPersonalToOther(
+            patientId, args.patientId.isNullOrEmpty().not()
+        ).apply {
+            findNavController().navigate(this)
+        }
+    }
+
+    private fun navigateToDetail(patientId: String) {
+        PatientPersonalInfoFragmentDirections.actionPersonalToDetail(patientId).apply {
+            findNavController().navigate(this)
+        }
+    }
+
     private fun savePatient() {
-//        binding.patient?.let { navigateToAddress(it.uuid) }
-        binding.otherInfo = PatientOtherInfo().apply {
-            telephone = binding.countrycodeSpinner.fullNumberWithPlus
-            emergencyContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
-            emergencyContactType = binding.autoCompleteEmContactType.text.toString()
-            emergencyContactName = binding.textInputETECName.text?.toString()
-        }
-
-//        binding.profilePic?.let { uri ->
-//            binding.patient?.profilePic = uri.toString()
-//            binding.otherInfo?.profileImgTimestamp = System.currentTimeMillis().toString()
-//        }
-
-        binding.patient?.apply {
+        binding.patient?.let { patient ->
             bindGenderValue()
-            firstName = binding.textInputETFName.text?.toString()
-            middleName = binding.textInputETMName.text?.toString()
-            lastName = binding.textInputETLName.text?.toString()
-            guardianName = binding.textInputETGuardianName.text?.toString()
-
-//            patientViewModel.updatedPatient(this)
-            if (args.patientId.isNullOrEmpty().not()) {
-                saveAndNavigateToDetails()
-            } else {
-                viewModel.createPatient(this, binding.otherInfo).observe(viewLifecycleOwner) {
-
-                }
-//                if (viewModel.activeStatusAddressSection) {
-//                    PatientPersonalInfoFragmentDirections.actionPersonalToAddress().apply {
-//                        findNavController().navigate(this)
-//                    }
-//                } else if (patientViewModel.activeStatusOtherSection) {
-//                    PatientPersonalInfoFragmentDirections.navigationPersonalToOther().apply {
-//                        findNavController().navigate(this)
-//                    }
-//                } else saveAndNavigateToDetails()
-                binding.patient?.let { navigateToAddress(it.uuid) }
-            }
+            patient.firstName = binding.textInputETFName.text?.toString()
+            patient.middleName = binding.textInputETMName.text?.toString()
+            patient.lastName = binding.textInputETLName.text?.toString()
+            patient.guardianName = binding.textInputETGuardianName.text?.toString()
+            validateOtherInfo(patient)
         }
     }
 
-    //
-    private fun saveAndNavigateToDetails() {
-//        patientViewModel.savePatient().observe(viewLifecycleOwner) {
-//            it ?: return@observe
-//            patientViewModel.handleResponse(it) { result -> if (result) navigateToDetails() }
-//        }
+    private fun validateOtherInfo(patient: Patient) {
+        binding.otherInfo?.let { otherInfo ->
+            otherInfo.telephone = binding.countrycodeSpinner.fullNumberWithPlus
+            otherInfo.emergencyContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
+            otherInfo.emergencyContactType = binding.autoCompleteEmContactType.text.toString()
+            otherInfo.emergencyContactName = binding.textInputETECName.text?.toString()
+            createOrUpdatePatient(patient, otherInfo)
+        }
     }
 
-    //
-//    private fun navigateToDetails() {
-//        PatientPersonalInfoFragmentDirections.navigationPersonalToDetails(
-//            patient.uuid, "searchPatient", "false"
-//        ).apply {
-//            findNavController().navigate(this)
-//            requireActivity().finish()
-//        }
-//    }
-//
+    private fun createOrUpdatePatient(patient: Patient, otherInfo: PatientOtherInfo) {
+        if (args.patientId.isNullOrEmpty().not()) updatePatientPersonalInfo(patient, otherInfo)
+        else createPatient(patient, otherInfo)
+    }
+
+    private fun createPatient(patient: Patient, otherInfo: PatientOtherInfo) {
+        viewModel.createPatient(patient, otherInfo).observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.allowNullDataResponse(it) { navigateToNextScreen(patient.uuid) }
+        }
+    }
+
+    private fun navigateToNextScreen(patientId: String) {
+        if (activeFeaturesStatus.activeStatusPatientAddress) {
+            navigateToAddress(patientId)
+        } else if (activeFeaturesStatus.activeStatusPatientOther) {
+            navigateToOther(patientId)
+        } else navigateToDetail(patientId)
+    }
+
+    private fun updatePatientPersonalInfo(patient: Patient, otherInfo: PatientOtherInfo) {
+        viewModel.updatePatient(patient, otherInfo).observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.allowNullDataResponse(it) { navigateToDetail(patient.uuid) }
+        }
+    }
+
     private fun setGender() {
         if (BuildConfig.FLAVOR_client == FlavorKeys.UNFPA) {
             binding.btnMale.isCheckable = false
@@ -271,8 +271,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             parseDob(it, DateTimeUtils.YYYY_MM_DD_HYPHEN)
 
             DateTimeUtils.formatToLocalDate(
-                Date(selectedDate),
-                DateTimeUtils.MMM_DD_YYYY_FORMAT
+                Date(selectedDate), DateTimeUtils.MMM_DD_YYYY_FORMAT
             ).apply { binding.textInputETDob.setText(this) }
         }
 
@@ -297,12 +296,9 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun showDatePickerDialog(selectedDate: Long) {
-        CalendarDialog.Builder()
-            .maxDate(Calendar.getInstance().timeInMillis)
-            .selectedDate(selectedDate)
-            .format(DateTimeUtils.MMM_DD_YYYY_FORMAT)
-            .listener(dateListener)
-            .build().show(childFragmentManager, CalendarDialog.TAG)
+        CalendarDialog.Builder().maxDate(Calendar.getInstance().timeInMillis).selectedDate(selectedDate)
+            .format(DateTimeUtils.MMM_DD_YYYY_FORMAT).listener(dateListener).build()
+            .show(childFragmentManager, CalendarDialog.TAG)
     }
 
     private val dateListener = object : CalendarDialog.OnDatePickListener {
@@ -335,9 +331,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private val filters = arrayOf(
-        FirstLetterUpperCaseInputFilter(),
-        AlphabetsInputFilter(),
-        LengthFilter(MAX_NAME_LENGTH)
+        FirstLetterUpperCaseInputFilter(), AlphabetsInputFilter(), LengthFilter(MAX_NAME_LENGTH)
     )
 
     private fun setInputTextChangListener() {
@@ -353,12 +347,10 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
         binding.textInputLayGuardianName.hideErrorOnTextChang(binding.textInputETGuardianName)
         binding.textInputLayECName.hideErrorOnTextChang(binding.textInputETECName)
         binding.textInputLayPhoneNumber.hideDigitErrorOnTextChang(
-            binding.textInputETPhoneNumber,
-            IND_MOBILE_LEN
+            binding.textInputETPhoneNumber, IND_MOBILE_LEN
         )
         binding.textInputLayEMPhoneNumber.hideDigitErrorOnTextChang(
-            binding.textInputETEMPhoneNumber,
-            IND_MOBILE_LEN
+            binding.textInputETEMPhoneNumber, IND_MOBILE_LEN
         )
     }
 
@@ -399,7 +391,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
         val error = ResourceR.string.error_field_required
         val patient = binding.patient
         binding.personalConfig?.let {
-            val bProfile = validProfilePic(it)
+//            val bProfile = validProfilePic(it)
             val bFName = validFirstName(it, error)
             val bMName = validMiddleName(it, error)
             val bLName = validLastName(it, error)
@@ -413,17 +405,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             val bEmPhone = validEmergencyPhoneNumber(it, error)
             val bEmContactType = validEmergencyContactType(it, error)
 
-            if (bProfile.and(bFName).and(bMName).and(bLName).and(bGender)
-                    .and(bDob).and(bAge).and(bPhone).and(bGName).and(bGuardianType)
-                    .and(bEmName).and(bEmPhone).and(bEmContactType)
+            if (bFName.and(bMName).and(bLName).and(bGender).and(bDob).and(bAge).and(bPhone).and(bGName)
+                    .and(bGuardianType).and(bEmName).and(bEmPhone).and(bEmContactType)
             ) block.invoke()
         }
     }
 
     private fun validProfilePic(config: PersonalInfoConfig): Boolean = config.let {
-        if (it.profilePic?.isEnabled == true && it.profilePic?.isMandatory == true) {
-            false
-        } else true
+        !(it.profilePic?.isEnabled == true && it.profilePic?.isMandatory == true)
     }.apply { binding.profileImageError.isVisible = this.not() }
 
     private fun validFirstName(config: PersonalInfoConfig, error: Int): Boolean = config.let {
@@ -475,8 +464,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     private fun validGuardianType(config: PersonalInfoConfig, error: Int): Boolean = config.let {
         if (it.guardianType?.isEnabled == true && it.guardianType?.isMandatory == true) {
             binding.textInputLayGuardianType.validateDropDowb(
-                binding.autoCompleteGuardianType,
-                error
+                binding.autoCompleteGuardianType, error
             )
         } else true
     }
@@ -484,17 +472,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     private fun validGuardianName(config: PersonalInfoConfig, error: Int): Boolean = config.let {
         if (it.guardianName?.isEnabled == true && it.guardianName?.isMandatory == true) {
             binding.textInputLayGuardianName.validate(
-                binding.textInputETGuardianName,
-                error
+                binding.textInputETGuardianName, error
             )
         } else true
     }
 
     private fun isValidIndianPhoneNumber(inputLayout: TextInputLayout, inputText: TextInputEditText): Boolean {
         return inputLayout.validateDigit(
-            inputText,
-            getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN),
-            IND_MOBILE_LEN
+            inputText, getString(ResourceR.string.error_invalid_mobile_number, IND_MOBILE_LEN), IND_MOBILE_LEN
         )
     }
 
@@ -508,8 +493,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun validateAndCompareEmergencyPhoneNumber() = isValidIndianPhoneNumber(
-        binding.textInputLayEMPhoneNumber,
-        binding.textInputETEMPhoneNumber
+        binding.textInputLayEMPhoneNumber, binding.textInputETEMPhoneNumber
     ).and(binding.textInputETPhoneNumber.text?.let { phone ->
         val emergencyNumber = binding.textInputETEMPhoneNumber.text.toString()
         return@let compareEmergencyContactNumberWithPhoneNumber(phone.toString(), emergencyNumber)
@@ -535,8 +519,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     private fun validEmergencyContactType(config: PersonalInfoConfig, error: Int): Boolean = config.let {
         if (it.emergencyContactType?.isEnabled == true && it.emergencyContactType?.isMandatory == true) {
             binding.textInputLayEmContactType.validateDropDowb(
-                binding.autoCompleteEmContactType,
-                error
+                binding.autoCompleteEmContactType, error
             )
         } else true
     }

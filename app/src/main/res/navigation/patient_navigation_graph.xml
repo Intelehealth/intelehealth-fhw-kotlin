@@ -55,6 +55,24 @@
             app:exitAnim="@null"
             app:popEnterAnim="@null"
             app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_personal_to_other"
+            app:destination="@id/fragmentPatientOtherInfo"
+            app:enterAnim="@null"
+            app:exitAnim="@null"
+            app:popEnterAnim="@null"
+            app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_personal_to_detail"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientPersonalInfo"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -62,12 +80,15 @@
         android:name="org.intelehealth.app.ui.patient.fragment.PatientAddressInfoFragment"
         android:label="@string/action_add_patient"
         tools:layout="@layout/fragment_patient_address_info">
+
         <argument
             android:name="patientId"
             app:argType="string" />
+
         <argument
             android:name="editMode"
             app:argType="boolean" />
+
         <action
             android:id="@+id/action_address_to_other"
             app:destination="@id/fragmentPatientOtherInfo"
@@ -75,6 +96,16 @@
             app:exitAnim="@null"
             app:popEnterAnim="@null"
             app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_address_to_detail"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientPersonalInfo"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

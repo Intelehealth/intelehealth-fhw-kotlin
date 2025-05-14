@@ -33,7 +33,7 @@ class PatientOtherDataRepository @Inject constructor(
         patientAttributes: List<PatientAttribute>
     ) = patientAttributeDao.bulkUpdate(patientAttributes)
 
-    suspend fun getPatientAttributesByNames(
+    private suspend fun getPatientAttributesByNames(
         patientId: String, names: List<String>
     ) = patientAttributeDao.getPatientAttributesByNames(patientId, names)
 

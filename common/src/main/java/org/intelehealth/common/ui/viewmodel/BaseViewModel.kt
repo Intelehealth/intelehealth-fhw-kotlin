@@ -232,7 +232,7 @@ open class BaseViewModel(
     }
 
     fun <T> allowNullDataResponse(it: Result<T>, callback: (data: T?) -> Unit) {
-        println("handleResponse status ${it.status} ${it.message}")
+        println("allowNullDataResponse status ${it.status} ${it.message}")
         when (it.status) {
             Result.State.SUCCESS -> {
                 loadingData.postValue(false)
