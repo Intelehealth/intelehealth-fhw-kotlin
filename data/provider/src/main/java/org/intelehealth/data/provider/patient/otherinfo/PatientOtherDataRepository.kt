@@ -2,10 +2,12 @@ package org.intelehealth.data.provider.patient.otherinfo
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.data.offline.dao.PatientAttributeDao
 import org.intelehealth.data.offline.dao.PatientAttributeTypeMasterDao
 import org.intelehealth.data.offline.entity.PatientAttrWithName
+import org.intelehealth.data.offline.entity.PatientAttrWithName.Companion.filterNewlyAddedAttrInEditMode
 import org.intelehealth.data.offline.entity.PatientAttribute
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientOtherInfo
@@ -21,7 +23,9 @@ class PatientOtherDataRepository @Inject constructor(
     private val patientAttributeDao: PatientAttributeDao,
     private val patientAttributeTypeMasterDao: PatientAttributeTypeMasterDao
 ) {
-    suspend fun getPatientOtherDataById(patientId: String) = patientAttributeDao.getPatientOtherDataByUuid(patientId)
+    suspend fun getPatientOtherAttrs(patientId: String) = patientAttributeDao.getPatientOtherAttrs(patientId)
+
+    fun getPatientPersonalAttrs(patientId: String) = patientAttributeDao.getPatientPersonalAttrsLiveData(patientId)
 
     suspend fun createPatientOtherData(patientOtherInfo: PatientOtherInfo) {
         mapWithNameAndGeneratePatientAttributes(patientOtherInfo).apply {
@@ -29,13 +33,37 @@ class PatientOtherDataRepository @Inject constructor(
         }
     }
 
-    suspend fun updatePatientOtherData(
+    private suspend fun updatePatientOtherData(
         patientAttributes: List<PatientAttribute>
     ) = patientAttributeDao.bulkUpdate(patientAttributes)
 
     private suspend fun getPatientAttributesByNames(
         patientId: String, names: List<String>
     ) = patientAttributeDao.getPatientAttributesByNames(patientId, names)
+
+    suspend fun updateOrInsertPatientAttributes(
+        patientId: String,
+        otherInfo: PatientOtherInfo
+    ) {
+        val attrs = withContext(Dispatchers.IO) {
+            async { getPatientPersonalAttributes(patientId, otherInfo) }
+        }.await()
+
+        val infoSize = otherInfo.getNotNullableAttrsSize()
+
+        if (infoSize > attrs.size) {
+            val newlyAdded = withContext(Dispatchers.IO) {
+                async { filterNewlyAddedAttrInEditMode(attrs, otherInfo) }
+            }.await()
+
+            withContext(Dispatchers.IO) {
+                launch { createPatientOtherData(newlyAdded) }
+                launch { updatePatientOtherData(attrs) }
+            }
+        } else {
+            updatePatientOtherData(attrs)
+        }
+    }
 
     suspend fun getPatientMasterAttributeUuids(): List<PatientAttributeTypeMaster> {
         return patientAttributeTypeMasterDao.getMasterAttributesByNames(
@@ -401,13 +429,18 @@ class PatientOtherDataRepository @Inject constructor(
         value = value
     ).apply { uuid = UUID.randomUUID().toString() }
 
-    suspend fun getPatientPersonalAttributes(patientId: String, otherInfo: PatientOtherInfo): List<PatientAttrWithName> {
+    private suspend fun getPatientPersonalAttributes(
+        patientId: String,
+        otherInfo: PatientOtherInfo
+    ): List<PatientAttrWithName> {
         return withContext(Dispatchers.IO) {
             return@withContext async {
                 getPatientAttributesByNames(
                     patientId, PatientAttributeTypeMaster.listOfPersonalScreenAttributes()
                 )
-            }.await().apply { PatientAttrWithName.mapToPersonalPatientAttrs(this, otherInfo) }
+            }.await().apply {
+                PatientAttrWithName.mapToPersonalPatientAttrs(this, otherInfo)
+            }
         }
     }
 }

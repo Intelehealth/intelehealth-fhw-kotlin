@@ -48,7 +48,6 @@ class PatientPersonalViewModel @Inject constructor(
     fun fetchPersonalInfo(patientId: String?): LiveData<Patient> {
         viewModelScope.launch {
             val data = patientId?.let {
-                fetchPatientOtherInfo(it)
                 async { patientPersonalInfoRepository.getPatientById(it) }.await()
             } ?: Patient().apply { uuid = UUID.randomUUID().toString() }
             patientData.postValue(data)
@@ -63,29 +62,18 @@ class PatientPersonalViewModel @Inject constructor(
             patientMasterAttrs = patientMasterAttributes
         })
     }) { pResult, oResult ->
-        Timber.d { "Patient Res=> ${pResult.status.name}" }
-        Timber.d { "Other Res=> ${oResult.status.name}" }
-        if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
+        return@zip if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
             Result.Success(pResult.data, "Patient created successfully")
-        } else {
-            Result.Error("Failed to create patient")
-        }
+        } else oResult
     }.asLiveData()
 
     fun updatePatient(patient: Patient, otherInfo: PatientOtherInfo) = executeLocalQuery {
         patientPersonalInfoRepository.updatePatient(patient)
     }.zip(executeLocalQuery {
-        patientOtherInfoRepository.updatePatientOtherData(
-            patientOtherInfoRepository.getPatientPersonalAttributes(patient.uuid, otherInfo).apply {
-                Timber.d { "$this" }
-            }
-        )
+        patientOtherInfoRepository.updateOrInsertPatientAttributes(patient.uuid, otherInfo.apply {
+            patientMasterAttrs = patientMasterAttributes
+        })
     }) { pResult, oResult ->
-        Timber.d { "Patient Res=> ${pResult.status.name}" }
-        Timber.d { "Other Res=> ${oResult.status.name}" }
-        Timber.d { "Patient Res=> ${pResult.message}" }
-        Timber.d { "Other Res=> ${oResult.message}" }
-
         return@zip if (pResult.status == Result.State.SUCCESS && oResult.status == Result.State.SUCCESS) {
             Result.Success(pResult.data, "Patient updated successfully")
         } else oResult

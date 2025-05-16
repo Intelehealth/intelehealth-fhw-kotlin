@@ -82,12 +82,16 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             it ?: return@observe
             binding.patient = it
             fetchPersonalInfoConfig()
+            fetchPersonalOtherData(it.uuid)
         }
 
-        viewModel.patientOtherInfoLiveData.observe(viewLifecycleOwner) {
+
+    }
+
+    private fun fetchPersonalOtherData(patientId: String) {
+        viewModel.fetchPatientPersonalOtherInfo(patientId).observe(viewLifecycleOwner) {
             it ?: return@observe
             binding.otherInfo = it
-            Timber.d { "OtherInfo => ${binding.otherInfo}" }
         }
     }
 

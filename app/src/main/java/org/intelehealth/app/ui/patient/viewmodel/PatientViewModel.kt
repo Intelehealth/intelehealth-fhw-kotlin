@@ -2,13 +2,10 @@ package org.intelehealth.app.ui.patient.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.bumptech.glide.Glide.init
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.config.presenter.fields.patient.viewmodel.RegFieldViewModel
@@ -44,8 +41,10 @@ open class PatientViewModel @Inject constructor(
     }
 
     fun fetchPatientOtherInfo(patientId: String) = viewModelScope.launch {
-        async { otherInfoRepository.getPatientOtherDataById(patientId) }.await().let {
+        async { otherInfoRepository.getPatientOtherAttrs(patientId) }.await().let {
             patientOtherInfoData.postValue(it)
         }
     }
+
+    fun fetchPatientPersonalOtherInfo(patientId: String) = otherInfoRepository.getPatientPersonalAttrs(patientId)
 }

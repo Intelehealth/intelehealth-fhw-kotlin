@@ -79,7 +79,7 @@ class PatientConsentFragment : ConsentFragment(R.layout.fragment_patient_consent
             val consentArgs = ConsentArgs(ConsentArgs.ConsentType.TELECONSULTATION, null, null)
             PatientConsentFragmentDirections.actionToSelf(consentArgs)
         } else if (args.consentType == ConsentArgs.ConsentType.TELECONSULTATION) {
-            PatientConsentFragmentDirections.actionToPatientPersonalInfo("093d9088-ce3e-457a-92d5-0ae8217c4270")
+            PatientConsentFragmentDirections.actionToPatientPersonalInfo("0313d385-f0aa-424a-9c4a-e1771b4bc1fa")
         } else {
             val consentArgs = ConsentArgs(ConsentArgs.ConsentType.PERSONAL_DATA_CONSENT, null, null)
             PatientConsentFragmentDirections.actionToSelf(consentArgs)

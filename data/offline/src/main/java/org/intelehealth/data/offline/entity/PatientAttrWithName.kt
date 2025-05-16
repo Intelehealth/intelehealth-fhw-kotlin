@@ -2,6 +2,7 @@ package org.intelehealth.data.offline.entity
 
 import android.os.Parcelable
 import androidx.room.Entity
+import com.google.gson.Gson
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -11,14 +12,19 @@ import kotlinx.parcelize.Parcelize
  **/
 @Parcelize
 @Entity
-class PatientAttrWithName(
+data class PatientAttrWithName(
     var name: String? = null,
 ) : PatientAttribute(), Parcelable {
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
+
     companion object {
         fun mapToPersonalPatientAttrs(
             attrs: List<PatientAttrWithName>,
             otherInfo: PatientOtherInfo
-        ): List<PatientAttribute> = attrs.map {
+        ): List<PatientAttrWithName> = attrs.map {
             it.synced = false
             when (it.name) {
                 PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME -> it.apply {
@@ -36,6 +42,24 @@ class PatientAttrWithName(
                 PatientAttributeTypeMaster.TELEPHONE -> it.apply { value = otherInfo.telephone }
             }
             return@map it
+        }
+
+        fun filterNewlyAddedAttrInEditMode(
+            attrs: List<PatientAttrWithName>, otherInfo: PatientOtherInfo
+        ): PatientOtherInfo = attrs.map { removeExistedAttrs(it, otherInfo) }[0]
+
+        private fun removeExistedAttrs(
+            attr: PatientAttrWithName,
+            otherInfo: PatientOtherInfo
+        ): PatientOtherInfo {
+            when (attr.name) {
+                PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME -> otherInfo.emergencyContactName = null
+                PatientAttributeTypeMaster.EMERGENCY_CONTACT_NUMBER -> otherInfo.emergencyContactNumber = null
+                PatientAttributeTypeMaster.EMERGENCY_CONTACT_TYPE -> otherInfo.emergencyContactType = null
+                PatientAttributeTypeMaster.TELEPHONE -> otherInfo.telephone = null
+            }
+
+            return otherInfo
         }
     }
 }

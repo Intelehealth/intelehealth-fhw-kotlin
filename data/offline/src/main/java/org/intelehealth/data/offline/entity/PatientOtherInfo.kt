@@ -47,4 +47,33 @@ data class PatientOtherInfo(
     override fun toString(): String {
         return Gson().toJson(this)
     }
+
+    fun getNotNullableAttrsSize(): Int = listOfNotNull(
+        nationalId,
+        socialCategory,
+        education,
+        tmhCaseNumber,
+        requestId,
+        relativePhoneNumber,
+        discipline,
+        department,
+        inn,
+        healthFacilityName,
+        codeOfDepartment,
+        emergencyContactName,
+        emergencyContactNumber,
+        emergencyContactType,
+        telephone,
+        economicStatus,
+        occupation,
+        swd,
+        profileImgTimestamp,
+        cast,
+        createdDate,
+        provinces,
+        cities,
+        registrationAddressOfHf,
+        codeOfHealthFacility,
+        householdUuidLinking
+    ).size
 }

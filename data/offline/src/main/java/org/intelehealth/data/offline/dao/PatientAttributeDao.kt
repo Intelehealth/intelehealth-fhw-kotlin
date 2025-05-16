@@ -69,13 +69,25 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
     )
-    suspend fun getPatientOtherDataByUuid(patientId: String): PatientOtherInfo
+    suspend fun getPatientOtherAttrs(patientId: String): PatientOtherInfo
 
     @Query(
         "SELECT PA.uuid, PA.patient_uuid, PAM.name, PA.value, PA.person_attribute_type_uuid, PA.synced, PA.voided "
                 + "FROM tbl_patient_attribute PA "
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
-                + "WHERE patient_uuid = :patientId AND name IN (:names) GROUP BY patient_uuid"
+                + "WHERE PA.patient_uuid = :patientId AND PAM.name IN (:names)"
     )
     suspend fun getPatientAttributesByNames(patientId: String, names: List<String>): List<PatientAttrWithName>
+
+    @Query(
+        "SELECT patient_uuid as patientId, "
+                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME}' THEN PA.value END) AS emergencyContactName, "
+                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NUMBER}' THEN PA.value END) AS emergencyContactNumber, "
+                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_TYPE}' THEN PA.value END) AS emergencyContactType, "
+                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TELEPHONE}' THEN PA.value END) AS telephone "
+                + "FROM tbl_patient_attribute PA "
+                + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
+                + "WHERE patient_uuid = :patientId GROUP BY patientId"
+    )
+    fun getPatientPersonalAttrsLiveData(patientId: String): LiveData<PatientOtherInfo>
 }

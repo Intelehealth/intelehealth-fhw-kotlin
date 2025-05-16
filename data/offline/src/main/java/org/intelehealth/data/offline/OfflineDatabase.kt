@@ -1,9 +1,11 @@
 package org.intelehealth.data.offline
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.intelehealth.common.extensions.appName
 import org.intelehealth.data.offline.dao.AppointmentDao
 import org.intelehealth.data.offline.dao.ConceptDao
@@ -86,6 +88,11 @@ abstract class OfflineDatabase : RoomDatabase() {
             val databaseName = "${appContext.appName()}.$DATABASE_NAME"
             return Room.databaseBuilder(appContext, OfflineDatabase::class.java, databaseName)
                 .fallbackToDestructiveMigration()   // on migration if no migration scheme is provided than it will perform destructive migration.
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onOpen(db: SupportSQLiteDatabase) {
+                        db.enableWriteAheadLogging()
+                    }
+                })
                 .build()
         }
     }

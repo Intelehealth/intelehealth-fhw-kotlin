@@ -3,6 +3,7 @@ package org.intelehealth.data.offline.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -12,6 +13,10 @@ data class PatientAttributeTypeMaster(
     @SerializedName("name") var name: String? = null,
     @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
 ) : BaseEntity(), Parcelable {
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
 
     companion object Name {
         const val TELEPHONE = "Telephone Number"
