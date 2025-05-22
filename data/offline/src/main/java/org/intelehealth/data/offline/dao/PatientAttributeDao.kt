@@ -43,17 +43,12 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.NATIONAL_ID}' THEN PA.value END) as socialCategory, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EDUCATION}' THEN PA.value END) as education, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TMH_CASE_NUMBER}' THEN PA.value END) AS tmhCaseNumber, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.REQUEST_ID}' THEN PA.value END) AS requestId, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.RELATIVE_PHONE_NUMBER}' THEN PA.value END) AS relativePhoneNumber, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.DISCIPLINE}' THEN PA.value END) AS discipline, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.DEPARTMENT}' THEN PA.value END) AS department, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.INN}' THEN PA.value END) AS inn, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.HEALTH_FACILITY_NAME}' THEN PA.value END) AS healthFacilityName, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CODE_OF_DEPARTMENT}' THEN PA.value END) AS codeOfDepartment, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME}' THEN PA.value END) AS emergencyContactName, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NUMBER}' THEN PA.value END) AS emergencyContactNumber, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_TYPE}' THEN PA.value END) AS emergencyContactType, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TELEPHONE}' THEN PA.value END) AS telephone, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.ECONOMIC_STATUS}' THEN PA.value END) AS economicStatus, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.SWD}' THEN PA.value END) AS swd, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.PROFILE_IMG_TIMESTAMP}' THEN PA.value END) AS profileImgTimestamp, "
@@ -69,7 +64,7 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
     )
-    suspend fun getPatientOtherAttrs(patientId: String): PatientOtherInfo
+    fun getPatientOtherAttrs(patientId: String): LiveData<PatientOtherInfo>
 
     @Query(
         "SELECT PA.uuid, PA.patient_uuid, PAM.name, PA.value, PA.person_attribute_type_uuid, PA.synced, PA.voided "
@@ -84,6 +79,7 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME}' THEN PA.value END) AS emergencyContactName, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NUMBER}' THEN PA.value END) AS emergencyContactNumber, "
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_TYPE}' THEN PA.value END) AS emergencyContactType, "
+                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.REQUEST_ID}' THEN PA.value END) AS requestId,"
                 + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TELEPHONE}' THEN PA.value END) AS telephone "
                 + "FROM tbl_patient_attribute PA "
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "

@@ -21,9 +21,9 @@ import javax.inject.Inject
  **/
 class PatientOtherDataRepository @Inject constructor(
     private val patientAttributeDao: PatientAttributeDao,
-    private val patientAttributeTypeMasterDao: PatientAttributeTypeMasterDao
+    private val patientAttributeTypeMasterDao: PatientAttributeTypeMasterDao,
 ) {
-    suspend fun getPatientOtherAttrs(patientId: String) = patientAttributeDao.getPatientOtherAttrs(patientId)
+    fun getPatientOtherAttrs(patientId: String) = patientAttributeDao.getPatientOtherAttrs(patientId)
 
     fun getPatientPersonalAttrs(patientId: String) = patientAttributeDao.getPatientPersonalAttrsLiveData(patientId)
 
@@ -41,7 +41,7 @@ class PatientOtherDataRepository @Inject constructor(
         patientId: String, names: List<String>
     ) = patientAttributeDao.getPatientAttributesByNames(patientId, names)
 
-    suspend fun updateOrInsertPatientAttributes(
+    suspend fun updateOrInsertPersonalAttributes(
         patientId: String,
         otherInfo: PatientOtherInfo
     ) {
@@ -49,6 +49,13 @@ class PatientOtherDataRepository @Inject constructor(
             async { getPatientPersonalAttributes(patientId, otherInfo) }
         }.await()
 
+        withContext(Dispatchers.IO) { updateOrInsertPatientAttributes(otherInfo, attrs) }
+    }
+
+    private suspend fun updateOrInsertPatientAttributes(
+        otherInfo: PatientOtherInfo,
+        attrs: List<PatientAttrWithName>
+    ) {
         val infoSize = otherInfo.getNotNullableAttrsSize()
 
         if (infoSize > attrs.size) {
@@ -63,6 +70,17 @@ class PatientOtherDataRepository @Inject constructor(
         } else {
             updatePatientOtherData(attrs)
         }
+    }
+
+    suspend fun updateOrInsertOtherAttributes(
+        patientId: String,
+        otherInfo: PatientOtherInfo
+    ) {
+        val attrs = withContext(Dispatchers.IO) {
+            async { getPatientOtherAttributes(patientId, otherInfo) }
+        }.await()
+
+        withContext(Dispatchers.IO) { updateOrInsertPatientAttributes(otherInfo, attrs) }
     }
 
     suspend fun getPatientMasterAttributeUuids(): List<PatientAttributeTypeMaster> {
@@ -417,6 +435,16 @@ class PatientOtherDataRepository @Inject constructor(
                 )
             )
         }
+
+        otherInfo.reportDateOfPatientCreated?.let { reportDate ->
+            add(
+                createPatientAttribute(
+                    patientUuid = otherInfo.patientId,
+                    personAttributeTypeUuid = masterAttributes.find { it.name == PatientAttributeTypeMaster.REPORT_DATE_OF_PATIENT_CREATED }?.uuid,
+                    value = reportDate
+                )
+            )
+        }
     }
 
     private fun createPatientAttribute(
@@ -440,6 +468,21 @@ class PatientOtherDataRepository @Inject constructor(
                 )
             }.await().apply {
                 PatientAttrWithName.mapToPersonalPatientAttrs(this, otherInfo)
+            }
+        }
+    }
+
+    private suspend fun getPatientOtherAttributes(
+        patientId: String,
+        otherInfo: PatientOtherInfo
+    ): List<PatientAttrWithName> {
+        return withContext(Dispatchers.IO) {
+            return@withContext async {
+                getPatientAttributesByNames(
+                    patientId, PatientAttributeTypeMaster.listOfOtherScreenAttributes()
+                )
+            }.await().apply {
+                PatientAttrWithName.mapToOtherPatientAttrs(this, otherInfo)
             }
         }
     }

@@ -20,7 +20,7 @@ object ArrayAdapterUtils {
 
     fun <T> getObjectArrayAdapter(
         context: Context, list: List<T>
-    ) = ArrayAdapter<T>(context, R.layout.view_dropdown_item, list)
+    ) = ArrayAdapter(context, R.layout.view_dropdown_item, list)
 
     fun getSpinnerArrayAdapter(
         context: Context, @ArrayRes arrayResId: Int

@@ -4,18 +4,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
+import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientOtherInfo
 import org.intelehealth.data.provider.patient.otherinfo.PatientOtherDataRepository
 import org.intelehealth.data.provider.patient.personal.PatientPersonalDataRepository
+import org.intelehealth.data.provider.user.UserRepository
 import java.util.UUID
 import javax.inject.Inject
 
@@ -29,7 +32,8 @@ class PatientPersonalViewModel @Inject constructor(
     networkHelper: NetworkHelper,
     private val patientPersonalInfoRepository: PatientPersonalDataRepository,
     private val patientOtherInfoRepository: PatientOtherDataRepository,
-    patientRegFieldRepository: RegFieldRepository
+    patientRegFieldRepository: RegFieldRepository,
+    private val userRepository: UserRepository
 ) : PatientViewModel(
     otherInfoRepository = patientOtherInfoRepository,
     regFieldRepository = patientRegFieldRepository,
@@ -37,7 +41,7 @@ class PatientPersonalViewModel @Inject constructor(
 ) {
 
     private var patientData: MutableLiveData<Patient> = MutableLiveData()
-    private val patientLiveData: LiveData<Patient> get() = patientData
+    val patientLiveData: LiveData<Patient> get() = patientData
 
     /**
      * Fetches the personal information of a patient by their ID.
@@ -58,6 +62,8 @@ class PatientPersonalViewModel @Inject constructor(
     fun createPatient(patient: Patient, otherInfo: PatientOtherInfo) = executeLocalQuery {
         patientPersonalInfoRepository.insertPatient(patient)
     }.zip(executeLocalQuery {
+        otherInfo.providerId = userRepository.getProviderId()
+        otherInfo.createdDate = DateTimeUtils.getCurrentDateInUTC(DateTimeUtils.PATIENT_ATTR_CREATE_FORMAT)
         patientOtherInfoRepository.createPatientOtherData(otherInfo.apply {
             patientMasterAttrs = patientMasterAttributes
         })
@@ -70,7 +76,7 @@ class PatientPersonalViewModel @Inject constructor(
     fun updatePatient(patient: Patient, otherInfo: PatientOtherInfo) = executeLocalQuery {
         patientPersonalInfoRepository.updatePatient(patient)
     }.zip(executeLocalQuery {
-        patientOtherInfoRepository.updateOrInsertPatientAttributes(patient.uuid, otherInfo.apply {
+        patientOtherInfoRepository.updateOrInsertPersonalAttributes(patient.uuid, otherInfo.apply {
             patientMasterAttrs = patientMasterAttributes
         })
     }) { pResult, oResult ->

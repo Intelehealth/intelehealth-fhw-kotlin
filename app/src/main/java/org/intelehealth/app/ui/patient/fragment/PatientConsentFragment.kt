@@ -63,14 +63,15 @@ class PatientConsentFragment : ConsentFragment(R.layout.fragment_patient_consent
 
     private fun declineConsent() {
         showCommonDialog(
-            DialogParams(icon = org.intelehealth.resource.R.drawable.ic_dialog_alert,
-                         title = ResourceR.string.dialog_title_decline_consent,
-                         message = ResourceR.string.content_decline_consent_message,
-                         positiveLbl = ResourceR.string.action_exit,
-                         negativeLbl = ResourceR.string.action_cancel,
-                         onPositiveClick = {
-                             requireActivity().finish()
-                         })
+            DialogParams(
+                icon = org.intelehealth.resource.R.drawable.ic_dialog_alert,
+                title = ResourceR.string.dialog_title_decline_consent,
+                message = ResourceR.string.content_decline_consent_message,
+                positiveLbl = ResourceR.string.action_exit,
+                negativeLbl = ResourceR.string.action_cancel,
+                onPositiveClick = {
+                    requireActivity().finish()
+                })
         )
     }
 
@@ -79,7 +80,8 @@ class PatientConsentFragment : ConsentFragment(R.layout.fragment_patient_consent
             val consentArgs = ConsentArgs(ConsentArgs.ConsentType.TELECONSULTATION, null, null)
             PatientConsentFragmentDirections.actionToSelf(consentArgs)
         } else if (args.consentType == ConsentArgs.ConsentType.TELECONSULTATION) {
-            PatientConsentFragmentDirections.actionToPatientPersonalInfo("0313d385-f0aa-424a-9c4a-e1771b4bc1fa")
+            PatientConsentFragmentDirections.actionToPatientPersonalInfo(null)
+//            "0313d385-f0aa-424a-9c4a-e1771b4bc1fa"
         } else {
             val consentArgs = ConsentArgs(ConsentArgs.ConsentType.PERSONAL_DATA_CONSENT, null, null)
             PatientConsentFragmentDirections.actionToSelf(consentArgs)

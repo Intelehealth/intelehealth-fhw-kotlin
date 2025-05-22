@@ -40,14 +40,14 @@
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/std_8dp"
             android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@+id/frag2_btn_next"
+            app:layout_constraintBottom_toTopOf="@+id/btnPatientOtherNext"
             app:layout_constraintTop_toBottomOf="@id/patientTab">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/std_16dp">
-
+                <!-- National Id -->
                 <LinearLayout
                     android:id="@+id/llNationalId"
                     android:layout_width="0dp"
@@ -90,6 +90,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Occupation -->
                 <LinearLayout
                     android:id="@+id/llOccupation"
                     android:layout_width="0dp"
@@ -132,6 +133,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Social Category -->
                 <LinearLayout
                     android:id="@+id/llSocialCategory"
                     android:layout_width="0dp"
@@ -174,6 +176,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Education -->
                 <LinearLayout
                     android:id="@+id/llEducation"
                     android:layout_width="0dp"
@@ -216,6 +219,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Economic Category -->
                 <LinearLayout
                     android:id="@+id/llEconomicCategory"
                     android:layout_width="0dp"
@@ -258,7 +262,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
-                <!--tmh case number-->
+                <!-- TMH case number -->
                 <LinearLayout
                     android:id="@+id/llTmhCaseNumber"
                     android:layout_width="0dp"
@@ -302,51 +306,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
-                <!--request id-->
-                <LinearLayout
-                    android:id="@+id/llRequestId"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_12dp"
-                    android:orientation="vertical"
-                    android:visibility="@{otherInfoConfig.requestId.enabled ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llTmhCaseNumber"
-                    tools:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/lblRequestId"
-                        style="@style/Theme.IDA.TextAppearance.Label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="3sp"
-                        android:text="@{ otherInfoConfig.requestId.mandatory ? @string/lbl_request_id + ` *` : @string/lbl_request_id}"
-                        android:textSize="@null"
-                        tools:text="@string/lbl_request_id" />
-
-                    <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
-                        android:id="@+id/textInputLayRequestId"
-                        style="@style/Theme.IDA.OutlineInputBox"
-                        config="@{otherInfoConfig.requestId}"
-                        editMode="@{isEditMode}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/std_4dp"
-                        app:hintEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/textInputRequestId"
-                            style="@style/Theme.IDA.InputBox.Address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_enter_request_id"
-                            android:inputType="text"
-                            android:text="@{otherInfo.requestId}" />
-                    </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
-                </LinearLayout>
-
-                <!--relative phone-->
+                <!-- Relative Number -->
                 <LinearLayout
                     android:id="@+id/llRelativePhoneNumber"
                     android:layout_width="match_parent"
@@ -356,7 +316,7 @@
                     android:visibility="@{otherInfoConfig.relativePhoneNumber.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llRequestId"
+                    app:layout_constraintTop_toBottomOf="@id/llTmhCaseNumber"
                     tools:visibility="visible">
 
                     <TextView
@@ -414,7 +374,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 
-                <!--discipline-->
+                <!-- Discipline -->
                 <LinearLayout
                     android:id="@+id/llDiscipline"
                     android:layout_width="0dp"
@@ -457,6 +417,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- INN -->
                 <LinearLayout
                     android:id="@+id/llInn"
                     android:layout_width="0dp"
@@ -499,6 +460,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Code of Healthy Facility -->
                 <LinearLayout
                     android:id="@+id/llCodeOfHealthyFacility"
                     android:layout_width="0dp"
@@ -541,6 +503,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Health Facility Name -->
                 <LinearLayout
                     android:id="@+id/llHealthFacilityName"
                     android:layout_width="0dp"
@@ -583,6 +546,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
+                <!-- Code of Department -->
                 <LinearLayout
                     android:id="@+id/llCodeOfDepartment"
                     android:layout_width="0dp"
@@ -625,7 +589,7 @@
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
                 </LinearLayout>
 
-                <!--department-->
+                <!-- Department Name -->
                 <LinearLayout
                     android:id="@+id/llDepartment"
                     android:layout_width="0dp"
@@ -672,7 +636,7 @@
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/frag2_btn_back"
+            android:id="@+id/btnPatientOtherBack"
             style="@style/Theme.IDA.Button.Tertiary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -681,11 +645,11 @@
             android:layout_marginBottom="@dimen/std_16dp"
             android:visibility="@{isEditMode ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/frag2_btn_next"
+            app:layout_constraintEnd_toStartOf="@id/btnPatientOtherNext"
             app:layout_constraintStart_toStartOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/frag2_btn_next"
+            android:id="@+id/btnPatientOtherNext"
             style="@style/Theme.IDA.Button.Next"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -696,6 +660,6 @@
             android:layout_marginBottom="@dimen/std_16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/frag2_btn_back" />
+            app:layout_constraintStart_toEndOf="@id/btnPatientOtherBack" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

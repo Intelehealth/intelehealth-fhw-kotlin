@@ -45,7 +45,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     }
 
     private fun handleClickEvents() {
-        binding.clHomeAddPatient.setOnClickListener {
+        binding.cardHomeAddPatient.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
     }

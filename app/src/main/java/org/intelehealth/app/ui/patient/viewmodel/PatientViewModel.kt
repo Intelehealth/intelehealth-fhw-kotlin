@@ -27,9 +27,6 @@ open class PatientViewModel @Inject constructor(
 ) : RegFieldViewModel(regFieldRepository, networkHelper = networkHelper) {
     var patientMasterAttributes: List<PatientAttributeTypeMaster> = emptyList()
 
-    private var patientOtherInfoData = MutableLiveData<PatientOtherInfo>()
-    val patientOtherInfoLiveData: MutableLiveData<PatientOtherInfo> get() = patientOtherInfoData
-
     init {
         getPatientMasterAttributes()
     }
@@ -37,12 +34,6 @@ open class PatientViewModel @Inject constructor(
     private fun getPatientMasterAttributes() = viewModelScope.launch {
         async { otherInfoRepository.getPatientMasterAttributeUuids() }.await().let {
             patientMasterAttributes = it
-        }
-    }
-
-    fun fetchPatientOtherInfo(patientId: String) = viewModelScope.launch {
-        async { otherInfoRepository.getPatientOtherAttrs(patientId) }.await().let {
-            patientOtherInfoData.postValue(it)
         }
     }
 

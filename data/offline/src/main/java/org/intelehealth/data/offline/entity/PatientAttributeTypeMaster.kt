@@ -114,7 +114,24 @@ data class PatientAttributeTypeMaster(
             EMERGENCY_CONTACT_NAME,
             EMERGENCY_CONTACT_NUMBER,
             EMERGENCY_CONTACT_TYPE,
+            REQUEST_ID,
             TELEPHONE,
+        )
+
+        fun listOfOtherScreenAttributes() = listOf(
+            NATIONAL_ID,
+            OCCUPATION,
+            EDUCATION,
+            TMH_CASE_NUMBER,
+            RELATIVE_PHONE_NUMBER,
+            DISCIPLINE,
+            DEPARTMENT,
+            INN,
+            HEALTH_FACILITY_NAME,
+            CODE_OF_DEPARTMENT,
+            ECONOMIC_STATUS,
+            CODE_OF_HEALTH_FACILITY,
+            CAST,
         )
     }
 }

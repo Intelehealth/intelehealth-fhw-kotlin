@@ -73,7 +73,7 @@ class SpinnerItemAdapter<T>(
         ) = SpinnerItemAdapter(
             context,
             context.resources.getStringArray(arrayResId).toList(),
-            R.layout.view_dropdown_item
+            layoutResId
         )
     }
 }

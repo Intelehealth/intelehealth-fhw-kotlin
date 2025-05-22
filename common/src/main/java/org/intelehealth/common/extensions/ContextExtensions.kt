@@ -4,11 +4,14 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.intelehealth.common.databinding.DialogCommonMessageBinding
 import org.intelehealth.common.model.DialogParams
+import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.resource.R
 
 /**
@@ -143,7 +146,8 @@ fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAler
  */
 fun Context.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit) {
 
-    DialogParams(icon = R.drawable.ic_dialog_alert,
+    DialogParams(
+        icon = R.drawable.ic_dialog_alert,
         title = R.string.title_error,
         message = R.string.content_something_went_wrong,
         positiveLbl = R.string.action_retry,
@@ -162,7 +166,8 @@ fun Context.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit
  * @param onRetry The lambda function to be invoked when the retry button is clicked.
  */
 fun Context.showNetworkFailureDialog(onRetry: () -> Unit) {
-    DialogParams(icon = R.drawable.ic_dialog_alert,
+    DialogParams(
+        icon = R.drawable.ic_dialog_alert,
         title = R.string.dialog_title_network_failure,
         message = R.string.content_no_network,
         positiveLbl = R.string.action_retry,
@@ -171,3 +176,11 @@ fun Context.showNetworkFailureDialog(onRetry: () -> Unit) {
         showCustomDialog(this)
     }
 }
+
+fun Context.getSpinnerArrayAdapter(
+    @ArrayRes arrayResId: Int
+) = ArrayAdapterUtils.getSpinnerArrayAdapter(this, arrayResId)
+
+fun <T> Context.getSpinnerItemAdapter(
+    list: List<T>
+) = ArrayAdapterUtils.getSpinnerItemAdapter(this, list)

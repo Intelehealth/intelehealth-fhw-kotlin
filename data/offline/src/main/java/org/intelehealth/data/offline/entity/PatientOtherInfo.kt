@@ -39,7 +39,8 @@ data class PatientOtherInfo(
     var registrationAddressOfHf: String? = null,
     var codeOfHealthFacility: String? = null,
     var householdUuidLinking: String? = null,
-    var block: String? = null
+    var block: String? = null,
+    var reportDateOfPatientCreated: String? = null
 ) {
     @Ignore
     var patientMasterAttrs: List<PatientAttributeTypeMaster> = emptyList()
@@ -50,7 +51,6 @@ data class PatientOtherInfo(
 
     fun getNotNullableAttrsSize(): Int = listOfNotNull(
         nationalId,
-        socialCategory,
         education,
         tmhCaseNumber,
         requestId,

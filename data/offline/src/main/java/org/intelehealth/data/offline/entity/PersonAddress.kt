@@ -3,10 +3,8 @@ package org.intelehealth.data.offline.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -31,4 +29,23 @@ open class PersonAddress(
     @SerializedName("address_of_hf") var addressOfHf: String? = null,
 ) : BaseEntity(), Parcelable {
     override fun toString(): String = Gson().toJson(this)
+
+    fun getVillageWithoutDistrict(): String? {
+        return splitVillageAndDistrict(1)
+    }
+
+    private fun splitVillageAndDistrict(index: Int): String? {
+        try {
+            cityVillage?.let {
+                return@let if (it.isNotEmpty() && it.contains(":")) {
+                    it.split(":".toRegex())[index]
+                } else cityVillage
+            }
+
+            return if (index == 1) cityVillage
+            else null
+        } catch (e: Exception) {
+            return null
+        }
+    }
 }

@@ -16,7 +16,7 @@ data class Patient(
     @ColumnInfo("last_name") @SerializedName("lastname") var lastName: String? = null,
     @ColumnInfo("date_of_birth") @SerializedName("dateofbirth") var dateOfBirth: String? = null,
     @SerializedName("gender") var gender: String? = null,
-    @ColumnInfo("creatoruuid") @SerializedName("creatoruuid") val creatorUuid: String? = null,
+    @ColumnInfo("creatoruuid") @SerializedName("creatoruuid") var creatorUuid: String? = null,
     @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
     @ColumnInfo("created_at") @SerializedName("dateCreated") override var createdAt: String? = null,
     @ColumnInfo("abha_number") @SerializedName("abha_number") val abhaNumber: String? = null,

@@ -24,6 +24,7 @@ import org.intelehealth.app.utility.IND_MOBILE_LEN
 import org.intelehealth.app.utility.MAX_NAME_LENGTH
 import org.intelehealth.common.dialog.AgePickerDialog
 import org.intelehealth.common.dialog.CalendarDialog
+import org.intelehealth.common.extensions.getSpinnerArrayAdapter
 import org.intelehealth.common.extensions.hideDigitErrorOnTextChang
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.hideErrorOnTextChang
@@ -61,6 +62,9 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     private lateinit var binding: FragmentPatientPersonalInfoBinding
     private val args by navArgs<PatientPersonalInfoFragmentArgs>()
     private var selectedDate = Calendar.getInstance().timeInMillis
+    private val reportDate by lazy {
+        DateTimeUtils.getCurrentDateInUTC(DateTimeUtils.LAST_SYNC_DB_FORMAT)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentPatientPersonalInfoBinding.bind(view)
@@ -78,14 +82,13 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun observePatientPersonalInfo() {
-        viewModel.fetchPersonalInfo(args.patientId).observe(viewLifecycleOwner) {
+        val patientId = args.patientId ?: viewModel.patientLiveData.value?.uuid
+        viewModel.fetchPersonalInfo(patientId).observe(viewLifecycleOwner) {
             it ?: return@observe
             binding.patient = it
             fetchPersonalInfoConfig()
             fetchPersonalOtherData(it.uuid)
         }
-
-
     }
 
     private fun fetchPersonalOtherData(patientId: String) {
@@ -211,12 +214,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun validateOtherInfo(patient: Patient) {
-        binding.otherInfo?.let { otherInfo ->
-            otherInfo.telephone = binding.countrycodeSpinner.fullNumberWithPlus
-            otherInfo.emergencyContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
-            otherInfo.emergencyContactType = binding.autoCompleteEmContactType.text.toString()
-            otherInfo.emergencyContactName = binding.textInputETECName.text?.toString()
-            createOrUpdatePatient(patient, otherInfo)
+        PatientOtherInfo().apply {
+            patientId = patient.uuid
+            telephone = binding.countrycodeSpinner.fullNumberWithPlus
+            emergencyContactNumber = binding.ccpEmContactPhone.fullNumberWithPlus
+            emergencyContactType = binding.autoCompleteEmContactType.text.toString()
+            emergencyContactName = binding.textInputETECName.text?.toString()
+            requestId = binding.textInputRequestId.text?.toString()
+            createOrUpdatePatient(patient, this)
         }
     }
 
@@ -226,6 +231,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun createPatient(patient: Patient, otherInfo: PatientOtherInfo) {
+        otherInfo.reportDateOfPatientCreated = reportDate
         viewModel.createPatient(patient, otherInfo).observe(viewLifecycleOwner) {
             it ?: return@observe
             viewModel.allowNullDataResponse(it) { navigateToNextScreen(patient.uuid) }
@@ -356,12 +362,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
         binding.textInputLayEMPhoneNumber.hideDigitErrorOnTextChang(
             binding.textInputETEMPhoneNumber, IND_MOBILE_LEN
         )
+
+        binding.textInputLayRequestId.hideErrorOnTextChang(binding.textInputRequestId)
     }
 
     //
     private fun setupGuardianType() {
         val patient = binding.patient
-        val adapter = ArrayAdapterUtils.getSpinnerArrayAdapter(requireContext(), R.array.guardian_type)
+        val adapter = requireContext().getSpinnerArrayAdapter(R.array.guardian_type)
         binding.autoCompleteGuardianType.setAdapter(adapter)
         if (patient?.guardianType != null && patient.guardianType.isNullOrEmpty().not()) {
             binding.autoCompleteGuardianType.setText(patient.guardianType, false)
@@ -377,7 +385,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     //
     private fun setupEmContactType() {
         val other = binding.otherInfo
-        val adapter = ArrayAdapterUtils.getSpinnerArrayAdapter(requireContext(), R.array.contact_type)
+        val adapter = requireContext().getSpinnerArrayAdapter(R.array.contact_type)
         binding.autoCompleteEmContactType.setAdapter(adapter)
         if (other?.emergencyContactType != null && other.emergencyContactType.isNullOrEmpty().not()) {
             binding.autoCompleteEmContactType.setText(other.emergencyContactType, false)
@@ -408,11 +416,32 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
             val bEmName = validEmergencyContactName(it, error)
             val bEmPhone = validEmergencyPhoneNumber(it, error)
             val bEmContactType = validEmergencyContactType(it, error)
+            val bRequestId = validRequestId(it, error)
+
+
+            Timber.d { "fname => $bFName" }
+            Timber.d { "mname => $bMName" }
+            Timber.d { "lname => $bLName" }
+            Timber.d { "Gender => $bGender" }
+            Timber.d { "dob => $bDob" }
+            Timber.d { "age => $bAge" }
+            Timber.d { "phone => $bPhone" }
+            Timber.d { "guardianType => $bGuardianType" }
+            Timber.d { "guardianName => $bGName" }
+            Timber.d { "emergencyName => $bEmName" }
+            Timber.d { "emergencyPhone => $bEmPhone" }
+            Timber.d { "emergencyContactType => $bEmContactType" }
 
             if (bFName.and(bMName).and(bLName).and(bGender).and(bDob).and(bAge).and(bPhone).and(bGName)
-                    .and(bGuardianType).and(bEmName).and(bEmPhone).and(bEmContactType)
+                    .and(bGuardianType).and(bEmName).and(bEmPhone).and(bEmContactType).and(bRequestId)
             ) block.invoke()
         }
+    }
+
+    private fun validRequestId(it: PersonalInfoConfig, error: Int): Boolean {
+        return if (it.requestId?.isEnabled == true && it.requestId?.isMandatory == true) {
+            binding.textInputLayRequestId.validate(binding.textInputRequestId, error)
+        } else true
     }
 
     private fun validProfilePic(config: PersonalInfoConfig): Boolean = config.let {

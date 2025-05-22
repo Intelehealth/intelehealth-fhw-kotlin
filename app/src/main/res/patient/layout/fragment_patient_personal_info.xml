@@ -323,6 +323,47 @@
                         app:layout_constraintTop_toBottomOf="@id/toggleGender" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <!--request id-->
+                <LinearLayout
+                    android:id="@+id/llRequestId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_12dp"
+                    android:orientation="vertical"
+                    android:visibility="@{personalConfig.requestId.enabled ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clGender"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblRequestId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="3sp"
+                        android:text="@{ personalConfig.requestId.mandatory ? @string/request_id + ` *` : @string/request_id}"
+                        tools:text="@string/lbl_request_id" />
+
+                    <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                        android:id="@+id/textInputLayRequestId"
+                        style="@style/Theme.IDA.OutlineInputBox"
+                        config="@{personalConfig.requestId}"
+                        editMode="@{isEditMode}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInputRequestId"
+                            style="@style/Theme.IDA.InputBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_enter_request_id"
+                            android:inputType="text"
+                            android:text="@{otherInfo.requestId}" />
+                    </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llDob"
@@ -333,7 +374,7 @@
                     android:visibility="@{personalConfig.dob.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clGender">
+                    app:layout_constraintTop_toBottomOf="@id/llRequestId">
 
                     <TextView
                         android:id="@+id/dob_tv"
