@@ -31,4 +31,12 @@ data class Patient(
     override fun toString(): String {
         return Gson().toJson(this)
     }
+
+    fun fullName(): String {
+        return middleName?.let {
+            return@let "$firstName $middleName $lastName"
+        } ?: run {
+            return@run "$firstName $lastName"
+        }
+    }
 }

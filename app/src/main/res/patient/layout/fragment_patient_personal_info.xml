@@ -342,7 +342,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
-                        android:text="@{ personalConfig.requestId.mandatory ? @string/request_id + ` *` : @string/request_id}"
+                        android:text="@{ personalConfig.requestId.mandatory ? @string/lbl_request_id + ` *` : @string/lbl_request_id}"
                         tools:text="@string/lbl_request_id" />
 
                     <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
@@ -765,7 +765,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPatientPersonalNext"
             style="@style/Theme.IDA.Button.Next"
             android:layout_width="match_parent"

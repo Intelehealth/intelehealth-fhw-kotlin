@@ -50,4 +50,6 @@
     <string name="action_choose_from_gallery">Choose from Gallery</string>
     <string name="action_sign_back_in">Sign back in</string>
     <string name="action_back">Back</string>
+    <string name="action_start_visit">Start Visit</string>
+    <string name="action_household_survey" translatable="false">@string/lbl_household_survey</string>
 </resources>

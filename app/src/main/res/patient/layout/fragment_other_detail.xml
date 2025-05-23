@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="otherInfo"
+            type="org.intelehealth.data.offline.entity.PatientOtherInfo" />
+
+        <variable
+            name="otherConfig"
+            type="org.intelehealth.config.presenter.fields.patient.infoconfig.OtherInfoConfig" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std_8dp">
+
+            <ImageView
+                android:id="@+id/imgOtherInfo"
+                android:layout_width="@dimen/fabDefaultSize"
+                android:layout_height="@dimen/fabDefaultSize"
+                android:contentDescription="@string/lbl_other_identification"
+                android:src="@drawable/ic_other_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnExpandableOtherSection"
+                style="@style/Theme.IDA.TextButton.DropDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_other_identification"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imgOtherInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgOtherInfo"
+                app:layout_constraintTop_toTopOf="@id/imgOtherInfo" />
+
+            <View
+                android:id="@+id/vOtherSectionDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/std_1dp"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgOtherInfo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblOtherSectionDetail"
+                style="@style/Theme.IDA.TextAppearance.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_details"
+                app:layout_constraintBottom_toBottomOf="@id/btnEditOtherInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnEditOtherInfo" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditOtherInfo"
+                style="@style/Theme.IDA.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/std_36dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/action_edit"
+                app:icon="@drawable/ic_edit"
+                app:iconPadding="@dimen/std_8dp"
+                app:iconSize="@dimen/std_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vOtherSectionDivider"
+                app:strokeColor="@color/colorLightGray"
+                app:strokeWidth="@dimen/std_1dp" />
+
+            <TableLayout
+                android:id="@+id/tblOtherInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:shrinkColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnEditOtherInfo">
+
+                <!-- NationalId -->
+                <TableRow
+                    android:id="@+id/trNationalId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{otherConfig.nationalId.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblNationalId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_national_id + `:`}"
+                        tools:text="@string/lbl_national_id" />
+
+                    <TextView
+                        android:id="@+id/tvNationalId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.nationalId}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="360575" />
+                </TableRow>
+
+                <!-- Son/Daughter/Wife of -->
+                <TableRow
+                    android:id="@+id/trSdwOf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblSdwOf"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_country + `:`}"
+                        tools:text="Son/Daughter/Wife Of" />
+
+                    <TextView
+                        android:id="@+id/tvSdwOf"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.swd}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="India" />
+                </TableRow>
+
+                <!-- Occupations -->
+                <TableRow
+                    android:id="@+id/trOccupations"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.occuptions.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblOccupations"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_occupation + `:`}"
+                        tools:text="@string/lbl_occupation" />
+
+                    <TextView
+                        android:id="@+id/tvOccupations"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.occupation}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Gujarat" />
+                </TableRow>
+
+                <!-- Social Category -->
+                <TableRow
+                    android:id="@+id/trCaste"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.socialCategory.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblCaste"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_social_category + `:`}"
+                        tools:text="@string/lbl_social_category" />
+
+                    <TextView
+                        android:id="@+id/tvCaste"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.cast}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Porbandar" />
+                </TableRow>
+
+                <!-- Education -->
+                <TableRow
+                    android:id="@+id/trEducation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.education.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblEducation"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_education + `:`}"
+                        tools:text="@string/lbl_education" />
+
+                    <TextView
+                        android:id="@+id/tvEducation"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.education}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Education" />
+                </TableRow>
+
+                <!-- Economic Category -->
+                <TableRow
+                    android:id="@+id/trEconomicCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.economicCategory.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblEconomicCategory"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_economic_category + `:`}"
+                        tools:text="@string/lbl_economic_category" />
+
+                    <TextView
+                        android:id="@+id/tvEconomicCategory"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.economicStatus}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Economic Category" />
+                </TableRow>
+
+                <!-- TMH Case Number -->
+                <TableRow
+                    android:id="@+id/trTMHCaseNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.tmhCaseNumber.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblTMHCaseNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_tmh_case_number + `:`}"
+                        tools:text="@string/lbl_tmh_case_number" />
+
+                    <TextView
+                        android:id="@+id/tvTMHCaseNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.tmhCaseNumber}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="TMH Case Number" />
+                </TableRow>
+
+                <!-- Relative Phone Number -->
+                <TableRow
+                    android:id="@+id/trRelativePhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.relativePhoneNumber.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblRelativePhoneNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_relative_phone_number + `:`}"
+                        tools:text="@string/lbl_relative_phone_number" />
+
+                    <TextView
+                        android:id="@+id/tvRelativePhoneNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.relativePhoneNumber}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/hint_registration_address_of_health_facility" />
+                </TableRow>
+
+                <!-- Discipline -->
+                <TableRow
+                    android:id="@+id/trDiscipline"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.discipline.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblDiscipline"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_discipline + `:`}"
+                        tools:text="@string/lbl_discipline" />
+
+                    <TextView
+                        android:id="@+id/tvDiscipline"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.discipline}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="543210" />
+                </TableRow>
+
+                <!-- Code of the Department -->
+                <TableRow
+                    android:id="@+id/trCodeOfDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.codeOfDepartment.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblCodeOfDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_code_of_the_department + `:`}"
+                        tools:text="@string/lbl_code_of_the_department" />
+
+                    <TextView
+                        android:id="@+id/tvCodeOfDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.codeOfDepartment}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/lbl_department" />
+                </TableRow>
+
+                <!-- Department -->
+                <TableRow
+                    android:id="@+id/trDepartment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.department.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_department + `:`}"
+                        tools:text="@string/lbl_department" />
+
+                    <TextView
+                        android:id="@+id/tvDepartment"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.department}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/lbl_department" />
+                </TableRow>
+
+                <!-- INN -->
+                <TableRow
+                    android:id="@+id/trINN"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.inn.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblINN"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_inn + `:`}"
+                        tools:text="@string/lbl_inn" />
+
+                    <TextView
+                        android:id="@+id/tvINN"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.inn}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/lbl_corresponding_address_2" />
+                </TableRow>
+
+                <!-- Code of the Health Facility -->
+                <TableRow
+                    android:id="@+id/trCodeOfHF"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.codeOfHealthyFacility.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblCodeOfHF"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_code_of_the_health_facility + `:`}"
+                        tools:text="@string/lbl_code_of_the_health_facility" />
+
+                    <TextView
+                        android:id="@+id/tvCodeOfHF"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.codeOfHealthFacility}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/lbl_department" />
+                </TableRow>
+
+                <!-- Health Facility Name -->
+                <TableRow
+                    android:id="@+id/trHFName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{otherConfig.healthFacilityName.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblHFName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_health_facility_name + `:`}"
+                        tools:text="@string/lbl_health_facility_name" />
+
+                    <TextView
+                        android:id="@+id/tvHFName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.healthFacilityName}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="@string/lbl_corresponding_address_2" />
+                </TableRow>
+
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

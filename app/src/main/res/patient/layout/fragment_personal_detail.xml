@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="personalInfo"
+            type="org.intelehealth.data.offline.entity.Patient" />
+
+        <variable
+            name="otherInfo"
+            type="org.intelehealth.data.offline.entity.PatientOtherInfo" />
+
+        <variable
+            name="personalConfig"
+            type="org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoConfig" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std_8dp">
+
+            <ImageView
+                android:id="@+id/imgPersonalInfo"
+                android:layout_width="@dimen/fabDefaultSize"
+                android:layout_height="@dimen/fabDefaultSize"
+                android:contentDescription="@string/lbl_personal_identification"
+                android:src="@drawable/ic_personal_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Theme.IDA.TextButton.DropDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_personal_identification"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imgPersonalInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgPersonalInfo"
+                app:layout_constraintTop_toTopOf="@id/imgPersonalInfo" />
+
+            <View
+                android:id="@+id/vPersonalSectionDivider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/std_1dp"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgPersonalInfo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblPersonalSectionDetail"
+                style="@style/Theme.IDA.TextAppearance.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_details"
+                app:layout_constraintBottom_toBottomOf="@id/btnEditPersonalInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnEditPersonalInfo" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditPersonalInfo"
+                style="@style/Theme.IDA.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/std_36dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/action_edit"
+                app:icon="@drawable/ic_edit"
+                app:iconPadding="@dimen/std_8dp"
+                app:iconSize="@dimen/std_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vPersonalSectionDivider"
+                app:strokeColor="@color/colorLightGray"
+                app:strokeWidth="@dimen/std_1dp" />
+
+            <TableLayout
+                android:id="@+id/tblPersonalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:shrinkColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnEditPersonalInfo">
+
+                <!--Full Name-->
+                <TableRow
+                    android:id="@+id/trName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="@{personalConfig.firstName.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/lblFullName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_name + `:`}"
+                        tools:text="@string/lbl_name" />
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{personalInfo.fullName()}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Kiran Devi Prakash" />
+                </TableRow>
+
+                <!-- Gender -->
+                <TableRow
+                    android:id="@+id/trGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.gender.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblGender"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_gender + `:`}"
+                        tools:text="@string/lbl_gender" />
+
+                    <TextView
+                        android:id="@+id/tvGender"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{personalInfo.gender}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Male" />
+                </TableRow>
+
+                <!--Date of birth-->
+                <TableRow
+                    android:id="@+id/trDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.dob.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblDob"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_date_of_birth + `:`}"
+                        tools:text="@string/lbl_date_of_birth" />
+
+                    <TextView
+                        android:id="@+id/tvDob"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{personalInfo.dateOfBirth}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="12th May 1988" />
+                </TableRow>
+
+                <!--Age-->
+                <TableRow
+                    android:id="@+id/trAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.age.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblAge"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_age + `:`}"
+                        tools:text="@string/lbl_age" />
+
+                    <TextView
+                        android:id="@+id/tvAge"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="22 years" />
+                </TableRow>
+
+                <!--Request Id -->
+                <TableRow
+                    android:id="@+id/trRequestId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.requestId.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblRequestId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_request_id + `:`}"
+                        tools:text="@string/lbl_request_id" />
+
+                    <TextView
+                        android:id="@+id/tvRequestId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.requestId}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="23424" />
+                </TableRow>
+
+                <!--Guardian Name-->
+                <TableRow
+                    android:id="@+id/trGuardianName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.guardianName.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblGuardianName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_guardian_name + `:`}"
+                        tools:text="@string/lbl_guardian_name" />
+
+                    <TextView
+                        android:id="@+id/tvGuardianName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{personalInfo.guardianName}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Xyz Guardian" />
+                </TableRow>
+
+                <!--Guardian Type-->
+                <TableRow
+                    android:id="@+id/trGuardianType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.guardianType.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblGuardianType"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_guardian_type + `:`}"
+                        tools:text="@string/lbl_guardian_type" />
+
+                    <TextView
+                        android:id="@+id/tvGuardianType"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{personalInfo.guardianType}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Family" />
+                </TableRow>
+
+                <!--Phone number-->
+                <TableRow
+                    android:id="@+id/trPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.phone.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblPhoneNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_phone_number + `:`}"
+                        tools:text="@string/lbl_phone_number" />
+
+                    <TextView
+                        android:id="@+id/tvPhoneNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.telephone}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="+919876543210" />
+                </TableRow>
+
+                <!--Emergency Contact Type-->
+                <TableRow
+                    android:id="@+id/trEmergencyContactType"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.emergencyContactType.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblEmergencyContactType"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_contact_type + `:`}"
+                        tools:text="@string/lbl_contact_type" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactType"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.emergencyContactType}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="Family" />
+                </TableRow>
+
+                <!--Emergency contact name-->
+                <TableRow
+                    android:id="@+id/trEmergencyContactName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="@{personalConfig.emergencyContactName.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblEmergencyContactName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_guardian_name + `:`}"
+                        tools:text="@string/lbl_emergency_contact_name" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactName"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.emergencyContactName}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="ABC" />
+                </TableRow>
+
+                <!--Emergency contact number-->
+                <TableRow
+                    android:id="@+id/trEmergencyContactNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_marginBottom="@dimen/std_8dp"
+                    android:visibility="@{personalConfig.emergencyContactNumber.enabled ? View.VISIBLE : View.GONE}"
+                    android:weightSum="2"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblEmergencyContactNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{@string/lbl_emergency_contact + `:`}"
+                        tools:text="@string/lbl_emergency_contact" />
+
+                    <TextView
+                        android:id="@+id/tvEmergencyContactNumber"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{otherInfo.emergencyContactNumber}"
+                        android:textColor="@color/colorTextPrimary"
+                        tools:text="+918795432343" />
+                </TableRow>
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
