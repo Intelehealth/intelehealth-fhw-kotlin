@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding

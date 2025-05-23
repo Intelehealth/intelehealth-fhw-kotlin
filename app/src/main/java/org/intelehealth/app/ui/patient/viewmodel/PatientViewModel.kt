@@ -1,8 +1,6 @@
 package org.intelehealth.app.ui.patient.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -10,7 +8,6 @@ import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.config.presenter.fields.patient.data.RegFieldRepository
 import org.intelehealth.config.presenter.fields.patient.viewmodel.RegFieldViewModel
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
-import org.intelehealth.data.offline.entity.PatientOtherInfo
 import org.intelehealth.data.provider.patient.otherinfo.PatientOtherDataRepository
 import javax.inject.Inject
 
