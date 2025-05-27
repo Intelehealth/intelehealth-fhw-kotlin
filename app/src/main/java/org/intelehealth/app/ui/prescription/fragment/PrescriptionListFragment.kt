@@ -1,20 +1,21 @@
 package org.intelehealth.app.ui.prescription.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentAyuPolicyBinding
+import org.intelehealth.resource.R as resourceR
 import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
-import org.intelehealth.app.databinding.FragmentSetupBinding
+import org.intelehealth.app.ui.achievement.adapter.AchievementPagerAdapter
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
+import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.ui.fragment.MenuFragment
 
 /**
@@ -25,35 +26,45 @@ import org.intelehealth.common.ui.fragment.MenuFragment
  *
  * Uses tabs to separate "Received" and "Pending" prescriptions.
  */
+@AndroidEntryPoint
 class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_list) {
     private lateinit var binding: FragmentPrescriptionListBinding
+    val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
+    lateinit var adapter: PrescriptionPagerAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionListBinding.bind(view)
-        setupTabAndViewPager()
+        bindViewPager()
+        bindObserver()
     }
 
     /**
      * Sets up the TabLayout and ViewPager to display prescription lists.
      * Configures the ViewPager with an adapter and links it to the TabLayout for tabbed navigation.
      */
-    private fun setupTabAndViewPager() {
-        if (binding.prescriptionViewPager.adapter == null) {
-            val adapter = PrescriptionPagerAdapter(requireActivity())
-            binding.prescriptionViewPager.setAdapter(adapter)
+    private fun bindViewPager() {
+        adapter = PrescriptionPagerAdapter(requireActivity())
+        binding.prescriptionViewPager.adapter = adapter
+        TabLayoutMediator(
+            binding.prescriptionTabLayout, binding.prescriptionViewPager
+        ) { tab, position ->
+            tab.text = adapter.getTitle(position)
+            tab.icon =
+                ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_presc_tablayout)
+        }.attach()
+    }
 
-            TabLayoutMediator(
-                binding.prescriptionTabLayout, binding.prescriptionViewPager
-            ) { tab: TabLayout.Tab, position: Int ->
-                tab.setText(
-                    resources.getString(
-                        if (position == 0) R.string.received else R.string.pending
-                    )
-                ).setIcon(org.intelehealth.resource.R.drawable.presc_tablayout_icon)
-            }.attach()
-
-            binding.prescriptionViewPager.setOffscreenPageLimit(1)
+    private fun bindObserver() {
+        if (::adapter.isInitialized) {
+            viewModel.prescriptionCount().observe(viewLifecycleOwner) {
+                binding.prescriptionTabLayout.getTabAt(0)?.text =
+                    "${adapter.getTitle(0)}(${it.received})"
+                binding.prescriptionTabLayout.getTabAt(1)?.text =
+                    "${adapter.getTitle(1)}(${it.pending})"
+            }
         }
+
     }
 
     /**

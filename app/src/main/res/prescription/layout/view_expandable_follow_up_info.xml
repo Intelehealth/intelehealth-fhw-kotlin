@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/std_16dp"
-    app:cardCornerRadius="@dimen/std_5dp"
-    app:cardElevation="@dimen/std_5dp"
+    app:cardCornerRadius="@dimen/std_4dp"
+    app:cardElevation="@dimen/std_4dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,23 +16,25 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/followUpIcon"
-            android:layout_width="@dimen/std_44dp"
-            android:layout_height="@dimen/std_44dp"
-            android:src="@drawable/followup_icon"
-            android:layout_margin="@dimen/std_15dp"
+            android:layout_width="@dimen/std_48dp"
+            android:layout_height="@dimen/std_48dp"
+            android:src="@drawable/ic_circle_followup_icon"
+            android:layout_margin="@dimen/std_16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/lbl_follow_up"
+            />
 
         <TextView
             android:id="@+id/adviceTitle"
-            style="@style/Theme.IDA.Dialog.Title"
+            style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/std_10dp"
-            android:layout_marginEnd="@dimen/std_10dp"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_8dp"
             android:text="@string/lbl_follow_up"
             app:layout_constraintBottom_toBottomOf="@+id/followUpIcon"
             app:layout_constraintEnd_toStartOf="@+id/expandBtn"
@@ -43,12 +45,13 @@
             android:id="@+id/expandBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:background="@null"
-            android:src="@drawable/ui2_ic_chevron_down"
+            android:src="@drawable/ic_cupertino_down"
             app:layout_constraintBottom_toBottomOf="@+id/adviceTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/adviceTitle" />
+            app:layout_constraintTop_toTopOf="@+id/adviceTitle"
+            android:contentDescription="@string/lbl_expand"/>
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/followUpInfoExpandableLayoutGroup"
@@ -64,22 +67,22 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/std_32dp"
-            android:layout_marginStart="@dimen/std_12dp"
-            android:layout_marginEnd="@dimen/std_12dp"
-            android:layout_marginBottom="@dimen/std_12dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             android:background="@color/colorLightGray"
             app:layout_constraintTop_toBottomOf="@id/adviceTitle"/>
 
 
         <TextView
             android:id="@+id/followUpTv"
-            style="@style/TextAppearance.MaterialComponents.Caption"
+            style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/std_12dp"
+            android:layout_margin="@dimen/std_16dp"
             android:text="@string/lbl_no_information"
-            android:textColor="@color/black"
-            android:textSize="@dimen/std_14sp"
+            app:drawableStartCompat="@drawable/shape_bullet_gray"
+            android:drawablePadding="@dimen/std_4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
             app:layout_constraintVertical_bias="0.0"
@@ -88,11 +91,11 @@
         <include
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            layout="@layout/view_follow_up_info"
+            layout="@layout/view_follow_up_info_pres"
             app:layout_constraintTop_toBottomOf="@+id/followUpTv"
-            android:layout_margin="@dimen/std_10dp"
+            android:layout_margin="@dimen/std_8dp"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

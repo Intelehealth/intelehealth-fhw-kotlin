@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,19 +7,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="8dp"
-    app:cardCornerRadius="@dimen/std_5dp">
+    app:cardCornerRadius="@dimen/std_4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/std_12dp">
+        android:layout_margin="@dimen/std_16dp">
 
         <!-- Profile CardView -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardUserProfile"
             android:layout_width="@dimen/std_40dp"
             android:layout_height="@dimen/std_40dp"
-            app:cardCornerRadius="@dimen/std_20dp"
+            app:cardCornerRadius="@dimen/std_16dp"
             app:cardElevation="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -28,22 +28,23 @@
                 android:id="@+id/profileImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/avatar1" />
-        </androidx.cardview.widget.CardView>
+                android:src="@drawable/img_avatar"
+                android:contentDescription="@string/lbl_profile_image"
+                />
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Patient Name -->
         <TextView
             android:id="@+id/patNameTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_12dp"
+            android:layout_marginStart="@dimen/std_16dp"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:maxWidth="70dp"
             android:maxLines="1"
             android:text="@string/lbl_dummy_name"
-            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
-            android:textSize="@dimen/std_16sp"
+            app:layout_constraintWidth_percent=".4"
+            style="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toEndOf="@id/cardUserProfile"
             app:layout_constraintTop_toTopOf="@id/cardUserProfile" />
 
@@ -59,7 +60,7 @@
             android:textSize="@dimen/std_16sp"
             app:layout_constraintStart_toEndOf="@id/patNameTxt"
             app:layout_constraintTop_toTopOf="@id/patNameTxt"
-            tools:text="पुरुष 50" />
+            tools:text="@string/lbl_gender_with_age" />
 
         <!-- Edit Icon -->
         <ImageView
@@ -67,11 +68,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_4dp"
-            android:onClick="editPatientInfo"
             android:padding="@dimen/std_4dp"
-            android:src="@drawable/ic_icno8_edit"
+            android:src="@drawable/ic_edit"
             app:layout_constraintStart_toEndOf="@id/genderAgeTxt"
-            app:layout_constraintTop_toTopOf="@id/patNameTxt" />
+            app:layout_constraintTop_toTopOf="@id/patNameTxt"
+            android:contentDescription="@string/lbl_edit"
+            />
 
         <!-- OpenMRS ID -->
         <TextView
@@ -84,19 +86,21 @@
             android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
             android:textSize="@dimen/std_14sp"
             app:layout_constraintStart_toStartOf="@id/patNameTxt"
-            app:layout_constraintTop_toBottomOf="@id/patNameTxt" />
+            app:layout_constraintTop_toBottomOf="@id/patNameTxt"
+            />
 
         <!-- Call Button -->
         <ImageButton
             android:id="@+id/patCallBtn"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:layout_marginEnd="@dimen/std_12dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:background="@null"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_icon8_phone"
+            android:src="@drawable/ic_phone"
             app:layout_constraintBottom_toBottomOf="@id/cardUserProfile"
-            app:layout_constraintEnd_toStartOf="@id/patWhatsappBtn" />
+            app:layout_constraintEnd_toStartOf="@id/patWhatsappBtn"
+            android:contentDescription="@string/lbl_call"/>
 
         <!-- WhatsApp Button -->
         <ImageButton
@@ -105,10 +109,12 @@
             android:layout_height="42dp"
             android:background="@null"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_icon8_whatsapp"
+            android:src="@drawable/ic_whatsapp"
             app:layout_constraintBottom_toBottomOf="@id/cardUserProfile"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/lbl_whatsapp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

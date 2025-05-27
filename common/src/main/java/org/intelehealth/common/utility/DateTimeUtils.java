@@ -79,10 +79,23 @@ public class DateTimeUtils {
         calendar.setTimeZone(timeZone);
         return calendar.getTime();
     }
+    public static Date getCustomDate(TimeZone timeZone, int days) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeZone(timeZone);
+        calendar.add(Calendar.DATE, days);
+        return calendar.getTime();
+    }
+
 
     public static String getCurrentDateWithDBFormat() {
         SimpleDateFormat sdf = getSimpleDateFormat(DB_FORMAT, getUTCTimeZone());
         return sdf.format(getCurrentDate(getUTCTimeZone()));
+    }
+
+    public static String getCustomDateWithDBFormat(int days) {
+        SimpleDateFormat sdf = getSimpleDateFormat(DB_FORMAT, getUTCTimeZone());
+        return sdf.format(getCustomDate(getUTCTimeZone(),days));
     }
 
     public static boolean isToday(Date date) {

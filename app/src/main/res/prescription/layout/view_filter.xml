@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/filter_constraint"
@@ -11,61 +10,62 @@
     tools:visibility="visible">
 
 
-        <TextView
-            android:id="@+id/filter_header"
+    <TextView
+        android:id="@+id/filter_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_results_for"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textColor="@null"
+        android:textSize="@dimen/std_14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/filter_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/std_4dp"
+        android:layout_marginEnd="@dimen/std_8dp"
+        android:backgroundTint="@color/backgroundGray"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:contentPaddingBottom="@dimen/std_8dp"
+        app:contentPaddingLeft="@dimen/std_8dp"
+        app:contentPaddingRight="@dimen/std_8dp"
+        app:contentPaddingTop="@dimen/std_8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/filter_header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lbl_results_for"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            android:textColor="@null"
-            android:textSize="@dimen/std_14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/backgroundGray">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/filter_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_4dp"
-            android:layout_marginEnd="@dimen/std_10dp"
-            android:backgroundTint="@color/backgroundGray"
-            app:cardCornerRadius="@dimen/std_8dp"
-            app:contentPaddingBottom="@dimen/std_6dp"
-            app:contentPaddingLeft="@dimen/std_6dp"
-            app:contentPaddingRight="@dimen/std_6dp"
-            app:contentPaddingTop="@dimen/std_6dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/filter_header">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <TextView
+                android:id="@+id/filter_priority"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/backgroundGray">
+                android:layout_marginEnd="@dimen/std_4dp"
+                android:background="@null"
+                android:text="@string/title_priority_visits"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/std_12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/filter_priority"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/std_4dp"
-                    android:background="@null"
-                    android:text="@string/title_priority_visits"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/std_12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/priority_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_2dp"
-                    android:background="@null"
-                    android:src="@drawable/cancel_small_crossbtn"
-                    app:layout_constraintBottom_toBottomOf="@id/filter_priority"
-                    app:layout_constraintStart_toEndOf="@id/filter_priority"
-                    app:layout_constraintTop_toTopOf="@id/filter_priority"
-                    app:tint="@color/colorPrimary" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            <ImageButton
+                android:id="@+id/priority_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_2dp"
+                android:background="@null"
+                android:contentDescription="@string/lbl_close"
+                android:src="@drawable/ic_cancel_cross"
+                app:layout_constraintBottom_toBottomOf="@id/filter_priority"
+                app:layout_constraintStart_toEndOf="@id/filter_priority"
+                app:layout_constraintTop_toTopOf="@id/filter_priority"
+                app:tint="@color/colorPrimary" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

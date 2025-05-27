@@ -70,10 +70,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
     appModuleDeps()
     unitTestDeps()
     androidTestDeps()

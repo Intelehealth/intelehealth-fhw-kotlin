@@ -5,4 +5,9 @@
         <item>Daily</item>
         <item>Date Range</item>
     </string-array>
+
+    <string-array name="tab_prescription_title">
+        <item>Received</item>
+        <item>Pending</item>
+    </string-array>
 </resources>

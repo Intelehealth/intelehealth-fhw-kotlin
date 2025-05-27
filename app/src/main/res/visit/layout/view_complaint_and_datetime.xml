@@ -1,144 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/std_16dp">
-
-    <!-- Priority Tag -->
-    <LinearLayout
-        android:id="@+id/llPriorityTagVisitDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/std_10dp"
-        android:layout_marginRight="@dimen/std_10dp"
-        android:background="@drawable/ui2_frame_priority"
-        android:contentDescription="@string/lbl_priority"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/std_5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/fu_priority_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:lineSpacingExtra="0sp"
-            android:text="@string/lbl_priority"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/std_10sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
     <!-- Chief Complaint -->
     <TextView
         android:id="@+id/chiefComplaintTv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/std_10dp"
-        android:layout_marginStart="@dimen/std_12dp"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:layout_marginTop="@dimen/std_8dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="3sp"
         android:text="@string/lbl_text_visit"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@null"
         android:textSize="@dimen/std_16sp"
+        app:layout_constraintEnd_toStartOf="@+id/fu_priority_tag"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Priority Tag -->
+    <TextView
+        android:id="@+id/fu_priority_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/std_8dp"
+        android:layout_marginEnd="@dimen/std_8dp"
+        android:background="@drawable/ic_priority"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:padding="@dimen/std_4dp"
+        android:text="@string/lbl_priority"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/std_10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <!-- Visit ID -->
     <TextView
         android:id="@+id/visitID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_12dp"
+        android:layout_marginStart="@dimen/std_16dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="3sp"
         android:text="@string/lbl_visit_id"
         android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
         android:textColor="@null"
         android:textSize="@dimen/std_14sp"
-        app:layout_constraintTop_toBottomOf="@id/chiefComplaintTv"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chiefComplaintTv" />
 
     <!-- Progress Indicator -->
-    <ImageButton
+    <ImageView
         android:id="@+id/progressIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_12dp"
+        android:layout_marginStart="@dimen/std_16dp"
         android:layout_marginTop="@dimen/std_16dp"
         android:background="@null"
-        android:src="@drawable/details_progressindic"
+        android:src="@drawable/ic_details_progress_indic"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/visitID"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:contentDescription="@string/lbl_progressIndicator"
+        />
 
     <!-- Date and Calendar Section -->
-    <LinearLayout
-        android:id="@+id/dateLay"
+    <TextView
+        android:id="@+id/visit_startDate"
+        style="@style/TextAppearance.Material3.TitleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/std_10dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/std_8dp"
+        android:drawablePadding="@dimen/std_4dp"
+        android:gravity="center_vertical"
+        android:text="@string/lbl_details_date"
+        app:drawableStartCompat="@drawable/ic_followup_calendar"
+        app:drawableTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/progressIndicator"
-        app:layout_constraintTop_toBottomOf="@id/progressIndicator">
-
-        <ImageView
-            android:id="@+id/ivFUDetailsCalendar"
-            android:layout_width="@dimen/std_16dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/followup_item_calendar" />
-
-        <TextView
-            android:id="@+id/visit_startDate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/std_6dp"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="3sp"
-            android:text="@string/lbl_details_date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@null"
-            android:textSize="@dimen/std_14sp"
-            app:layout_constraintStart_toEndOf="@id/ivFUDetailsCalendar" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/progressIndicator" />
 
     <!-- Time Section -->
-    <LinearLayout
-        android:id="@+id/timeLay"
-        android:layout_width="77dp"
-        android:layout_height="21dp"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/std_10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/dateLay"
-        app:layout_constraintStart_toEndOf="@+id/dateLay"
-        app:layout_constraintTop_toTopOf="@+id/dateLay">
-
-        <ImageView
-            android:id="@+id/fu_details_calendar"
-            android:layout_width="@dimen/std_16dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ui2_ic_time"
-            app:tint="@color/black" />
-
-        <TextView
-            android:id="@+id/visit_startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/std_6dp"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="3sp"
-            android:text="00:00 am"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@null"
-            android:textSize="@dimen/std_14sp"
-            app:layout_constraintStart_toEndOf="@id/fu_details_calendar" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/visit_startTime"
+        style="@style/TextAppearance.Material3.TitleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:drawablePadding="@dimen/std_4dp"
+        android:gravity="center_vertical"
+        android:text="@string/lbl_dummy_time"
+        app:drawableStartCompat="@drawable/ic_time"
+        app:drawableTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/visit_startDate"
+        app:layout_constraintStart_toEndOf="@id/visit_startDate"
+        app:layout_constraintTop_toTopOf="@+id/visit_startDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

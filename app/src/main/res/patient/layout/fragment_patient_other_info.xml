@@ -369,7 +369,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/std_48dp"
                             android:layout_marginTop="@dimen/std_4dp"
-                            android:background="@drawable/otp_input_bg"
+                            android:background="@drawable/bg_otp_input"
                             android:gravity="center_vertical"
                             app:ccp_countryPreference="us,in"
                             app:ccp_textSize="@dimen/std_16sp"

@@ -1,69 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="end"
-    app:cardCornerRadius="10dp"
-    android:layout_marginTop="@dimen/std_10dp"
-    android:layout_marginStart="@dimen/std_10dp"
-    android:layout_marginBottom="@dimen/std_10dp"
-    android:layout_marginEnd="@dimen/std_30dp"
-    app:cardElevation="5dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/std_12dp"
-        android:layout_marginEnd="@dimen/std_12dp"
-        android:layout_marginVertical="@dimen/std_15dp">
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/std_8dp"
+        android:layout_marginTop="@dimen/std_8dp"
+        android:layout_marginEnd="@dimen/std_32dp"
+        android:layout_marginBottom="@dimen/std_8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="@dimen/std_4dp">
 
-        <TextView
-            android:id="@+id/reminder"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lbl_notifi_reminders"
-            android:layout_marginBottom="@dimen/std_12dp"
-            android:textSize="@dimen/std_14sp"
-            android:layout_marginEnd="@dimen/std_30dp"
-            android:textColor="@color/black"/>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/std_16dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorLightGray" />
+            <TextView
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/std_32dp"
+                android:layout_marginBottom="@dimen/std_16dp"
+                android:text="@string/lbl_notifi_reminders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
 
-        <TextView
-            android:id="@+id/incomplete_act"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lbl_notifi_incompl_activity"
-            android:layout_marginTop="@dimen/std_12dp"
-            android:textSize="@dimen/std_14sp"
-            android:layout_marginEnd="@dimen/std_30dp"
-            android:textColor="@color/black"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGray" />
 
-        <View
-            android:id="@+id/hl_2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/std_12dp"
-            android:background="@color/colorLightGray" />
+            <TextView
+                android:id="@+id/incomplete_act"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:layout_marginEnd="@dimen/std_32dp"
+                android:text="@string/lbl_notifi_incompl_activity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
 
-        <TextView
-            android:id="@+id/archieved_notifi"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lbl_notifi_archived"
-            android:paddingEnd="@dimen/std_50dp"
-            android:paddingStart="0dp"
-            android:layout_marginTop="@dimen/std_12dp"
-            android:textSize="@dimen/std_14sp"
-            android:textColor="@color/black"/>
+            <View
+                android:id="@+id/hl_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:background="@color/colorLightGray" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/archieved_notifi"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/std_32dp"
+                android:text="@string/lbl_notifi_archived"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
+
+        </LinearLayout>
 
 
-</androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

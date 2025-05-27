@@ -22,7 +22,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/std_15dp"
+            android:layout_marginBottom="@dimen/std_16dp"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"
@@ -41,7 +41,7 @@
                     layout="@layout/view_expandable_chw_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/std_10dp"
+                    android:layout_margin="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +53,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chwInfoView" />
@@ -66,8 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/doctorInfoView" />
@@ -79,8 +79,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/diagnosisInfoView" />
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
+                    android:layout_marginTop="@dimen/std_16dp"
                     android:layout_marginEnd="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,9 +105,9 @@
                     layout="@layout/view_expandable_test_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="@dimen/std_8dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/adviceInfoView" />
@@ -118,77 +118,66 @@
                     layout="@layout/view_expandable_referred_sp_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="@dimen/std_8dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/testInfoView" />
 
                 <!--Follow Up Info-->
                 <include
-                    android:id="@+id/followUPInfoView"
+                    android:id="@+id/followUpInfoView"
                     layout="@layout/view_expandable_follow_up_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_20dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="@dimen/std_8dp"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/referredSpInfoView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/printBtn"
+            style="@style/Theme.IDA.Button.Secondary"
             android:layout_width="0dp"
-            android:layout_height="@dimen/std_48dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/ui2_common_primary_bg"
-            android:backgroundTint="@color/backgroundGray"
-            android:padding="@dimen/std_12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:padding="@dimen/std_8dp"
             android:text="@string/action_print"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/std_16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/scrollView"
             app:layout_constraintWidth_percent=".45" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/shareBtn"
+            style="@style/Theme.IDA.Button.Primary"
             android:layout_width="0dp"
-            android:layout_height="@dimen/std_48dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/ui2_common_primary_bg"
-            android:padding="@dimen/std_12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@drawable/bg_common_primary"
+            android:padding="@dimen/std_8dp"
             android:text="@string/action_share"
-            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/std_16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent=".45" />
 
-        <FrameLayout
-            android:id="@+id/filter_framelayout"
+        <include
+            layout="@layout/view_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible" />
 
-            <include layout="@layout/view_options" />
-
-        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
