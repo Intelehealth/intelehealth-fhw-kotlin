@@ -41,7 +41,7 @@ open class BaseViewModel(
 
 
     fun <L> executeLocalQuery(
-        queryCall: () -> L?
+        queryCall: suspend () -> L?
     ) = flow {
         val localData = queryCall.invoke()
         localData?.let { emit(Result.Success(localData, "")) } ?: kotlin.run {
@@ -232,7 +232,7 @@ open class BaseViewModel(
     }
 
     fun <T> allowNullDataResponse(it: Result<T>, callback: (data: T?) -> Unit) {
-        println("handleResponse status ${it.status} ${it.message}")
+        println("allowNullDataResponse status ${it.status} ${it.message}")
         when (it.status) {
             Result.State.SUCCESS -> {
                 loadingData.postValue(false)

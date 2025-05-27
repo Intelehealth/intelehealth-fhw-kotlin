@@ -17,9 +17,12 @@
     <string name="title_other_fuel_type">Other fuel type</string>
     <string name="title_other_lighting_source">Other lighting source</string>
     <string name="title_other_water_purification">Other water purification method</string>
+    <string name="title_patient_detail">Patient Details</string>
     <!--  Dialog Title  -->
     <string name="dialog_title_patient_registered">Patient Registered!</string>
     <string name="dialog_title_exit_app">Exit App</string>
     <string name="dialog_title_network_failure">Network failure!</string>
     <string name="dialog_title_select_image">Select Image</string>
+    <string name="dialog_title_decline_consent">Decline Consent</string>
+    <string name="dialog_title_select_age">Select Age</string>
 </resources>

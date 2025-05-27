@@ -5,6 +5,6 @@ package org.intelehealth.config.utility
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-enum class FieldGroup(val value: String) {
+enum class PatientInfoGroup(val value: String) {
     PERSONAL("personal"), ADDRESS("address"), OTHER("other")
 }

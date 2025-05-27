@@ -7,4 +7,7 @@
         android:bottomRightRadius="@dimen/std_8dp"
         android:topLeftRadius="@dimen/std_8dp"
         android:topRightRadius="@dimen/std_8dp" />
+    <stroke
+        android:width="@dimen/std_1dp"
+        android:color="@color/colorLightGray" />
 </shape>

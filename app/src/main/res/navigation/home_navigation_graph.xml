@@ -9,7 +9,24 @@
         android:id="@+id/nav_home"
         android:name="org.intelehealth.app.ui.home.fragment.HomeFragment"
         android:label="@string/action_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_add_patient"
+            app:destination="@id/nav_add_patient"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_home_to_find_patient"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_achievements"
@@ -38,7 +55,7 @@
         android:id="@+id/nav_add_patient"
         android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
         android:label="@string/action_add_patient"
-        tools:layout="@layout/activity_test" />
+        tools:layout="@layout/activity_patient_registration" />
 
     <activity
         android:id="@+id/nav_setting"
@@ -64,4 +81,14 @@
             app:argType="string" />
     </activity>
 
+    <fragment
+        android:id="@+id/fragmentPatientDetail"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
+        android:label="@string/title_patient_detail"
+        tools:layout="@layout/fragment_patient_detail">
+
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+    </fragment>
 </navigation>

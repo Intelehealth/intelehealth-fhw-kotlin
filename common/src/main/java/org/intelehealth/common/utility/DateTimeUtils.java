@@ -1,8 +1,12 @@
 package org.intelehealth.common.utility;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.util.Log;
+
+import org.intelehealth.resource.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,7 +39,8 @@ public class DateTimeUtils {
     public static final String LAST_SYNC_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String LAST_SYNC_DISPLAY_FORMAT = "hh:mm a dd MMM yyyy";
     public static final String USER_DOB_DB_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            //1997-10-20T00:00:00.000+0530
+    public static final String PATIENT_ATTR_CREATE_FORMAT = "dd MMMM, yyyy";
+    //1997-10-20T00:00:00.000+0530
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat getSimpleDateFormat(String format, TimeZone timeZone) {
@@ -134,5 +139,20 @@ public class DateTimeUtils {
 
     public static TimeZone getUTCTimeZone() {
         return TimeZone.getTimeZone(TIME_ZONE_UTC);
+    }
+
+    public static String formatAgeInYearsMonthsDate(Context context, int year, int month, int day) {
+        String age = "";
+        Resources resource = context.getResources();
+        if (year < 1) {
+            age = month + " " + resource.getString(R.string.lbl_months)
+                  + " - " + day + " " + resource.getString(R.string.lbl_days);
+        } else if (year < 3) {
+            age = year + " " + resource.getString(R.string.lbl_years)
+                  + " - " + month + " " + resource.getString(R.string.lbl_months);
+        } else {
+            age = year + " " + resource.getString(R.string.lbl_years);
+        }
+        return age;
     }
 }

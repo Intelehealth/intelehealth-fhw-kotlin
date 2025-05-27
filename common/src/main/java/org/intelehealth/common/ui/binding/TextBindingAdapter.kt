@@ -1,7 +1,9 @@
 package org.intelehealth.common.ui.binding
 
 import android.widget.TextView
+import androidx.constraintlayout.widget.Placeholder
 import androidx.databinding.BindingAdapter
+import com.github.ajalt.timberkt.Timber
 import com.google.android.material.button.MaterialButton
 
 /**
@@ -22,4 +24,12 @@ fun bindResourceString(btn: MaterialButton, resId: Int) {
     if (resId != 0) {
         btn.text = btn.context.getString(resId)
     }
+}
+
+@BindingAdapter(value = ["android:placeholder", "android:text"], requireAll = false)
+fun bindStringWithPlaceholder(textView: TextView, placeholder: String?, text: String?) {
+    if (placeholder.isNullOrEmpty().not() && text.isNullOrEmpty()) {
+        textView.text = placeholder
+        Timber.d { "Placeholder => $placeholder" }
+    } else textView.text = text ?: ""
 }

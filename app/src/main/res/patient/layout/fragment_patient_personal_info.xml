@@ -31,6 +31,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/patientTab"
+            layout="@layout/view_patient_info_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -41,7 +50,7 @@
             app:layout_constraintBottom_toTopOf="@id/btnPatientPersonalNext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/patientTab">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -59,7 +68,7 @@
                     tools:visibility="visible">
 
                     <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/patient_imgview"
+                        android:id="@+id/ivPatientDb"
                         config="@{personalConfig.profilePic}"
                         editMode="@{isEditMode}"
                         personImageId="@{patient.uuid}"
@@ -74,9 +83,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/patient_imgview"
+                        android:layout_alignBottom="@id/ivPatientDb"
                         android:layout_marginStart="-20dip"
-                        android:layout_toEndOf="@+id/patient_imgview"
+                        android:layout_toEndOf="@+id/ivPatientDb"
                         android:contentDescription="@string/lbl_add_a_picture"
                         android:elevation="8dip"
                         android:src="@drawable/ic_pick_image" />
@@ -86,7 +95,7 @@
                         style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/patient_imgview"
+                        android:layout_below="@+id/ivPatientDb"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/std_8dp"
                         android:gravity="top"
@@ -314,6 +323,47 @@
                         app:layout_constraintTop_toBottomOf="@id/toggleGender" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <!--request id-->
+                <LinearLayout
+                    android:id="@+id/llRequestId"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_12dp"
+                    android:orientation="vertical"
+                    android:visibility="@{personalConfig.requestId.enabled ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clGender"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/lblRequestId"
+                        style="@style/Theme.IDA.TextAppearance.Label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="3sp"
+                        android:text="@{ personalConfig.requestId.mandatory ? @string/lbl_request_id + ` *` : @string/lbl_request_id}"
+                        tools:text="@string/lbl_request_id" />
+
+                    <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
+                        android:id="@+id/textInputLayRequestId"
+                        style="@style/Theme.IDA.OutlineInputBox"
+                        config="@{personalConfig.requestId}"
+                        editMode="@{isEditMode}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/textInputRequestId"
+                            style="@style/Theme.IDA.InputBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/hint_enter_request_id"
+                            android:inputType="text"
+                            android:text="@{otherInfo.requestId}" />
+                    </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llDob"
@@ -324,7 +374,7 @@
                     android:visibility="@{personalConfig.dob.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clGender">
+                    app:layout_constraintTop_toBottomOf="@id/llRequestId">
 
                     <TextView
                         android:id="@+id/dob_tv"
@@ -516,7 +566,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
-                        android:text="@{ personalConfig.age.mandatory ? @string/lbl_phone_number + ` *` : @string/lbl_phone_number}"
+                        android:text="@{ personalConfig.phone.mandatory ? @string/lbl_phone_number + ` *` : @string/lbl_phone_number}"
                         android:textSize="@null"
                         tools:text="@string/lbl_phone_number" />
 
@@ -715,7 +765,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPatientPersonalNext"
             style="@style/Theme.IDA.Button.Next"
             android:layout_width="match_parent"

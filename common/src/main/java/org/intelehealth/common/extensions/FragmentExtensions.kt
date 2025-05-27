@@ -3,10 +3,12 @@ package org.intelehealth.common.extensions
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import androidx.activity.ComponentActivity
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.model.DialogParams
 
 /**
@@ -241,5 +243,24 @@ fun Fragment.startWhatsappIntent(phoneNumber: String, message: String) {
     Intent(Intent.ACTION_VIEW).apply {
         data = "https://api.whatsapp.com/send?phone=$phoneNumber&text=$message".toUri()
         startActivity(this)
+    }
+}
+
+/**
+ * Sets the screen title in the app bar based on the current destination's label.
+ *
+ * This extension function on [Fragment] retrieves the label of the current
+ * navigation destination and sets it as the title of the app's action bar. It
+ * uses the [findNavController] to access the current destination and updates
+ * the action bar title accordingly.
+ *
+ * Note: This function assumes that the fragment is hosted within an
+ * [AppCompatActivity] that has a support action bar.
+ */
+fun Fragment.applyLabelAsScreenTitle() {
+    findNavController().currentDestination?.label?.let {
+        (requireActivity() as? AppCompatActivity)?.supportActionBar?.title = it
+    } ?: run {
+        Timber.e { "Screen title not found in the current destination." }
     }
 }

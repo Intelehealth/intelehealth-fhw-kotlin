@@ -264,4 +264,6 @@ class UserRepository @Inject constructor(
     fun changeFingerprintAppLockState(state: Boolean) {
         preferenceUtils.fingerprintAppLock = state
     }
+
+    suspend fun getProviderId(): String = userDao.getUserProviderId(preferenceUtils.userId)
 }
