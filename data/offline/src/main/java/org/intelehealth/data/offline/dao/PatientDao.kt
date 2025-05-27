@@ -14,11 +14,7 @@ import org.intelehealth.data.offline.entity.PersonAddress
  **/
 @Dao
 interface PatientDao : CoreDao<Patient> {
-    @Query(
-        "SELECT uuid, openmrs_id, first_name, last_name, middle_name, date_of_birth, gender, guardian_name, " +
-                " guardian_type, profile_version, abha_address, abha_number, creatoruuid, created_at, updated_at, voided, synced" +
-                " FROM tbl_patient WHERE uuid = :uuid"
-    )
+    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS} FROM tbl_patient WHERE uuid = :uuid")
     suspend fun getPatientByUuid(uuid: String): Patient
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
@@ -60,18 +56,13 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE synced = :synced AND voided = 0")
     suspend fun getAllUnsyncedPatients(synced: Boolean = false): List<Patient>
 
-    @Query(
-        "SELECT uuid, address1, address2, address3, address4, address5, address6, "
-                + " city_village, district, state, country, postal_code, addressOfHf, synced, voided "
-                + " FROM tbl_patient WHERE uuid = :patientId"
-    )
+    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
     fun getLivePatientAddressByUuid(patientId: String): LiveData<PersonAddress>
 
-    @Query(
-        "SELECT uuid, address1, address2, address3, address4, address5, address6, "
-                + " city_village, district, state, country, postal_code, addressOfHf, synced, voided "
-                + " FROM tbl_patient WHERE synced = 0 AND voided = 0"
-    )
+    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
+    suspend fun getPatientAddressByPatientId(patientId: String): PersonAddress
+
+    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE synced = 0 AND voided = 0")
     fun getAllUnsyncedPatientAddress(): List<PersonAddress>
 
     @Query(

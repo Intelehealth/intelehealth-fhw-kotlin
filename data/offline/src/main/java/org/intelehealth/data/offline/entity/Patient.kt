@@ -39,4 +39,10 @@ data class Patient(
             return@run "$firstName $lastName"
         }
     }
+
+    companion object {
+        const val PERSONAL_INFO_FIELDS = "uuid, openmrs_id, first_name, last_name, middle_name, " +
+                "date_of_birth, gender, guardian_name, guardian_type, profile_version, abha_address, " +
+                "abha_number, creatoruuid, created_at, updated_at, voided, synced"
+    }
 }

@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import org.intelehealth.data.offline.entity.PatientAttrWithName
 import org.intelehealth.data.offline.entity.PatientAttribute
-import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientOtherInfo
 
 @Dao
@@ -37,29 +36,7 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
     suspend fun getCreatedPatientCountByUser(userId: String, patientAttrName: String): Int
 
     @Query(
-        "SELECT patient_uuid as patientId, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.NATIONAL_ID}' THEN PA.value END) as nationalId, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.OCCUPATION}' THEN PA.value END) as occupation, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.NATIONAL_ID}' THEN PA.value END) as socialCategory, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EDUCATION}' THEN PA.value END) as education, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TMH_CASE_NUMBER}' THEN PA.value END) AS tmhCaseNumber, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.RELATIVE_PHONE_NUMBER}' THEN PA.value END) AS relativePhoneNumber, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.DISCIPLINE}' THEN PA.value END) AS discipline, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.DEPARTMENT}' THEN PA.value END) AS department, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.INN}' THEN PA.value END) AS inn, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.HEALTH_FACILITY_NAME}' THEN PA.value END) AS healthFacilityName, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CODE_OF_DEPARTMENT}' THEN PA.value END) AS codeOfDepartment, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.ECONOMIC_STATUS}' THEN PA.value END) AS economicStatus, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.SWD}' THEN PA.value END) AS swd, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.PROFILE_IMG_TIMESTAMP}' THEN PA.value END) AS profileImgTimestamp, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CAST}' THEN PA.value END) AS `cast`, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CREATED_DATE}' THEN PA.value END) AS createdDate, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.PROVINCES}' THEN PA.value END) AS provinces, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CITIES}' THEN PA.value END) AS cities, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.REGISTRATION_ADDRESS_OF_HF}' THEN PA.value END) AS registrationAddressOfHf, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.CODE_OF_HEALTH_FACILITY}' THEN PA.value END) AS codeOfHealthFacility, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.HOUSEHOLD_UUID_LINKING}' THEN PA.value END) AS householdUuidLinking, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.BLOCK}' THEN PA.value END) AS block "
+        "SELECT patient_uuid as patientId, ${PatientAttribute.OTHER_QUERY_ATTRS} "
                 + "FROM tbl_patient_attribute PA "
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
@@ -75,15 +52,18 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
     suspend fun getPatientAttributesByNames(patientId: String, names: List<String>): List<PatientAttrWithName>
 
     @Query(
-        "SELECT patient_uuid as patientId, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NAME}' THEN PA.value END) AS emergencyContactName, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_NUMBER}' THEN PA.value END) AS emergencyContactNumber, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.EMERGENCY_CONTACT_TYPE}' THEN PA.value END) AS emergencyContactType, "
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.REQUEST_ID}' THEN PA.value END) AS requestId,"
-                + "MAX(CASE WHEN PAM.name = '${PatientAttributeTypeMaster.TELEPHONE}' THEN PA.value END) AS telephone "
+        "SELECT patient_uuid as patientId, ${PatientAttribute.PERSONAL_QUERY_ATTRS} "
                 + "FROM tbl_patient_attribute PA "
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
     )
     fun getPatientPersonalAttrsLiveData(patientId: String): LiveData<PatientOtherInfo>
+
+    @Query(
+        "SELECT patient_uuid as patientId, ${PatientAttribute.PATIENT_ALL_ATTRS} "
+                + "FROM tbl_patient_attribute PA "
+                + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
+                + "WHERE patient_uuid = :patientId GROUP BY patientId"
+    )
+    suspend fun getAllPatientAttrsData(patientId: String): PatientOtherInfo
 }

@@ -1,13 +1,6 @@
 Pending
-- Back press flow handling through navigation graph - DONE
-- Consent link click error handling - DONE
-- Improve build system of implementation
-- Setup and Forgot password text formating in center - DONE
-- Snackbar with action button - DONE
-- Home screen bottom navigation help icon tint color - DONE
-- Dialog custom width - DONE
-- OTP default focuse on first input, back press, move next focus after enter digit, and remove focus after delete digit - DONE
-- Handle setup and login screen back press flow after reset password - DONE
-- Login and setup help icon click - DONE
-- Home sync date format - DONE
-- Detekt integration with github action - DONE
+- WebRtc configuration
+- Home screen cards configuration
+- Add patient consent configuration
+- Nas: add family members
+- Patient profile picture uploading

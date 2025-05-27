@@ -1,6 +1,7 @@
 package org.intelehealth.app.ui.patient.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -10,6 +11,7 @@ import org.intelehealth.app.model.ConsentArgs
 import org.intelehealth.app.ui.patient.fragment.PatientConsentFragmentArgs
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
+import org.intelehealth.config.presenter.fields.patient.viewmodel.RegFieldViewModel
 
 /**
  * Created by Vaghela Mithun R. on 20-01-2025 - 13:07.
@@ -19,6 +21,7 @@ import org.intelehealth.common.ui.activity.SimpleAppBarActivity
 @AndroidEntryPoint
 class PatientRegistrationActivity : SimpleAppBarActivity() {
     private lateinit var binding: ActivityPatientRegistrationBinding
+    private val regFieldViewModel: RegFieldViewModel by viewModels()
 
     // Navigation controller for the activity
     private val navController by lazy {

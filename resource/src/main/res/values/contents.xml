@@ -91,4 +91,6 @@
     <string name="content_address_to_other_info">Address to Other info</string>
     <string name="content_personal_to_address_info">Personal to address info</string>
     <string name="content_decline_consent_message">You will not be able to proceed without providing consent. Are you sure you want to exit?</string>
+    <string name="content_not_provided">Not provided</string>
+    <string name="content_patient_not_registered">Patient not registered</string>
 </resources>

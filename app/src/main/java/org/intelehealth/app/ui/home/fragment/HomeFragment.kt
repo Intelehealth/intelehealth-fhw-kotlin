@@ -43,6 +43,11 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         binding.cardHomeAddPatient.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
+
+        binding.btnFindPatient.setOnClickListener {
+            val patientId = "d2e0b4c3-2c3c-40ec-b9a7-21d59a7c8c7d"
+            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient(patientId))
+        }
     }
 
     /**

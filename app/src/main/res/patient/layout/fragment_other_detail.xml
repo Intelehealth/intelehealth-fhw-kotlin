@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="otherInfo"
@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/std_8dp"
-        app:cardElevation="@dimen/std_4dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,6 +50,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imgOtherInfo"
                 app:layout_constraintTop_toTopOf="@id/imgOtherInfo" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupOtherSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="vOtherSectionDivider, lblOtherSectionDetail, btnEditOtherInfo, tblOtherInfo" />
 
             <View
                 android:id="@+id/vOtherSectionDivider"
@@ -119,6 +126,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.nationalId}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="360575" />
@@ -130,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/std_4dp"
+                    android:visibility="gone"
                     android:weightSum="2"
                     tools:visibility="visible">
 
@@ -148,6 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.swd}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="India" />
@@ -178,6 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.occupation}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Gujarat" />
@@ -208,6 +219,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.cast}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Porbandar" />
@@ -238,6 +250,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.education}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Education" />
@@ -268,6 +281,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.economicStatus}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Economic Category" />
@@ -298,6 +312,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.tmhCaseNumber}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="TMH Case Number" />
@@ -328,6 +343,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.relativePhoneNumber}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/hint_registration_address_of_health_facility" />
@@ -358,6 +374,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.discipline}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="543210" />
@@ -388,6 +405,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.codeOfDepartment}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_department" />
@@ -418,6 +436,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.department}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_department" />
@@ -448,6 +467,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.inn}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_corresponding_address_2" />
@@ -478,6 +498,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.codeOfHealthFacility}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_department" />
@@ -508,6 +529,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{otherInfo.healthFacilityName}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_corresponding_address_2" />

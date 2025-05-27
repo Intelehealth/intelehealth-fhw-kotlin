@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="addressInfo"
@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/std_8dp"
-        app:cardElevation="@dimen/std_4dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -49,6 +50,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imgAddressInfo"
                 app:layout_constraintTop_toTopOf="@id/imgAddressInfo" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupAddressSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="vAddressSectionDivider, lblAddressSectionDetail, btnEditAddressInfo, tblAddressInfo" />
 
             <View
                 android:id="@+id/vAddressSectionDivider"
@@ -119,6 +126,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.postalCode}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="360575" />
@@ -149,6 +157,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.country}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="India" />
@@ -179,6 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.state}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Gujarat" />
@@ -209,6 +219,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.district}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Porbandar" />
@@ -239,6 +250,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Block" />
                 </TableRow>
@@ -268,6 +280,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Kuchhadi" />
                 </TableRow>
@@ -297,6 +310,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="Porbandar" />
                 </TableRow>
@@ -326,6 +340,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.addressOfHf}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/hint_registration_address_of_health_facility" />
@@ -356,6 +371,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.address6}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="543210" />
@@ -386,6 +402,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.address1}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_corresponding_address_1" />
@@ -416,6 +433,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:placeholder="@{@string/content_not_provided}"
                         android:text="@{addressInfo.address2}"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="@string/lbl_corresponding_address_2" />

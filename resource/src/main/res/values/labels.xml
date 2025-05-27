@@ -87,7 +87,7 @@
     <string name="lbl_add_a_picture">Add a picture</string>
     <string name="lbl_guardian_name">Guardian Name</string>
     <string name="lbl_guardian_type">Guardian Type</string>
-    <string name="lbl_contact_type">Contact Type</string>
+    <string name="lbl_contact_type">Emergency Contact Type</string>
     <string name="lbl_emergency_contact">Emergency Contact number</string>
     <string name="lbl_emergency_contact_name">Emergency Contact Name</string>
     <string name="lbl_details">Details</string>

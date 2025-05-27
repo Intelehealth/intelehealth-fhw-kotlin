@@ -22,6 +22,7 @@ open class PatientViewModel @Inject constructor(
     private val regFieldRepository: RegFieldRepository,
     networkHelper: NetworkHelper
 ) : RegFieldViewModel(regFieldRepository, networkHelper = networkHelper) {
+
     var patientMasterAttributes: List<PatientAttributeTypeMaster> = emptyList()
 
     init {

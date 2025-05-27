@@ -48,4 +48,9 @@ open class PersonAddress(
             return null
         }
     }
+
+    companion object {
+        const val ADDRESS_FIELDS = "uuid, address1, address2, address3, address4, address5, address6, " +
+                " city_village, district, state, country, postal_code, addressOfHf, synced, voided "
+    }
 }
