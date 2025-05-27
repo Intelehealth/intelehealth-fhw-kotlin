@@ -71,7 +71,7 @@
         <item name="icon">@drawable/ic_search</item>
         <item name="iconGravity">start</item>
         <item name="iconPadding">@dimen/std_16dp</item>
-        <item name="rippleColor">@color/black</item>
+        <item name="rippleColor">@color/colorPrimaryLightCard</item>
         <item name="strokeColor">@color/colorBorder</item>
         <item name="strokeWidth">1dp</item>
     </style>
@@ -79,5 +79,34 @@
     <style name="Theme.IDA.SearchButton.Hint" parent="Theme.IDA.SearchButton">
         <item name="android:textColor">@color/colorTextSecondary</item>
         <item name="android:gravity">center_vertical|start</item>
+    </style>
+
+    <style name="Theme.IDA.TextButton.DropDown" parent="Theme.IDA.TextButton">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="fontFamily">@font/dm_sans</item>
+        <item name="icon">@drawable/selector_dropdown_arrow_rotate</item>
+        <item name="iconGravity">end</item>
+        <item name="iconTint">@color/colorDeactivated</item>
+    </style>
+
+    <style name="Theme.IDA.TextButton.Nav" parent="Theme.IDA.TextButton.DropDown">
+        <item name="icon">@drawable/dropdown_arrow_rotate_270</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.IDA.CheckableButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="strokeColor">@color/color_gender_stroke</item>
+        <item name="backgroundTint">@color/color_language_bg</item>
+        <item name="android:textColor">@color/color_gender_text</item>
+        <item name="textFillColor">@color/color_gender_text</item>
+        <item name="iconTint">@color/color_gender_text</item>
+        <item name="rippleColor">@color/colorAccentLightCard</item>
     </style>
 </resources>

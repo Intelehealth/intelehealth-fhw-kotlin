@@ -2,6 +2,7 @@ package org.intelehealth.common.extensions
 
 import android.text.InputFilter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.EditText
 import androidx.annotation.StringRes
 import androidx.core.widget.doOnTextChanged
@@ -84,8 +85,16 @@ fun TextInputLayout.validateDigit(
     @StringRes resId: Int,
     minDigit: Int,
 ): Boolean {
-    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit) {
-        showError(resId)
+    return validateDigit(input, context.getString(resId), minDigit)
+}
+
+fun TextInputLayout.validateDigit(
+    input: TextInputEditText,
+    error: String,
+    minDigit: Int,
+): Boolean {
+    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit || input.text?.all { it.isDigit().not() } == true) {
+        showError(error)
         false
     } else true
 }
@@ -125,4 +134,32 @@ fun isValidPassword(passwd: String?): Boolean {
 
 fun EditText.addFilter(filter: InputFilter) {
     this.filters += filter
+}
+
+fun TextInputLayout.changeButtonStateOnTextChange(input: TextInputEditText, button: Button) {
+    input.doOnTextChanged { text, _, _, _ ->
+        if (text?.length!! > 0) {
+            button.isEnabled = true
+            hideError()
+        } else button.isEnabled = false
+    }
+}
+
+fun TextInputLayout.validateEmail(input: TextInputEditText, @StringRes resId: Int): Boolean {
+    return if (!isValidEmail(input.text.toString())) {
+        showError(resId)
+        false
+    } else true
+}
+
+fun isValidEmail(email: String): Boolean {
+    val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    return email.matches(emailPattern.toRegex())
+}
+
+fun TextInputLayout.validateDropDowb(input: AutoCompleteTextView, @StringRes resId: Int): Boolean {
+    return if (input.text.isNullOrEmpty()) {
+        showError(resId)
+        false
+    } else true
 }

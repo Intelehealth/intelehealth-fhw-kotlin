@@ -4,8 +4,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
-import org.intelehealth.common.ui.activity.CircularProgressActivity.Companion.MAX_PROGRESS
 import org.intelehealth.common.ui.fragment.CircularProgressFragment
+import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 import org.intelehealth.common.utility.PreferenceUtils
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
@@ -15,6 +15,15 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * A fragment that displays a circular progress indicator while synchronizing data.
+ *
+ * This fragment is responsible for showing a progress UI during data
+ * synchronization. It interacts with the [SyncDataViewModel] to monitor the
+ * synchronization progress and update the UI accordingly. Upon successful
+ * synchronization, it navigates to the home screen and finishes the current
+ * activity.
+ */
 @AndroidEntryPoint
 class SyncFragment : CircularProgressFragment() {
     override val viewModel: SyncDataViewModel by viewModels<SyncDataViewModel>()
@@ -31,6 +40,14 @@ class SyncFragment : CircularProgressFragment() {
         viewModel.startDataSync()
     }
 
+    /**
+     * Observes the data synchronization progress and updates the UI.
+     *
+     * This method observes the progress reported by the [SyncDataViewModel] and
+     * updates the progress indicator. When the progress reaches 100%, it
+     * updates the displayed task, sets the initial launch status in preferences
+     * to false, navigates to the home screen, and finishes the current activity.
+     */
     private fun handleDataSyncProgress() {
         viewModel.workerProgress.observe(viewLifecycleOwner) {
             onProgress(it)

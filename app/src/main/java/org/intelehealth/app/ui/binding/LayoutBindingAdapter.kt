@@ -5,6 +5,7 @@ import android.widget.NumberPicker
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButtonToggleGroup
+import org.intelehealth.app.R
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 
 /**
@@ -28,9 +29,9 @@ import org.intelehealth.config.room.entity.PatientRegistrationFields
 @BindingAdapter("gender")
 fun genderViewBinding(btnToggleGroup: MaterialButtonToggleGroup?, gender: String?) {
     if (btnToggleGroup != null && gender != null) {
-//        if (gender.equals("M", ignoreCase = true)) btnToggleGroup.check(R.id.btnMale)
-//        else if (gender.equals("F", ignoreCase = true)) btnToggleGroup.check(R.id.btnFemale)
-//        else btnToggleGroup.check(R.id.btnOther)
+        if (gender.equals("M", ignoreCase = true)) btnToggleGroup.check(R.id.btnMale)
+        else if (gender.equals("F", ignoreCase = true)) btnToggleGroup.check(R.id.btnFemale)
+        else btnToggleGroup.check(R.id.btnOther)
     }
 }
 
@@ -113,4 +114,3 @@ fun maintainDynamicMargin(view: View?, config: PatientRegistrationFields?, margi
         view.layoutParams = param
     }
 }
-

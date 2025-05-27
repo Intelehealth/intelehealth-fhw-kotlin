@@ -13,4 +13,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LanguageViewModel @Inject constructor(private val repository: LanguageRepository) : BaseViewModel() {
     fun fetchSupportedLanguage() = repository.getAllSupportedLanguage()
+
+    fun fetchLanguage(key: String) = repository.getLiveRecord(key)
 }

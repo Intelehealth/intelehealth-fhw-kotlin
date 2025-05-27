@@ -37,6 +37,16 @@ import javax.inject.Inject
 const val SPLASH_DELAY_TIME = 500L
 const val ANIM_DURATION = 2000L
 
+/**
+ * ViewModel responsible for managing the application's initial launch and
+ * configuration.
+ *
+ * This ViewModel handles tasks such as:
+ * - Checking for force updates.
+ * - Requesting initial configuration data.
+ * - Determining if the user is logged in.
+ * - Updating the Firebase Cloud Messaging (FCM) token.
+ */
 @HiltViewModel
 class LauncherViewModel @Inject constructor(
     private val preferenceUtils: PreferenceUtils,
@@ -47,8 +57,25 @@ class LauncherViewModel @Inject constructor(
     private val mutableInitialLaunchStatus: MutableLiveData<Boolean> = MutableLiveData()
     val initialLaunchStatus = mutableInitialLaunchStatus.hide()
 
+    /**
+     * Updates the FCM token in shared preferences.
+     *
+     * This method retrieves the device's FCM token and saves it using
+     * [PreferenceUtils].
+     */
     fun updateFcmToken() = getDeviceToken { token: String? -> token?.let { preferenceUtils.fcmToken = token } }
 
+    /**
+     * Checks for a mandatory app update.
+     *
+     * This method retrieves the force update version code from the remote
+     * configuration. If the current app's version code is lower than the
+     * required version code, it invokes the provided callback. Otherwise, it
+     * requests the application configuration.
+     *
+     * @param onNewUpdateAvailable Callback to be invoked if a new update is
+     *                             available.
+     */
     fun checkForceUpdate(onNewUpdateAvailable: () -> Unit) {
         if (isInternetAvailable()) {
             getRemoteConfig {
@@ -59,6 +86,19 @@ class LauncherViewModel @Inject constructor(
         } else dataConnectionStatus.postValue(false)
     }
 
+    /**
+     * Requests the application configuration.
+     *
+     * If it's the initial launch (as determined by [PreferenceUtils]), this
+     * method enqueues a [ConfigSyncWorker] to fetch the configuration data in
+     * the background. It observes the worker's progress and updates the
+     * [initialLaunchStatus] LiveData accordingly. If the worker fails, it
+     * posts an error to the appropriate LiveData (e.g.,
+     * [dataConnectionStatus], [errorResult], or [failResult]).
+     *
+     * If it's not the initial launch, it posts `false` to
+     * [initialLaunchStatus] after a delay.
+     */
     fun requestConfig() {
         if (isInternetAvailable()) if (preferenceUtils.initialLaunchStatus) {
             val configWorkRequest = OneTimeWorkRequestBuilder<ConfigSyncWorker>().build()
@@ -72,9 +112,11 @@ class LauncherViewModel @Inject constructor(
                             mutableInitialLaunchStatus.postValue(true)
                         } else if (state == WorkInfo.State.FAILED.name) {
                             val workResult = it.outputData.getString(WORKER_RESULT)
-                            if (workResult == NO_NETWORK) dataConnectionStatus.postValue(false)
-                            else if (workResult == API_ERROR) errorResult.postValue(Throwable(API_ERROR))
-                            else failResult.postValue(NO_DATA_FOUND)
+                            when (workResult) {
+                                API_ERROR -> errorResult.postValue(Throwable(API_ERROR))
+                                NO_NETWORK -> dataConnectionStatus.postValue(false)
+                                else -> failResult.postValue(NO_DATA_FOUND)
+                            }
                         }
                     }
                 }
@@ -84,5 +126,10 @@ class LauncherViewModel @Inject constructor(
         )
     }
 
+    /**
+     * Checks if the user is currently logged in.
+     *
+     * @return `true` if the user is logged in, `false` otherwise.
+     */
     fun isUserLoggedIn() = preferenceUtils.userLoggedInStatus
 }

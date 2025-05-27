@@ -6,7 +6,11 @@ import org.intelehealth.data.network.model.SetupLocation
 import org.intelehealth.data.network.model.request.DeviceTokenReq
 import org.intelehealth.data.network.model.request.JWTParams
 import org.intelehealth.data.network.model.request.OtpRequestParam
+import org.intelehealth.data.network.model.request.PushRequest
+import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.response.PersonAttributes
+import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.network.model.response.UserResponse
 import retrofit2.Response
@@ -17,6 +21,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
@@ -93,6 +98,12 @@ interface RestClient {
         @Path("pageLimit") pageLimit: Int
     ): Response<BaseResponse<String, PullResponse>>
 
+    @POST("/EMR-Middleware/webapi/push/pushdata")
+    suspend fun pushData(
+        @Header("Authorization") header: String,
+        @Body body: PushRequest
+    ): Response<BaseResponse<String, PullResponse>>
+
     /**
      * Logs in a user.
      *
@@ -128,12 +139,12 @@ interface RestClient {
      * Changes the user's password.
      *
      * @param map A [HashMap] containing the password change parameters.
-     * @param authHeader The authorization header.
+     * @param bearerToken The authorization header.
      * @return A [Response] containing a [ResponseBody].
      */
     @POST("/openmrs/ws/rest/v1/password")
     suspend fun changePassword(
-        @Body map: HashMap<String, String>, @Header("Authorization") authHeader: String
+        @Body map: HashMap<String, String>, @Header("Authorization") bearerToken: String
     ): Response<ResponseBody>
 
     /**
@@ -172,21 +183,49 @@ interface RestClient {
     @POST
     suspend fun resetPassword(@Url url: String, @Body map: HashMap<String, String>): Response<UserResponse<Any?>>
 
-//    @GET("/openmrs/ws/rest/v1/provider")
-//    suspend fun fetchUserProviderDetails(
-//        @Header("Authorization") authHeader: String, @Query("user") userId: String
-//    ): Response<List<SetupLocation>>
-//
-//    @POST
-//    @Headers("Accept: application/json")
-//    suspend fun pushApiDetails(
-//        @Url url: String, @Header("Authorization") authHeader: String, @Body pushRequestApiCall: PushRequestApiCall
-//    ): Response<PushRequestApiCall>
-//
-//    @GET
-//    suspend fun downloadPersonProfilePicture(
-//        @Url url: String, @Header("Authorization") authHeader: String
-//    ): Response<ResponseBody>
+    @GET
+    suspend fun downloadMindMapProtocols(
+        @Url url: String = BuildConfig.SERVER_URL + ":3004/api/mindmap/download",
+        @Query("key") licenseKey: String,
+        @Header("Authorization") jwtToken: String
+    ): Response<BaseResponse<Any?, String>>
+
+    @GET("/openmrs/ws/rest/v1/provider")
+    suspend fun fetchUserProfile(
+        @Query("user") userId: String,
+        @Query("v") v: String = "custom:(uuid,person:(uuid,display,gender,age,birthdate,preferredName),attributes)",
+        @Header("Authorization") authHeader: String
+    ): Response<HashMap<String, List<Profile>>>
+
+    @POST("/openmrs/ws/rest/v1/person/{userUuid}")
+    suspend fun updateUserProfileEditableDetails(
+        @Header("Authorization") authHeader: String,
+        @Path("userUuid") personId: String,
+        @Body editableDetails: UserProfileEditableDetails
+    ): Response<Profile>
+
+    @POST("/openmrs/ws/rest/v1/provider/{userUuid}/attribute")
+    suspend fun createUserProfileAttribute(
+        @Header("Authorization") authHeader: String,
+        @Path("userUuid") providerId: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
+
+    //
+    @POST("/openmrs/ws/rest/v1/provider/{providerId}/attribute/{attributeUuid}")
+    suspend fun updateUserProfileAttribute(
+        @Header("Authorization") authHeader: String,
+        @Path("providerId") providerId: String,
+        @Path("attributeUuid") attributeUuid: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
+
+    //
+    @POST("openmrs/ws/rest/v1/personimage")
+    suspend fun uploadProfilePicture(
+        @Header("Authorization") authHeader: String,
+        @Body value: HashMap<String, String>
+    ): Response<PersonAttributes>
 //
 //    @POST
 //    suspend fun uploadPersonProfilePicture(
@@ -214,8 +253,7 @@ interface RestClient {
 //    @DELETE
 //    suspend fun deleteObsImage(@Url url: String, @Header("Authorization") authHeader: String)
 
-//    @GET("/api/mindmap/download")
-//    suspend fun downloadMindMap(@Query("key") licenseKey: String): Response<DownloadMindMapRes>
+
 //
 //    @GET("/intelehealth/app_update.json")
 //    suspend fun checkAppUpdate(): Response<CheckAppUpdateRes>

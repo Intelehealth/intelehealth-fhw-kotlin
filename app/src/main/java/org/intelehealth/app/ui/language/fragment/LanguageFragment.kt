@@ -24,6 +24,16 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * An open base fragment that provides language management functionality.
+ *
+ * This fragment handles the retrieval and application of language settings
+ * within the application. It fetches supported languages, applies the user's
+ * preferred language, and provides a callback for when the language data is
+ * loaded.
+ *
+ * @param layoutResId The layout resource ID for the fragment's content view.
+ */
 open class LanguageFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
@@ -32,11 +42,20 @@ open class LanguageFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel.fetchSupportedLanguage().observe(viewLifecycleOwner) {
-            onLanguageLoaded(it)
+            if (it.isNotEmpty()) onLanguageLoaded(it)
         }
         setupLanguage()
     }
 
+    /**
+     * Sets up the application's language based on user preferences.
+     *
+     * This method retrieves the user's preferred language from [PreferenceUtils]
+     * and applies it using the [changeLanguage] extension function on the
+     * activity.
+     *
+     * @return The updated [Context] with the selected language applied.
+     */
     open fun setupLanguage(): Context {
         if (::preferenceUtils.isInitialized) {
             val appLanguage = preferenceUtils.currentLanguage
@@ -45,5 +64,14 @@ open class LanguageFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
         return requireContext()
     }
 
+    /**
+     * Callback method invoked when the list of supported languages is loaded.
+     *
+     * This method is called after the supported languages are fetched from the
+     * [LanguageViewModel]. Subclasses should override this method to handle the
+     * language data, such as updating a language selection UI.
+     *
+     * @param languages The list of supported [ActiveLanguage] objects.
+     */
     open fun onLanguageLoaded(languages: List<ActiveLanguage>) {}
 }

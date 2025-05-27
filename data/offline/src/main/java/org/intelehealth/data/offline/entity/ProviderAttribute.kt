@@ -10,8 +10,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "tbl_provider_attribute")
 data class ProviderAttribute(
-    @PrimaryKey
-    @SerializedName("uuid") var uuid: String,
 
     @ColumnInfo("provider_uuid")
     @SerializedName("provideruuid", alternate = ["provider_uuid"])
@@ -22,6 +20,5 @@ data class ProviderAttribute(
     val providerAttrTypeUuid: String? = null,
 
     @SerializedName("value") val value: String? = null,
-    @SerializedName("voided") val voided: Int = 0,
-    @SerializedName("syncd") var synced: Boolean = false
-) : Parcelable
+    @SerializedName("syncd") override var synced: Boolean = false
+) : BaseEntity(), Parcelable

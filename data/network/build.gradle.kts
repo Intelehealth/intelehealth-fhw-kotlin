@@ -57,7 +57,6 @@ android {
 }
 
 dependencies {
-
     networkModuleDeps()
     unitTestDeps()
     androidTestDeps()

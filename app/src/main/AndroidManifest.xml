@@ -41,8 +41,8 @@
 
         <activity
             android:name=".ui.onboarding.activity.OnboardingActivity"
-            android:theme="@style/Theme.IDA"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.IDA">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,9 +55,35 @@
             android:exported="true" />
 
         <activity
+            android:name=".ui.aboutus.activity.AboutUsActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.setting.activity.SettingActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".ui.patient.activity.PatientRegistrationActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".ui.user.activity.UserProfileActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.help.activity.YoutubeVideoPlayerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.IDA.Transparent" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path_provider" />
+        </provider>
         <!--        <provider-->
         <!--            android:name="androidx.startup.InitializationProvider"-->
         <!--            android:authorities="${applicationId}.androidx-startup"-->

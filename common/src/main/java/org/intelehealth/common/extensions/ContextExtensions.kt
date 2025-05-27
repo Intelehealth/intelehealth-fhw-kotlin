@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.WindowManager
+import androidx.annotation.ArrayRes
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.intelehealth.common.databinding.DialogCommonMessageBinding
 import org.intelehealth.common.model.DialogParams
+import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.resource.R
 
 /**
@@ -17,6 +19,14 @@ import org.intelehealth.resource.R
  * Mob   : +919727206702
  **/
 
+/**
+ * Extension function to get the application name from the context.
+ * It retrieves the application info and checks if a string resource ID is available.
+ * If not, it returns the non-localized label as a string.
+ *
+ * @receiver Context The context from which the application name is retrieved.
+ * @return String The application name.
+ */
 fun Context.appName(): String {
     val applicationInfo = applicationInfo
     val stringId = applicationInfo.labelRes
@@ -24,6 +34,13 @@ fun Context.appName(): String {
     else getString(stringId)
 }
 
+/**
+ * Extension function to get the application version from the context.
+ * It retrieves the package info and returns the version name and version code.
+ *
+ * @receiver Context The context from which the application version is retrieved.
+ * @return String The application version in the format "versionName(versionCode)".
+ */
 fun Context.appVersion(): String {
     packageManager.getPackageInfo(packageName, 0).apply {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -49,6 +66,13 @@ fun Context.appVersion(): String {
 //    dialog.changeButtonTheme()
 //}
 
+/**
+ * Extension function to show a custom dialog with the provided parameters.
+ * It inflates a custom layout, sets the parameters, and handles button clicks.
+ *
+ * @receiver Context The context in which the dialog is shown.
+ * @param dialogParams The parameters for the dialog, including title, message, and button labels.
+ */
 fun Context.showCustomDialog(dialogParams: DialogParams) {
     val inflater = LayoutInflater.from(this)
     val binding = DialogCommonMessageBinding.inflate(inflater)
@@ -74,12 +98,28 @@ fun Context.showCustomDialog(dialogParams: DialogParams) {
     }.show()
 }
 
+/**
+ * Extension function to build a custom dialog with the provided binding.
+ * It sets the view of the dialog to the root of the binding.
+ *
+ * @receiver Context The context in which the dialog is built.
+ * @param binding The ViewDataBinding instance for the custom layout.
+ * @return AlertDialog The created AlertDialog instance.
+ */
 fun Context.buildCustomDialog(binding: ViewDataBinding) = MaterialAlertDialogBuilder(this).apply {
     setView(binding.root)
 }.create().apply {
     removeBackground()
 }
 
+/**
+ * Extension function to show an OK dialog with the provided parameters.
+ * It sets the title, message, and button labels, and handles button clicks.
+ *
+ * @receiver Context The context in which the dialog is shown.
+ * @param dialogParams The parameters for the dialog, including title, message, and button labels.
+ * @return AlertDialog The created AlertDialog instance.
+ */
 fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAlertDialogBuilder(this).apply {
     setTitle(dialogParams.title)
     setMessage(dialogParams.message)
@@ -95,9 +135,18 @@ fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAler
     }
 }.show()
 
+/**
+ * Extension function to show a retry dialog when something goes wrong.
+ * It sets the title, message, and button labels, and handles button clicks.
+ *
+ * @receiver Context The context in which the dialog is shown.
+ * @param onRetry The lambda function to be invoked when the retry button is clicked.
+ * @param onCancel The lambda function to be invoked when the cancel button is clicked.
+ */
 fun Context.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit) {
 
-    DialogParams(icon = R.drawable.ic_dialog_alert,
+    DialogParams(
+        icon = R.drawable.ic_dialog_alert,
         title = R.string.title_error,
         message = R.string.content_something_went_wrong,
         positiveLbl = R.string.action_retry,
@@ -108,8 +157,16 @@ fun Context.showRetryDialogOnWentWrong(onRetry: () -> Unit, onCancel: () -> Unit
     }
 }
 
+/**
+ * Extension function to show a network failure dialog.
+ * It sets the title, message, and button labels, and handles button clicks.
+ *
+ * @receiver Context The context in which the dialog is shown.
+ * @param onRetry The lambda function to be invoked when the retry button is clicked.
+ */
 fun Context.showNetworkFailureDialog(onRetry: () -> Unit) {
-    DialogParams(icon = R.drawable.ic_dialog_alert,
+    DialogParams(
+        icon = R.drawable.ic_dialog_alert,
         title = R.string.dialog_title_network_failure,
         message = R.string.content_no_network,
         positiveLbl = R.string.action_retry,
@@ -118,3 +175,11 @@ fun Context.showNetworkFailureDialog(onRetry: () -> Unit) {
         showCustomDialog(this)
     }
 }
+
+fun Context.getSpinnerArrayAdapter(
+    @ArrayRes arrayResId: Int
+) = ArrayAdapterUtils.getSpinnerArrayAdapter(this, arrayResId)
+
+fun <T> Context.getSpinnerItemAdapter(
+    list: List<T>
+) = ArrayAdapterUtils.getSpinnerItemAdapter(this, list)

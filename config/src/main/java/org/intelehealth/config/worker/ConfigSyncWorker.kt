@@ -17,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.intelehealth.common.state.Result
 import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.common.utility.NO_NETWORK
@@ -38,23 +37,23 @@ class ConfigSyncWorker @AssistedInject constructor(
     private val configRepository: ConfigRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : CoroutineWorker(ctx, params) {
-    private var wokerResult = Result.failure()
+    private var workerResult = Result.failure()
     override suspend fun doWork(): Result {
         withContext(dispatcher) {
             configRepository.suspendFetchAndUpdateConfig().collect { result ->
                 if (result.isSuccess()) {
                     result.data?.let {
-                        configRepository.saveAllConfig(it, this) { wokerResult = Result.success() }
+                        configRepository.saveAllConfig(it, this) { workerResult = Result.success() }
                     } ?: setFailureResult(result)
                 } else setFailureResult(result)
             }
         }
 
-        return wokerResult
+        return workerResult
     }
 
     private fun setFailureResult(result: APIResult<ConfigResponse>) {
-        wokerResult = when (result.status) {
+        workerResult = when (result.status) {
             APIResult.State.FAIL -> if (result.message == NO_NETWORK) Result.failure(
                 workDataOf(Pair(WORKER_RESULT, NO_NETWORK))
             )

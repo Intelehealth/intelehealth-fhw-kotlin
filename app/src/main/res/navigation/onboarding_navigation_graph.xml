@@ -82,22 +82,13 @@
 
     <fragment
         android:id="@+id/fragmentConsent"
-        android:name="org.intelehealth.app.ui.onboarding.fragment.ConsentFragment"
+        android:name="org.intelehealth.app.ui.onboarding.fragment.AppConsentFragment"
         android:label=""
-        tools:layout="@layout/fragment_consent">
-        <argument
-            android:name="consent_type"
-            app:argType="org.intelehealth.app.ui.onboarding.fragment.ConsentType" />
+        tools:layout="@layout/fragment_app_consent">
 
         <argument
-            android:name="url"
-            app:argType="string"
-            app:nullable="true" />
-
-        <argument
-            android:name="screenTitle"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="consentArgs"
+            app:argType="org.intelehealth.app.model.ConsentArgs" />
 
         <action
             android:id="@+id/action_to_self"

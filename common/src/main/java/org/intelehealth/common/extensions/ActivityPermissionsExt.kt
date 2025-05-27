@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import org.intelehealth.common.registry.PermissionRegistry
 
+// Extension function to check if all required permissions are granted
 fun ComponentActivity.requestNeededPermissions(onPermissionsGranted: (() -> Unit)? = null) {
 
     val neededPermissions = listOf(

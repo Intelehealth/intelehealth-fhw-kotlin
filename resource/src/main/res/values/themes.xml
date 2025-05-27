@@ -17,4 +17,12 @@
     <style name="Theme.IDA.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <style name="Theme.IDA.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <!-- Transparent Theme -->
+    <style name="Theme.IDA.Transparent" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
 </resources>

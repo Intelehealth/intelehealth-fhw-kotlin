@@ -17,7 +17,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             android:maxHeight="@dimen/inner_screen_logo_height"
-            android:src="@drawable/splash_logo_small"
+            android:src="@drawable/splash_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -67,7 +67,7 @@ android {
         nas {
             dimension client
             ext.appId = "org.intelehealth.nas"
-            ext.vCode = 1
+            ext.vCode = 50
             ext.vName = '1.0'
             ext.arcBaseName = "intelehealth_nas-" + versionName + " - " + date
 //            ext.appId "org.intelehealth.nas"
@@ -95,10 +95,6 @@ android {
             ext.vCode = 1
             ext.vName = '1.0'
             ext.arcBaseName = "intelehealth_kcdo-" + versionName + " - " + date
-//            applicationId 'org.intelehealth.kcdo'
-//            versionCode 65
-//            versionName '5.0'
-//            archivesBaseName = "intelehealth_kcdo-" + versionName + " - " + date
         }
 
         unfpa {

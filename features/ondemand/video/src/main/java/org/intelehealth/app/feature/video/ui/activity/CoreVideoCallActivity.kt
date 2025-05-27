@@ -58,7 +58,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
     private val socketViewModel: SocketViewModel by viewModelByFactory {
         args = IntentCompat.getParcelableExtra(intent, RTC_ARGS, CallArgs::class.java) ?: getDataFromSharedPref()
 //        val url: String = Constants.BASE_URL + "?userId=" + args.nurseId + "&name=" + args.nurseId
-        SocketViewModel(SocketManager.instance)
+        SocketViewModel(SocketManager.getInstance())
     }
 
     /**
@@ -511,7 +511,7 @@ abstract class CoreVideoCallActivity : BaseSplitCompActivity() {
     }
 
     override fun onDestroy() {
-        SocketManager.instance.resetCallTimeUpFlag()
+        SocketManager.getInstance().resetCallTimeUpFlag()
         super.onDestroy()
         stopRingtone()
         videoCallViewModel.disconnect()

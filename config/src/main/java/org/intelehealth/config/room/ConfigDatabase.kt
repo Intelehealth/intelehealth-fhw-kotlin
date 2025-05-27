@@ -6,18 +6,17 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import org.intelehealth.config.room.dao.ConfigDao
-import org.intelehealth.config.room.dao.FeatureActiveStatusDao
+import org.intelehealth.config.room.dao.ActiveFeatureStatusDao
 import org.intelehealth.config.room.dao.LanguageDao
 import org.intelehealth.config.room.dao.PatientRegFieldDao
-import org.intelehealth.config.room.dao.PatientVitalDao
+import org.intelehealth.config.room.dao.VitalDao
 import org.intelehealth.config.room.dao.SpecializationDao
 import org.intelehealth.config.room.entity.ActiveLanguage
 import org.intelehealth.config.room.entity.ConfigDictionary
-import org.intelehealth.config.room.entity.FeatureActiveStatus
+import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.config.room.entity.PatientRegistrationFields
-import org.intelehealth.config.room.entity.PatientVital
+import org.intelehealth.config.room.entity.Vital
 import org.intelehealth.config.room.entity.Specialization
-import java.util.Locale
 
 /**
  * Created by Vaghela Mithun R. on 15-03-2024 - 15:43.
@@ -30,8 +29,8 @@ import java.util.Locale
         Specialization::class,
         ActiveLanguage::class,
         PatientRegistrationFields::class,
-        FeatureActiveStatus::class,
-        PatientVital::class
+        ActiveFeatureStatus::class,
+        Vital::class
     ],
     version = 1,
     exportSchema = false
@@ -46,9 +45,9 @@ abstract class ConfigDatabase : RoomDatabase() {
 
     abstract fun patientRegFieldDao(): PatientRegFieldDao
 
-    abstract fun patientVitalDao(): PatientVitalDao
+    abstract fun patientVitalDao(): VitalDao
 
-    abstract fun featureActiveStatusDao(): FeatureActiveStatusDao
+    abstract fun featureActiveStatusDao(): ActiveFeatureStatusDao
 
     companion object {
 

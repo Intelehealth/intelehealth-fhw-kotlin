@@ -10,7 +10,7 @@ import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.config.network.response.ConfigResponse
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.PatientRegistrationFields
-import org.intelehealth.config.utility.FieldGroup
+import org.intelehealth.config.utility.PatientInfoGroup
 import javax.inject.Inject
 
 /**
@@ -52,10 +52,10 @@ class ConfigRepository @Inject constructor(
             configDb.clearAllTables()
             configDb.specializationDao().save(config.specialization)
             configDb.languageDao().save(config.language)
-            groupingPatientRegFields(config.patientRegFields.personal, FieldGroup.PERSONAL)
-            groupingPatientRegFields(config.patientRegFields.address, FieldGroup.ADDRESS)
-            groupingPatientRegFields(config.patientRegFields.other, FieldGroup.OTHER)
-            configDb.patientVitalDao().save(config.patientVitals)
+            groupingPatientRegFields(config.patientRegFields.personal, PatientInfoGroup.PERSONAL)
+            groupingPatientRegFields(config.patientRegFields.address, PatientInfoGroup.ADDRESS)
+            groupingPatientRegFields(config.patientRegFields.other, PatientInfoGroup.OTHER)
+            configDb.patientVitalDao().save(config.vitals)
             config.patientVisitSummery.apply {
                 chatSection = if (config.webrtcSection) config.webrtcStatus.chat else false
                 videoSection = if (config.webrtcSection) config.webrtcStatus.video else false
@@ -69,7 +69,7 @@ class ConfigRepository @Inject constructor(
     }
 
     private suspend fun groupingPatientRegFields(
-        fields: List<PatientRegistrationFields>, group: FieldGroup
+        fields: List<PatientRegistrationFields>, group: PatientInfoGroup
     ) {
         fields.map {
             it.groupId = group.value

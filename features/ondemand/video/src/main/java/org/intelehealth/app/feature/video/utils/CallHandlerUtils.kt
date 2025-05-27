@@ -42,9 +42,9 @@ object CallHandlerUtils {
             getCallLogHandler(context).changCallStatus(CallStatus.MISSED)
             CallNotificationHandler.notifyMissedCall(context, callArgs)
         } else if (callArgs.isCallDeclined()) {
-            SocketManager.instance.emit(SocketManager.EVENT_CALL_REJECT_BY_HW, callArgs.doctorId)
+            SocketManager.getInstance().emit(SocketManager.EVENT_CALL_REJECT_BY_HW, callArgs.doctorId)
         } else if (callArgs.isCallHangUp()) {
-            SocketManager.instance.emitLocalEvent(SocketManager.EVENT_CALL_HANG_UP)
+            SocketManager.getInstance().emitLocalEvent(SocketManager.EVENT_CALL_HANG_UP)
             if (CallNotificationHandler.isAppInBackground()) RtcEngine.leaveRoom()
         } else if (callArgs.isBusyCall()) {
             // cancel notification with busy message

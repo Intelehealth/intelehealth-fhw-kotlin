@@ -9,3 +9,4 @@
 - Must be follow the designed application architecture. MVVM, Clean Architecture.
 - Try catch will not be used in the code, instead of try catch proper error handling must be implemented
 - Application resources must be as per the design pattern
+- Maintain strings in exel sheet to support multiple languages

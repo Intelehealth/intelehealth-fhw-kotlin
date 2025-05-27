@@ -18,7 +18,7 @@ import org.intelehealth.common.extensions.showErrorSnackBar
 import org.intelehealth.common.extensions.showSuccessSnackBar
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
-import org.intelehealth.data.provider.user.UserDataSource.Companion.KEY_USER_UUID
+import org.intelehealth.data.network.KEY_USER_UUID
 import java.lang.StringBuilder
 import org.intelehealth.resource.R as ResourceR
 

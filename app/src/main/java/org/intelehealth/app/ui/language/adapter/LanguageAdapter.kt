@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.intelehealth.app.databinding.LanguageListItemViewUi2Binding
+import org.intelehealth.app.databinding.RowItemLanguageBinding
 import org.intelehealth.common.ui.adapter.BaseRecyclerViewAdapter
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.config.room.entity.ActiveLanguage
@@ -13,11 +14,21 @@ import org.intelehealth.config.room.entity.ActiveLanguage
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * RecyclerView adapter for displaying a list of selectable languages.
+ *
+ * This adapter extends [BaseRecyclerViewAdapter] to manage a list of
+ * [ActiveLanguage] objects. It provides functionality to display language
+ * items and visually indicate the currently selected language.
+ *
+ * @param context The context used to inflate the item layout.
+ * @param languages The initial list of languages to display.
+ */
 class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
     BaseRecyclerViewAdapter<ActiveLanguage>(context, languages.toMutableList()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return LanguageListItemViewUi2Binding.inflate(inflater, parent, false).let {
+        return RowItemLanguageBinding.inflate(inflater, parent, false).let {
             LanguageViewHolder(it)
         }
     }
@@ -29,6 +40,16 @@ class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
         }
     }
 
+    /**
+     * Selects a language at the specified position and updates the UI.
+     *
+     * This method deselects all other languages in the list, marks the language
+     * at the given position as selected, and notifies the adapter to refresh the
+     * displayed items.
+     *
+     * @param position The position of the language to select.
+     * @param language The [ActiveLanguage] object to select.
+     */
     fun select(position: Int, language: ActiveLanguage) {
         getList().forEach { it.selected = false }
         language.selected = true
@@ -37,9 +58,27 @@ class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
     }
 }
 
-class LanguageViewHolder(private val binding: LanguageListItemViewUi2Binding) :
+/**
+ * ViewHolder for displaying a selectable language item in a RecyclerView.
+ *
+ * This ViewHolder binds an [ActiveLanguage] object to the views in
+ * `RowItemLanguageBinding`, allowing the user to select a language. It handles
+ * updating the UI to reflect the selected state of the language.
+ *
+ * @param binding The data binding object for the language item layout.
+ */
+class LanguageViewHolder(private val binding: RowItemLanguageBinding) :
     BaseViewHolder(binding.root) {
 
+    /**
+     * Binds an [ActiveLanguage] object to the views in the item layout.
+     *
+     * This method sets the language data on the binding object, configures the
+     * click listener for the item, and updates the UI to reflect whether the
+     * language is currently selected.
+     *
+     * @param language The [ActiveLanguage] object to bind to the views.
+     */
     fun bind(language: ActiveLanguage) {
         binding.layoutRbChooseLanguage.tag = language
         binding.layoutRbChooseLanguage.setOnClickListener(this)

@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import com.github.ajalt.timberkt.Timber
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentHomeBinding
@@ -22,6 +18,13 @@ import org.intelehealth.common.ui.fragment.MenuFragment
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * The main screen of the application, displaying key status counts for the user.
+ *
+ * This fragment presents information about prescriptions, follow-ups, and
+ * appointments. It retrieves the counts for each category from the
+ * [HomeViewModel] and updates the UI accordingly.
+ */
 @AndroidEntryPoint
 class HomeFragment : MenuFragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
@@ -33,8 +36,26 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         updatePrescriptionStatus()
         updateFollowUpStatus()
         updateAppointmentStatus()
+        handleClickEvents()
     }
 
+    private fun handleClickEvents() {
+        binding.cardHomeAddPatient.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
+        }
+
+        binding.btnFindPatient.setOnClickListener {
+            val patientId = "d2e0b4c3-2c3c-40ec-b9a7-21d59a7c8c7d"
+            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient(patientId))
+        }
+    }
+
+    /**
+     * Updates the displayed count of prescriptions.
+     *
+     * This method observes the prescription count from the [HomeViewModel] and
+     * updates the corresponding UI element in the fragment.
+     */
     private fun updatePrescriptionStatus() {
         homeViewModel.getVisitStatusCount().observe(viewLifecycleOwner) {
             it ?: return@observe
@@ -42,6 +63,12 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
     }
 
+    /**
+     * Updates the displayed count of follow-ups.
+     *
+     * This method observes the follow-up count from the [HomeViewModel] and
+     * updates the corresponding UI element in the fragment.
+     */
     private fun updateFollowUpStatus() {
         homeViewModel.getFollowUpStatusCount().observe(viewLifecycleOwner) {
             it ?: return@observe
@@ -49,6 +76,12 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
     }
 
+    /**
+     * Updates the displayed count of appointments.
+     *
+     * This method observes the appointment count from the [HomeViewModel] and
+     * updates the corresponding UI element in the fragment.
+     */
     private fun updateAppointmentStatus() {
         homeViewModel.getAppointmentStatusCount().observe(viewLifecycleOwner) {
             it ?: return@observe

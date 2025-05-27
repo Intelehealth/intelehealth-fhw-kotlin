@@ -24,11 +24,11 @@ class PreferenceUtils @Inject constructor(private val preferenceHelper: Preferen
         get() = preferenceHelper.get(PreferenceHelper.KEY_PREF_LOCATION_UUID, "")
         set(value) = preferenceHelper.save(PreferenceHelper.KEY_PREF_LOCATION_UUID, value)
 
-    var authToken: String
+    var jwtToken: String
         get() = preferenceHelper.get(PreferenceHelper.JWT_AUTH_TOKEN, "")
         set(value) = preferenceHelper.save(PreferenceHelper.JWT_AUTH_TOKEN, value)
 
-    var basicAuthToken: String
+    var basicToken: String
         get() = preferenceHelper.get(PreferenceHelper.AUTH_BASIC_TOKEN, "")
         set(value) = preferenceHelper.save(PreferenceHelper.AUTH_BASIC_TOKEN, value)
 
@@ -47,4 +47,12 @@ class PreferenceUtils @Inject constructor(private val preferenceHelper: Preferen
     var userId: String
         get() = preferenceHelper.get(PreferenceHelper.USER_ID, "")
         set(value) = preferenceHelper.save(PreferenceHelper.USER_ID, value)
+
+    var blackoutActiveStatus: Boolean
+        get() = preferenceHelper.get(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, false)
+        set(value) = preferenceHelper.save(PreferenceHelper.KEY_BLACKOUT_PERIOD_ACTIVE_STATUS, value)
+
+    var fingerprintAppLock: Boolean
+        get() = preferenceHelper.get(PreferenceHelper.KEY_FINGERPRINT_APP_LOCK, false)
+        set(value) = preferenceHelper.save(PreferenceHelper.KEY_FINGERPRINT_APP_LOCK, value)
 }

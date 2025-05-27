@@ -15,4 +15,11 @@
     <string name="error_sync_failed_server_error">सिंक विफल, सर्वर त्रुटि</string>
     <string name="error_confirm_password">नया पासवर्ड और पुष्टि किया गया पासवर्ड एक जैसा होना चाहिए।</string>
     <string name="error_password_validation">पासवर्ड में कम से कम 8 या इससे अधिक कैरेक्टर होने चाहिए और स्मॉल, कैपिटल कैरेक्टर और डिज़िट्स का संयोजन होना चाहिए।</string>
+    <string name="error_invalid_mobile_number">मोबाइल नंबर की न्यूनतम लंबाई %1$d है</string>
+    <string name="error_password_exists">पासवर्ड पहले से मौजूद है, कृपया दूसरे पासवर्ड से प्रयास करें</string>
+    <string name="error_profile_picture_is_mandatory">प्रोफ़ाइल चित्र अनिवार्य है</string>
+    <string name="error_mandatory_field">यह फ़ील्ड अनिवार्य है</string>
+    <string name="error_phone_number_and_emergency_number_can_not_be_the_same">फ़ोन नंबर और आपातकालीन नंबर एक जैसा नहीं हो सकता</string>
+    <string name="error_invalid_postal_code">अमान्य पिन कोड, 6 अंकों का होना चाहिए</string>
+    <string name="error_invalid_village">अमान्य गाँव का नाम, न्यूनतम 3 वर्ण आवश्यक हैं</string>
 </resources>

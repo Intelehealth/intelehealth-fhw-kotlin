@@ -1,6 +1,6 @@
 package org.intelehealth.feature.chat.data
 
-import org.intelehealth.data.provider.BaseDataSource
+import org.intelehealth.common.data.BaseDataSource
 import org.intelehealth.feature.chat.room.entity.ChatMessage
 import org.intelehealth.feature.chat.restapi.ChatRestClient
 

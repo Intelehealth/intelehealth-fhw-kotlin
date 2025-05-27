@@ -9,36 +9,86 @@
         android:id="@+id/nav_home"
         android:name="org.intelehealth.app.ui.home.fragment.HomeFragment"
         android:label="@string/action_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_add_patient"
+            app:destination="@id/nav_add_patient"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_home_to_find_patient"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_achievements"
-        android:name="org.intelehealth.app.ui.home.fragment.MyAchievementFragment"
+        android:name="org.intelehealth.app.ui.achievement.fragment.MyAchievementFragment"
         android:label="@string/action_my_achievements"
         tools:layout="@layout/fragment_achievements" />
 
     <fragment
         android:id="@+id/nav_help"
-        android:name="org.intelehealth.app.ui.home.fragment.HelpCenterFragment"
+        android:name="org.intelehealth.app.ui.help.fragment.HelpCenterFragment"
         android:label="@string/action_help_home"
-        tools:layout="@layout/fragment_help_center" />
+        tools:layout="@layout/fragment_help_center">
+
+        <action
+            android:id="@+id/actionHelpToYoutubeVideoPlayer"
+            app:destination="@id/nav_youtube_video_player" />
+    </fragment>
+
+    <activity
+        android:id="@+id/nav_my_profile"
+        android:name="org.intelehealth.app.ui.user.activity.UserProfileActivity"
+        android:label="@string/title_my_profile"
+        tools:layout="@layout/activity_user_profile" />
 
     <activity
         android:id="@+id/nav_add_patient"
         android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
         android:label="@string/action_add_patient"
-        tools:layout="@layout/activity_test" />
+        tools:layout="@layout/activity_patient_registration" />
 
-    <fragment
+    <activity
         android:id="@+id/nav_setting"
-        android:name="org.intelehealth.app.ui.home.fragment.SettingFragment"
+        android:name="org.intelehealth.app.ui.setting.activity.SettingActivity"
         android:label="@string/action_settings"
-        tools:layout="@layout/fragment_help_center" />
+        tools:layout="@layout/activity_setting" />
+
+    <activity
+        android:id="@+id/nav_about_us"
+        android:name="org.intelehealth.app.ui.aboutus.activity.AboutUsActivity"
+        android:label="@string/action_about_us"
+        tools:layout="@layout/activity_about_us" />
+
+    <activity
+        android:id="@+id/nav_youtube_video_player"
+        android:name="org.intelehealth.app.ui.help.activity.YoutubeVideoPlayerActivity"
+        android:label=""
+        tools:layout="@layout/activity_youtube_video_player">
+
+        <argument
+            android:name="videoId"
+            android:defaultValue="0"
+            app:argType="string" />
+    </activity>
 
     <fragment
-        android:id="@+id/nav_about_us"
-        android:name="org.intelehealth.app.ui.home.fragment.AboutUsFragment"
-        android:label="@string/action_about_us"
-        tools:layout="@layout/fragment_help_center" />
+        android:id="@+id/fragmentPatientDetail"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
+        android:label="@string/title_patient_detail"
+        tools:layout="@layout/fragment_patient_detail">
 
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+    </fragment>
 </navigation>

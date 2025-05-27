@@ -19,4 +19,6 @@ object HttpStatusCode {
     const val INTERNAL_SERVER_ERROR = 500
     const val SERVICE_UNAVAILABLE = 503
     const val UNKNOWN = 0
+    const val HTTP_SUCCESS = "Success"
+    const val HTTP_OK = "OK"
 }

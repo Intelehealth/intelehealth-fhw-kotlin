@@ -3,51 +3,46 @@ package org.intelehealth.data.offline.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.Expose
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "tbl_patient")
 data class Patient(
-    @PrimaryKey
-    @SerializedName("uuid") var uuid: String,
     @ColumnInfo("openmrs_id") @SerializedName("openmrs_id") val openMrsId: String? = null,
-    @ColumnInfo("first_name") @SerializedName("firstname") val firstName: String? = null,
-    @ColumnInfo("middle_name") @SerializedName("middlename") val middleName: String? = null,
-    @ColumnInfo("last_name") @SerializedName("lastname") val lastName: String? = null,
-    @ColumnInfo("date_of_birth") @SerializedName("dateofbirth") val dateOfBirth: String? = null,
-    @ColumnInfo("phone_number") @SerializedName("phone_number") val phoneNumber: String? = null,
-    @SerializedName("address2") val address2: String? = null,
-    @SerializedName("address1") val address1: String? = null,
-    @ColumnInfo("city_village") @SerializedName("cityvillage") val cityVillage: String? = null,
-    @ColumnInfo("state_province") @SerializedName("stateprovince") val stateProvince: String? = null,
-    @ColumnInfo("postal_code") @SerializedName("postal_code") val postalCode: String? = null,
-    @SerializedName("country") val country: String? = null,
-    @SerializedName("gender") val gender: String? = null,
-    @SerializedName("sdw") val sdw: String? = null,
-    @SerializedName("occupation") val occupation: String? = null,
-    @ColumnInfo("creatoruuid") @SerializedName("creatoruuid") val creatorUuid: String? = null,
-    @ColumnInfo("education_status") @SerializedName("education_status") val educationStatus: String? = null,
-    @ColumnInfo("economic_status") @SerializedName("economic_status") val economicStatus: String? = null,
-    @ColumnInfo("patient_photo") @SerializedName("patient_photo") val patientPhoto: String? = null,
-    @SerializedName("caste") val caste: String? = null,
-    @SerializedName("dead") val dead: String? = null,
-    @ColumnInfo("modified_date") @SerializedName("modified_date") val modifiedDate: String? = null,
-    @SerializedName("dateCreated") val dateCreated: String? = null,
-    @SerializedName("voided") val voided: Int = 0,
-    @SerializedName("syncd") val synced: Boolean = false,
+    @ColumnInfo("first_name") @SerializedName("firstname") var firstName: String? = null,
+    @ColumnInfo("middle_name") @SerializedName("middlename") var middleName: String? = null,
+    @ColumnInfo("last_name") @SerializedName("lastname") var lastName: String? = null,
+    @ColumnInfo("date_of_birth") @SerializedName("dateofbirth") var dateOfBirth: String? = null,
+    @SerializedName("gender") var gender: String? = null,
+    @ColumnInfo("creatoruuid") @SerializedName("creatoruuid") var creatorUuid: String? = null,
+    @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
+    @ColumnInfo("created_at") @SerializedName("dateCreated") override var createdAt: String? = null,
     @ColumnInfo("abha_number") @SerializedName("abha_number") val abhaNumber: String? = null,
     @ColumnInfo("abha_address") @SerializedName("abha_address") val abhaAddress: String? = null,
-) : Parcelable
+    @ColumnInfo("profile_version") @SerializedName("profile_version") val profileVersion: Long? = null,
+    @ColumnInfo("guardian_name") @SerializedName("guardianName") var guardianName: String? = null,
+    @ColumnInfo("guardian_type") @SerializedName("guardianType") var guardianType: String? = null,
+    @SerializedName("syncd")
+    override var synced: Boolean = false
+) : PersonAddress(), Parcelable {
 
-data class PatientProfile(
-    @SerializedName("person")
-    @Expose
-    val person: String,
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
 
-    @SerializedName("base64EncodedImage")
-    @Expose
-    val base64EncodedImage: String
-)
+    fun fullName(): String {
+        return middleName?.let {
+            return@let "$firstName $middleName $lastName"
+        } ?: run {
+            return@run "$firstName $lastName"
+        }
+    }
+
+    companion object {
+        const val PERSONAL_INFO_FIELDS = "uuid, openmrs_id, first_name, last_name, middle_name, " +
+                "date_of_birth, gender, guardian_name, guardian_type, profile_version, abha_address, " +
+                "abha_number, creatoruuid, created_at, updated_at, voided, synced"
+    }
+}

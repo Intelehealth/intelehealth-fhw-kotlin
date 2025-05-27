@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentResetPasswordBinding
+import org.intelehealth.app.databinding.ViewNewPasswordBinding
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.mapWithResourceId
@@ -29,98 +30,76 @@ import org.intelehealth.resource.R as ResourceR
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+/**
+ * Fragment for resetting the user's password.
+ *
+ * This fragment allows the user to reset their password by entering a new
+ * password and confirming it. It also provides a button to generate a random
+ * password and a button to contact support via WhatsApp.
+ *
+ * The fragment interacts with [UserViewModel] to perform the password reset
+ * operation and to generate a random password. It also uses [BaseProgressFragment]
+ * to handle progress view and error handling.
+ *
+ * The fragment uses [navArgs] to receive the user's UUID as an argument.
+ */
 @AndroidEntryPoint
-class ResetPasswordFragment : BaseProgressFragment(R.layout.fragment_reset_password) {
+class ResetPasswordFragment : NewPasswordFragment(R.layout.fragment_reset_password) {
     private lateinit var binding: FragmentResetPasswordBinding
-    override val viewModel by viewModels<UserViewModel>()
-    private val args by navArgs<ResetPasswordFragmentArgs>()
 
+    /**
+     * Called immediately after [onCreateView] has returned, but before any saved state has been restored in to the view.
+     *
+     * @param view The View returned by [onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding = FragmentResetPasswordBinding.bind(view)
+        super.onViewCreated(view, savedInstanceState)
         bindProgressView(binding.progressView)
         handleButtonClick()
-        changeSaveButtonStateOnTextChange()
     }
 
-    private fun generatePassword() {
-        viewModel.generatePassword().apply {
-            binding.textInputNewPassword.setText(this)
-            binding.textInputConfirmPassword.setText(this)
-            changeSaveButtonState()
-        }
-    }
-
+    /**
+     * Handles the click events for the buttons in the fragment.
+     *
+     * This function sets click listeners for the following buttons:
+     * - `btnHelp`: Starts a WhatsApp intent to contact support.
+     * - `toolbar` navigation icon: Pops the back stack.
+     */
     private fun handleButtonClick() {
         binding.btnHelp.setOnClickListener {
             startWhatsappIntent(
-                getString(org.intelehealth.resource.R.string.content_support_mobile_no_1),
-                getString(org.intelehealth.resource.R.string.content_help_whatsapp_string_2)
+                getString(ResourceR.string.content_support_mobile_no_1),
+                getString(ResourceR.string.content_help_whatsapp_string_2)
             )
-        }
-
-        binding.btnResetPasswordSave.setOnClickListener {
-            validateFields {
-                requestResetPassword()
-            }
-        }
-
-        binding.tvGenerateNewPassword.setOnClickListener { generatePassword() }
-        binding.tvGenerateNewPassword.setCompoundDrawableClick(Gravity.END) {
-            it.showTooltip(ResourceR.string.content_generate_password_tooltip_text)
         }
 
         binding.toolbar.setNavigationOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun changeSaveButtonStateOnTextChange() {
-        binding.textInputNewPassword.doOnTextChanged { _, _, _, _ ->
-            changeSaveButtonState()
-            binding.textInputLayoutNewPassword.hideError()
-        }
-        binding.textInputConfirmPassword.doOnTextChanged { _, _, _, _ ->
-            changeSaveButtonState()
-            binding.textInputLayoutConfirmPassword.hideError()
-        }
-    }
 
-    private fun changeSaveButtonState() {
-        val newPassword = binding.textInputNewPassword.text
-        val confirmPassword = binding.textInputConfirmPassword.text
-        val validNewPassword = newPassword?.isNotEmpty() == true && newPassword.length >= MIN_PASSWORD_LENGTH
-        val validConfirmPassword =
-            confirmPassword?.isNotEmpty() == true && confirmPassword.length >= MIN_PASSWORD_LENGTH
-        binding.btnResetPasswordSave.isEnabled = validNewPassword.and(validConfirmPassword)
-    }
-
-    private fun validateFields(onValid: () -> Unit) {
-        val validPassword = binding.textInputLayoutNewPassword.validatePasswordPattern(
-            binding.textInputNewPassword, ResourceR.string.error_password_validation
-        )
-
-        val validConfirmPassword = binding.textInputLayoutConfirmPassword.passwordMatchWithConfirmPassword(
-            binding.textInputNewPassword, binding.textInputConfirmPassword
-        )
-
-        if (validPassword.and(validConfirmPassword)) onValid()
-    }
-
-    private fun requestResetPassword() {
+    /**
+     * Requests a password reset.
+     *
+     * This function calls [UserViewModel.resetPassword] to request a password
+     * reset with the new password. It observes the result and shows a success
+     * message or an error message accordingly.
+     */
+    override fun requestResetPassword() {
         viewModel.resetPassword(
-            args.userUuid, binding.textInputNewPassword.text.toString()
+            args.userUuid, binding.viewNewPassword.textInputNewPassword.text.toString()
         ).observe(viewLifecycleOwner, {
             it ?: return@observe
             viewModel.allowNullDataResponse(it) {
-                showSuccessSnackBar(binding.btnResetPasswordSave, ResourceR.string.content_password_reset_successful)
+                showSuccessSnackBar(
+                    binding.viewNewPassword.btnResetPasswordSave,
+                    ResourceR.string.content_password_reset_successful
+                )
                 findNavController().popBackStack()
             }
         })
     }
 
-    override fun getAnchorView(): View = binding.btnResetPasswordSave
-
-    override fun onFailed(reason: String) {
-        super.onFailed(reason)
-        showErrorSnackBar(getAnchorView(), reason.mapWithResourceId(requireContext()))
-    }
+    override fun attachNewPasswordView(): ViewNewPasswordBinding = binding.viewNewPassword
 }

@@ -2,11 +2,13 @@ package org.intelehealth.app
 
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
+import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.work.Configuration
 import com.github.ajalt.timberkt.Timber
 import com.google.firebase.FirebaseApp
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.HiltAndroidApp
+import org.intelehealth.app.ui.user.observer.AppUsesStatisticsObserver
 import javax.inject.Inject
 
 /**
@@ -38,6 +40,9 @@ class IHApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    @Inject
+    lateinit var appUsesStatisticsObserver: AppUsesStatisticsObserver
+
     /**
      * Called when the application is starting, before any activity, service,
      * or receiver objects (excluding content providers) have been created.
@@ -54,6 +59,7 @@ class IHApplication : Application(), Configuration.Provider {
         FirebaseApp.initializeApp(this)
 
         FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = false
+        ProcessLifecycleOwner.get().lifecycle.addObserver(appUsesStatisticsObserver)
     }
 
     /**

@@ -107,7 +107,7 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
     override fun onCreate() {
         super.onCreate()
         Timber.d { "Service is created ***** " }
-        SocketManager.instance.emitterListener = this::emitter
+        SocketManager.getInstance().emitterListener = this::emitter
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrationEffect = VibrationEffect.createWaveform(
                 vibratePattern, vibrationAmplitude, -1
@@ -320,7 +320,7 @@ class HeadsUpNotificationService : Service(), SensorEventListener {
         Timber.d { "Call service is destroyed ***** " }
         destroySetting()
         isDuplicateCancelEvent = false
-        SocketManager.instance.removeListener(this::emitter)
+        SocketManager.getInstance().removeListener(this::emitter)
         wakeLock.let {
             if (it.isHeld) {
                 it.release()
