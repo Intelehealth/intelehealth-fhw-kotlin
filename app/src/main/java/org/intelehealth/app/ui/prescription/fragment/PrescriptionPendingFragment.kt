@@ -2,6 +2,7 @@ package org.intelehealth.app.ui.prescription.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -35,9 +36,29 @@ class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_presc
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionPendingBinding.bind(view)
         binding.viewModel = viewModel
-        bindProgressView(binding.progressBar)
+        bindProgressView(binding.progressBar, binding.progressBarPage)
         bindPrescriptionAdapter()
         bindScrollListener()
+        bindSearchView()
+    }
+
+    private fun bindSearchView() {
+        binding.searchView.prescriptionSearchView.setOnQueryTextListener(object :
+            OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query?.isNotEmpty() == true) {
+                    viewModel.fetchPendingPrescription(LoadingType.INITIAL, query)
+                    return true
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+
+        }
+        )
     }
 
     private fun bindScrollListener() {

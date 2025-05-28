@@ -22,7 +22,7 @@ class PrescriptionViewModel @Inject constructor(
 
     private var _receivedOlderPrescription =
         MutableLiveData<MutableList<Prescription>>(mutableListOf())
-    var receivedOlderPrescription = _receivedRecentPrescription
+    var receivedOlderPrescription = _receivedOlderPrescription
 
     private var _pendingRecentPrescription = MutableLiveData<List<Prescription>>()
     var pendingRecentPrescription = _pendingRecentPrescription
@@ -48,7 +48,7 @@ class PrescriptionViewModel @Inject constructor(
         viewModelScope.launch {
             executeLocalQuery(
                 queryCallOne = {
-                    prescriptionRepository.getReceivedPrescriptions(
+                    prescriptionRepository.getRecentReceivedPrescriptions(
                         searchQuery = "",
                         limit = CommonConstants.LIMIT,
                         offset = receivedRecentOffset
@@ -56,7 +56,7 @@ class PrescriptionViewModel @Inject constructor(
                 },
 
                 queryCallTwo = {
-                    prescriptionRepository.getReceivedPrescriptions(
+                    prescriptionRepository.getOlderReceivedPrescriptions(
                         searchQuery = "",
                         limit = CommonConstants.LIMIT,
                         offset = receivedOlderOffset
@@ -78,30 +78,34 @@ class PrescriptionViewModel @Inject constructor(
         }
     }
 
-    fun fetchPendingPrescription(loadingType: LoadingType) {
+    fun fetchPendingPrescription(loadingType: LoadingType, query: String = "") {
+        if(loadingType == LoadingType.INITIAL){
+            pendingRecentOffset = 0
+            pendingOlderOffset = 0
+        }
         viewModelScope.launch {
             executeLocalQuery(
                 queryCallOne = {
-                    prescriptionRepository.getPendingPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getRecentPendingPrescriptions(
+                        searchQuery = query,
                         limit = CommonConstants.LIMIT,
-                        offset = _pendingRecentPrescription.value?.size ?: 0
+                        offset = pendingRecentOffset
                     )
                 },
 
                 queryCallTwo = {
-                    prescriptionRepository.getPendingPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getOlderPendingPrescriptions(
+                        searchQuery = query,
                         limit = CommonConstants.LIMIT,
-                        offset = _pendingOlderPrescription.value?.size ?: 0
+                        offset = pendingOlderOffset
                     )
                 }
             ).collectLatest {
                 handleResponse(loadingType, it) {
                     val data = it as Pair<*, *>
-                    _receivedRecentPrescription.value =
+                    _pendingRecentPrescription.value =
                         (data.first as List<Prescription>).toMutableList()
-                    _receivedOlderPrescription.value =
+                    _pendingOlderPrescription.value =
                         (data.second as List<Prescription>).toMutableList()
 
                     pendingRecentOffset += _pendingRecentPrescription.value?.size ?: 0

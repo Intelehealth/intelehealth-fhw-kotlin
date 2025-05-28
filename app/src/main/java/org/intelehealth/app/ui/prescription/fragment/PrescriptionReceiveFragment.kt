@@ -47,22 +47,22 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
     }
 
     private fun bindPrescriptionAdapter() {
-        var recentAdapter: PrescriptionRecyclerViewAdapter? = null
-        var pendingAdapter: PrescriptionRecyclerViewAdapter? = null
+        var recentReceivedAdapter: PrescriptionRecyclerViewAdapter? = null
+        var olderReceivedAdapter: PrescriptionRecyclerViewAdapter? = null
 
         viewModel.receivedRecentPrescription.observe(viewLifecycleOwner) {
             it ?: return@observe
             viewModel.handleResponse(Result.Success(it, "")) { result ->
                 Timber.d { Gson().toJson(result) }
-                if (recentAdapter == null) {
-                    recentAdapter = PrescriptionRecyclerViewAdapter(
+                if (recentReceivedAdapter == null) {
+                    recentReceivedAdapter = PrescriptionRecyclerViewAdapter(
                         requireActivity(),
                         it.toMutableList()
                     )
-                    recentAdapter?.viewHolderClickListener = this
-                    binding.recentView.recentRv.setupLinearView(recentAdapter!!, false)
+                    recentReceivedAdapter?.viewHolderClickListener = this
+                    binding.recentView.recentRv.setupLinearView(recentReceivedAdapter!!, false)
                 } else {
-                    recentAdapter?.updateList(it.toMutableList())
+                    recentReceivedAdapter?.updateList(it.toMutableList())
                 }
             }
 
@@ -72,15 +72,15 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
             it ?: return@observe
             viewModel.handleResponse(Result.Success(it, "")) { result ->
                 Timber.d { Gson().toJson(result) }
-                if (pendingAdapter == null) {
-                    pendingAdapter = PrescriptionRecyclerViewAdapter(
+                if (olderReceivedAdapter == null) {
+                    olderReceivedAdapter = PrescriptionRecyclerViewAdapter(
                         requireActivity(),
                         it.toMutableList()
                     )
-                    pendingAdapter?.viewHolderClickListener = this
-                    binding.olderView.olderRv.setupLinearView(pendingAdapter!!, false)
+                    olderReceivedAdapter?.viewHolderClickListener = this
+                    binding.olderView.olderRv.setupLinearView(olderReceivedAdapter!!, false)
                 } else {
-                    pendingAdapter?.updateList(it.toMutableList())
+                    olderReceivedAdapter?.updateList(it.toMutableList())
                 }
             }
 
