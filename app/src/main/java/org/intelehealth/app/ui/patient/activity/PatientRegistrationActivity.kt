@@ -2,7 +2,6 @@ package org.intelehealth.app.ui.patient.activity
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R

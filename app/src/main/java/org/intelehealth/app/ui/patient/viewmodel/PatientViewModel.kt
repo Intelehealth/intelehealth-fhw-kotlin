@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 open class PatientViewModel @Inject constructor(
     private val otherInfoRepository: PatientOtherDataRepository,
-    private val regFieldRepository: RegFieldRepository,
+    regFieldRepository: RegFieldRepository,
     networkHelper: NetworkHelper
 ) : RegFieldViewModel(regFieldRepository, networkHelper = networkHelper) {
 
