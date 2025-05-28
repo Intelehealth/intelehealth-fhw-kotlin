@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/std_4dp"
+    android:layout_marginVertical="@dimen/std_4dp">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/prescriptionSearchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/bg_common_input"
+        app:queryBackground="@color/transparent"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColorHint="@color/textColorLightGary"
+        android:textSize="@dimen/std_14sp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/filterIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/hint_search_patient"
+        app:showDividers="none"
+
+        />
+
+    <ImageButton
+        android:id="@+id/filterIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:background="@null"
+        android:contentDescription="@string/lbl_filter"
+        android:src="@drawable/visit_filter_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/prescriptionSearchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/prescriptionSearchView"
+        app:layout_constraintTop_toTopOf="@+id/prescriptionSearchView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

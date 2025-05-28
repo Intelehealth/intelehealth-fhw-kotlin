@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/vsCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/std_16dp"
+    android:paddingEnd="@dimen/std_16dp"
+    android:paddingBottom="@dimen/std_16dp">
+
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/iconVisitDetails"
+        android:layout_width="@dimen/std_48dp"
+        android:layout_height="@dimen/std_48dp"
+        android:background="@null"
+        android:src="@drawable/ic_circle_visit_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/lbl_visitDetails_text"
+        />
+
+    <!-- Label Text -->
+    <TextView
+        android:id="@+id/visitDetailsText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:gravity="center_vertical"
+        android:text="@string/lbl_visitDetails_text"
+        style="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintStart_toEndOf="@id/iconVisitDetails"
+        app:layout_constraintTop_toTopOf="@id/iconVisitDetails"
+        app:layout_constraintBottom_toBottomOf="@id/iconVisitDetails"
+        app:layout_constraintEnd_toStartOf="@id/vsArrowRight"/>
+
+    <!-- Arrow Button -->
+    <ImageButton
+        android:id="@+id/vsArrowRight"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:paddingHorizontal="@dimen/std_8dp"
+        android:src="@drawable/ic_cupertino_arrow_right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/lbl_next_arrow"
+        />
+
+    <!-- Divider Line -->
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/std_1dp"
+        android:background="@color/colorLightGray"
+        android:layout_marginTop="@dimen/std_16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iconVisitDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,4 +22,7 @@
     <string name="error_phone_number_and_emergency_number_can_not_be_the_same">Phone Number and Emergency Number cannot be the same</string>
     <string name="error_invalid_postal_code">Invalid postal code, must be 6 digit</string>
     <string name="error_invalid_village">Invalid village name, require min 3 chars</string>
+    <string name="error_search_pat_not_found_txt">Patient not found!</string>
+    <string name="error_no_visit_found">No visit found</string>
+
 </resources>

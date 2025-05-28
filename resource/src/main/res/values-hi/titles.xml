@@ -18,6 +18,18 @@
     <string name="title_other_lighting_source">अन्य प्रकाश स्रोत</string>
     <string name="title_other_water_purification">अन्य जल शोधन विधि</string>
     <string name="title_patient_detail">रोगी विवरण</string>
+    <string name="title_activity_identification" translatable="false">नया पेशेंट जोड़ें</string>
+    <string name="title_priority_visits">प्राथमिकता विज़िट</string>
+    <string name="title_recent_visit">हाल के विज़िट्स</string>
+    <string name="title_priority">प्राथमिकता</string>
+    <string name="title_visit_summary_patient_details">Visit details</string>
+    <string name="title_past_visits">Past Visits</string>
+    <string name="title_prescriptions">Prescriptions</string>
+    <string name="title_visit_details">Visit Details</string>
+    <string name="title_prescription_details">Prescription Details</string>
+
+    <string name="title_received">Received</string>
+    <string name="title_pending">Pending</string>
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>

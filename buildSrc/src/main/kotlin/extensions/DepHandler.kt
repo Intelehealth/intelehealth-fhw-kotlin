@@ -76,6 +76,7 @@ fun DependencyHandler.appModuleDeps() {
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
     kapt(Deps.Dagger.hiltWorkerKapt)
+
 }
 
 /**

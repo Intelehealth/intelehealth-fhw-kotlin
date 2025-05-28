@@ -11,7 +11,8 @@ android{
                         'src\\main\\res\\achievement',
                         'src\\main\\res\\aboutus',
                         'src\\main\\res\\setting',
-                        'src\\main\\res\\prescription'
+                        'src\\main\\res\\prescription',
+                        'src\\main\\res\\visit'
             }
         }
     }

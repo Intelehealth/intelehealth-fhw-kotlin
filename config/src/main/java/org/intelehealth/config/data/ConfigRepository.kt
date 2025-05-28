@@ -56,6 +56,9 @@ class ConfigRepository @Inject constructor(
             groupingPatientRegFields(config.patientRegFields.address, PatientInfoGroup.ADDRESS)
             groupingPatientRegFields(config.patientRegFields.other, PatientInfoGroup.OTHER)
             configDb.patientVitalDao().save(config.vitals)
+            configDb.patientDiagnosticsDao().save(config.diagnostics)
+            configDb.activeSectionDao().save(config.patientVisitSection)
+            configDb.activeSectionDao().save(config.homeScreen)
             config.patientVisitSummery.apply {
                 chatSection = if (config.webrtcSection) config.webrtcStatus.chat else false
                 videoSection = if (config.webrtcSection) config.webrtcStatus.video else false
@@ -63,6 +66,11 @@ class ConfigRepository @Inject constructor(
                 activeStatusPatientAddress = config.activeStatusPatientAddress
                 activeStatusPatientOther = config.activeStatusPatientOther
                 activeStatusAbha = config.activeStatusAbha
+                activeStatusPatientFamilyMemberRegistration = config.activeStatusFamilyRegistration
+                activeStatusPatientHouseholdSurvey = config.activeStatusHouseholdSurvey
+                activeStatusRosterQuestionnaireSection = config.rosterQuestionnaireSection
+                activeStatusDiagnosticsSection = config.patientDiagnosticsSection
+                activeStatusPatientDraftSurvey = config.patientDraftSurvey
             }.also { configDb.featureActiveStatusDao().add(it) }
             onCompleted.invoke()
         }

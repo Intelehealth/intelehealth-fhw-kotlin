@@ -22,4 +22,7 @@
     <string name="error_phone_number_and_emergency_number_can_not_be_the_same">फ़ोन नंबर और आपातकालीन नंबर एक जैसा नहीं हो सकता</string>
     <string name="error_invalid_postal_code">अमान्य पिन कोड, 6 अंकों का होना चाहिए</string>
     <string name="error_invalid_village">अमान्य गाँव का नाम, न्यूनतम 3 वर्ण आवश्यक हैं</string>
+    <string name="error_search_pat_not_found_txt">रोगी नहीं मिला!</string>
+    <string name="error_no_visit_found">कोई विज़िट नहीं मिला</string>
+
 </resources>

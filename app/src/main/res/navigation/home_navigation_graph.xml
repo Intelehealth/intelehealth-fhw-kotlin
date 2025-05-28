@@ -26,6 +26,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_prescription"
+            app:destination="@id/nav_prescription" />
     </fragment>
 
     <fragment
@@ -80,6 +84,13 @@
             android:defaultValue="0"
             app:argType="string" />
     </activity>
+
+    <activity
+        android:id="@+id/nav_prescription"
+        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"
+        android:label="@string/title_prescriptions"
+        tools:layout="@layout/activity_prescription" />
+
 
     <fragment
         android:id="@+id/fragmentPatientDetail"

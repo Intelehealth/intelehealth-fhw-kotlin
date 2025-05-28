@@ -93,4 +93,18 @@
     <string name="content_decline_consent_message">आप सहमति दिए बिना आगे नहीं बढ़ पाएंगे। क्या आप वाकई बाहर निकलना चाहते हैं?</string>
     <string name="content_not_provided">प्रदान नहीं किया गया</string>
     <string name="content_patient_not_registered">रोगी पंजीकृत नहीं है</string>
+    <string name="content_patients_waiting_for_closure">3 रोगी विज़िट बंद होने का इंतजार कर रहे हैं, कृपया विज़िट समाप्त करें।</string>
+    <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
+    <string name="content_calender">कैलेंडर</string>
+    <string name="content_chat_fab">chat fab</string>
+    <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
+    <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
+    <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+
+    //content description
+    <string name="content_search_icon">Search Icon</string>
+    <string name="content_add_icon">Add Icon</string>
+    <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
+
+
 </resources>

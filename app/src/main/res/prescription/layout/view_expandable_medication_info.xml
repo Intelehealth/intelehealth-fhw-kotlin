@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/medicationCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/std_16dp"
+    app:cardCornerRadius="@dimen/std_4dp"
+    app:cardElevation="@dimen/std_4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/medicationIcon"
+            android:layout_width="@dimen/std_48dp"
+            android:layout_height="@dimen/std_48dp"
+            android:layout_margin="@dimen/std_16dp"
+            android:src="@drawable/ic_medication"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/lbl_prescribed_medication"/>
+
+        <TextView
+            android:id="@+id/medicationTitle"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:text="@string/lbl_prescribed_medication"
+            app:layout_constraintBottom_toBottomOf="@+id/medicationIcon"
+            app:layout_constraintEnd_toStartOf="@+id/expandBtn"
+            app:layout_constraintStart_toEndOf="@+id/medicationIcon"
+            app:layout_constraintTop_toTopOf="@+id/medicationIcon" />
+
+        <ImageButton
+            android:id="@+id/expandBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:background="@null"
+            android:src="@drawable/ic_cupertino_down"
+            app:layout_constraintBottom_toBottomOf="@+id/medicationTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/medicationIcon"
+            android:contentDescription="@string/lbl_expand"
+            />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/medicationInfoInfoExpandableLayoutGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="divider, drugNameTv,dosTv,daysTv,remarksTv, medicationsTv, dividerTwo" />
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_32dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/medicationTitle" />
+
+        <!-- <androidx.appcompat.widget.LinearLayoutCompat
+             android:id="@+id/medicineColumnLay"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="@dimen/std_16dp"
+             app:layout_constraintTop_toBottomOf="@+id/divider"
+             tools:layout_editor_absoluteX="12dp">-->
+
+        <TextView
+            android:id="@+id/drugNameTv"
+            android:layout_width="0dp"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_height="@dimen/std_40dp"
+            android:gravity="start|center"
+            android:paddingStart="@dimen/std_16dp"
+            android:paddingEnd="@dimen/std_1dp"
+            android:text="@string/lbl_drug_name"
+            android:textColor="@color/textColorLightGary"
+            app:layout_constraintBottom_toBottomOf="@+id/dividerTwo"
+            app:layout_constraintEnd_toStartOf="@+id/dosTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent=".4" />
+
+        <TextView
+            android:id="@+id/dosTv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/std_40dp"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:gravity="center"
+            android:text="@string/lbl_dos"
+            android:textColor="@color/textColorLightGary"
+            app:layout_constraintBottom_toBottomOf="@+id/dividerTwo"
+            app:layout_constraintEnd_toStartOf="@+id/daysTv"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent=".2" />
+
+        <TextView
+            android:id="@+id/daysTv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/std_40dp"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:gravity="center"
+            android:text="@string/lbl_days"
+            android:textColor="@color/textColorLightGary"
+            app:layout_constraintBottom_toBottomOf="@+id/dividerTwo"
+            app:layout_constraintEnd_toStartOf="@+id/remarksTv"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent=".2" />
+
+        <TextView
+            android:id="@+id/remarksTv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/std_40dp"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:gravity="center"
+            android:text="@string/lbl_remarks"
+            android:paddingEnd="@dimen/std_16dp"
+            android:paddingStart="@dimen/std_1dp"
+            android:textColor="@color/textColorLightGary"
+            app:layout_constraintBottom_toBottomOf="@+id/dividerTwo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintWidth_percent=".2"
+            />
+
+        <!-- </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
+        <View
+            android:id="@+id/dividerTwo"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/remarksTv" />
+
+
+        <TextView
+            android:id="@+id/medicationsTv"
+            style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/std_16dp"
+            android:drawablePadding="@dimen/std_4dp"
+            android:text="@string/lbl_no_information"
+            app:drawableStartCompat="@drawable/shape_bullet_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerTwo"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

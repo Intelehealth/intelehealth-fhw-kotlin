@@ -40,6 +40,7 @@
     <string name="action_exit">Exit</string>
     <string name="action_sync">Sync</string>
     <string name="action_notification">Notification</string>
+    <string name="action_more">More</string>
     <string name="action_go_to_website">Go to website</string>
     <string name="action_change_language">Change Language</string>
     <string name="action_download_protocol">Download Protocols</string>
@@ -50,6 +51,9 @@
     <string name="action_choose_from_gallery">Choose from Gallery</string>
     <string name="action_sign_back_in">Sign back in</string>
     <string name="action_back">Back</string>
+    <string name="action_end_visit">End visit</string>
+    <string name="action_print">Print</string>
+    <string name="action_share">Share</string>
     <string name="action_start_visit">Start Visit</string>
     <string name="action_household_survey" translatable="false">@string/lbl_household_survey</string>
 </resources>
