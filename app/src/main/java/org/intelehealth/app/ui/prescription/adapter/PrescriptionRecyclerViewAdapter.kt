@@ -1,68 +1,63 @@
 package org.intelehealth.app.ui.prescription.adapter;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
-import org.intelehealth.app.R;
-import org.intelehealth.common.ui.adapter.BaseRecyclerViewAdapter;
-import org.intelehealth.data.offline.entity.Patient;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.ResponseBody;
+import android.content.Context
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import org.intelehealth.app.databinding.PrescriptionListItemBinding
-import org.intelehealth.app.databinding.RowItemHelpFaqBinding
-import org.intelehealth.app.ui.help.viewholder.FAQViewHolder
 import org.intelehealth.app.ui.prescription.viewholder.PrescriptionViewHolder
+import org.intelehealth.common.ui.adapter.BaseRecyclerViewAdapter
 import org.intelehealth.data.offline.entity.Prescription
 
 /**
  * Created by Tanvir Hasan on 24/04/25.
  * Email: mhasann@intelihealth.org
+ *
+ * RecyclerView adapter for displaying a list of [Prescription] items.
+ *
+ * Extends [BaseRecyclerViewAdapter] to handle common RecyclerView boilerplate.
+ * Provides functionality to update the list of prescriptions and notify the adapter of changes.
+ *
+ * @param context The context, usually the calling Activity or Fragment.
+ * @param prescriptions The initial list of prescriptions to display. This list can be updated.
  */
 class PrescriptionRecyclerViewAdapter(
     context: Context,
     private var prescriptions: MutableList<Prescription>
 ) : BaseRecyclerViewAdapter<Prescription>(context, prescriptions) {
+
+    /**
+     * Creates new views (invoked by the layout manager).
+     * Inflates the item layout and creates a new [PrescriptionViewHolder].
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = PrescriptionListItemBinding.inflate(inflater, parent, false)
         return PrescriptionViewHolder(binding)
     }
 
+    /**
+     * Replaces the contents of a view (invoked by the layout manager).
+     * Binds the [Prescription] at the given [position] to the [PrescriptionViewHolder].
+     * Sets a click listener on the view holder if one is provided.
+     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // Set click listener from the base adapter or fragment/activity
         viewHolderClickListener?.let { (holder as PrescriptionViewHolder).setViewClickListener(it) }
+        // Bind data to the ViewHolder
         (holder as PrescriptionViewHolder).bind(getItem(position))
     }
 
+    /**
+     * Updates the list of prescriptions with new items and notifies the adapter.
+     *
+     * Appends the [newList] to the existing list of prescriptions.
+     * Notifies the adapter that items have been changed, attempting to provide a specific range.
+     * @param newList The new list of prescriptions to add.
+     */
     fun updateList(newList: MutableList<Prescription>) {
-        val olderListSize = prescriptions.size
+        val oldListSize = prescriptions.size // Correctly get size before adding
         prescriptions.addAll(newList)
-        notifyItemRangeChanged(olderListSize-1, newList.size)
+        if (newList.isNotEmpty()) {
+            notifyItemRangeInserted(oldListSize, newList.size)
+        }
     }
-
 }

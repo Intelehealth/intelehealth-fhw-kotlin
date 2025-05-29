@@ -39,6 +39,7 @@ public class DateTimeUtils {
 
     //getting this format for visit
     public static final String SERVER_FORMAT = "MMM dd, yyyy hh:mm:ss a";
+    public static final String DD_MMM_AT_HH_MM_A_FORMAT = "dd MMM 'at' hh:mm a";
             //1997-10-20T00:00:00.000+0530
 
     @SuppressLint("SimpleDateFormat")
@@ -155,7 +156,7 @@ public class DateTimeUtils {
 
     public static String formatOneToAnother(String date, String sourceFormat, String anotherFormat) {
         if(date==null || date.isEmpty()) return "";
-        String result = "";
+        String result;
         SimpleDateFormat sdf;
         SimpleDateFormat sdf1;
 

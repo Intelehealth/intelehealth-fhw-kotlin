@@ -55,6 +55,12 @@ class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_lis
         }.attach()
     }
 
+    /**
+     * Observes prescription count changes from the ViewModel to update tab titles.
+     * If the ViewPager adapter is initialized, it listens for updates to the number
+     * of received and pending prescriptions and updates the respective tab titles to include these counts.
+     *
+     */
     private fun bindObserver() {
         if (::adapter.isInitialized) {
             viewModel.prescriptionCount().observe(viewLifecycleOwner) {

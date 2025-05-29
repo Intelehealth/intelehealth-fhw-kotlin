@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
