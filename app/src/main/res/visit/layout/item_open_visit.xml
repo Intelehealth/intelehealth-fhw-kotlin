@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="patient"
+            type="org.intelehealth.data.offline.entity.Patient" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/std_8dp"
+        android:layout_marginTop="@dimen/std_8dp"
+        android:layout_marginBottom="@dimen/std_24dp"
+        app:cardCornerRadius="@dimen/std_10dp"
+        app:cardElevation="@dimen/std_8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std_12dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profileImage"
+                android:layout_width="@dimen/std_40dp"
+                android:layout_height="@dimen/std_40dp"
+                android:layout_margin="@dimen/std_2dp"
+                android:background="@color/colorDeactivated"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                app:srcCompat="@drawable/avatar1" />
+
+            <!-- Main Content Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/main_content_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileImage"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Patient Name and Priority -->
+                <TextView
+                    android:id="@+id/patientNameTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="3sp"
+                    android:maxLines="1"
+                    android:text="@{@string/title_name(patient.firstName, patient.middleName, patient.lastName)}"
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Body.Bold"
+                    app:layout_constraintEnd_toStartOf="@+id/priorityTagLay"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/title_fu_item" />
+
+
+                <LinearLayout
+                    android:id="@+id/priorityTagLay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@drawable/frame_priority"
+                    android:contentDescription="@string/content_follow_up_list_item_priority_tag"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/std_8dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/dateTv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/priorityTagTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:lineSpacingExtra="0sp"
+                        android:text="@string/title_priority"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/dateTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:drawablePadding="@dimen/std_8dp"
+                    android:gravity="center_vertical"
+                    android:text="@{patient.dateOfBirth}"
+                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                    app:drawableStartCompat="@drawable/ic_calendar"
+                    app:layout_constraintBottom_toTopOf="@id/endVisitBtn"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/patientNameTv" />
+
+                <!-- End Visit Button -->
+                <Button
+                    android:id="@+id/endVisitBtn"
+                    style="@style/Theme.IDA.Button.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:text="@string/lbl_close_visit"
+                    android:textAllCaps="false"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dateTv"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
