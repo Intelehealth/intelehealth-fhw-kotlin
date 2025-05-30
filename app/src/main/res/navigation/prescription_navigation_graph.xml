@@ -16,22 +16,20 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/visitDetailsFragment"
         android:name="org.intelehealth.app.ui.visit.fragment.VisitDetailsFragment"
-        android:label="@string/title_visit_details" >
+        android:label="@string/title_visit_details">
         <action
             android:id="@+id/action_visitDetailsFragment_to_prescriptionDetailsFragment"
             app:destination="@id/prescriptionDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/prescriptionDetailsFragment"

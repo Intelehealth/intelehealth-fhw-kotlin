@@ -1,213 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/doctorDetailsCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="@dimen/std_16dp"
-    app:cardCornerRadius="@dimen/std_4dp"
-    app:cardElevation="@dimen/std_4dp"
-    >
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/doctorDetailsCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/doctorDetailsIcon"
-            android:layout_width="@dimen/std_48dp"
-            android:layout_height="@dimen/std_48dp"
-            android:src="@drawable/ic_dr_details"
-            android:layout_margin="@dimen/std_16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/lbl_consulted_doctor_details"/>
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/std_16dp"
+        app:cardCornerRadius="@dimen/std_4dp"
+        app:cardElevation="@dimen/std_4dp">
 
-        <TextView
-            android:id="@+id/doctorDetailsTitle"
-            style="@style/TextAppearance.Material3.TitleLarge"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/std_8dp"
-            android:layout_marginEnd="@dimen/std_8dp"
-            android:text="@string/lbl_consulted_doctor_details"
-            app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsIcon"
-            app:layout_constraintEnd_toStartOf="@+id/expandBtn"
-            app:layout_constraintStart_toEndOf="@+id/doctorDetailsIcon"
-            app:layout_constraintTop_toTopOf="@+id/doctorDetailsIcon" />
-
-        <ImageButton
-            android:id="@+id/expandBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:background="@null"
-            android:src="@drawable/ic_cupertino_down"
-            app:layout_constraintBottom_toBottomOf="@+id/doctorDetailsTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/doctorDetailsTitle"
-            android:contentDescription="@string/lbl_expand"/>
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/drInfoInfoExpandableLayoutGroup"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:constraint_referenced_ids="divider, detailsTv, tableLayout"
-            />
+            android:padding="@dimen/std_16dp">
 
+            <ImageView
+                android:id="@+id/ivDoctorDetailsIcon"
+                android:layout_width="@dimen/std_48dp"
+                android:layout_height="@dimen/std_48dp"
+                android:contentDescription="@string/lbl_consulted_doctor_details"
+                android:src="@drawable/ic_dr_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/std_32dp"
-            android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:layout_marginBottom="@dimen/std_16dp"
-            android:background="@color/colorLightGray"
-            app:layout_constraintTop_toBottomOf="@id/doctorDetailsTitle"/>
+            <TextView
+                android:id="@+id/tvDoctorDetailsTitle"
+                style="@style/Theme.IDA.TextAppearance.Body.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_16dp"
+                android:layout_marginEnd="@dimen/std_8dp"
+                android:text="@string/lbl_consulted_doctor_details"
+                app:layout_constraintBottom_toBottomOf="@+id/ivDoctorDetailsIcon"
+                app:layout_constraintEnd_toStartOf="@+id/ivBtnExpandPatientDetails"
+                app:layout_constraintStart_toEndOf="@+id/ivDoctorDetailsIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivDoctorDetailsIcon" />
 
-        <TextView
-            android:id="@+id/detailsTv"
-            style="@style/TextAppearance.Material3.TitleMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:text="@string/lbl_details"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            <ImageButton
+                android:id="@+id/ivBtnExpandPatientDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/std_48dp"
+                android:background="@null"
+                android:contentDescription="@string/lbl_expand"
+                android:src="@drawable/ic_cupertino_down"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDoctorDetailsTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvDoctorDetailsTitle" />
 
-
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/std_16dp"
-            android:shrinkColumns="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailsTv"
-            tools:layout_editor_absoluteX="12dp">
-
-            <!--Name-->
-            <TableRow
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/drInfoInfoExpandableLayoutGroup"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2">
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="divider, lblDetails, tableLayoutCHWDetails" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/std_2dp"
-                    android:layout_marginEnd="@dimen/std_4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_4dp"
-                    android:text="@string/lbl_name"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
-
-                <TextView
-                    android:id="@+id/drNameTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
-                    />
-            </TableRow>
-
-            <!--Age -->
-            <TableRow
+            <View
+                android:id="@+id/divider"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/std_4dp"
-                android:layout_weight="2"
-                android:visibility="visible">
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintTop_toBottomOf="@id/ivBtnExpandPatientDetails" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="@dimen/std_4dp"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    android:textColor="@color/textColorLightGary"
-                    android:textSize="@dimen/std_14sp"
-                    android:visibility="invisible"
-                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
+            <TextView
+                android:id="@+id/lblDetails"
+                style="@style/Theme.IDA.TextAppearance.Primary.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_details"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
 
-                <TextView
-                    android:id="@+id/dr_age_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
-                    />
-            </TableRow>
 
-            <!--Qualification-->
-            <TableRow
+            <TableLayout
+                android:id="@+id/tableLayoutCHWDetails"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/std_4dp"
-                android:layout_weight="2">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:shrinkColumns="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblDetails"
+                tools:layout_editor_absoluteX="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/std_4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_4dp"
-                    android:text="@string/lbl_qualification"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
+                <!--Name-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
 
-                <TextView
-                    android:id="@+id/qualification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
-                    />
-            </TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_name + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_name" />
 
-            <!--Speciality-->
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/std_4dp"
-                android:layout_weight="2">
+                    <TextView
+                        android:id="@+id/drNameTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/lbl_no_information"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/std_4dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="@dimen/std_4dp"
-                    android:text="@string/lbl_speciality"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-                    app:drawableStartCompat="@drawable/shape_bullet_gray" />
+                <!--Age -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2"
+                    android:visibility="visible">
 
-                <TextView
-                    android:id="@+id/dr_speciality"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/lbl_no_information"
-                    android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
-                    />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/lblAge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_age + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_age" />
 
-        </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/dr_age_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/lbl_no_information"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
 
-</androidx.cardview.widget.CardView>
+                <!--Qualification-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/lblQualification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_qualification + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_qualification" />
+
+                    <TextView
+                        android:id="@+id/qualification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/lbl_no_information"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+                <!--Speciality-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@string/lbl_speciality"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_speciality" />
+
+                    <TextView
+                        android:id="@+id/tvDrSpeciality"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/lbl_no_information"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

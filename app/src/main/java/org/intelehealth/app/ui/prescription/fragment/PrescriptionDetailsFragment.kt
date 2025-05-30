@@ -24,7 +24,8 @@ import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewMod
  * interface to integrate with the options menu system.
  */
 @AndroidEntryPoint
-class PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_details) {
+class
+PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_details) {
     private lateinit var binding: FragmentPrescriptionDetailsBinding
     val viewModel: PrescriptionDetailsViewModel by viewModels<PrescriptionDetailsViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

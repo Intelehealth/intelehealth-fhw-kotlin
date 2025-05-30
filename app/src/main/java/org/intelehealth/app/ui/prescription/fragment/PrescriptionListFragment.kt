@@ -17,6 +17,7 @@ import org.intelehealth.app.ui.achievement.adapter.AchievementPagerAdapter
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.ui.fragment.MenuFragment
+import androidx.core.view.get
 
 /**
  * Created by Tanvir Hasan on 2-04-25
@@ -96,7 +97,7 @@ class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_lis
      */
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
-        menu.getItem(1).setVisible(false)
+        menu[1].setVisible(false)
     }
 
     /**

@@ -11,23 +11,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/std_16dp">
 
         <ImageView
             android:id="@+id/medicationIcon"
             android:layout_width="@dimen/std_48dp"
             android:layout_height="@dimen/std_48dp"
-            android:layout_margin="@dimen/std_16dp"
+            android:contentDescription="@string/lbl_prescribed_medication"
             android:src="@drawable/ic_medication"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:contentDescription="@string/lbl_prescribed_medication"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/medicationTitle"
-            style="@style/TextAppearance.Material3.TitleLarge"
+            style="@style/Theme.IDA.TextAppearance.Body.Bold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -35,22 +33,21 @@
             android:layout_marginEnd="@dimen/std_8dp"
             android:text="@string/lbl_prescribed_medication"
             app:layout_constraintBottom_toBottomOf="@+id/medicationIcon"
-            app:layout_constraintEnd_toStartOf="@+id/expandBtn"
+            app:layout_constraintEnd_toStartOf="@+id/ivBtnExpandPatientDetails"
             app:layout_constraintStart_toEndOf="@+id/medicationIcon"
             app:layout_constraintTop_toTopOf="@+id/medicationIcon" />
 
         <ImageButton
-            android:id="@+id/expandBtn"
+            android:id="@+id/ivBtnExpandPatientDetails"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/std_48dp"
             android:layout_marginEnd="@dimen/std_16dp"
-            android:background="@null"
+            android:background="@drawable/bg_ripple_icon"
+            android:contentDescription="@string/lbl_expand"
             android:src="@drawable/ic_cupertino_down"
             app:layout_constraintBottom_toBottomOf="@+id/medicationTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/medicationIcon"
-            android:contentDescription="@string/lbl_expand"
-            />
+            app:layout_constraintTop_toTopOf="@+id/medicationTitle" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/medicationInfoInfoExpandableLayoutGroup"
@@ -64,12 +61,9 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_32dp"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:layout_marginBottom="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
             android:background="@color/colorLightGray"
-            app:layout_constraintTop_toBottomOf="@id/medicationTitle" />
+            app:layout_constraintTop_toBottomOf="@id/ivBtnExpandPatientDetails" />
 
         <!-- <androidx.appcompat.widget.LinearLayoutCompat
              android:id="@+id/medicineColumnLay"
@@ -81,8 +75,8 @@
 
         <TextView
             android:id="@+id/drugNameTv"
-            android:layout_width="0dp"
             style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="0dp"
             android:layout_height="@dimen/std_40dp"
             android:gravity="start|center"
             android:paddingStart="@dimen/std_16dp"
@@ -97,9 +91,9 @@
 
         <TextView
             android:id="@+id/dosTv"
+            style="@style/Theme.IDA.TextAppearance.Label"
             android:layout_width="0dp"
             android:layout_height="@dimen/std_40dp"
-            style="@style/Theme.IDA.TextAppearance.Label"
             android:gravity="center"
             android:text="@string/lbl_dos"
             android:textColor="@color/textColorLightGary"
@@ -110,9 +104,9 @@
 
         <TextView
             android:id="@+id/daysTv"
+            style="@style/Theme.IDA.TextAppearance.Label"
             android:layout_width="0dp"
             android:layout_height="@dimen/std_40dp"
-            style="@style/Theme.IDA.TextAppearance.Label"
             android:gravity="center"
             android:text="@string/lbl_days"
             android:textColor="@color/textColorLightGary"
@@ -123,19 +117,18 @@
 
         <TextView
             android:id="@+id/remarksTv"
+            style="@style/Theme.IDA.TextAppearance.Label"
             android:layout_width="0dp"
             android:layout_height="@dimen/std_40dp"
-            style="@style/Theme.IDA.TextAppearance.Label"
             android:gravity="center"
-            android:text="@string/lbl_remarks"
-            android:paddingEnd="@dimen/std_16dp"
             android:paddingStart="@dimen/std_1dp"
+            android:paddingEnd="@dimen/std_16dp"
+            android:text="@string/lbl_remarks"
             android:textColor="@color/textColorLightGary"
             app:layout_constraintBottom_toBottomOf="@+id/dividerTwo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:layout_constraintWidth_percent=".2"
-            />
+            app:layout_constraintWidth_percent=".2" />
 
         <!-- </androidx.appcompat.widget.LinearLayoutCompat>-->
 
@@ -144,16 +137,13 @@
             android:id="@+id/dividerTwo"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:layout_marginBottom="@dimen/std_16dp"
             android:background="@color/colorLightGray"
             app:layout_constraintTop_toBottomOf="@id/remarksTv" />
 
 
         <TextView
             android:id="@+id/medicationsTv"
-            style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+            style="@style/Theme.IDA.TextAppearance.Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/std_16dp"
@@ -161,8 +151,7 @@
             android:text="@string/lbl_no_information"
             app:drawableStartCompat="@drawable/shape_bullet_gray"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dividerTwo"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/dividerTwo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

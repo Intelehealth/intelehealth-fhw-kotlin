@@ -13,20 +13,20 @@
             type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize"
+        android:padding="@dimen/std_16dp">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsvPrescriptionDetails"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="@dimen/std_16dp"
+            android:layout_height="match_parent"
             android:fillViewport="true"
             android:scrollIndicators="none"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/printBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -41,7 +41,6 @@
                     layout="@layout/view_expandable_chw_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -50,11 +49,9 @@
                 <include
                     android:id="@+id/doctorInfoView"
                     layout="@layout/view_expandable_dr_info"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chwInfoView" />
@@ -63,11 +60,9 @@
                 <include
                     android:id="@+id/diagnosisInfoView"
                     layout="@layout/view_expandable_diagnosis_info"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/doctorInfoView" />
@@ -78,9 +73,7 @@
                     layout="@layout/view_expandable_medication_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/diagnosisInfoView" />
@@ -105,9 +98,7 @@
                     layout="@layout/view_expandable_test_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/std_8dp"
                     android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/adviceInfoView" />
@@ -118,9 +109,7 @@
                     layout="@layout/view_expandable_referred_sp_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/std_8dp"
                     android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/testInfoView" />
@@ -138,46 +127,48 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/referredSpInfoView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/printBtn"
-            style="@style/Theme.IDA.Button.Secondary"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginBottom="@dimen/std_16dp"
-            android:padding="@dimen/std_8dp"
-            android:text="@string/action_print"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/scrollView"
-            app:layout_constraintWidth_percent=".45" />
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/shareBtn"
-            style="@style/Theme.IDA.Button.Primary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:layout_marginBottom="@dimen/std_16dp"
-            android:background="@drawable/bg_common_primary"
-            android:padding="@dimen/std_8dp"
-            android:text="@string/action_share"
-            android:textColor="@color/white"
-            android:textSize="@dimen/std_16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent=".45" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/printBtn"
+                style="@style/Theme.IDA.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/std_8dp"
+                android:text="@string/action_print"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/shareBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareBtn"
+                style="@style/Theme.IDA.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_8dp"
+                android:text="@string/action_share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/printBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include
             layout="@layout/view_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_gravity="top|end"
             android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"
             tools:visibility="visible" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

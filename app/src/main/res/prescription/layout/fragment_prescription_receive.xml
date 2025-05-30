@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel" />
@@ -12,8 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      >
+        android:layout_height="match_parent">
 
         <!--Search-->
         <include
@@ -21,10 +21,10 @@
             layout="@layout/view_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:paddingTop="@dimen/std_16dp"
             android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
             android:layout_marginEnd="@dimen/std_16dp"
+            android:paddingTop="@dimen/std_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -115,23 +115,23 @@
             android:id="@+id/progressBarPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:visibility="visible"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <include
-            android:id="@+id/progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/view_progress"
-            tools:visibility="visible"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:visibility="visible" />
+
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/view_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
