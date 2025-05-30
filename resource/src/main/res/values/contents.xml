@@ -90,7 +90,24 @@
     <string name="content_recommend_after_password_change">Your password has been successfully updated. For your security, you have been logged out from application. Please log in again with your new password to continue.</string>
     <string name="content_address_to_other_info">Address to Other info</string>
     <string name="content_personal_to_address_info">Personal to address info</string>
+
+    <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
+    <string name="content_patients_waiting_for_closure"> &lt;b&gt;%s Patients&lt;/b&gt; visits are waiting for closure, please end the visit.</string>
+    <string name="content_decline_consent_message">You will not be able to proceed without providing consent. Are you sure you want to exit?</string>
+    <string name="content_not_provided">Not provided</string>
+    <string name="content_patient_not_registered">Patient not registered</string>
+    <string name="content_visit_details_text">Visit summary</string>
     <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
     <string name="content_calender">Calender</string>
+    <string name="content_chat_fab">chat fab</string>
+    <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
+    <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
+    <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+    <string name="content_pending_visit_msg">Doctor is yet to send the prescriptions for &lt;b&gt; %s patients &lt;/b&gt; you can remind the doctor.</string>
 
+
+
+    //content description
+    <string name="content_search_icon">Search Icon</string>
+    <string name="content_add_icon">Add Icon</string>
 </resources>

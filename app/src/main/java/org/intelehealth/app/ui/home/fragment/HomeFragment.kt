@@ -1,14 +1,13 @@
 package org.intelehealth.app.ui.home.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
@@ -41,7 +40,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         updatePrescriptionStatus()
         updateFollowUpStatus()
         updateAppointmentStatus()
-        handleClick()
+        handleClickEvents()
     }
 
     /**
@@ -49,9 +48,22 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
      *
      * handling all click listeners here
      */
-    private fun handleClick() {
+    private fun handleClickEvents() {
         binding.cardHomeOpenVisits.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
+        }
+        
+        binding.cardHomeAddPatient.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
+        }
+
+        binding.btnFindPatient.setOnClickListener {
+            val patientId = "d2e0b4c3-2c3c-40ec-b9a7-21d59a7c8c7d"
+            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient(patientId))
+        }
+
+        binding.cardHomePrescription.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription())
         }
     }
 

@@ -1,5 +1,7 @@
 package org.intelehealth.data.provider.patient.personal
 
+import org.intelehealth.common.utility.DateTimeUtils
+import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.offline.dao.PatientDao
 import org.intelehealth.data.offline.entity.Patient
 import javax.inject.Inject
@@ -11,11 +13,16 @@ import javax.inject.Inject
  **/
 class PatientPersonalDataRepository @Inject constructor(
     private val patientPersonalDataSource: PatientPersonalDataSource,
+    private val preferenceUtils: PreferenceUtils,
     private val patientDao: PatientDao
 ) {
-    fun getPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
+    suspend fun getPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
 
-    suspend fun insertPatient(patient: Patient) = patientDao.add(patient)
+    suspend fun insertPatient(patient: Patient) = patientDao.add(patient.apply {
+        createdAt = DateTimeUtils.getCurrentDateInUTC(DateTimeUtils.USER_DOB_DB_FORMAT)
+        creatorUuid = preferenceUtils.userId
+        updatedAt = createdAt
+    })
 
     suspend fun updatePatient(patient: Patient) = patientDao.update(patient)
 

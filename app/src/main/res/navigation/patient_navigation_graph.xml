@@ -1,8 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patient_navigation_graph"
-    app:startDestination="@id/fragmentConsent">
+    app:startDestination="@id/fragmentPatientConsent"
+    tools:ignore="InvalidNavigation">
 
-    <include app:graph="@navigation/consent_navigation_graph" />
+    <fragment
+        android:id="@+id/fragmentPatientConsent"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientConsentFragment"
+        android:label=""
+        tools:layout="@layout/fragment_patient_consent">
+
+        <argument
+            android:name="consentArgs"
+            app:argType="org.intelehealth.app.model.ConsentArgs" />
+
+        <action
+            android:id="@+id/action_to_self"
+            app:destination="@id/fragmentPatientConsent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientConsent"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_to_patient_personal_info"
+            app:destination="@id/fragmentPatientPersonalInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientConsent"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPatientPersonalInfo"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientPersonalInfoFragment"
+        android:label="@string/action_add_patient"
+        tools:layout="@layout/fragment_patient_personal_info">
+
+        <argument
+            android:name="patientId"
+            app:argType="string"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_personal_to_address"
+            app:destination="@id/fragmentPatientAddressInfo"
+            app:enterAnim="@null"
+            app:exitAnim="@null"
+            app:popEnterAnim="@null"
+            app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_personal_to_other"
+            app:destination="@id/fragmentPatientOtherInfo"
+            app:enterAnim="@null"
+            app:exitAnim="@null"
+            app:popEnterAnim="@null"
+            app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_personal_to_detail"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientPersonalInfo"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPatientAddressInfo"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientAddressInfoFragment"
+        android:label="@string/action_add_patient"
+        tools:layout="@layout/fragment_patient_address_info">
+
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/action_address_to_other"
+            app:destination="@id/fragmentPatientOtherInfo"
+            app:enterAnim="@null"
+            app:exitAnim="@null"
+            app:popEnterAnim="@null"
+            app:popExitAnim="@null" />
+
+        <action
+            android:id="@+id/action_address_to_detail"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientPersonalInfo"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPatientOtherInfo"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientOtherInfoFragment"
+        android:label="@string/action_add_patient"
+        tools:layout="@layout/fragment_patient_other_info">
+
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+
+        <argument
+            android:name="editMode"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/action_other_to_detail"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/fragmentPatientPersonalInfo"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPatientDetail"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
+        android:label="@string/title_patient_detail"
+        tools:layout="@layout/fragment_patient_detail">
+
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+    </fragment>
 </navigation>

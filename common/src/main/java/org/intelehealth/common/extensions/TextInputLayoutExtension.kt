@@ -93,7 +93,7 @@ fun TextInputLayout.validateDigit(
     error: String,
     minDigit: Int,
 ): Boolean {
-    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit) {
+    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit || input.text?.all { it.isDigit().not() } == true) {
         showError(error)
         false
     } else true
@@ -155,4 +155,11 @@ fun TextInputLayout.validateEmail(input: TextInputEditText, @StringRes resId: In
 fun isValidEmail(email: String): Boolean {
     val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
     return email.matches(emailPattern.toRegex())
+}
+
+fun TextInputLayout.validateDropDowb(input: AutoCompleteTextView, @StringRes resId: Int): Boolean {
+    return if (input.text.isNullOrEmpty()) {
+        showError(resId)
+        false
+    } else true
 }

@@ -57,7 +57,7 @@
                     android:id="@+id/ivHomeAddPatientIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/oval_white_overlay_icon_bg"
+                    android:background="@drawable/bg_oval_white_overlay"
                     android:contentDescription="@string/action_add_patient"
                     android:padding="@dimen/std_12dp"
                     android:src="@drawable/ic_unselected_menu_add_patient"
@@ -84,7 +84,7 @@
                     android:id="@+id/ivHomeAddPatientNavigate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/oval_black_overlay_icon_bg"
+                    android:background="@drawable/bg_oval_black_overlay"
                     android:contentDescription="@string/action_add_patient"
                     android:padding="@dimen/std_8dp"
                     android:src="@drawable/ic_arrow_next"
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvHomePrescriptionReceivedCount"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:background="@drawable/oval_accent_icon_bg"
+                    android:background="@drawable/bg_oval_accent_icon"
                     android:contentDescription="@string/lbl_previous"
                     android:src="@drawable/ic_arrow_next"
                     app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +148,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvHomeOpenVisitsCount"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:background="@drawable/oval_primary_icon_bg"
+                    android:background="@drawable/bg_oval_primary_icon"
                     android:contentDescription="@string/lbl_open_visits"
                     android:src="@drawable/ic_arrow_next"
                     app:layout_constraintStart_toStartOf="parent"
@@ -212,7 +212,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"

@@ -16,6 +16,7 @@ import org.intelehealth.common.extensions.show
 @SuppressLint("ClickableViewAccessibility")
 abstract class BaseProgressFragment(@LayoutRes layoutResId: Int) : StateFragment(layoutResId), View.OnTouchListener {
     private lateinit var progressBinding: ViewProgressBinding
+    private lateinit var progressPage: View
 
     fun bindProgressView(progressBinding: ViewProgressBinding) {
         this.progressBinding = progressBinding
@@ -24,22 +25,46 @@ abstract class BaseProgressFragment(@LayoutRes layoutResId: Int) : StateFragment
         this.progressBinding.progressLayout.setOnTouchListener(this)
     }
 
+    fun bindProgressView(progressBinding: ViewProgressBinding, progressPage: View) {
+        this.progressBinding = progressBinding
+        this.progressBinding.progressLayout.isClickable = false
+        this.progressBinding.progressLayout.setOnClickListener(null)
+        this.progressBinding.progressLayout.setOnTouchListener(this)
+
+        this.progressPage = progressPage
+        this.progressPage.isClickable = false
+        this.progressPage.setOnClickListener(null)
+        this.progressPage.setOnTouchListener(this)
+    }
+
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
         return true
     }
 
     override fun showLoading() {
         super.showLoading()
-        progressBinding.progressLayout.show()
+        if (::progressBinding.isInitialized) progressBinding.progressLayout.show()
     }
 
     override fun hideLoading() {
         super.hideLoading()
-        progressBinding.progressLayout.hide()
+        if (::progressBinding.isInitialized) progressBinding.progressLayout.hide()
     }
+
+    override fun showPageLoading() {
+        super.showPageLoading()
+        if(::progressPage.isInitialized) progressPage.show()
+    }
+
+    override fun hidePageLoading() {
+        super.hidePageLoading()
+        if(::progressPage.isInitialized) progressPage.hide()
+    }
+
 
     override fun onConnectionLost() {
         super.onConnectionLost()
         hideLoading()
+        hidePageLoading()
     }
 }

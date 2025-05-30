@@ -9,4 +9,5 @@ object CommonConstants {
     const val MIN_PASSWORD_LENGTH = 8
     const val MAX_PROGRESS = 100
     const val HTTP_REQ_TIMEOUT = 180L
+    const val LIMIT = 10
 }

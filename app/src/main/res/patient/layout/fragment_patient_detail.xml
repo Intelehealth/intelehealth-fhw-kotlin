@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="addressActiveStatus"
+            type="Boolean" />
+
+        <variable
+            name="otherActiveStatus"
+            type="Boolean" />
+
+        <variable
+            name="patient"
+            type="org.intelehealth.data.offline.entity.Patient" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:padding="@dimen/std_16dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--Header Content-->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mcvPatientDetailHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="@dimen/std_8dp"
+                    app:cardElevation="@dimen/std_2dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/std_8dp">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivPatientDb"
+                            android:layout_width="@dimen/std_48dp"
+                            android:layout_height="@dimen/std_48dp"
+                            android:layout_centerHorizontal="true"
+                            android:contentDescription="@string/title_my_profile"
+                            android:src="@drawable/avatar1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+                        <!--Name and SubTitle-->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvPatientFullName"
+                            style="@style/Theme.IDA.TextAppearance.Body"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/std_16dp"
+                            android:text="@{patient.fullName}"
+                            app:layout_constraintBottom_toTopOf="@id/tvPatientOpenMrsId"
+                            app:layout_constraintStart_toEndOf="@id/ivPatientDb"
+                            app:layout_constraintTop_toTopOf="@id/ivPatientDb"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="@string/lbl_name" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvPatientOpenMrsId"
+                            style="@style/Theme.IDA.TextAppearance.Label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/std_16dp"
+                            android:placeholder="@{@string/content_patient_not_registered}"
+                            android:text="@{patient.openMrsId}"
+                            app:layout_constraintBottom_toBottomOf="@id/ivPatientDb"
+                            app:layout_constraintStart_toEndOf="@id/ivPatientDb"
+                            app:layout_constraintTop_toBottomOf="@id/tvPatientFullName"
+                            tools:text="123GQ-5" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentPersonalDetails"
+                    android:name="org.intelehealth.app.ui.patient.fragment.PersonalDetailFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mcvPatientDetailHeader" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentAddressDetails"
+                    android:name="org.intelehealth.app.ui.patient.fragment.AddressDetailFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:visibility="@{addressActiveStatus ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragmentPersonalDetails" />
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentOtherDetails"
+                    android:name="org.intelehealth.app.ui.patient.fragment.OtherDetailFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:visibility="@{otherActiveStatus ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragmentAddressDetails" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHouseholdSurvey"
+                style="@style/Theme.IDA.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/std_16dp"
+                android:text="@string/action_household_survey"
+                app:backgroundTint="@color/orange"
+                app:layout_constraintBottom_toTopOf="@id/btnStartVisit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStartVisit"
+                style="@style/Theme.IDA.Button.Next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/action_start_visit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

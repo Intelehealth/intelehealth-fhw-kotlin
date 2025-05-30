@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.state.Result
+import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.KEY_ATTRIBUTE_TYPE_ID
 import org.intelehealth.data.network.KEY_ENCOUNTER_ROLE
@@ -33,6 +34,9 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 import org.intelehealth.data.provider.utils.EncounterType
 import org.intelehealth.data.provider.utils.PersonIdentifier
 import org.intelehealth.data.provider.utils.ProviderRole
+import java.time.LocalDate
+import java.util.Date
+import java.util.TimeZone
 import javax.inject.Inject
 
 /**
@@ -46,12 +50,19 @@ class SyncDataRepository @Inject constructor(
     private val dataSource: SyncDataSource,
     val preferenceUtils: PreferenceUtils
 ) {
-    fun pullData(pageNo: Int, pageLimit: Int = 50): Flow<Result<BaseResponse<String, PullResponse>>> {
+    fun pullData(
+        pageNo: Int,
+        pageLimit: Int = 50
+    ): Flow<Result<BaseResponse<String, PullResponse>>> {
         val locationStr = preferenceUtils.location
         val location = Gson().fromJson(locationStr, SetupLocation::class.java)
         location?.uuid ?: throw NotFoundException("Location not found")
         return dataSource.pullData(
-            preferenceUtils.basicToken, location.uuid!!, preferenceUtils.lastSyncedTime, pageNo, pageLimit
+            preferenceUtils.basicToken,
+            location.uuid!!,
+            preferenceUtils.lastSyncedTime,
+            pageNo,
+            pageLimit
         )
     }
 
@@ -85,7 +96,16 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun saveVisitData(pullResponse: PullResponse) {
-        if (pullResponse.visitlist.isNotEmpty()) db.visitDao().insert(pullResponse.visitlist)
+        if (pullResponse.visitlist.isNotEmpty()) {
+            pullResponse.visitlist.map {
+                it.startDate = DateTimeUtils.formatOneToAnother(
+                    it.startDate,
+                    DateTimeUtils.SERVER_FORMAT,
+                    DateTimeUtils.USER_DOB_DB_FORMAT,
+                )
+                db.visitDao().insert(pullResponse.visitlist)
+            }
+        }
         if (pullResponse.visitAttributeList.isNotEmpty()) {
             pullResponse.visitAttributeList.map { it.synced = true }.apply {
                 db.visitAttributeDao().insert(pullResponse.visitAttributeList)
@@ -94,7 +114,8 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun saveEncounterData(pullResponse: PullResponse) {
-        if (pullResponse.encounterlist.isNotEmpty()) db.encounterDao().insert(pullResponse.encounterlist)
+        if (pullResponse.encounterlist.isNotEmpty()) db.encounterDao()
+            .insert(pullResponse.encounterlist)
     }
 
     private suspend fun saveObservationData(pullResponse: PullResponse) {
@@ -134,11 +155,14 @@ class SyncDataRepository @Inject constructor(
 
     suspend fun pushData() = withContext(Dispatchers.IO) {
         val patients = async { db.patientDao().getAllUnsyncedPatients() }.await()
-        val patientAttrs = async { db.patientAttrDao().getPatientAttributes(patients.map { it.uuid }) }.await()
+        val patientAttrs =
+            async { db.patientAttrDao().getPatientAttributes(patients.map { it.uuid }) }.await()
         val visits = async { db.visitDao().getAllUnsyncedVisits() }.await()
-        val visitAttrs = async { db.visitAttributeDao().getVisitAttributes(visits.map { it.uuid }) }.await()
+        val visitAttrs =
+            async { db.visitAttributeDao().getVisitAttributes(visits.map { it.uuid }) }.await()
         val encounters = async { db.encounterDao().getAllUnsyncedEncounters() }.await()
-        val normalEncounter = encounters?.filter { it.encounterTypeUuid != EncounterType.EMERGENCY.value }
+        val normalEncounter =
+            encounters?.filter { it.encounterTypeUuid != EncounterType.EMERGENCY.value }
         val observations: List<Observation>? = normalEncounter?.let {
             return@let async {
                 db.observationDao().getAllUnsyncedObservations(it.map { it.uuid })
@@ -201,7 +225,12 @@ class SyncDataRepository @Inject constructor(
     ): List<Person> {
         val personList = mutableListOf<Person>()
         return withContext(Dispatchers.IO) {
-            patients.forEach { patient -> getPerson(patient, patientAttrs).also { personList.add(it) } }
+            patients.forEach { patient ->
+                getPerson(
+                    patient,
+                    patientAttrs
+                ).also { personList.add(it) }
+            }
             return@withContext personList
         }
     }

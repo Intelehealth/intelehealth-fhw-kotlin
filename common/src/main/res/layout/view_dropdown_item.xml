@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/text1"
     style="@style/Theme.IDA.TextAppearance.Label"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bottom_divider_bg"
+    android:background="@drawable/bg_divider"
     android:gravity="start|center_vertical"
     android:maxLines="1"
     android:minHeight="@dimen/std_48dp"
     android:padding="@dimen/std_8dp"
     android:textColor="@color/colorTextPrimary"
     tools:text="Headache" />
-

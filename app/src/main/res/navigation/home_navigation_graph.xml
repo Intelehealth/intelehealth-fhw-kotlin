@@ -14,7 +14,26 @@
         <action
             android:id="@+id/action_nav_home_to_nav_open_visits"
             app:destination="@id/nav_open_visits" />
+      
+        <action
+            android:id="@+id/action_home_to_add_patient"
+            app:destination="@id/nav_add_patient"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_home_to_find_patient"
+            app:destination="@id/fragmentPatientDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_prescription"
+            app:destination="@id/nav_prescription" />
     </fragment>
 
     <fragment
@@ -44,7 +63,7 @@
         android:id="@+id/nav_add_patient"
         android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
         android:label="@string/action_add_patient"
-        tools:layout="@layout/activity_test" />
+        tools:layout="@layout/activity_patient_registration" />
 
     <activity
         android:id="@+id/nav_setting"
@@ -75,5 +94,22 @@
         android:name="org.intelehealth.app.ui.visit.activity.OpenVisitsActivity"
         android:label="@string/lbl_open_visits"
         tools:layout="@layout/activity_open_visits" />
+  
+    <activity
+        android:id="@+id/nav_prescription"
+        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"
+        android:label="@string/title_prescriptions"
+        tools:layout="@layout/activity_prescription" />
 
+
+    <fragment
+        android:id="@+id/fragmentPatientDetail"
+        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
+        android:label="@string/title_patient_detail"
+        tools:layout="@layout/fragment_patient_detail">
+
+        <argument
+            android:name="patientId"
+            app:argType="string" />
+    </fragment>
 </navigation>

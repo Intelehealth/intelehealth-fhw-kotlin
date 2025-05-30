@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chwDetailsCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/std_16dp"
+    app:cardCornerRadius="@dimen/std_4dp"
+    app:cardElevation="@dimen/std_4dp"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profileImage"
+            android:layout_width="@dimen/std_40dp"
+            android:layout_height="@dimen/std_40dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/std_16dp"
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/std_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/std_40dp"
+                android:layout_height="@dimen/std_40dp"
+                android:src="@drawable/img_avatar"
+                android:contentDescription="@string/lbl_profile_image"
+                />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:maxLines="1"
+            android:text="@string/lbl_dummy_name"
+            style="@style/Theme.IDA.TextAppearance.Primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/ageGenderTv"
+            app:layout_constraintStart_toStartOf="@+id/openMrsIdTv"
+            app:layout_constraintTop_toTopOf="@+id/profileImage"
+            app:layout_constraintWidth_percent=".4" />
+
+        <TextView
+            android:id="@+id/ageGenderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_gender_with_age"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+            android:textColor="@null"
+            android:textSize="@dimen/std_14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/nameTv"
+            app:layout_constraintStart_toEndOf="@+id/nameTv"
+            app:layout_constraintTop_toTopOf="@+id/nameTv" />
+
+
+        <ImageView
+            android:id="@+id/editImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:padding="@dimen/std_4dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/ageGenderTv"
+            app:layout_constraintStart_toEndOf="@+id/ageGenderTv"
+            app:layout_constraintTop_toTopOf="@+id/ageGenderTv"
+            android:contentDescription="@string/lbl_edit"
+            />
+
+
+        <TextView
+            android:id="@+id/openMrsIdTv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="@dimen/std_2dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_openmrs_id"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+            android:textColor="@null"
+            android:textSize="@dimen/std_14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintStart_toEndOf="@+id/profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+
+
+        <ImageButton
+            android:id="@+id/expandBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:background="@null"
+            android:src="@drawable/ic_cupertino_down"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/editImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3"
+            android:contentDescription="@string/lbl_expand"
+            />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/chwInfoExpandableLayoutGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="divider, tableLayout"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/std_32dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/openMrsIdTv"/>
+
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_margin="@dimen/std_16dp"
+            android:shrinkColumns="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
+                    android:layout_weight="1"
+                    app:drawableStartCompat="@drawable/shape_bullet_gray"
+                    android:drawablePadding="5dp"
+                    android:text="@string/lbl_chw_worker"
+                    style="@style/Theme.IDA.TextAppearance.Secondary"
+                    />
+
+                <TextView
+                    android:id="@+id/chw_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_chw_name"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+
+            <!--Gender-->
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:layout_weight="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="@dimen/std_4dp"
+                    android:layout_weight="1"
+                    app:drawableStartCompat="@drawable/shape_bullet_gray"
+                    android:drawablePadding="5dp"
+                    android:text="@string/lbl_visit_id"
+                    style="@style/Theme.IDA.TextAppearance.Secondary"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_visit_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/lbl_dummy_visit_id"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/std_14sp" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

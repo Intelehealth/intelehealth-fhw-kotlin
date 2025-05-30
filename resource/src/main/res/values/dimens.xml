@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="std_05dp">0.5dp</dimen>
     <dimen name="std_1dp">1dp</dimen>
     <dimen name="std_2dp">2dp</dimen>
     <dimen name="std_4dp">4dp</dimen>

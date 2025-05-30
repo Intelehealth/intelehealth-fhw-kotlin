@@ -8,6 +8,7 @@ import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentAyuPolicyBinding
+import org.intelehealth.app.model.ConsentArgs
 import org.intelehealth.common.extensions.enableMovementMethod
 import org.intelehealth.common.extensions.setClickableText
 import org.intelehealth.resource.R as ResourceR
@@ -67,13 +68,15 @@ class AyuPolicyFragment : Fragment(R.layout.fragment_ayu_policy) {
         Timber.d { termAndCondition }
         Timber.d { privacyPolicy }
         binding.tvPrivacyNoticeLink1.setClickableText(termAndCondition) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.TERMS_AND_CONDITIONS, null, null).apply {
+            val args = ConsentArgs(ConsentArgs.ConsentType.TERMS_AND_CONDITIONS, null, null)
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(args).apply {
                 findNavController().navigate(this)
             }
         }
 
         binding.tvPrivacyNoticeLink1.setClickableText(privacyPolicy) {
-            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(ConsentType.PRIVACY_POLICY, null, null).apply {
+            val args = ConsentArgs(ConsentArgs.ConsentType.PRIVACY_POLICY, null, null)
+            AyuPolicyFragmentDirections.actionAyuPolicyToConsent(args).apply {
                 findNavController().navigate(this)
             }
         }
