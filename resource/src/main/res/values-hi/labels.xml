@@ -141,4 +141,7 @@
     <string name="lbl_progressIndicator">Progress Indicator</string>
     <string name="lbl_whatsapp">Whatsapp</string>
     <string name="lbl_call">Call</string>
+
+    <string name="lbl_date_recent">At 3:15 pm</string>
+    <string name="lbl_date_older">24 June</string>
 </resources>

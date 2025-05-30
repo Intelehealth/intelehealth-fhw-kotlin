@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/prescription_navigation_graph"
+    app:startDestination="@id/visitDetailsFragment">
+    <fragment
+        android:id="@+id/visitDetailsFragment"
+        android:name="org.intelehealth.app.ui.visit.fragment.VisitDetailsFragment"
+        android:label="@string/title_visit_details">
+        <action
+            android:id="@+id/action_visit_detail_to_prescription_detail"
+            app:destination="@id/prescriptionDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionDetailsFragment"
+        android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionDetailsFragment"
+        android:label="@string/title_prescription_details" />
+</navigation>

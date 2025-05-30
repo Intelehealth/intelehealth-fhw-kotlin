@@ -50,10 +50,10 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 
 @Database(
     entities = [
-        Appointment::class,Concept::class, Encounter::class,FollowupScheduleNotification::class,
-        LocalNotification::class,MediaRecord::class,Observation::class,Patient::class,PatientAttribute::class,
-        PatientAttributeTypeMaster::class,PatientLocation::class,Provider::class,ProviderAttribute::class,
-        User::class,UserSession::class,Visit::class,VisitAttribute::class
+        Appointment::class, Concept::class, Encounter::class, FollowupScheduleNotification::class,
+        LocalNotification::class, MediaRecord::class, Observation::class, Patient::class, PatientAttribute::class,
+        PatientAttributeTypeMaster::class, PatientLocation::class, Provider::class, ProviderAttribute::class,
+        User::class, UserSession::class, Visit::class, VisitAttribute::class
     ],
     version = 1,
     exportSchema = false

@@ -4,20 +4,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
-       >
+        android:layout_height="match_parent">
 
         <!--Top Tabbar Layout-->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/prescriptionTabLayout"
+            style="@style/Theme.IDA.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Theme.IDA.TabLayout"
+            android:layout_marginHorizontal="@dimen/std_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--ViewPager to load prescriptions-->
         <androidx.viewpager2.widget.ViewPager2

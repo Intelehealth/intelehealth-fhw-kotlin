@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.text.Html" />
+
         <variable
             name="text"
             type="String" />
@@ -47,7 +49,7 @@
                 android:layout_marginEnd="@dimen/std_16dp"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="@dimen/std_4dp"
-                android:text='@{text == null ? "" :Html.fromHtml(text)}'
+                android:text='@{text == null ? "" :text}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iconArrowRight"
                 app:layout_constraintStart_toEndOf="@id/iconVisitDetails"

@@ -90,9 +90,6 @@
     <string name="lbl_contact_type">Emergency Contact Type</string>
     <string name="lbl_emergency_contact">Emergency Contact number</string>
     <string name="lbl_emergency_contact_name">Emergency Contact Name</string>
-    <string name="lbl_gender_with_age">M 22</string>
-    <string name="lbl_card_item_date">Follow up on 12 June</string>
-    <string name="lbl_close_visit">Close Visit</string>
     <string name="lbl_date_recent">At 3:15 pm</string>
     <string name="lbl_date_older">24 June</string>
     <string name="lbl_details">Details</string>

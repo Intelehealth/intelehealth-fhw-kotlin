@@ -32,11 +32,11 @@ import org.intelehealth.common.ui.viewholder.BaseViewHolder
 @AndroidEntryPoint
 class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_prescription_pending),
     BaseViewHolder.ViewHolderClickListener {
-    lateinit var binding: FragmentPrescriptionPendingBinding
+    private lateinit var binding: FragmentPrescriptionPendingBinding
     override val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
 
-    var recentAdapter: PrescriptionRecyclerViewAdapter? = null
-    var pendingAdapter: PrescriptionRecyclerViewAdapter? = null
+    private var recentAdapter: PrescriptionRecyclerViewAdapter? = null
+    private var pendingAdapter: PrescriptionRecyclerViewAdapter? = null
 
     /**
      * Called immediately after the Fragment's view has been created.
@@ -190,6 +190,6 @@ class PrescriptionPendingFragment : BaseProgressFragment(R.layout.fragment_presc
      * position - The position of the clicked item in the RecyclerView.
      */
     override fun onViewHolderViewClicked(view: View?, position: Int) {
-        findNavController().navigate(PrescriptionListFragmentDirections.actionNavPrescriptionListToVisitDetailsFragment())
+        findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails())
     }
 }

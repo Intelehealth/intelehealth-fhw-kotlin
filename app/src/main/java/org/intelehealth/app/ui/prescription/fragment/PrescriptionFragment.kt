@@ -6,18 +6,19 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.resource.R as resourceR
-import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
-import org.intelehealth.app.ui.achievement.adapter.AchievementPagerAdapter
+import org.intelehealth.app.databinding.FragmentPrescriptionBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.ui.fragment.MenuFragment
-import androidx.core.view.get
+import org.intellij.lang.annotations.JdkConstants.TitledBorderTitlePosition
+import org.intelehealth.resource.R as resourceR
 
 /**
  * Created by Tanvir Hasan on 2-04-25
@@ -28,16 +29,16 @@ import androidx.core.view.get
  * Uses tabs to separate "Received" and "Pending" prescriptions.
  */
 @AndroidEntryPoint
-class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_list) {
-    private lateinit var binding: FragmentPrescriptionListBinding
-    val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
-    lateinit var adapter: PrescriptionPagerAdapter
+class PrescriptionFragment : MenuFragment(R.layout.fragment_prescription) {
+    private lateinit var binding: FragmentPrescriptionBinding
+    private val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
+    private lateinit var adapter: PrescriptionPagerAdapter
+    private val args: PrescriptionFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPrescriptionListBinding.bind(view)
+        binding = FragmentPrescriptionBinding.bind(view)
         bindViewPager()
-        bindObserver()
     }
 
     /**
@@ -47,31 +48,18 @@ class PrescriptionListFragment : MenuFragment(R.layout.fragment_prescription_lis
     private fun bindViewPager() {
         adapter = PrescriptionPagerAdapter(requireActivity())
         binding.prescriptionViewPager.adapter = adapter
-        TabLayoutMediator(
-            binding.prescriptionTabLayout, binding.prescriptionViewPager
-        ) { tab, position ->
-            tab.text = adapter.getTitle(position)
-            tab.icon =
-                ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_presc_tablayout)
+        TabLayoutMediator(binding.prescriptionTabLayout, binding.prescriptionViewPager) { tab, position ->
+            setTabTitle(tab, position)
         }.attach()
     }
 
-    /**
-     * Observes prescription count changes from the ViewModel to update tab titles.
-     * If the ViewPager adapter is initialized, it listens for updates to the number
-     * of received and pending prescriptions and updates the respective tab titles to include these counts.
-     *
-     */
-    private fun bindObserver() {
-        if (::adapter.isInitialized) {
-            viewModel.prescriptionCount().observe(viewLifecycleOwner) {
-                binding.prescriptionTabLayout.getTabAt(0)?.text =
-                    "${adapter.getTitle(0)}(${it.received})"
-                binding.prescriptionTabLayout.getTabAt(1)?.text =
-                    "${adapter.getTitle(1)}(${it.pending})"
-            }
+    private fun setTabTitle(tab: TabLayout.Tab, position: Int) {
+        if (position == 0) {
+            tab.text = "${adapter.getTitle(position)} (${args.prescriptionCount.received})"
+        } else {
+            tab.text = "${adapter.getTitle(position)} (${args.prescriptionCount.pending})"
         }
-
+        tab.icon = ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_presc_tablayout)
     }
 
     /**

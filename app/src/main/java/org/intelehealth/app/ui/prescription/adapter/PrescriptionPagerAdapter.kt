@@ -15,10 +15,7 @@ import org.intelehealth.app.ui.prescription.fragment.PrescriptionReceiveFragment
  * PrescriptionViewHolder: Manages a single prescription item view in a RecyclerView.
  * Binds patient data to the item layout and handles click events.
  */
-class PrescriptionPagerAdapter(
-    fragmentActivity: FragmentActivity,
-) :
-    FragmentStateAdapter(fragmentActivity) {
+class PrescriptionPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
     /**
      * Retrieves the tab titles from the string array resource R.array.tab_prescription_title.
@@ -49,7 +46,7 @@ class PrescriptionPagerAdapter(
      * The number of tabs (always 2).
      */
     override fun getItemCount(): Int {
-        return 2
+        return fragments.size
     }
 
     /**

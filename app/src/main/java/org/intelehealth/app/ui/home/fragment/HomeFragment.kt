@@ -52,7 +52,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         binding.cardHomeOpenVisits.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
         }
-        
+
         binding.cardHomeAddPatient.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
@@ -63,7 +63,9 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.cardHomePrescription.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription())
+            binding.presCount?.let {
+                findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription(it))
+            }
         }
     }
 

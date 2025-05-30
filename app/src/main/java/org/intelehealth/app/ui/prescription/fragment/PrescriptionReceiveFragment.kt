@@ -29,7 +29,7 @@ import org.intelehealth.common.ui.viewholder.BaseViewHolder
 @AndroidEntryPoint
 class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_prescription_receive),
     BaseViewHolder.ViewHolderClickListener {
-    lateinit var binding: FragmentPrescriptionReceiveBinding
+    private lateinit var binding: FragmentPrescriptionReceiveBinding
     override val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
 
     private var recentReceivedAdapter: PrescriptionRecyclerViewAdapter? = null
@@ -180,7 +180,7 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
      * @param position The adapter position of the clicked item.
      */
     override fun onViewHolderViewClicked(view: View?, position: Int) {
-        findNavController().navigate(PrescriptionListFragmentDirections.actionNavPrescriptionListToVisitDetailsFragment())
+        findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails())
     }
 
 }

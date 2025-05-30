@@ -38,7 +38,7 @@ interface VisitDao : CoreDao<Visit> {
                 + " encounter_type_uuid =:visitSurveyExitId) THEN 'Completed' "
                 + " WHEN uuid in (select visituuid from tbl_encounter where encounter_type_uuid =:visitCompletedId) "
                 + " THEN  'Received' " + "WHEN uuid not in (select visituuid from tbl_encounter where "
-                + " encounter_type_uuid =:visitSurveyExitId) THEN  'Pending' "
+                + " encounter_type_uuid in (:visitSurveyExitId, :visitCompletedId)) THEN  'Pending' "
                 + " END AS product_category, count(uuid) AS total FROM tbl_visit GROUP BY product_category) as custom)"
     )
     fun getVisitStatusCount(

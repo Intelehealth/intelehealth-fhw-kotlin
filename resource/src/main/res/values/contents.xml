@@ -92,12 +92,11 @@
     <string name="content_personal_to_address_info">Personal to address info</string>
 
     <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
-    <string name="content_patients_waiting_for_closure"> &lt;b&gt;%s Patients&lt;/b&gt; visits are waiting for closure, please end the visit.</string>
+    <string name="content_patients_waiting_for_closure"> &lt;b&gt;%1$s Patients&lt;/b&gt; visits are waiting for closure, please end the visit.</string>
     <string name="content_decline_consent_message">You will not be able to proceed without providing consent. Are you sure you want to exit?</string>
     <string name="content_not_provided">Not provided</string>
     <string name="content_patient_not_registered">Patient not registered</string>
     <string name="content_visit_details_text">Visit summary</string>
-    <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
     <string name="content_calender">Calender</string>
     <string name="content_chat_fab">chat fab</string>
     <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>

@@ -52,7 +52,7 @@ PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_detail
      *
      * Called every time the menu is about to be shown. Use to dynamically update menu items.
      *
-     * @param menu The menu to prepare.
+     * @param menuItem The menu to prepare.
      * @return True to display the menu, false otherwise.
      */
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

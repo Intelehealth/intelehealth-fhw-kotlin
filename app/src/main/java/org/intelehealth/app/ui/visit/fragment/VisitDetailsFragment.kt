@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentVisitDetailsBinding
-import org.intelehealth.app.ui.prescription.fragment.PrescriptionListFragmentDirections
 import org.intelehealth.common.ui.fragment.MenuFragment
 
 /**
@@ -50,7 +49,7 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
      */
     private fun setupClickListeners() {
         binding.prescriptionView.prescriptionBlock.setOnClickListener {
-           findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailsFragmentToPrescriptionDetailsFragment())
+           findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
         }
     }
 

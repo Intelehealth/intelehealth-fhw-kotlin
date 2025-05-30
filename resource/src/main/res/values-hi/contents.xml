@@ -99,9 +99,9 @@
     <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
     <string name="content_calender">कैलेंडर</string>
     <string name="content_chat_fab">chat fab</string>
-    <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
-    <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
-    <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+    <string name="content_followup_info">कृपया %1$s की फ़ॉलो-अप विज़िट लें।</string>
+    <string name="content_followup_visit_info">डॉक्टर ने %1$s को फ़ॉलो-अप विज़िट का सुझाव दिया है। क्या मरीज़ फ़ॉलो-अप विज़िट लेना चाहता है?</string>
+    <string name="content_test_received_2_hours_ago">परीक्षण: 2 घंटे पहले प्राप्त हुआ</string>
     <string name="content_pending_visit_msg">डॉक्टर द्वारा मरीजों को प्रिस्क्रिप्शन भेजा जाना बाकी है <b> %s रोगी </b> आप डॉक्टर को याद दिला सकते हैं।</string>
 
     //content description

@@ -14,7 +14,7 @@
         <action
             android:id="@+id/action_nav_home_to_nav_open_visits"
             app:destination="@id/nav_open_visits" />
-      
+
         <action
             android:id="@+id/action_home_to_add_patient"
             app:destination="@id/nav_add_patient"
@@ -94,12 +94,12 @@
         android:name="org.intelehealth.app.ui.visit.activity.OpenVisitsActivity"
         android:label="@string/lbl_open_visits"
         tools:layout="@layout/activity_open_visits" />
-  
-    <activity
-        android:id="@+id/nav_prescription"
-        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"
-        android:label="@string/title_prescriptions"
-        tools:layout="@layout/activity_prescription" />
+
+    <!--    <activity-->
+    <!--        android:id="@+id/nav_prescription"-->
+    <!--        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"-->
+    <!--        android:label="@string/title_prescriptions"-->
+    <!--        tools:layout="@layout/activity_prescription" />-->
 
 
     <fragment
@@ -112,4 +112,29 @@
             android:name="patientId"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_prescription"
+        android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionFragment"
+        android:label="@string/title_prescriptions"
+        tools:layout="@layout/fragment_prescription">
+
+        <argument
+            android:name="prescriptionCount"
+            app:argType="org.intelehealth.data.offline.entity.PrescriptionStatusCount" />
+
+        <action
+            android:id="@+id/action_nav_prescription_to_visit_details"
+            app:destination="@id/nav_visit_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <activity
+        android:id="@+id/nav_visit_details"
+        android:name="org.intelehealth.app.ui.visit.activity.VisitDetailActivity"
+        android:label="@string/title_visit_details"
+        tools:layout="@layout/activity_visit_detail" />
 </navigation>

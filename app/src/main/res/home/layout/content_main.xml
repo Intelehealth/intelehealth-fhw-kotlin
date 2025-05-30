@@ -16,7 +16,6 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="?actionBarSize"
             app:defaultNavHost="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:navGraph="@navigation/home_navigation_graph" />
@@ -35,6 +34,7 @@
             app:itemRippleColor="?attr/colorPrimary"
             app:itemTextColor="@color/color_bottom_nav_icon"
             app:labelVisibilityMode="labeled"
+            app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior"
             app:menu="@menu/menu_home_footer" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

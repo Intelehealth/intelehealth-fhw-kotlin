@@ -4,3 +4,9 @@ Pending
 - Add patient consent configuration
 - Nas: add family members
 - Patient profile picture uploading
+
+Tanvir code review
+1. Member variable must be declared with `private` access modifier if not used outside the class.
+2. When we can pass the PrescriptionStatusCount as argument then why we have called the
+function `getPrescriptionStatusCount` to show the received and pending count?
+3. Can we not use same prescription fragment for both received and pending prescriptions?
