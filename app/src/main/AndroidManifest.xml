@@ -68,6 +68,10 @@
             android:exported="true"
             android:theme="@style/Theme.IDA.Transparent" />
 
+        <activity
+            android:name=".ui.visit.activity.OpenVisitsActivity"
+            android:exported="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

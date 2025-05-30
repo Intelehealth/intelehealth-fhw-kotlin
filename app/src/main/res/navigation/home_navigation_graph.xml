@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_home">
 
         <action
+            android:id="@+id/action_nav_home_to_nav_open_visits"
+            app:destination="@id/nav_open_visits" />
+      
+        <action
             android:id="@+id/action_home_to_add_patient"
             app:destination="@id/nav_add_patient"
             app:enterAnim="@anim/slide_in_right"
@@ -85,6 +89,12 @@
             app:argType="string" />
     </activity>
 
+    <activity
+        android:id="@+id/nav_open_visits"
+        android:name="org.intelehealth.app.ui.visit.activity.OpenVisitsActivity"
+        android:label="@string/lbl_open_visits"
+        tools:layout="@layout/activity_open_visits" />
+  
     <activity
         android:id="@+id/nav_prescription"
         android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"

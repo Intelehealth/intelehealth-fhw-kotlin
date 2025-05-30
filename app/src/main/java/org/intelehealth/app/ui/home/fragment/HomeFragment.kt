@@ -43,7 +43,16 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         handleClickEvents()
     }
 
+    /**
+     * Sets up the click listener
+     *
+     * handling all click listeners here
+     */
     private fun handleClickEvents() {
+        binding.cardHomeOpenVisits.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
+        }
+        
         binding.cardHomeAddPatient.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
