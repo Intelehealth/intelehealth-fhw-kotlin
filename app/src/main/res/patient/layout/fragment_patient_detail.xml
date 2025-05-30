@@ -59,7 +59,7 @@
                             android:layout_height="@dimen/std_48dp"
                             android:layout_centerHorizontal="true"
                             android:contentDescription="@string/title_my_profile"
-                            android:src="@drawable/avatar1"
+                            android:src="@drawable/img_avatar"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"

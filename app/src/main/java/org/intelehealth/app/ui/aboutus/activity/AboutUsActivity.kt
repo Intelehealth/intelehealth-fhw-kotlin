@@ -72,7 +72,7 @@ class AboutUsActivity : SimpleAppBarActivity() {
      */
     private fun setThumbnailList() {
         AboutUsThumbAdapter(this, arrayListOf<Int>().apply {
-            add(R.drawable.img_about_us_11) // Assuming R.drawable.about_us_11 is a placeholder
+            add(R.drawable.about_us_11) // Assuming R.drawable.about_us_11 is a placeholder
         }).apply {
             binding.contentViewAboutUs.rvAboutUsThumbnail.setupHorizontalLinearView(this)
         }

@@ -64,7 +64,7 @@ interface VisitDao : CoreDao<Visit> {
     ): LiveData<Int>
 
     @Query(
-        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.phone_number, "
+        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, "
                 + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
                 + "o.obsservermodifieddate,o.synced AS osync, "
                 + "(SELECT COUNT(*) FROM tbl_encounter e1 WHERE "
@@ -106,7 +106,7 @@ interface VisitDao : CoreDao<Visit> {
 
 
     @Query(
-        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.phone_number, "
+        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, "
                 + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
                 + "o.obsservermodifieddate,o.synced AS osync, "
                 + "(SELECT COUNT(*) FROM tbl_encounter e1 WHERE "

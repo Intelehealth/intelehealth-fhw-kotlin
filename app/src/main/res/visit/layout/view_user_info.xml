@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_4dp"
             android:padding="@dimen/std_4dp"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_patient_edit"
             app:layout_constraintStart_toEndOf="@id/genderAgeTxt"
             app:layout_constraintTop_toTopOf="@id/patNameTxt"
             android:contentDescription="@string/lbl_edit"

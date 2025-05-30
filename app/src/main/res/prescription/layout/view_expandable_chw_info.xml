@@ -71,7 +71,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/std_8dp"
             android:padding="@dimen/std_4dp"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_patient_edit"
             app:layout_constraintBottom_toBottomOf="@+id/ageGenderTv"
             app:layout_constraintStart_toEndOf="@+id/ageGenderTv"
             app:layout_constraintTop_toTopOf="@+id/ageGenderTv"

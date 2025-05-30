@@ -19,7 +19,7 @@ data class ConfigResponse(
     @SerializedName("patient_registration")
     val patientRegFields: PatientRegFieldConfig,
     @SerializedName("patient_vitals")
-    val patientVitals: List<Vital>,
+    val vitals: List<Vital>,
     @SerializedName("patient_visit_summary")
     val patientVisitSummery: ActiveFeatureStatus,
     @SerializedName("patient_vitals_section")

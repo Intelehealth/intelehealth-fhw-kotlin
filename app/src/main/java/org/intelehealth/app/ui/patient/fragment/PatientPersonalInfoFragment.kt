@@ -78,7 +78,7 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     override fun onProfilePictureSelected(uri: Uri) {
         binding.ivPatientDb.tag = uri
         Glide.with(requireContext()).load(uri.toString()).diskCacheStrategy(DiskCacheStrategy.NONE)
-            .error(ResourceR.drawable.avatar1).placeholder(ResourceR.drawable.avatar1).into(binding.ivPatientDb)
+            .error(ResourceR.drawable.img_avatar).placeholder(ResourceR.drawable.img_avatar).into(binding.ivPatientDb)
     }
 
     private fun observePatientPersonalInfo() {
