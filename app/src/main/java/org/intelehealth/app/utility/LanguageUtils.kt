@@ -40,6 +40,7 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
     companion object {
         private const val STATE_DISTRICT_JSON = "state_district_tehsil.json"
         private const val PROVINCE_AND_CITIES_JSON = "province_and_cities.json"
+        const val ENGLISH = "en"
     }
 
     /**
@@ -259,11 +260,11 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
     fun getLocalValueFromArray(
         context: Context, dbString: String, @ArrayRes arrayResId: Int
     ): String {
-        return if (Locale.getDefault().language == "en") {
+        return if (Locale.getDefault().language == ENGLISH) {
             dbString
         } else {
             val array = context.resources.getStringArray(arrayResId)
-            val index = getSpecificLocalResource(context, "en").getStringArray(arrayResId).indexOf(dbString)
+            val index = getSpecificLocalResource(context, ENGLISH).getStringArray(arrayResId).indexOf(dbString)
             if (index >= 0) array[index] else ""
         }
     }

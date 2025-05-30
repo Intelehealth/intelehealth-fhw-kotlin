@@ -54,4 +54,6 @@
     <string name="action_end_visit">End visit</string>
     <string name="action_print">Print</string>
     <string name="action_share">Share</string>
+    <string name="action_start_visit">Start Visit</string>
+    <string name="action_household_survey" translatable="false">@string/lbl_household_survey</string>
 </resources>

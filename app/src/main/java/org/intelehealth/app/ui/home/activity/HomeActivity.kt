@@ -23,9 +23,11 @@ import org.intelehealth.common.extensions.showCommonDialog
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.ImageSpanGravity
+import org.intelehealth.common.utility.LocalUtils
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.data.network.model.SetupLocation
+import java.util.Locale
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
 

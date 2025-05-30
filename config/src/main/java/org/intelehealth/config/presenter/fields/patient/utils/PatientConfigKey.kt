@@ -74,6 +74,7 @@ object PatientConfigKey {
                     EM_CONTACT_NAME -> emergencyContactName = it
                     EM_CONTACT_NUMBER -> emergencyContactNumber = it
                     EM_CONTACT_TYPE -> emergencyContactType = it
+                    REQUEST_ID -> requestId = it
                 }
             }
         }

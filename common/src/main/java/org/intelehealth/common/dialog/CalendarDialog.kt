@@ -30,7 +30,7 @@ import java.util.TimeZone
  * To use this dialog, create an instance using the [Builder] and show it using a
  * [FragmentManager].
  */
-class CalendarDialog private constructor() : AppCompatDialogFragment(), DatePickerDialog.OnDateSetListener {
+class CalendarDialog private constructor() : AppCompatDialogFragment(), OnDateSetListener {
     private var maxDate: Long = 0
     private var minDate: Long = 0
     private var selectedDate: Long = Calendar.getInstance().timeInMillis

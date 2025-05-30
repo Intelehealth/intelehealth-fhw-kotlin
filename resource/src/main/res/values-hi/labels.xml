@@ -59,6 +59,7 @@
     <string name="lbl_postal_code">पोस्टल कोड</string>
     <string name="lbl_years">साल</string>
     <string name="lbl_months">महीने</string>
+    <string name="lbl_days"> दिन </string>
     <string name="lbl_block">ब्लॉक</string>
     <string name="lbl_household_no">घरेलू संख्या</string>
     <string name="lbl_other_block">अन्य ब्लॉक</string>
@@ -88,6 +89,10 @@
     <string name="lbl_contact_type">संपर्क का प्रकार</string>
     <string name="lbl_emergency_contact">आपातकालीन संपर्क नंबर</string>
     <string name="lbl_emergency_contact_name">आपातकालीन संपर्क नाम</string>
+    <string name="lbl_details">विवरण</string>
+    <string name="lbl_name">नाम</string>
+    <string name="lbl_gram_panchayat">ग्राम पंचायत</string>
+    <string name="lbl_household_survey">घरेलू सर्वेक्षण</string>
     <string name="lbl_results_for">के लिए परिणाम</string>
     <string name="lbl_card_item_date">Follow up on 12 June</string>
     <string name="lbl_gender_with_age">M 22</string>
@@ -111,8 +116,6 @@
     <string name="lbl_chw_name">Test: Kiran Devi Prakash</string>
     <string name="lbl_dummy_visit_id">Test: XXX543573</string>
     <string name="lbl_consulted_doctor_details">Consulted Doctor Details</string>
-    <string name="lbl_details">Details</string>
-    <string name="lbl_name">Name</string>
     <string name="lbl_no_information">No information</string>
     <string name="lbl_qualification">Qualification</string>
     <string name="lbl_speciality">Speciality</string>
@@ -120,7 +123,6 @@
     <string name="lbl_prescribed_medication">Prescribed Medications</string>
     <string name="lbl_drug_name">Drug name</string>
     <string name="lbl_dos">Dos.</string>
-    <string name="lbl_days">Days</string>
     <string name="lbl_remarks">Remarks</string>
     <string name="lbl_advice">Advice</string>
     <string name="lbl_test">Test</string>

@@ -1,9 +1,11 @@
 package org.intelehealth.data.offline
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import org.intelehealth.common.extensions.appName
 import org.intelehealth.data.offline.dao.AppointmentDao
 import org.intelehealth.data.offline.dao.ConceptDao
@@ -48,23 +50,10 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 
 @Database(
     entities = [
-        Appointment::class,
-        Concept::class,
-        Encounter::class,
-        FollowupScheduleNotification::class,
-        LocalNotification::class,
-        MediaRecord::class,
-        Observation::class,
-        Patient::class,
-        PatientAttribute::class,
-        PatientAttributeTypeMaster::class,
-        PatientLocation::class,
-        Provider::class,
-        ProviderAttribute::class,
-        User::class,
-        UserSession::class,
-        Visit::class,
-        VisitAttribute::class
+        Appointment::class,Concept::class, Encounter::class,FollowupScheduleNotification::class,
+        LocalNotification::class,MediaRecord::class,Observation::class,Patient::class,PatientAttribute::class,
+        PatientAttributeTypeMaster::class,PatientLocation::class,Provider::class,ProviderAttribute::class,
+        User::class,UserSession::class,Visit::class,VisitAttribute::class
     ],
     version = 1,
     exportSchema = false
@@ -89,21 +78,7 @@ abstract class OfflineDatabase : RoomDatabase() {
     abstract fun userSessionDao(): UserSessionDao
 
     companion object {
-//        @Volatile
-//        private var INSTANCE: OfflineDatabase? = null
-
-        //   private val DATABASE_NAME = BuildConfig.FLAVOR_client + "-localrecords.db"
         private const val DATABASE_NAME = "main.db"
-
-        /**
-         * Get the singleton instance of the database.
-         */
-//        fun getInstance(context: Context): OfflineDatabase = INSTANCE
-//            ?: synchronized(this) {    // synchronized - ensures that at a time only at the max 1 thread will be accessing the database operations.
-//                INSTANCE ?: buildDatabase(context.applicationContext).also {
-//                    INSTANCE = it
-//                }
-//            }
 
         /**
          * Set up the database configuration.
@@ -113,9 +88,12 @@ abstract class OfflineDatabase : RoomDatabase() {
             val databaseName = "${appContext.appName()}.$DATABASE_NAME"
             return Room.databaseBuilder(appContext, OfflineDatabase::class.java, databaseName)
                 .fallbackToDestructiveMigration()   // on migration if no migration scheme is provided than it will perform destructive migration.
+                .addCallback(object : RoomDatabase.Callback() {
+                    override fun onOpen(db: SupportSQLiteDatabase) {
+                        db.enableWriteAheadLogging()
+                    }
+                })
                 .build()
         }
     }
-
-
 }

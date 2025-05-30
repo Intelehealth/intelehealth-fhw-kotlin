@@ -13,6 +13,7 @@ import org.intelehealth.app.databinding.FragmentSetupBinding
 import org.intelehealth.app.ui.location.viewmodel.LocationViewModel
 import org.intelehealth.app.ui.user.fragment.AuthenticationFragment
 import org.intelehealth.app.utility.KEY_RESULTS
+import org.intelehealth.common.extensions.getSpinnerItemAdapter
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.showNetworkLostSnackBar
 import org.intelehealth.common.extensions.showToast
@@ -101,7 +102,7 @@ class SetupFragment : AuthenticationFragment(R.layout.fragment_setup) {
      */
     private fun bindLocation(locations: List<SetupLocation>) {
         Timber.d { Gson().toJson(locations) }
-        locationAdapter = ArrayAdapterUtils.getObjectArrayAdapter(requireContext(), locations)
+        locationAdapter = requireContext().getSpinnerItemAdapter(locations)
         binding.viewAuthenticationForm.autotvSelectLocation.setAdapter(locationAdapter)
         Timber.d { "Location Adapter set ${locationAdapter.count}" }
     }

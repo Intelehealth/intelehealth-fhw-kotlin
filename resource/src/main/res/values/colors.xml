@@ -19,6 +19,7 @@
     <color name="colorBorder">#EFE8FF</color>
     <color name="colorTextPrimaryDark">@color/white</color>
     <color name="colorDisabled">#EBEBEA</color>
+    <color name="orange">#ff6600</color>
 
     <color name="backgroundGray">#FAF9FF</color>
     <color name="textColorLightGary">#B0ADBE</color>
