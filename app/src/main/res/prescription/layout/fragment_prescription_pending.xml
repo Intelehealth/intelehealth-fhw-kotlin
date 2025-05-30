@@ -20,8 +20,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/std_16dp"
-            android:paddingStart="@dimen/std_16dp"
-            android:paddingEnd="@dimen/std_16dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:layout_marginTop="@dimen/std_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,13 +30,16 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/std_16dp"
-            android:paddingEnd="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_16dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/std_24dp"
             android:fillViewport="true"
+            android:paddingStart="@dimen/std_16dp"
+            android:paddingTop="@dimen/std_16dp"
+            android:paddingEnd="@dimen/std_16dp"
             android:scrollIndicators="none"
             android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/progressBarPage"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,14 +72,11 @@
                 <!--Result For View-->
                 <include
                     android:id="@+id/filterView"
+                    layout="@layout/view_filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:layout_marginStart="@dimen/std_2dp"
-                    android:layout_marginEnd="@dimen/std_2dp"
-                    layout="@layout/view_filter"
-                    app:layout_constraintTop_toBottomOf="@id/patientCountView"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/patientCountView" />
 
                 <!--Recent View-->
                 <include
@@ -85,20 +85,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_8dp"
-                    app:isListEmpty="@{viewModel.receivedRecentPrescription.size() == 0}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:isListEmpty="@{viewModel.pendingRecentPrescription.size() == 0}"
                     app:layout_constraintTop_toBottomOf="@id/filterView" />
 
                 <!--Older View-->
                 <include
                     android:id="@+id/olderView"
+                    layout="@layout/view_older"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_32dp"
-                    layout="@layout/view_older"
                     app:isListEmpty="@{viewModel.receivedOlderPrescription.size() == 0}"
-                    app:layout_constraintTop_toBottomOf="@+id/recentView" />
+                    app:layout_constraintTop_toBottomOf="@+id/recentView"  />
 
                 <include
                     android:id="@+id/filterMenu"

@@ -8,10 +8,27 @@ import kotlinx.coroutines.launch
 import org.intelehealth.common.enums.LoadingType
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.CommonConstants
+import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.data.offline.entity.Prescription
 import org.intelehealth.data.provider.prescription.PrescriptionRepository
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing prescription-related data and business logic.
+ *
+ * This ViewModel handles fetching, storing, and providing LiveData for
+ * different categories of prescriptions:
+ * - Recent Received Prescriptions
+ * - Older Received Prescriptions
+ * - Recent Pending Prescriptions
+ * - Older Pending Prescriptions
+ *
+ * It supports pagination (fetching data in chunks) and search functionality
+ * for both received and pending prescriptions. Prescription counts are also exposed.
+ * Date formatting is applied to prescription visit dates before they are exposed.
+ *
+ * @param prescriptionRepository Repository responsible for fetching prescription data.
+ */
 @HiltViewModel
 class PrescriptionViewModel @Inject constructor(
     private var prescriptionRepository: PrescriptionRepository
@@ -22,7 +39,7 @@ class PrescriptionViewModel @Inject constructor(
 
     private var _receivedOlderPrescription =
         MutableLiveData<MutableList<Prescription>>(mutableListOf())
-    var receivedOlderPrescription = _receivedRecentPrescription
+    var receivedOlderPrescription = _receivedOlderPrescription
 
     private var _pendingRecentPrescription = MutableLiveData<List<Prescription>>()
     var pendingRecentPrescription = _pendingRecentPrescription
@@ -37,27 +54,46 @@ class PrescriptionViewModel @Inject constructor(
     private var pendingRecentOffset = 0
     private var pendingOlderOffset = 0
 
-    init {
-        fetchReceivedPrescription(LoadingType.INITIAL)
-        fetchPendingPrescription(LoadingType.INITIAL)
-    }
+    var searchQueryReceived: String = ""
+    var searchQueryPending: String = ""
 
+    /**
+     * Retrieves a Flow of prescription counts from the repository.
+     *
+     * This typically includes counts like received, pending, etc.
+     */
     fun prescriptionCount() = prescriptionRepository.getPrescriptionCount()
 
+
+    /**
+     * Fetches received prescriptions (recent and older) from the repository.
+     *
+     * Resets pagination offsets if it's an initial load.
+     * Retrieves recent and older received prescriptions based on the current search query and offsets.
+     * Updates LiveData with the fetched and date-formatted prescriptions.
+     * Increments pagination offsets for subsequent fetches.
+     *
+     * @param loadingType Indicates if this is an initial load or for pagination.
+     */
     fun fetchReceivedPrescription(loadingType: LoadingType) {
+        if (loadingType == LoadingType.INITIAL) {
+            receivedRecentOffset = 0
+            receivedOlderOffset = 0
+        }
         viewModelScope.launch {
+            // Assuming executeLocalQuery handles the combined fetching logic from the repository
+            // and returns a Flow<Pair<List<Prescription>, List<Prescription>>>
             executeLocalQuery(
                 queryCallOne = {
-                    prescriptionRepository.getReceivedPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getRecentReceivedPrescriptions(
+                        searchQuery = searchQueryReceived,
                         limit = CommonConstants.LIMIT,
                         offset = receivedRecentOffset
                     )
                 },
-
                 queryCallTwo = {
-                    prescriptionRepository.getReceivedPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getOlderReceivedPrescriptions(
+                        searchQuery = searchQueryReceived,
                         limit = CommonConstants.LIMIT,
                         offset = receivedOlderOffset
                     )
@@ -66,9 +102,23 @@ class PrescriptionViewModel @Inject constructor(
                 handleResponse(loadingType, it) {
                     val data = it as Pair<*, *>
                     _receivedRecentPrescription.value =
-                        (data.first as List<Prescription>).toMutableList()
+                        (data.first as List<Prescription>).map { prescription ->
+                            prescription.visitStartDate = DateTimeUtils.formatOneToAnother(
+                                prescription.visitStartDate,
+                                DateTimeUtils.USER_DOB_DB_FORMAT,
+                                DateTimeUtils.DD_MMM_AT_HH_MM_A_FORMAT
+                            )
+                            prescription
+                        }.toMutableList()
                     _receivedOlderPrescription.value =
-                        (data.second as List<Prescription>).toMutableList()
+                        (data.second as List<Prescription>).map { prescription ->
+                            prescription.visitStartDate = DateTimeUtils.formatOneToAnother(
+                                prescription.visitStartDate,
+                                DateTimeUtils.USER_DOB_DB_FORMAT,
+                                DateTimeUtils.DD_MMM_AT_HH_MM_A_FORMAT
+                            )
+                            prescription
+                        }.toMutableList()
 
                     receivedRecentOffset += _receivedRecentPrescription.value?.size ?: 0
                     receivedOlderOffset += _receivedOlderPrescription.value?.size ?: 0
@@ -78,31 +128,58 @@ class PrescriptionViewModel @Inject constructor(
         }
     }
 
-    fun fetchPendingPrescription(loadingType: LoadingType) {
+
+    /**
+     * Fetches pending prescriptions (recent and older) from the repository.
+     *
+     * Resets pagination offsets for initial loads. Uses the provided 'query' for searching.
+     * Updates LiveData with fetched, date-formatted prescriptions and increments pagination offsets.
+     *
+     * @param loadingType Indicates if it's an initial load or for pagination.
+     * @param query The search string to filter prescriptions. Defaults to empty.
+     */
+    fun fetchPendingPrescription(loadingType: LoadingType, query: String = "") {
+        if (loadingType == LoadingType.INITIAL) {
+            pendingRecentOffset = 0
+            pendingOlderOffset = 0
+        }
         viewModelScope.launch {
             executeLocalQuery(
                 queryCallOne = {
-                    prescriptionRepository.getPendingPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getRecentPendingPrescriptions(
+                        searchQuery = searchQueryPending, // Use the passed 'query' parameter
                         limit = CommonConstants.LIMIT,
-                        offset = _pendingRecentPrescription.value?.size ?: 0
+                        offset = pendingRecentOffset
                     )
                 },
-
                 queryCallTwo = {
-                    prescriptionRepository.getPendingPrescriptions(
-                        searchQuery = "",
+                    prescriptionRepository.getOlderPendingPrescriptions(
+                        searchQuery = searchQueryPending, // Use the passed 'query' parameter
                         limit = CommonConstants.LIMIT,
-                        offset = _pendingOlderPrescription.value?.size ?: 0
+                        offset = pendingOlderOffset
                     )
                 }
             ).collectLatest {
                 handleResponse(loadingType, it) {
                     val data = it as Pair<*, *>
-                    _receivedRecentPrescription.value =
-                        (data.first as List<Prescription>).toMutableList()
-                    _receivedOlderPrescription.value =
-                        (data.second as List<Prescription>).toMutableList()
+                    _pendingRecentPrescription.value =
+                        (data.first as List<Prescription>).map { prescription ->
+                            prescription.visitStartDate = DateTimeUtils.formatOneToAnother(
+                                prescription.visitStartDate,
+                                DateTimeUtils.USER_DOB_DB_FORMAT,
+                                DateTimeUtils.DD_MMM_AT_HH_MM_A_FORMAT
+                            )
+                            prescription
+                        }.toMutableList()
+                    _pendingOlderPrescription.value =
+                        (data.second as List<Prescription>).map { prescription ->
+                            prescription.visitStartDate = DateTimeUtils.formatOneToAnother(
+                                prescription.visitStartDate,
+                                DateTimeUtils.USER_DOB_DB_FORMAT,
+                                DateTimeUtils.DD_MMM_AT_HH_MM_A_FORMAT
+                            )
+                            prescription
+                        }.toMutableList()
 
                     pendingRecentOffset += _pendingRecentPrescription.value?.size ?: 0
                     pendingOlderOffset += _pendingOlderPrescription.value?.size ?: 0

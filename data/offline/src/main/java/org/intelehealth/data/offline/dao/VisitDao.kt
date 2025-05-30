@@ -67,10 +67,6 @@ interface VisitDao : CoreDao<Visit> {
         "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, "
                 + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
                 + "o.obsservermodifieddate,o.synced AS osync, "
-                + "(SELECT COUNT(*) FROM tbl_encounter e1 WHERE "
-                + "e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) > 0 AS has_exit_survey, "
-                + "(SELECT COUNT(*) FROM tbl_encounter e2 WHERE "
-                + "e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) > 0 AS has_visit_complete, "
                 + "(SELECT uuid FROM tbl_encounter where visituuid = e.visituuid "
                 + "AND encounter_type_uuid =:emergencyEnType "
                 + " AND voided='0' COLLATE NOCASE) as isPriority "
@@ -78,8 +74,7 @@ interface VisitDao : CoreDao<Visit> {
                 + "JOIN tbl_visit v ON p.uuid = v.patientuuid "
                 + "JOIN tbl_encounter e ON v.uuid = e.visituuid "
                 + "JOIN tbl_obs o ON e.uuid = o.encounteruuid "
-                + "LEFT JOIN ( SELECT visituuid FROM tbl_encounter "
-                + "WHERE encounter_type_uuid = :visitCompleteType) es ON es.visituuid = v.uuid "
+                + "WHERE e.encounter_type_uuid = :visitCompleteType "
                 + "AND (o.synced = 1 OR LOWER(o.synced) = 'true') "
                 + "AND o.voided = 0  "
                 + "AND v.startdate > DATETIME('now', '-4 day') "
@@ -95,7 +90,43 @@ interface VisitDao : CoreDao<Visit> {
                 + "ORDER BY v.startdate DESC "
                 + "LIMIT :limit OFFSET :offset"
     )
-    fun getReceivedPrescriptions(
+    fun getRecentReceivedPrescriptions(
+        visitCompleteType: String?,
+        exitSurveyEnType: String?,
+        emergencyEnType: String?,
+        searchQuery: String?,
+        limit: Int,
+        offset: Int
+    ): List<Prescription>?
+
+    @Query(
+        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.phone_number, "
+                + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
+                + "o.obsservermodifieddate,o.synced AS osync, "
+                + "(SELECT uuid FROM tbl_encounter where visituuid = e.visituuid "
+                + "AND encounter_type_uuid =:emergencyEnType "
+                + " AND voided='0' COLLATE NOCASE) as isPriority "
+                + "FROM tbl_patient p  "
+                + "JOIN tbl_visit v ON p.uuid = v.patientuuid "
+                + "JOIN tbl_encounter e ON v.uuid = e.visituuid "
+                + "JOIN tbl_obs o ON e.uuid = o.encounteruuid "
+                + "WHERE e.encounter_type_uuid = :visitCompleteType "
+                + "AND (o.synced = 1 OR LOWER(o.synced) = 'true') "
+                + "AND o.voided = 0  "
+                + "AND v.startdate <= DATETIME('now', '-4 day') "
+                + "AND (SELECT COUNT(*) FROM tbl_encounter e1 WHERE " +
+                " e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) <= 0 "
+                + "AND (SELECT COUNT(*) FROM tbl_encounter e2 WHERE " +
+                " e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) > 0 "
+                + "AND (p.first_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.middle_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.last_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.openmrs_id LIKE '%' || :searchQuery || '%')"
+                + "GROUP BY p.openmrs_id "
+                + "ORDER BY v.startdate DESC "
+                + "LIMIT :limit OFFSET :offset"
+    )
+    fun getOlderReceivedPrescriptions(
         visitCompleteType: String?,
         exitSurveyEnType: String?,
         emergencyEnType: String?,
@@ -108,22 +139,13 @@ interface VisitDao : CoreDao<Visit> {
     @Query(
         "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, "
                 + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
-                + "o.obsservermodifieddate,o.synced AS osync, "
-                + "(SELECT COUNT(*) FROM tbl_encounter e1 WHERE "
-                + "e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) > 0 AS has_exit_survey, "
-                + "(SELECT COUNT(*) FROM tbl_encounter e2 WHERE "
-                + "e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) > 0 AS has_visit_complete, "
-                + "(SELECT uuid FROM tbl_encounter where visituuid = e.visituuid "
-                + "AND encounter_type_uuid =:emergencyEnType "
-                + " AND voided='0' COLLATE NOCASE) as isPriority "
+                + "o.obsservermodifieddate,o.synced AS osync , 0 AS isPriority "
                 + "FROM tbl_patient p  "
                 + "JOIN tbl_visit v ON p.uuid = v.patientuuid "
                 + "JOIN tbl_encounter e ON v.uuid = e.visituuid "
                 + "JOIN tbl_obs o ON e.uuid = o.encounteruuid "
-                + "LEFT JOIN ( SELECT visituuid FROM tbl_encounter "
-                + "WHERE encounter_type_uuid = :visitCompleteType) es ON es.visituuid = v.uuid "
-                + "AND (o.synced = 1 OR LOWER(o.synced) = 'true') "
-                + "AND o.voided = 0  "
+                + "WHERE (o.synced = 1 OR LOWER(o.synced) = 'true') "
+                + "AND o.voided = 0 "
                 + "AND v.startdate > DATETIME('now', '-4 day') "
                 + "AND (SELECT COUNT(*) FROM tbl_encounter e1 WHERE " +
                 " e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) <= 0 "
@@ -137,10 +159,40 @@ interface VisitDao : CoreDao<Visit> {
                 + "ORDER BY v.startdate DESC "
                 + "LIMIT :limit OFFSET :offset"
     )
-    fun getPendingPrescriptions(
+    fun getRecentPendingPrescriptions(
         visitCompleteType: String?,
         exitSurveyEnType: String?,
-        emergencyEnType: String?,
+        searchQuery: String?,
+        limit: Int,
+        offset: Int
+    ): List<Prescription>?
+
+    @Query(
+        "SELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.phone_number, "
+                + "p.gender, v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid, "
+                + "o.obsservermodifieddate,o.synced AS osync, 0 AS isPriority "
+                + "FROM tbl_patient p  "
+                + "JOIN tbl_visit v ON p.uuid = v.patientuuid "
+                + "JOIN tbl_encounter e ON v.uuid = e.visituuid "
+                + "JOIN tbl_obs o ON e.uuid = o.encounteruuid "
+                + "WHERE (o.synced = 1 OR LOWER(o.synced) = 'true') "
+                + "AND o.voided = 0  "
+                + "AND v.startdate <= DATETIME('now', '-4 day') "
+                + "AND (SELECT COUNT(*) FROM tbl_encounter e1 WHERE " +
+                " e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) <= 0 "
+                + "AND (SELECT COUNT(*) FROM tbl_encounter e2 WHERE " +
+                " e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) <= 0 "
+                + "AND (p.first_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.middle_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.last_name LIKE '%' || :searchQuery || '%' "
+                + "OR p.openmrs_id LIKE '%' || :searchQuery || '%')"
+                + "GROUP BY p.openmrs_id "
+                + "ORDER BY v.startdate DESC "
+                + "LIMIT :limit OFFSET :offset"
+    )
+    fun getOlderPendingPrescriptions(
+        visitCompleteType: String?,
+        exitSurveyEnType: String?,
         searchQuery: String?,
         limit: Int,
         offset: Int

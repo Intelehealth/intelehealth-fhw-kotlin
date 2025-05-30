@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_8dp"
             android:paddingTop="@dimen/std_16dp"
-            android:paddingStart="@dimen/std_16dp"
-            android:paddingEnd="@dimen/std_16dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

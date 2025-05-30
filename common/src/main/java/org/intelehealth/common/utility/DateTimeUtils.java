@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -39,6 +40,11 @@ public class DateTimeUtils {
     public static final String LAST_SYNC_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String LAST_SYNC_DISPLAY_FORMAT = "hh:mm a dd MMM yyyy";
     public static final String USER_DOB_DB_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+
+    //getting this format for visit
+    public static final String SERVER_FORMAT = "MMM dd, yyyy hh:mm:ss a";
+    public static final String DD_MMM_AT_HH_MM_A_FORMAT = "dd MMM 'at' hh:mm a";
+            //1997-10-20T00:00:00.000+0530
     public static final String PATIENT_ATTR_CREATE_FORMAT = "dd MMMM, yyyy";
     //1997-10-20T00:00:00.000+0530
 
@@ -152,6 +158,22 @@ public class DateTimeUtils {
 
     public static TimeZone getUTCTimeZone() {
         return TimeZone.getTimeZone(TIME_ZONE_UTC);
+    }
+
+    public static String formatOneToAnother(String date, String sourceFormat, String anotherFormat) {
+        if(date==null || date.isEmpty()) return "";
+        String result;
+        SimpleDateFormat sdf;
+        SimpleDateFormat sdf1;
+
+        try {
+            sdf = new SimpleDateFormat(sourceFormat, Locale.ENGLISH);
+            sdf1 = new SimpleDateFormat(anotherFormat, Locale.ENGLISH);
+            result = sdf1.format(sdf.parse(date));
+        } catch (Exception e) {
+            return "";
+        }
+        return result;
     }
 
     public static String formatAgeInYearsMonthsDate(Context context, int year, int month, int day) {
