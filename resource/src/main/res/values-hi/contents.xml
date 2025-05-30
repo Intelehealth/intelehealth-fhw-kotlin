@@ -88,18 +88,21 @@
     <string name="content_reject_permission_warning">यदि आप अनुमति को अस्वीकार करते हैं,तो आप इस सेवा का उपयोग नहीं कर सकते| कृपया सेटिंग-> अनुमति पर चालू करें</string>
     <string name="content_profile_updated_successfully">प्रोफ़ाइल सफलतापूर्वक अपडेट हो गई!</string>
     <string name="content_recommend_after_password_change">आपका पासवर्ड सफलतापूर्वक अपडेट कर दिया गया है। आपकी सुरक्षा के लिए, आपको एप्लिकेशन से लॉग आउट कर दिया गया है। कृपया जारी रखने के लिए अपने नए पासवर्ड से फिर से लॉग इन करें।</string>
+
+    <string name="content_patients_waiting_for_closure"><b>%s रोगी</b> विज़िट बंद होने का इंतजार कर रहे हैं, कृपया विज़िट समाप्त करें।</string>
     <string name="content_address_to_other_info">पता से अन्य जानकारी</string>
     <string name="content_personal_to_address_info">व्यक्तिगत से पता जानकारी</string>
     <string name="content_decline_consent_message">आप सहमति दिए बिना आगे नहीं बढ़ पाएंगे। क्या आप वाकई बाहर निकलना चाहते हैं?</string>
     <string name="content_not_provided">प्रदान नहीं किया गया</string>
     <string name="content_patient_not_registered">रोगी पंजीकृत नहीं है</string>
-    <string name="content_patients_waiting_for_closure">3 रोगी विज़िट बंद होने का इंतजार कर रहे हैं, कृपया विज़िट समाप्त करें।</string>
+  
     <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
     <string name="content_calender">कैलेंडर</string>
     <string name="content_chat_fab">chat fab</string>
     <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
     <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
     <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+    <string name="content_pending_visit_msg">डॉक्टर द्वारा मरीजों को प्रिस्क्रिप्शन भेजा जाना बाकी है <b> %s रोगी </b> आप डॉक्टर को याद दिला सकते हैं।</string>
 
     //content description
     <string name="content_search_icon">Search Icon</string>
