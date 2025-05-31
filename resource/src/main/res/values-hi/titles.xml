@@ -13,12 +13,11 @@
     <string name="title_reset_password">पासवर्ड रीसेट करें</string>
     <string name="title_login">लॉगिन</string>
     <string name="title_my_profile">मेरा प्रोफ़ाइल</string>
-    <string name="title_add_new_patient">Add New Patient</string>
+    <string name="title_add_new_patient">नया पेशेंट जोड़ें</string>
     <string name="title_other_fuel_type">अन्य ईंधन प्रकार</string>
     <string name="title_other_lighting_source">अन्य प्रकाश स्रोत</string>
     <string name="title_other_water_purification">अन्य जल शोधन विधि</string>
     <string name="title_patient_detail">रोगी विवरण</string>
-    <string name="title_activity_identification" translatable="false">नया पेशेंट जोड़ें</string>
     <string name="title_priority_visits">प्राथमिकता विज़िट</string>
     <string name="title_recent_visit">हाल के विज़िट्स</string>
     <string name="title_priority">प्राथमिकता</string>

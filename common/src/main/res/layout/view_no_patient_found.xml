@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/std_40dp"
     android:visibility="gone"
     tools:visibility="visible">
 
@@ -21,65 +19,41 @@
 
     <TextView
         android:id="@+id/search_pat_not_found_txt"
+        style="@style/Theme.IDA.TextAppearance.Score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_24dp"
         android:text="@string/error_search_pat_not_found_txt"
-        android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-        android:textColor="@null"
-        android:textSize="@dimen/std_20sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_bg_icon" />
 
     <TextView
         android:id="@+id/search_pat_hint_txt"
+        style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/std_40dp"
-        android:layout_marginTop="@dimen/std_12dp"
+        android:layout_marginTop="@dimen/std_16dp"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="3sp"
         android:text="@string/hint_search_pat_txt"
-        android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-        android:textSize="@dimen/std_16sp"
-        android:translationY="-1.58sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_pat_not_found_txt" />
 
-    <LinearLayout
-        android:id="@+id/add_new_patientTV"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddNewPatient"
+        style="@style/Theme.IDA.Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/std_24dp"
-        android:layout_marginBottom="@dimen/std_24dp"
-        android:background="@drawable/bg_end_visit"
-        android:clickable="true"
-        android:paddingHorizontal="@dimen/std_14dp"
-        android:paddingVertical="@dimen/std_8dp"
+        android:layout_marginTop="@dimen/std_16dp"
+        android:text="@string/title_add_new_patient"
+        app:icon="@drawable/img_user_plus"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/std_8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_pat_hint_txt">
-
-        <ImageView
-            android:layout_width="@dimen/std_24dp"
-            android:layout_height="@dimen/std_24dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/content_add_icon"
-            android:src="@drawable/img_user_plus" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/std_8dp"
-            android:fontFamily="@font/dm_sans"
-            android:text="@string/title_activity_identification"
-            android:textColor="@color/white"
-            android:textSize="@dimen/std_14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/search_pat_hint_txt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

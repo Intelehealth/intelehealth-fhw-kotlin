@@ -22,7 +22,6 @@
     <string name="title_fu_item" translatable="false">Anthony G</string>
     <string name="title_name" translatable="false">%1$s %2$s</string>
     <string name="title_patient_detail">Patient Details</string>
-    <string name="title_activity_identification">Add New Patient</string>
     <string name="title_priority_visits">Priority Visits</string>
     <string name="title_recent_visit">Recent Visits</string>
     <string name="title_priority">Priority</string>

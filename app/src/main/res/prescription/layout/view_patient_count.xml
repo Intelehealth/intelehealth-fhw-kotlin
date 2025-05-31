@@ -15,8 +15,9 @@
         android:id="@+id/visitReceivedCardHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/std_4dp"
         app:cardCornerRadius="@dimen/std_8dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/std_2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,10 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/std_16dp"
-            android:paddingTop="@dimen/std_16dp"
-            android:paddingEnd="@dimen/std_16dp"
-            android:paddingBottom="@dimen/std_16dp">
+            android:padding="@dimen/std_16dp">
 
             <ImageView
                 android:id="@+id/iconVisitDetails"

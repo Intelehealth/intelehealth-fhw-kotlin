@@ -88,11 +88,6 @@ abstract class OfflineDatabase : RoomDatabase() {
             val databaseName = "${appContext.appName()}.$DATABASE_NAME"
             return Room.databaseBuilder(appContext, OfflineDatabase::class.java, databaseName)
                 .fallbackToDestructiveMigration()   // on migration if no migration scheme is provided than it will perform destructive migration.
-                .addCallback(object : RoomDatabase.Callback() {
-                    override fun onOpen(db: SupportSQLiteDatabase) {
-                        db.enableWriteAheadLogging()
-                    }
-                })
                 .build()
         }
     }

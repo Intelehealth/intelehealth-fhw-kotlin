@@ -88,4 +88,16 @@
         <!--        <item name="android:background">@drawable/otp_input_bg</item>-->
         <!--        <item name="background">@drawable/otp_input_bg</item>-->
     </style>
+
+    <style name="Theme.IDA.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:background">@drawable/bg_common_input</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/textColorLightGary</item>
+        <item name="android:textSize">@dimen/std_14sp</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryBackground">@color/transparent</item>
+        <item name="queryHint">@string/hint_search_patient</item>
+        <item name="showDividers">none</item>
+    </style>
 </resources>

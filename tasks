@@ -10,3 +10,6 @@ Tanvir code review
 2. When we can pass the PrescriptionStatusCount as argument then why we have called the
 function `getPrescriptionStatusCount` to show the received and pending count?
 3. Can we not use same prescription fragment for both received and pending prescriptions?
+4. view_filter.xml chip component should be used for filter chips instead of custom view.
+5. Why we can not achieve different view types within single recycler view adapter?
+6. Use ShapableImageView instead of CardView for profile picture.
