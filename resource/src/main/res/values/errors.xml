@@ -24,5 +24,5 @@
     <string name="error_invalid_village">Invalid village name, require min 3 chars</string>
     <string name="error_search_pat_not_found_txt">Patient not found!</string>
     <string name="error_no_visit_found">No visit found</string>
-
+    <string name="error_no_prescription_found">No %1$s prescription found</string>
 </resources>

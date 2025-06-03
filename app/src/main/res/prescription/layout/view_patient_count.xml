@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/std_8dp"
         app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="@dimen/std_2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

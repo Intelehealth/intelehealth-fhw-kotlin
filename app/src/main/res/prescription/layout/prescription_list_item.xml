@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/std_16dp"
             android:paddingTop="@dimen/std_16dp"
-            android:paddingBottom="@dimen/std_8dp">
+            android:paddingBottom="@dimen/std_4dp">
 
             <!-- Profile Image Card -->
             <com.google.android.material.imageview.ShapeableImageView

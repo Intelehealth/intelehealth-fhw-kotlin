@@ -10,4 +10,9 @@ object CommonConstants {
     const val MAX_PROGRESS = 100
     const val HTTP_REQ_TIMEOUT = 180L
     const val LIMIT = 10
+    const val TODAY = "Today"
+    const val YESTERDAY = "Yesterday"
+    const val THIS_WEEK = "This Week"
+    const val THIS_MONTH = "This Month"
+    const val OTHER = "Other"
 }

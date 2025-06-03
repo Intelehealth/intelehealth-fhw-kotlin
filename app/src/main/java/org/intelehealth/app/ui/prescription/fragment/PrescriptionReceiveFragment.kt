@@ -1,6 +1,9 @@
 package org.intelehealth.app.ui.prescription.fragment
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.widget.NestedScrollView
@@ -9,13 +12,18 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.resource.R as resR
+import org.intelehealth.common.R as CommonR
 import org.intelehealth.app.databinding.FragmentPrescriptionReceiveBinding
+import org.intelehealth.app.ui.prescription.adapter.PrescriptionAdapter
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionRecyclerViewAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.enums.LoadingType
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
+import java.util.LinkedList
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isVisible
 
 /**
  * Created by Tanvir Hasan on 02-04-25
@@ -28,9 +36,10 @@ import org.intelehealth.common.ui.viewholder.BaseViewHolder
  */
 @AndroidEntryPoint
 class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_prescription_receive),
-    BaseViewHolder.ViewHolderClickListener {
+                                    BaseViewHolder.ViewHolderClickListener {
     private lateinit var binding: FragmentPrescriptionReceiveBinding
     override val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
+    private lateinit var adapter: PrescriptionAdapter
 
     private var recentReceivedAdapter: PrescriptionRecyclerViewAdapter? = null
     private var olderReceivedAdapter: PrescriptionRecyclerViewAdapter? = null
@@ -47,14 +56,51 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionReceiveBinding.bind(view)
-        viewModel.fetchReceivedPrescription(LoadingType.INITIAL)
-
+        binding.progressBar.progressLayout.background = Color.TRANSPARENT.toDrawable()
+        initPrescriptionListView()
+        viewModel.getCurrentMonthReceivedPrescriptions()
         binding.viewModel = viewModel
-        bindProgressView(binding.progressBar, binding.progressBarPage)
-        bindSearchView()
-        bindScrollListener()
-        bindPrescriptionAdapter()
-        bindPrescriptionCount()
+        bindProgressView(binding.progressBar)
+        observePrescriptionData()
+        observePagingData()
+//        bindSearchView()
+//        bindScrollListener()
+//        bindPrescriptionAdapter()
+//        bindPrescriptionCount()
+    }
+
+    private fun initPrescriptionListView() {
+        adapter = PrescriptionAdapter(requireActivity(), LinkedList())
+        adapter.viewHolderClickListener = this
+        binding.rvPrescriptionList.setupLinearView(adapter, false)
+    }
+
+    private fun observePrescriptionData() {
+        viewModel.receivedPrescriptionLiveData.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.handleResponse(it) { data ->
+                adapter.updateItems(data.toMutableList())
+//                binding.noPatientFoundBlock.root.isVisible = false
+//                binding.groupDataState.isVisible = true
+            }
+        }
+    }
+
+    private fun observePagingData() {
+        viewModel.receivedPrescriptionPagingLiveData.observe(viewLifecycleOwner) { pagingData ->
+            pagingData ?: return@observe
+            hideLoading()
+            if (pagingData.isEmpty() && adapter.itemCount > 0) {
+                adapter.remove(adapter.itemCount - 1) // Remove the footer if no more data
+            } else if (adapter.itemCount > 2) {
+                adapter.isLoading = false
+                adapter.addItemsAt(adapter.itemCount - 1, pagingData) // Add new items before the footer
+            } else if (pagingData.isNotEmpty()) {
+                binding.groupDataState.isVisible = true
+                adapter.isLoading = false
+                adapter.addItems(pagingData) // Add new items to the end of the list
+            }
+        }
     }
 
     /**
@@ -65,7 +111,7 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
      */
     private fun bindSearchView() {
         binding.searchView.prescriptionSearchView.setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
+                                                                             SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
                     // Corrected logic: Fetch if query is submitted, not just if it's empty
@@ -108,45 +154,8 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
                 if ((scrollY >= (v.getChildAt(0).measuredHeight - v.measuredHeight))
                     && scrollY > oldScrollY
                 ) {
-                    viewModel.fetchReceivedPrescription(LoadingType.PAGINATION)
+                    viewModel.fetchReceivedPrescriptionWithPagination()
                 }
-            }
-        }
-    }
-
-    /**
-     * Binds prescription data from the ViewModel to the RecyclerView adapters.
-     *
-     * Observes LiveData for recent and older received prescriptions.
-     * Initializes or updates the respective RecyclerView adapters (recentReceivedAdapter, olderReceivedAdapter)
-     * when new data is available.
-     */
-    private fun bindPrescriptionAdapter() {
-        viewModel.receivedRecentPrescription.observe(viewLifecycleOwner) {
-            it ?: return@observe
-            if (recentReceivedAdapter == null) {
-                recentReceivedAdapter = PrescriptionRecyclerViewAdapter(
-                    requireActivity(),
-                    it.toMutableList()
-                )
-                recentReceivedAdapter?.viewHolderClickListener = this
-                binding.recentView.recentRv.setupLinearView(recentReceivedAdapter!!, false)
-            } else {
-                recentReceivedAdapter?.updateList(it.toMutableList())
-            }
-        }
-
-        viewModel.receivedOlderPrescription.observe(viewLifecycleOwner) {
-            it ?: return@observe
-            if (olderReceivedAdapter == null) {
-                olderReceivedAdapter = PrescriptionRecyclerViewAdapter(
-                    requireActivity(),
-                    it.toMutableList()
-                )
-                olderReceivedAdapter?.viewHolderClickListener = this
-                binding.olderView.olderRv.setupLinearView(olderReceivedAdapter!!, false)
-            } else {
-                olderReceivedAdapter?.updateList(it.toMutableList())
             }
         }
     }
@@ -180,7 +189,20 @@ class PrescriptionReceiveFragment : BaseProgressFragment(R.layout.fragment_presc
      * @param position The adapter position of the clicked item.
      */
     override fun onViewHolderViewClicked(view: View?, position: Int) {
-        findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails())
+        view ?: return
+        if (view.id == CommonR.id.btnViewMore) {
+            // Handle view more button click if needed
+            adapter.isLoading = true
+            viewModel.fetchReceivedPrescriptionWithPagination()
+            return
+        } else {
+            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails())
+        }
     }
 
+    override fun onFailed(reason: String) {
+        super.onFailed(reason)
+        binding.groupDataState.isVisible = false
+        binding.noPatientFoundBlock.root.isVisible = true
+    }
 }

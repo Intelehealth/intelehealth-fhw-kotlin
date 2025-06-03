@@ -1,7 +1,7 @@
 package org.intelehealth.common.ui.adapter
 
 import android.content.Context
-import org.intelehealth.common.model.CategoryHeader
+import org.intelehealth.common.model.ListItemHeaderSection
 import java.util.LinkedList
 
 /**
@@ -9,8 +9,8 @@ import java.util.LinkedList
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  */
-abstract class CategoryHeaderAdapter(context: Context, objectsList: LinkedList<CategoryHeader>) :
-    BaseRecyclerViewAdapter<CategoryHeader>(context, objectsList) {
+abstract class ListItemHeaderSectionAdapter<I: ListItemHeaderSection>(context: Context, objectsList: LinkedList<I>) :
+    BaseRecyclerViewAdapter<I>(context, objectsList) {
 
     override fun getItemViewType(position: Int): Int {
         return if(getItem(position).isHeader()) HEADER

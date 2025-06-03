@@ -26,6 +26,17 @@ abstract class BaseRecyclerViewHolderAdapter<I, VH : ViewHolder>(
         notifyItemRangeChanged(0, items.size)
     }
 
+    fun addItems(items: List<I>) {
+        val startPosition = this.items.size
+        this.items.addAll(items)
+        notifyItemRangeInserted(startPosition, items.size)
+    }
+
+    fun addItemsAt(position: Int, items: List<I>) {
+        this.items.addAll(position, items)
+        notifyItemRangeInserted(position, items.size)
+    }
+
     fun addItemAt(position: Int, item: I) {
         items.add(position, item)
         notifyItemInserted(position)

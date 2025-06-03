@@ -5,6 +5,9 @@ package org.intelehealth.common.model
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-interface CategoryHeader {
+interface ListItemHeaderSection {
     fun isHeader(): Boolean
+    fun isFooter(): Boolean {
+        return false
+    }
 }

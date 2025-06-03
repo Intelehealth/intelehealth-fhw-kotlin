@@ -4,6 +4,12 @@ import android.webkit.WebSettings.RenderPriority
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
+import org.intelehealth.common.model.ListItemHeaderSection
+import org.intelehealth.common.utility.CommonConstants.OTHER
+import org.intelehealth.common.utility.CommonConstants.THIS_MONTH
+import org.intelehealth.common.utility.CommonConstants.THIS_WEEK
+import org.intelehealth.common.utility.CommonConstants.TODAY
+import org.intelehealth.common.utility.CommonConstants.YESTERDAY
 
 
 /**
@@ -41,6 +47,26 @@ data class Prescription(
     var isPriority: Boolean = false,
     var patientPhoto: String? = null,
     var chiefComplaint: String? = null,
-   /* var hasPrescription: Boolean = false,
-    var obsserverModifiedDate: String = ""*/
-)
+    var section: String? = null,
+    /* var hasPrescription: Boolean = false,
+     var obsserverModifiedDate: String = ""*/
+) : ListItemHeaderSection {
+    override fun isHeader(): Boolean = false
+
+    companion object {
+        const val CONDITION_CURRENT_MONTH =
+            " V.startdate BETWEEN date('now', 'start of month') AND date('now', 'start of month', '+1 month', '-1 day')"
+
+        const val SELECT_FROM =
+            "SELECT V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.gender, V.startdate, " +
+                    "(CASE " +
+                    "WHEN V.startdate = date('now') THEN '$TODAY' " +
+                    "WHEN V.startdate = date('now', '-1 day') THEN '$YESTERDAY' " +
+                    "WHEN V.startdate BETWEEN date('now', '-2 day') AND date('now', '-7 day') THEN '${THIS_WEEK}' " +
+                    "WHEN $CONDITION_CURRENT_MONTH THEN '${THIS_MONTH}' " +
+                    "ELSE '${OTHER}' " +
+                    "END) AS section, 0 AS isPriority " +
+                    "FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid "
+
+    }
+}

@@ -13,3 +13,19 @@ function `getPrescriptionStatusCount` to show the received and pending count?
 4. view_filter.xml chip component should be used for filter chips instead of custom view.
 5. Why we can not achieve different view types within single recycler view adapter?
 6. Use ShapableImageView instead of CardView for profile picture.
+
+ELECT p.first_name, p.middle_name, p.last_name, p.openmrs_id, p.date_of_birth, p.gender,
+v.startdate, v.patientuuid, e.visituuid, e.uuid AS euid, o.uuid AS ouid,
+o.obsservermodifieddate,o.synced AS osync,
+(SELECT uuid FROM tbl_encounter where visituuid = e.visituuid AND encounter_type_uuid =:emergencyEnType  AND voided='0' COLLATE NOCASE) as isPriority
+FROM tbl_patient p
+JOIN tbl_visit v ON p.uuid = v.patientuuid
+JOIN tbl_encounter e ON v.uuid = e.visituuid
+JOIN tbl_obs o ON e.uuid = o.encounteruuid WHERE e.encounter_type_uuid = :visitCompleteType
+AND (o.synced = 1 OR LOWER(o.synced) = 'true') AND o.voided = 0
+AND v.startdate > DATETIME('now', '-4 day') AND
+(SELECT COUNT(*) FROM tbl_encounter e1
+WHERE  e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) <= 0 AND (SELECT COUNT(*)
+FROM tbl_encounter e2 WHERE  e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) > 0
+AND (p.first_name LIKE '%' || :searchQuery || '%' OR p.middle_name LIKE '%' || :searchQuery || '%' OR p.last_name LIKE '%' || :searchQuery || '%' OR p.openmrs_id LIKE '%' || :searchQuery || '%')
+GROUP BY p.openmrs_id ORDER BY v.startdate DESC LIMIT :limit OFFSET :offset

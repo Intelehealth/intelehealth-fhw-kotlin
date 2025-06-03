@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.catch
 import org.intelehealth.common.enums.LoadingType
 
 open class BaseViewModel(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val networkHelper: NetworkHelper? = null
 ) : ViewModel() {
     private val loadingData = MutableLiveData<Boolean>()

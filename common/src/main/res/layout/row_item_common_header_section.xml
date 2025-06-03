@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="section"
+            type="Integer" />
+    </data>
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tvListItemCategory"
+        style="@style/Theme.IDA.TextAppearance.Primary.Label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/std_8dp"
+        android:textStyle="bold"
+        android:value="@{section}"
+        tools:text="Category Name" />
+</layout>

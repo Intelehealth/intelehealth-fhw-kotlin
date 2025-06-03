@@ -1,18 +1,17 @@
 package org.intelehealth.data.provider.prescription
 
-import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.data.offline.OfflineDatabase
+import org.intelehealth.data.offline.dao.VisitDao
 import org.intelehealth.data.provider.utils.EncounterType
 import javax.inject.Inject
 
-class PrescriptionRepository @Inject constructor(private val database: OfflineDatabase) {
-    fun getPrescriptionCount() = database.visitDao().getVisitStatusCount(
+class PrescriptionRepository @Inject constructor(private val visitDao: VisitDao) {
+    fun getPrescriptionCount() = visitDao.getVisitStatusCount(
         EncounterType.VISIT_COMPLETE.value,
         EncounterType.PATIENT_EXIT_SURVEY.value
     )
 
     fun getRecentReceivedPrescriptions(searchQuery: String, limit: Int, offset: Int) =
-        database.visitDao().getRecentReceivedPrescriptions(
+        visitDao.getRecentReceivedPrescriptions(
             EncounterType.VISIT_COMPLETE.value,
             EncounterType.PATIENT_EXIT_SURVEY.value,
             EncounterType.EMERGENCY.value,
@@ -22,7 +21,7 @@ class PrescriptionRepository @Inject constructor(private val database: OfflineDa
         )
 
     fun getOlderReceivedPrescriptions(searchQuery: String, limit: Int, offset: Int) =
-        database.visitDao().getOlderReceivedPrescriptions(
+        visitDao.getOlderReceivedPrescriptions(
             EncounterType.VISIT_COMPLETE.value,
             EncounterType.PATIENT_EXIT_SURVEY.value,
             EncounterType.EMERGENCY.value,
@@ -33,7 +32,7 @@ class PrescriptionRepository @Inject constructor(private val database: OfflineDa
 
 
     fun getRecentPendingPrescriptions(searchQuery: String, limit: Int, offset: Int) =
-        database.visitDao().getRecentPendingPrescriptions(
+        visitDao.getRecentPendingPrescriptions(
             EncounterType.VISIT_COMPLETE.value,
             EncounterType.PATIENT_EXIT_SURVEY.value,
             searchQuery,
@@ -42,11 +41,20 @@ class PrescriptionRepository @Inject constructor(private val database: OfflineDa
         )
 
     fun getOlderPendingPrescriptions(searchQuery: String, limit: Int, offset: Int) =
-        database.visitDao().getOlderPendingPrescriptions(
+        visitDao.getOlderPendingPrescriptions(
             EncounterType.VISIT_COMPLETE.value,
             EncounterType.PATIENT_EXIT_SURVEY.value,
             searchQuery,
             limit,
             offset
         )
+
+    fun getCurrentMonthReceivedPrescriptions() = visitDao.getCurrentMonthReceivedPrescriptions(
+        EncounterType.VISIT_COMPLETE.value,
+    )
+
+    fun getReceivedPrescriptionsWithPaging(offset: Int) = visitDao.getReceivedPrescriptionsWithPaging(
+        EncounterType.VISIT_COMPLETE.value,
+        offset
+    )
 }

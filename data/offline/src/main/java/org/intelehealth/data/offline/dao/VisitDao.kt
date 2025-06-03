@@ -3,6 +3,8 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Prescription
 import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 import org.intelehealth.data.offline.entity.Visit
@@ -198,6 +200,45 @@ interface VisitDao : CoreDao<Visit> {
         offset: Int
     ): List<Prescription>?
 
+    @Query(
+        "${Prescription.SELECT_FROM} " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
+                "AND ${Prescription.CONDITION_CURRENT_MONTH} " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
+    )
+    fun getCurrentMonthReceivedPrescriptions(
+        visitCompleteType: String
+    ): Flow<List<Prescription>>
 
-//    suspend fun getCompletedByUserCount(userId: String, visitSurveyExitId: String): Int
+    @Query(
+        "${Prescription.SELECT_FROM} " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
+    )
+    fun getReceivedPrescriptionsWithPaging(
+        visitCompleteType: String?,
+        offset: Int
+    ): Flow<List<Prescription>>
+
+    @Query(
+        "${Prescription.SELECT_FROM} " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
+                "AND ${Prescription.CONDITION_CURRENT_MONTH} " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
+    )
+    fun getCurrentMonthPendingPrescriptions(
+        visitCompleteType: String?,
+        exitSurveyEnType: String?
+    ): Flow<List<Prescription>>
+
+    @Query(
+        "${Prescription.SELECT_FROM} " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
+    )
+    fun getPendingPrescriptionsWithPaging(
+        visitCompleteType: String?,
+        exitSurveyEnType: String?,
+        offset: Int
+    ): Flow<List<Prescription>>
 }

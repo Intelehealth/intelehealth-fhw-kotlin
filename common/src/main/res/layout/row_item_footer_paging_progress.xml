@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="isLoading"
+            type="Boolean" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnViewMore"
+            style="@style/Theme.IDA.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std_16dp"
+            android:text="@{isLoading ? @string/content_loading : @string/action_view_more}"
+            tools:text="@string/action_view_more" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
