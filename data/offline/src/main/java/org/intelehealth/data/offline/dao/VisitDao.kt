@@ -203,42 +203,48 @@ interface VisitDao : CoreDao<Visit> {
     @Query(
         "${Prescription.SELECT_FROM} " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
-                "AND ${Prescription.CONDITION_CURRENT_MONTH} " +
+                "AND ${Prescription.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
     )
     fun getCurrentMonthReceivedPrescriptions(
-        visitCompleteType: String
+        visitCompleteType: String,
+        searchQuery: String = ""
     ): Flow<List<Prescription>>
 
     @Query(
         "${Prescription.SELECT_FROM} " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
-                "AND patientId IS NOT NULL ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
+                "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
+                "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
     )
     fun getReceivedPrescriptionsWithPaging(
         visitCompleteType: String?,
+        searchQuery: String = "",
         offset: Int
     ): Flow<List<Prescription>>
 
     @Query(
         "${Prescription.SELECT_FROM} " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
-                "AND ${Prescription.CONDITION_CURRENT_MONTH} " +
+                "AND ${Prescription.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
     )
     fun getCurrentMonthPendingPrescriptions(
         visitCompleteType: String?,
-        exitSurveyEnType: String?
+        exitSurveyEnType: String?,
+        searchQuery: String = ""
     ): Flow<List<Prescription>>
 
     @Query(
         "${Prescription.SELECT_FROM} " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
-                "AND patientId IS NOT NULL ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
+                "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
+                "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
     )
     fun getPendingPrescriptionsWithPaging(
         visitCompleteType: String?,
         exitSurveyEnType: String?,
+        searchQuery: String = "",
         offset: Int
     ): Flow<List<Prescription>>
 }

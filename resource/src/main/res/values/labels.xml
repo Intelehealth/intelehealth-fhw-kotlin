@@ -100,7 +100,6 @@
     <string name="lbl_gender_with_age">M 22</string>
     <string name="lbl_share">Share</string>
     <string name="lbl_older_visits">Older Visits</string>
-    <string name="lbl_this_months_visits">This month\'s visits</string>
     <string name="lbl_close_visit">Close visit</string>
     <string name="lbl_priority_visits">Priority Visits</string>
     <string name="lbl_all_visits">All Visits</string>
@@ -142,9 +141,9 @@
     <string name="lbl_progressIndicator">Progress Indicator</string>
     <string name="lbl_whatsapp">Whatsapp</string>
     <string name="lbl_call">Call</string>
-    <string name="lbl_today_visit">Today\'s visits</string>
-    <string name="lbl_yesterday_visit">Yesterday\'s visits</string>
-    <string name="lbl_this_week_visit">This week\'s visits</string>
-    <string name="lbl_this_month_visit">This month\'s visits</string>
-    <string name="lbl_this_other_visit">All other day\'s visits</string>
+    <string name="lbl_today_visits">Today\'s visits</string>
+    <string name="lbl_yesterday_visits">Yesterday\'s visits</string>
+    <string name="lbl_this_week_visits">This week\'s visits</string>
+    <string name="lbl_this_month_visits">This month\'s visits</string>
+    <string name="lbl_this_other_visits">All other day\'s visits</string>
 </resources>

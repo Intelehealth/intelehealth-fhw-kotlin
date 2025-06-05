@@ -90,7 +90,7 @@
     </style>
 
     <style name="Theme.IDA.SearchView" parent="Widget.AppCompat.SearchView">
-        <item name="android:background">@drawable/bg_common_input</item>
+        <item name="android:background">@drawable/selector_common_inputbox</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColorHint">@color/textColorLightGary</item>

@@ -50,6 +50,7 @@
                 android:text="@{@string/title_name(prescription.firstName, prescription.lastName)}"
                 app:layout_constraintStart_toEndOf="@id/sivProfileImage"
                 app:layout_constraintTop_toTopOf="@id/sivProfileImage"
+                app:layout_constraintWidth_percent="0.6"
                 tools:text="@string/lbl_dummy_name" />
 
             <!-- Calendar and Date -->

@@ -17,7 +17,6 @@ import org.intelehealth.app.databinding.FragmentPrescriptionBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionPagerAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.ui.fragment.MenuFragment
-import org.intellij.lang.annotations.JdkConstants.TitledBorderTitlePosition
 import org.intelehealth.resource.R as resourceR
 
 /**
@@ -46,7 +45,7 @@ class PrescriptionFragment : MenuFragment(R.layout.fragment_prescription) {
      * Configures the ViewPager with an adapter and links it to the TabLayout for tabbed navigation.
      */
     private fun bindViewPager() {
-        adapter = PrescriptionPagerAdapter(requireActivity())
+        adapter = PrescriptionPagerAdapter(requireActivity(), args.prescriptionCount)
         binding.prescriptionViewPager.adapter = adapter
         TabLayoutMediator(binding.prescriptionTabLayout, binding.prescriptionViewPager) { tab, position ->
             setTabTitle(tab, position)

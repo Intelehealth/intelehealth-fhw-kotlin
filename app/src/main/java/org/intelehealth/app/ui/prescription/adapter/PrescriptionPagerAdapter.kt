@@ -1,12 +1,12 @@
 package org.intelehealth.app.ui.prescription.adapter
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.intelehealth.app.R
-import org.intelehealth.app.ui.prescription.fragment.PrescriptionPendingFragment
-import org.intelehealth.app.ui.prescription.fragment.PrescriptionReceiveFragment
+import org.intelehealth.app.ui.prescription.fragment.PrescriptionListFragment
+import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 
 /**
  * Created by Tanvir Hasan on 2-04-25
@@ -15,7 +15,10 @@ import org.intelehealth.app.ui.prescription.fragment.PrescriptionReceiveFragment
  * PrescriptionViewHolder: Manages a single prescription item view in a RecyclerView.
  * Binds patient data to the item layout and handles click events.
  */
-class PrescriptionPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class PrescriptionPagerAdapter(
+    fragmentActivity: FragmentActivity,
+    private val prescriptionStatusCount: PrescriptionStatusCount
+) : FragmentStateAdapter(fragmentActivity) {
 
     /**
      * Retrieves the tab titles from the string array resource R.array.tab_prescription_title.
@@ -32,11 +35,10 @@ class PrescriptionPagerAdapter(fragmentActivity: FragmentActivity) : FragmentSta
      * A new Fragment instance, either PrescriptionReceiveFragment (for position 0) or PrescriptionPendingFragment (for any other position).
      */
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> PrescriptionReceiveFragment()
-            else -> PrescriptionPendingFragment()
-
-        }
+        return PrescriptionListFragment.newInstance(
+            Prescription.TabType.entries[position],
+            prescriptionStatusCount
+        )
     }
 
     /**

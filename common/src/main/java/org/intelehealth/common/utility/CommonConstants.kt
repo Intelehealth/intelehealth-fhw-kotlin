@@ -15,4 +15,5 @@ object CommonConstants {
     const val THIS_WEEK = "This Week"
     const val THIS_MONTH = "This Month"
     const val OTHER = "Other"
+    const val MIN_SEARCH_QUERY_LENGTH = 3
 }

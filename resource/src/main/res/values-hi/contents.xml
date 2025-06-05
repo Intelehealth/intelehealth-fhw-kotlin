@@ -95,7 +95,7 @@
     <string name="content_decline_consent_message">आप सहमति दिए बिना आगे नहीं बढ़ पाएंगे। क्या आप वाकई बाहर निकलना चाहते हैं?</string>
     <string name="content_not_provided">प्रदान नहीं किया गया</string>
     <string name="content_patient_not_registered">रोगी पंजीकृत नहीं है</string>
-  
+
     <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
     <string name="content_calender">कैलेंडर</string>
     <string name="content_chat_fab">chat fab</string>
@@ -104,10 +104,10 @@
     <string name="content_test_received_2_hours_ago">परीक्षण: 2 घंटे पहले प्राप्त हुआ</string>
     <string name="content_pending_visit_msg">डॉक्टर द्वारा मरीजों को प्रिस्क्रिप्शन भेजा जाना बाकी है <b> %s रोगी </b> आप डॉक्टर को याद दिला सकते हैं।</string>
     <string name="content_loading">लोड हो रहा है…</string>
+    <string name="content_no_prescription">आपके पास अभी तक कोई %1$s प्रिस्क्रिप्शन नहीं है, आप डॉक्टर से पूछ सकते हैं या आप नया मरीज जोड़ सकते हैं</string>
     //content description
-    <string name="content_search_icon">Search Icon</string>
-    <string name="content_add_icon">Add Icon</string>
-    <string name="content_follow_up_list_item_priority_tag">Follow Up List Item Priority Tag</string>
-
+    <string name="content_search_icon">खोज आइकन</string>
+    <string name="content_add_icon">आइकन जोड़ें</string>
+    <string name="content_follow_up_list_item_priority_tag">फ़ॉलो अप सूची आइटम प्राथमिकता टैग</string>
 
 </resources>

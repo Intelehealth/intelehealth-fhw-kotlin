@@ -250,7 +250,7 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
                     }
                 }
 
-                binding.autoCompleteState.setOnItemClickListener { adapterView, _, i, _ ->
+                binding.autoCompleteState.setOnItemClickListener { _, _, i, _ ->
                     binding.textInputLayState.hideError()
                     eraseAllBlockFields()
                     val list: List<StateData> = binding.textInputLayState.tag as List<StateData>

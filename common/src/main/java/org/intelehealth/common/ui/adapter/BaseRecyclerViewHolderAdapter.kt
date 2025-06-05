@@ -67,4 +67,10 @@ abstract class BaseRecyclerViewHolderAdapter<I, VH : ViewHolder>(
 
     fun getList(): List<I> = items;
 
+    fun clear() {
+        items.clear()
+        notifyDataSetChanged()
+//        notifyItemChanged(0, itemCount)
+    }
+
 }

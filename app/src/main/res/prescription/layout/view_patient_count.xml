@@ -2,23 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <import type="android.text.Html" />
-
-        <variable
-            name="text"
-            type="String" />
-    </data>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/visitReceivedCardHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/std_8dp"
-        app:cardUseCompatPadding="true"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/std_8dp"
         app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -48,7 +39,6 @@
                 android:layout_marginEnd="@dimen/std_16dp"
                 android:gravity="center_vertical"
                 android:lineSpacingExtra="@dimen/std_4dp"
-                android:text='@{text == null ? "" :text}'
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iconArrowRight"
                 app:layout_constraintStart_toEndOf="@id/iconVisitDetails"

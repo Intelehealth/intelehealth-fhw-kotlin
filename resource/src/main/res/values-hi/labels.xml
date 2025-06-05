@@ -98,7 +98,6 @@
     <string name="lbl_gender_with_age">M 22</string>
     <string name="lbl_share">साझा करें</string>
     <string name="lbl_older_visits">पहले के विज़िट्स</string>
-    <string name="lbl_this_months_visits">इस महीने के विज़िट्स</string>
     <string name="lbl_close_visit">विज़िट बंद करें</string>
     <string name="lbl_priority_visits">प्राथमिकता विज़िट</string>
     <string name="lbl_all_visits">सभी विज़िट्स</string>
@@ -142,8 +141,9 @@
     <string name="lbl_date_recent">3:15 बजे</string>
     <string name="lbl_date_older">24 जून</string>
 
-    <string name="lbl_today_visit">आज की विज़िट</string>
-    <string name="lbl_this_week_visit">इस सप्ताह की विज़िट</string>
-    <string name="lbl_this_month_visit">इस महीने की विज़िट</string>
-    <string name="lbl_this_other_visit">अन्य सभी दिन की विज़िट</string>
+    <string name="lbl_today_visits">आज की विज़िट</string>
+    <string name="lbl_yesterday_visits">कल की विज़िट</string>
+    <string name="lbl_this_week_visits">इस सप्ताह की विज़िट</string>
+    <string name="lbl_this_month_visits">इस महीने की विज़िट</string>
+    <string name="lbl_this_other_visits">अन्य सभी दिन की विज़िट</string>
 </resources>

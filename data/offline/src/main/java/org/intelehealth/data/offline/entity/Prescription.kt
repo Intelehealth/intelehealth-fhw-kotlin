@@ -1,5 +1,7 @@
 package org.intelehealth.data.offline.entity
 
+import android.icu.text.UnicodeSet.CASE
+import android.os.Build.VERSION_CODES.P
 import android.webkit.WebSettings.RenderPriority
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -53,12 +55,19 @@ data class Prescription(
 ) : ListItemHeaderSection {
     override fun isHeader(): Boolean = false
 
+    enum class TabType(val value: String) {
+        RECEIVED("received"),
+        PENDING("pending")
+    }
+
     companion object {
         const val CONDITION_CURRENT_MONTH =
             " V.startdate BETWEEN date('now', 'start of month') AND date('now', 'start of month', '+1 month', '-1 day')"
 
         const val SELECT_FROM =
             "SELECT V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.gender, V.startdate, " +
+                    "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
+                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable, " +
                     "(CASE " +
                     "WHEN V.startdate = date('now') THEN '$TODAY' " +
                     "WHEN V.startdate = date('now', '-1 day') THEN '$YESTERDAY' " +
@@ -67,6 +76,10 @@ data class Prescription(
                     "ELSE '${OTHER}' " +
                     "END) AS section, 0 AS isPriority " +
                     "FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid "
+
+        const val SEARCHABLE =
+            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id \n" +
+                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable "
 
     }
 }

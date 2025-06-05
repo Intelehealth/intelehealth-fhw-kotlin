@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel" />
+            name="tabName"
+            type="String" />
 
     </data>
 
@@ -74,16 +74,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/filterView"
                     tools:itemCount="2"
                     tools:listitem="@layout/prescription_list_item" />
-
-                <include
-                    android:id="@+id/filterMenu"
-                    layout="@layout/view_filter_prescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvPrescriptionList" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -105,17 +95,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            app:contentMessage="@{@string/content_no_prescription(tabName)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/error_no_prescription_found(tabName)}" />
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/groupDataState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="nestedScrollView, searchView"
+            app:constraint_referenced_ids="nestedScrollView"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

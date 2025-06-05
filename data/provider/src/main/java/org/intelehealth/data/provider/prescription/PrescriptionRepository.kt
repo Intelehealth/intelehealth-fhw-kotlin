@@ -49,12 +49,29 @@ class PrescriptionRepository @Inject constructor(private val visitDao: VisitDao)
             offset
         )
 
-    fun getCurrentMonthReceivedPrescriptions() = visitDao.getCurrentMonthReceivedPrescriptions(
+    fun getCurrentMonthReceivedPrescriptions(searchQuery: String = "") = visitDao.getCurrentMonthReceivedPrescriptions(
         EncounterType.VISIT_COMPLETE.value,
+        searchQuery
     )
 
-    fun getReceivedPrescriptionsWithPaging(offset: Int) = visitDao.getReceivedPrescriptionsWithPaging(
+    fun getReceivedPrescriptionsWithPaging(offset: Int, searchQuery: String = "") =
+        visitDao.getReceivedPrescriptionsWithPaging(
+            EncounterType.VISIT_COMPLETE.value,
+            searchQuery,
+            offset
+        )
+
+    fun getCurrentMonthPendingPrescriptions(searchQuery: String = "") = visitDao.getCurrentMonthPendingPrescriptions(
         EncounterType.VISIT_COMPLETE.value,
-        offset
+        EncounterType.PATIENT_EXIT_SURVEY.value,
+        searchQuery
     )
+
+    fun getPendingPrescriptionsWithPaging(offset: Int, searchQuery: String = "") =
+        visitDao.getPendingPrescriptionsWithPaging(
+            EncounterType.VISIT_COMPLETE.value,
+            EncounterType.PATIENT_EXIT_SURVEY.value,
+            searchQuery,
+            offset
+        )
 }
