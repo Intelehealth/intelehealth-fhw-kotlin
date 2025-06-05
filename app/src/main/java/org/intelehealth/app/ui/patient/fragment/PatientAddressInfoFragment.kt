@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientAddressInfoBinding
 import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
@@ -18,7 +17,6 @@ import org.intelehealth.app.model.address.DistData
 import org.intelehealth.app.model.address.StateData
 import org.intelehealth.app.model.address.Village
 import org.intelehealth.app.ui.patient.viewmodel.PatientAddressViewModel
-import org.intelehealth.app.utility.FlavorKeys
 import org.intelehealth.app.utility.LanguageUtils
 import org.intelehealth.app.utility.POSTAL_CODE_LEN
 import org.intelehealth.common.extensions.addFilter
@@ -33,7 +31,6 @@ import org.intelehealth.common.extensions.validateDropDowb
 import org.intelehealth.common.inputfilter.AlphaNumericInputFilter
 import org.intelehealth.common.inputfilter.AlphabetsInputFilter
 import org.intelehealth.common.inputfilter.FirstLetterUpperCaseInputFilter
-import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.config.presenter.fields.patient.infoconfig.AddressInfoConfig
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 import org.intelehealth.config.utility.PatientInfoGroup

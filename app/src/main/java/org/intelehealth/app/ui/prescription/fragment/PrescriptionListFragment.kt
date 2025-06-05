@@ -2,12 +2,12 @@ package org.intelehealth.app.ui.prescription.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Html
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,21 +16,19 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPrescriptionReceiveBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
+import org.intelehealth.common.extensions.getParcelableExtra
 import org.intelehealth.common.extensions.getSerializableExtra
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.extensions.showToast
+import org.intelehealth.common.extensions.toHTML
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 import java.util.LinkedList
 import org.intelehealth.common.R as CommonR
 import org.intelehealth.resource.R as ResourceR
-import androidx.core.view.isNotEmpty
-import androidx.navigation.fragment.navArgs
-import org.intelehealth.common.extensions.getParcelableExtra
-import org.intelehealth.common.extensions.toHTML
-import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 
 
 /**

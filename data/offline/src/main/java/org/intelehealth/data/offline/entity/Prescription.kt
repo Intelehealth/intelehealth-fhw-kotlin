@@ -1,11 +1,7 @@
 package org.intelehealth.data.offline.entity
 
-import android.icu.text.UnicodeSet.CASE
-import android.os.Build.VERSION_CODES.P
-import android.webkit.WebSettings.RenderPriority
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.google.gson.annotations.SerializedName
 import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.utility.CommonConstants.OTHER
 import org.intelehealth.common.utility.CommonConstants.THIS_MONTH
