@@ -12,6 +12,7 @@
     <dimen name="std_17dp">17dp</dimen>
     <dimen name="std_18dp">18dp</dimen>
     <dimen name="std_24dp">24dp</dimen>
+    <dimen name="std_28dp">28dp</dimen>
     <dimen name="std_32dp">32dp</dimen>
     <dimen name="std_36dp">36dp</dimen>
     <dimen name="std_40dp">40dp</dimen>

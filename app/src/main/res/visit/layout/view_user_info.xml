@@ -1,120 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardViewHead"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:elevation="8dp"
-    app:cardCornerRadius="@dimen/std_4dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/std_16dp">
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
 
-        <!-- Profile CardView -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardUserProfile"
-            android:layout_width="@dimen/std_40dp"
-            android:layout_height="@dimen/std_40dp"
-            app:cardCornerRadius="@dimen/std_16dp"
-            app:cardElevation="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/std_16dp">
+
+            <!-- Profile Image Card -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/sivProfileImage"
+                android:layout_width="@dimen/std_40dp"
+                android:layout_height="@dimen/std_40dp"
+                android:contentDescription="@string/lbl_profile_image"
+                android:src="@drawable/img_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+            <!-- Patient Name and Priority -->
+            <TextView
+                android:id="@+id/tvPatientName"
+                style="@style/Theme.IDA.TextAppearance.Person.Name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_8dp"
+                android:ellipsize="end"
+                android:maxLength="@integer/max_name_length"
+                android:maxLines="1"
+                android:text="@string/lbl_dummy_name"
+                app:layout_constraintStart_toEndOf="@id/sivProfileImage"
+                app:layout_constraintTop_toTopOf="@id/sivProfileImage"
+                tools:text="Anthony Gonsalves" />
+
+            <!-- Calendar and Date -->
+            <TextView
+                android:id="@+id/tvPatientOpenMrsId"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_8dp"
+                android:layout_marginTop="@dimen/std_4dp"
+                android:drawablePadding="@dimen/std_8dp"
+                android:gravity="center"
+                android:text="@string/lbl_openmrs_id"
+                app:layout_constraintStart_toEndOf="@id/sivProfileImage"
+                app:layout_constraintTop_toBottomOf="@id/tvPatientName"
+                tools:text="ID-987654jK" />
+
+            <TextView
+                android:id="@+id/tvPersonGender"
+                style="@style/Theme.IDA.TextAppearance.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/std_8dp"
+                android:drawablePadding="@dimen/std_4dp"
+                android:visibility="visible"
+                app:drawableEndCompat="@drawable/ic_patient_edit"
+                app:layout_constraintBottom_toBottomOf="@id/tvPatientName"
+                app:layout_constraintStart_toEndOf="@id/tvPatientName"
+                app:layout_constraintTop_toTopOf="@id/tvPatientName"
+                tools:ignore="RtlSymmetry"
+                tools:text="M 22" />
 
             <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/img_avatar"
-                android:contentDescription="@string/lbl_profile_image"
-                />
-        </com.google.android.material.card.MaterialCardView>
+                android:id="@+id/ivCallButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/std_16dp"
+                android:background="@drawable/bg_ripple_icon"
+                android:contentDescription="@string/lbl_call"
+                android:src="@drawable/ic_phone"
+                app:layout_constraintBottom_toBottomOf="@id/tvPatientOpenMrsId"
+                app:layout_constraintEnd_toStartOf="@id/ivWhatsappButton"
+                app:layout_constraintTop_toTopOf="@id/tvPatientOpenMrsId" />
 
-        <!-- Patient Name -->
-        <TextView
-            android:id="@+id/patNameTxt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_16dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="@string/lbl_dummy_name"
-            app:layout_constraintWidth_percent=".4"
-            style="@style/TextAppearance.Material3.TitleMedium"
-            app:layout_constraintStart_toEndOf="@id/cardUserProfile"
-            app:layout_constraintTop_toTopOf="@id/cardUserProfile" />
+            <ImageView
+                android:id="@+id/ivWhatsappButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_ripple_icon"
+                android:contentDescription="@string/lbl_call"
+                android:src="@drawable/ic_whatsapp"
+                app:layout_constraintBottom_toBottomOf="@id/tvPatientOpenMrsId"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvPatientOpenMrsId" />
 
-        <!-- Gender and Age -->
-        <TextView
-            android:id="@+id/genderAgeTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_4dp"
-            android:gravity="center_vertical"
-            android:text="@string/lbl_gender_with_age"
-            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
-            android:textSize="@dimen/std_16sp"
-            app:layout_constraintStart_toEndOf="@id/patNameTxt"
-            app:layout_constraintTop_toTopOf="@id/patNameTxt"
-            tools:text="@string/lbl_gender_with_age" />
-
-        <!-- Edit Icon -->
-        <ImageView
-            android:id="@+id/editPatientInfoBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_4dp"
-            android:padding="@dimen/std_4dp"
-            android:src="@drawable/ic_patient_edit"
-            app:layout_constraintStart_toEndOf="@id/genderAgeTxt"
-            app:layout_constraintTop_toTopOf="@id/patNameTxt"
-            android:contentDescription="@string/lbl_edit"
-            />
-
-        <!-- OpenMRS ID -->
-        <TextView
-            android:id="@+id/openmrsIdTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/std_4dp"
-            android:gravity="center_vertical"
-            android:text="@string/lbl_openmrs_id"
-            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
-            android:textSize="@dimen/std_14sp"
-            app:layout_constraintStart_toStartOf="@id/patNameTxt"
-            app:layout_constraintTop_toBottomOf="@id/patNameTxt"
-            />
-
-        <!-- Call Button -->
-        <ImageButton
-            android:id="@+id/patCallBtn"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginEnd="@dimen/std_16dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_phone"
-            app:layout_constraintBottom_toBottomOf="@id/cardUserProfile"
-            app:layout_constraintEnd_toStartOf="@id/patWhatsappBtn"
-            android:contentDescription="@string/lbl_call"/>
-
-        <!-- WhatsApp Button -->
-        <ImageButton
-            android:id="@+id/patWhatsappBtn"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:background="@null"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_whatsapp"
-            app:layout_constraintBottom_toBottomOf="@id/cardUserProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/lbl_whatsapp"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

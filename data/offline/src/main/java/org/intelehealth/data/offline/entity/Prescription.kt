@@ -46,6 +46,8 @@ data class Prescription(
     var patientPhoto: String? = null,
     var chiefComplaint: String? = null,
     var section: String? = null,
+    @ColumnInfo("server_updated_at")
+    var prescriptionReceivedDate: String? = null,
     /* var hasPrescription: Boolean = false,
      var obsserverModifiedDate: String = ""*/
 ) : ListItemHeaderSection {

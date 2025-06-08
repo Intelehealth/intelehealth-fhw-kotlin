@@ -1,102 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="@dimen/std_16dp"
-    android:paddingTop="@dimen/std_16dp"
-    android:paddingEnd="@dimen/std_16dp">
+<layout>
 
-    <!-- Divider -->
-    <View
-        android:id="@+id/dividerTop"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="@dimen/std_16dp"
-        android:background="@color/colorLightGray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- General Physician Layout -->
-
-    <ImageView
-        android:id="@+id/profile"
-        android:layout_width="@dimen/std_48dp"
-        android:layout_height="@dimen/std_48dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="@dimen/std_16dp"
-        android:background="@null"
-        android:src="@drawable/ic_grp_general_phys"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dividerTop"
-        android:contentDescription="@string/general_physician"
-        />
-
-
-    <TextView
-        android:id="@+id/visitSpeciality"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_8dp"
-        android:lineSpacingExtra="-3sp"
-        android:text="@string/lbl_gp_txt"
-        style="@style/TextAppearance.Material3.TitleMedium"
-        app:layout_constraintStart_toEndOf="@+id/profile"
-        app:layout_constraintTop_toTopOf="@+id/profile" />
-
-    <TextView
-        android:id="@+id/drSpeciality"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_dr_speciality"
-        style="@style/TextAppearance.Material3.LabelMedium"
-        app:layout_constraintBottom_toBottomOf="@+id/profile"
-        app:layout_constraintStart_toStartOf="@+id/visitSpeciality"
-        app:layout_constraintTop_toBottomOf="@+id/visitSpeciality" />
+        android:paddingVertical="@dimen/std_16dp">
 
 
-    <ImageView
-        android:id="@+id/drCallBtn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:background="@drawable/ic_whatsapp"
-        android:padding="@dimen/std_16dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/drWhatsappBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/drWhatsappBtn"
-        tools:visibility="visible"
-        android:contentDescription="@string/lbl_whatsapp"
-        />
+        <!-- General Physician Layout -->
 
-    <ImageView
-        android:id="@+id/drWhatsappBtn"
-        android:layout_width="@dimen/std_48dp"
-        android:layout_height="@dimen/std_48dp"
-        android:layout_marginEnd="@dimen/std_8dp"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_phone"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/drSpeciality"
-        app:layout_constraintEnd_toStartOf="@+id/drCallBtn"
-        app:layout_constraintTop_toTopOf="@+id/visitSpeciality"
-        android:contentDescription="@string/lbl_call"/>
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/general_physician"
+            android:src="@drawable/ic_grp_general_phys"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <!-- Divider-->
-    <View
-        android:id="@+id/dividerBottom"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/std_1dp"
-        android:layout_marginTop="@dimen/std_16dp"
-        android:background="@color/colorLightGray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile" />
+        <TextView
+            android:id="@+id/visitSpeciality"
+            style="@style/Theme.IDA.TextAppearance.Person.Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:text="@string/lbl_gp_txt"
+            app:layout_constraintStart_toEndOf="@+id/profile"
+            app:layout_constraintTop_toTopOf="@+id/profile" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/drSpeciality"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_dr_speciality"
+            app:layout_constraintBottom_toBottomOf="@+id/profile"
+            app:layout_constraintStart_toStartOf="@+id/visitSpeciality"
+            app:layout_constraintTop_toBottomOf="@+id/visitSpeciality" />
+
+
+        <ImageView
+            android:id="@+id/ivCallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:background="@drawable/bg_ripple_icon"
+            android:contentDescription="@string/lbl_call"
+            android:src="@drawable/ic_phone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivWhatsappButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivWhatsappButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ripple_icon"
+            android:contentDescription="@string/lbl_call"
+            android:src="@drawable/ic_whatsapp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

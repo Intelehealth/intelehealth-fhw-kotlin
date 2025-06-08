@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/prescriptionBlock"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/std_16dp"
-    android:paddingEnd="@dimen/std_16dp"
     android:paddingBottom="@dimen/std_16dp"
     android:visibility="visible"
     tools:visibility="visible">
 
 
-    <!-- Prescription Icon -->
-    <ImageView
-        android:id="@+id/iconPrescDetails"
-        android:layout_width="@dimen/std_48dp"
-        android:layout_height="@dimen/std_48dp"
-        android:src="@drawable/ic_circle_prescription"
-        android:background="@null"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPrescriptionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_list_item"
+        android:paddingVertical="@dimen/std_16dp"
         app:layout_constraintBottom_toTopOf="@id/divider"
-        android:layout_marginTop="@dimen/std_16dp"
-        android:contentDescription="@string/lbl_prescription"
-        />
-
-    <!-- Title Text -->
-    <TextView
-        android:id="@+id/visitDetailsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_prescription"
-        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary"
-        android:textSize="@dimen/std_16sp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="@id/iconPrescDetails"
-        app:layout_constraintStart_toEndOf="@id/iconPrescDetails"
-        android:layout_marginStart="@dimen/std_16dp"/>
-
-    <!-- Sub Text (prescription time) -->
-    <TextView
-        android:id="@+id/prescTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/content_test_received_2_hours_ago"
-        android:textAppearance="@style/Theme.IDA.TextAppearance.Secondary"
-        android:textColor="@color/green_button_bg"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/visitDetailsText"
-        app:layout_constraintStart_toStartOf="@id/visitDetailsText"
-        android:layout_marginTop="@dimen/std_4dp"/>
-
-    <!-- Arrow Button -->
-    <ImageButton
-        android:id="@+id/prescArrowRight"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@null"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="10dp"
-        android:src="@drawable/ic_cupertino_arrow_right"
-        app:layout_constraintTop_toTopOf="@id/iconPrescDetails"
-        app:layout_constraintBottom_toBottomOf="@id/iconPrescDetails"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/lbl_next_arrow"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Prescription Icon -->
+        <ImageView
+            android:id="@+id/iconPrescDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/lbl_prescription"
+            android:src="@drawable/ic_circle_prescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Title Text -->
+        <TextView
+            android:id="@+id/visitDetailsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_prescription"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Person.Name"
+            app:layout_constraintStart_toEndOf="@id/iconPrescDetails"
+            app:layout_constraintTop_toTopOf="@id/iconPrescDetails" />
+
+        <!-- Sub Text (prescription time) -->
+        <TextView
+            android:id="@+id/prescTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/content_test_received_2_hours_ago"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+            android:textColor="@color/green_button_bg"
+            app:layout_constraintStart_toStartOf="@id/visitDetailsText"
+            app:layout_constraintTop_toBottomOf="@id/visitDetailsText" />
+
+        <!-- Arrow Button -->
+        <ImageView
+            android:id="@+id/prescArrowRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/lbl_next_arrow"
+            android:src="@drawable/ic_cupertino_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@id/iconPrescDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iconPrescDetails" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Divider Below Prescription -->
     <View
@@ -73,45 +72,41 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/colorLightGray"
-        app:layout_constraintTop_toBottomOf="@id/iconPrescDetails"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/std_16dp"
         android:visibility="visible"
-        tools:visibility="visible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clPrescriptionDetails"
+        tools:visibility="visible" />
 
     <!-- Cancel Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/cancelBtn"
+        style="@style/Theme.IDA.Button.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Theme.IDA.Button.Secondary"
+        android:layout_marginTop="@dimen/std_16dp"
+        android:layout_marginEnd="@dimen/std_8dp"
         android:backgroundTint="@color/light_red"
-        android:layout_marginTop="@dimen/std_8dp"
-        android:padding="@dimen/std_16dp"
         android:text="@string/action_cancel"
         android:textColor="@color/red"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnVsSendVisit"
-        android:layout_marginEnd="@dimen/std_8dp"
         android:visibility="visible"
-        tools:visibility="visible"/>
+        app:layout_constraintEnd_toStartOf="@id/btnVsSendVisit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        tools:visibility="visible" />
 
     <!-- Remind Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnVsSendVisit"
+        style="@style/Theme.IDA.Button.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Theme.IDA.Button.Secondary"
-        android:padding="@dimen/std_14dp"
-        android:text="@string/lbl_remind_doctor"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@id/cancelBtn"
-        app:layout_constraintStart_toEndOf="@id/cancelBtn"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/std_8dp"
+        android:text="@string/lbl_remind_doctor"
         android:visibility="visible"
-        tools:visibility="visible"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cancelBtn"
+        app:layout_constraintTop_toTopOf="@id/cancelBtn"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

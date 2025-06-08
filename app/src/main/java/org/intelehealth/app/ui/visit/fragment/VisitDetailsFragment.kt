@@ -48,8 +48,12 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
      * Attaches actions to interactive views like buttons. Called in `onViewCreated()`.
      */
     private fun setupClickListeners() {
-        binding.prescriptionView.prescriptionBlock.setOnClickListener {
-           findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
+        binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
+            findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
+        }
+
+        binding.visitSummaryView.clVisitSummery.setOnClickListener {
+//            findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
         }
     }
 

@@ -15,7 +15,7 @@ data class Observation(
     @ColumnInfo("encounteruuid") @SerializedName("encounteruuid") var encounterUuid: String? = null,
     @ColumnInfo("conceptuuid") @SerializedName("conceptuuid", alternate = ["concept"]) var conceptUuid: String? = null,
     @SerializedName("value") var value: String? = null,
-    @ColumnInfo("obsservermodifieddate") @SerializedName("obsServerModifiedDate") var obsServerModifiedDate: String? = null,
+    @ColumnInfo("server_updated_at") @SerializedName("obsServerModifiedDate") var obsServerModifiedDate: String? = null,
     @Ignore @SerializedName("obsDatetime") @Expose var obsDatetime: String = "",
     @Ignore @SerializedName("encounter") @Expose var encounter: String = "",
     @SerializedName("creator", alternate = ["person"]) var creator: String? = null,

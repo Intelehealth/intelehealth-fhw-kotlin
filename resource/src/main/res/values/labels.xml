@@ -90,14 +90,12 @@
     <string name="lbl_contact_type">Emergency Contact Type</string>
     <string name="lbl_emergency_contact">Emergency Contact number</string>
     <string name="lbl_emergency_contact_name">Emergency Contact Name</string>
-    <string name="lbl_date_recent">At 3:15 pm</string>
-    <string name="lbl_date_older">24 June</string>
+
     <string name="lbl_details">Details</string>
     <string name="lbl_name">Name</string>
     <string name="lbl_household_survey">Household Survey</string>
     <string name="lbl_results_for">Results for</string>
-    <string name="lbl_card_item_date">Follow up on 12 June</string>
-    <string name="lbl_gender_with_age">M 22</string>
+
     <string name="lbl_share">Share</string>
     <string name="lbl_older_visits">Older Visits</string>
     <string name="lbl_close_visit">Close visit</string>
@@ -107,15 +105,7 @@
     <string name="lbl_remind_doctor">Remind doctor</string>
     <string name="lbl_visitDetails_text">Visit summary</string>
     <string name="lbl_dr_speciality">Doctor\'s speciality</string>
-    <string name="lbl_gp_txt">General physician</string>
-    <string name="lbl_details_date">21 May 2022</string>
-    <string name="lbl_visit_id">Visit ID</string>
-    <string name="lbl_openmrs_id">ID-987654jK</string>
-    <string name="lbl_text_visit">Test Fever</string>
-    <string name="lbl_dummy_name">Anthony Gonsalves</string>
-    <string name="lbl_chw_worker">CHW Worker</string>
-    <string name="lbl_chw_name">Test: Kiran Devi Prakash</string>
-    <string name="lbl_dummy_visit_id">Test: XXX543573</string>
+
     <string name="lbl_consulted_doctor_details">Consulted Doctor Details</string>
     <string name="lbl_no_information">No information</string>
     <string name="lbl_qualification">Qualification</string>
@@ -132,7 +122,7 @@
     <string name="lbl_notifi_reminders">Reminders</string>
     <string name="lbl_notifi_incompl_activity">Incomplete activity</string>
     <string name="lbl_notifi_archived">Archived notifications</string>
-    <string name="lbl_dummy_time">10:00 AM</string>
+
 
     <string name="lbl_profile_image">Profile Image</string>
     <string name="lbl_filter">Filter</string>
@@ -146,4 +136,20 @@
     <string name="lbl_this_week_visits">This week\'s visits</string>
     <string name="lbl_this_month_visits">This month\'s visits</string>
     <string name="lbl_this_other_visits">All other day\'s visits</string>
+
+    <!-- Dummy data for testing -->
+    <string name="lbl_gp_txt">General physician</string>
+    <string name="lbl_details_date">21 May 2022</string>
+    <string name="lbl_visit_id">Visit ID: %1$s</string>
+    <string name="lbl_openmrs_id">ID-987654jK</string>
+    <string name="lbl_text_visit">Test Fever</string>
+    <string name="lbl_dummy_name">Anthony Gonsalves</string>
+    <string name="lbl_chw_worker">CHW Worker</string>
+    <string name="lbl_chw_name">Test: Kiran Devi Prakash</string>
+    <string name="lbl_dummy_visit_id">Test: XXX543573</string>
+    <string name="lbl_dummy_time">10:00 AM</string>
+    <string name="lbl_card_item_date">Follow up on 12 June</string>
+    <string name="lbl_gender_with_age">M 22</string>
+    <string name="lbl_date_recent">At 3:15 pm</string>
+    <string name="lbl_date_older">24 June</string>
 </resources>

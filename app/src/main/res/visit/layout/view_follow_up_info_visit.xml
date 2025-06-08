@@ -25,7 +25,7 @@
         android:gravity="center_vertical"
         android:lineSpacingExtra="4sp"
         android:text="@string/lbl_card_item_date"
-        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textAppearance="@style/Theme.IDA.TextAppearance.Person.Name"
         android:textColor="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -71,34 +71,31 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFollowUpDecline"
         style="@style/Theme.IDA.Button.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_16dp"
         android:layout_marginBottom="@dimen/std_16dp"
-        android:padding="@dimen/std_16dp"
         android:text="@string/action_no"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/std_8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnFollowUpAccept"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followup_accept_text"
-        app:layout_constraintWidth_percent=".48" />
+        app:layout_constraintTop_toBottomOf="@+id/followup_accept_text" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/yes_followup_btn"
+        android:id="@+id/btnFollowUpAccept"
         style="@style/Theme.IDA.Button.Primary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_16dp"
         android:layout_marginBottom="@dimen/std_16dp"
-        android:padding="@dimen/std_16dp"
+        android:layout_marginStart="@dimen/std_8dp"
         android:text="@string/action_yes"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followup_accept_text"
-        app:layout_constraintWidth_percent=".48" />
+        app:layout_constraintStart_toEndOf="@id/btnFollowUpDecline"
+        app:layout_constraintTop_toBottomOf="@+id/followup_accept_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
