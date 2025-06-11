@@ -11,6 +11,7 @@ import androidx.core.view.isNotEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPrescriptionReceiveBinding
@@ -24,7 +25,7 @@ import org.intelehealth.common.extensions.toHTML
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.CommonConstants
-import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 import java.util.LinkedList
 import org.intelehealth.common.R as CommonR
@@ -57,7 +58,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
     private var searchQuery: String = ""
 
     // Type of prescription tab being displayed (received or pending)
-    private var tabType: Prescription.TabType = Prescription.TabType.RECEIVED
+    private var tabType: VisitDetail.TabType = VisitDetail.TabType.RECEIVED
 
     private lateinit var presCount: PrescriptionStatusCount
 
@@ -82,8 +83,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionReceiveBinding.bind(view)
-        tabType = getSerializableExtra(EXT_TAB_TYPE, Prescription.TabType.RECEIVED)
-        getParcelableExtra<PrescriptionStatusCount>(EXT_PRES_COUNT)?.let { presCount = it }
+        extractExtra()
         binding.progressBar.progressLayout.background = Color.TRANSPARENT.toDrawable()
         bindProgressView(binding.progressBar)
         binding.tabName = getScreenTitle().lowercase()
@@ -97,6 +97,11 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
         bindPrescriptionCount()
     }
 
+    private fun extractExtra() {
+        tabType = getSerializableExtra(EXT_TAB_TYPE, VisitDetail.TabType.RECEIVED)
+        getParcelableExtra<PrescriptionStatusCount>(EXT_PRES_COUNT)?.let { presCount = it }
+    }
+
     /**
      * Returns the title for the screen based on the tab type.
      *
@@ -104,8 +109,8 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      */
     private fun getScreenTitle(): String {
         return when (tabType) {
-            Prescription.TabType.RECEIVED -> getString(ResourceR.string.title_received)
-            Prescription.TabType.PENDING -> getString(ResourceR.string.title_pending)
+            VisitDetail.TabType.RECEIVED -> getString(ResourceR.string.title_received)
+            VisitDetail.TabType.PENDING -> getString(ResourceR.string.title_pending)
         }
     }
 
@@ -190,7 +195,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
     private fun bindPrescriptionCount() {
         // Update the data binding variable with the count of pending prescriptions
         if (::presCount.isInitialized) {
-            val content = if (tabType == Prescription.TabType.RECEIVED) getString(
+            val content = if (tabType == VisitDetail.TabType.RECEIVED) getString(
                 ResourceR.string.content_patients_waiting_for_closure, presCount.pending.toString()
             )
             else getString(ResourceR.string.content_pending_visit_msg, presCount.pending.toString())
@@ -215,8 +220,12 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
             adapter.isLoading = true
             viewModel.fetchPrescriptionWithPagination(tabType, searchQuery)
             return
-        } else {
-            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails())
+        } else if (view.id == R.id.cardPatientItem) {
+            Timber.d { "clicked position => $position" }
+            val item = view.tag as? VisitDetail ?: return
+            val visitId = item.visitId ?: return
+            Timber.d { "VisitId nav => $visitId" }
+            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
         }
     }
 
@@ -306,7 +315,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
         // Factory method to create a new instance of PrescriptionListFragment with the specified tab type.
         @JvmStatic
         fun newInstance(
-            tab: Prescription.TabType = Prescription.TabType.RECEIVED, prescriptionStatusCount: PrescriptionStatusCount
+            tab: VisitDetail.TabType = VisitDetail.TabType.RECEIVED, prescriptionStatusCount: PrescriptionStatusCount
         ): PrescriptionListFragment {
             return PrescriptionListFragment().apply {
                 arguments = Bundle().apply {

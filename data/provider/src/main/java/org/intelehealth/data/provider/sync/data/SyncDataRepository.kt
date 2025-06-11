@@ -34,9 +34,6 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 import org.intelehealth.data.provider.utils.EncounterType
 import org.intelehealth.data.provider.utils.PersonIdentifier
 import org.intelehealth.data.provider.utils.ProviderRole
-import java.time.LocalDate
-import java.util.Date
-import java.util.TimeZone
 import javax.inject.Inject
 
 /**
@@ -98,7 +95,7 @@ class SyncDataRepository @Inject constructor(
     private suspend fun saveVisitData(pullResponse: PullResponse) {
         if (pullResponse.visitlist.isNotEmpty()) {
             pullResponse.visitlist.map {
-                it.startDate = DateTimeUtils.formatOneToAnother(
+                it.startDate = DateTimeUtils.formatDbToDisplay(
                     it.startDate,
                     DateTimeUtils.SERVER_FORMAT,
                     DateTimeUtils.USER_DOB_DB_FORMAT,
@@ -127,7 +124,18 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun savePatientData(pullResponse: PullResponse) {
-        if (pullResponse.patients.isNotEmpty()) db.patientDao().insert(pullResponse.patients)
+        if (pullResponse.patients.isNotEmpty()) {
+            pullResponse.patients.map {
+                it.dateOfBirth = DateTimeUtils.formatDbToDisplay(
+                    it.dateOfBirth,
+                    DateTimeUtils.SERVER_FORMAT,
+                    DateTimeUtils.USER_DOB_DB_FORMAT,
+                )
+                it.synced = true
+            }.apply {
+                db.patientDao().insert(pullResponse.patients)
+            }
+        }
         if (pullResponse.patientAttributeTypeListMaster.isNotEmpty() && pullResponse.pageNo == 1) {
             pullResponse.patientAttributeTypeListMaster.map { it.synced = true }.apply {
                 db.patientAttrMasterDao().insert(pullResponse.patientAttributeTypeListMaster)

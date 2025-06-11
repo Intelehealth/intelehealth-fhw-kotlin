@@ -141,7 +141,7 @@
     <string name="lbl_gp_txt">General physician</string>
     <string name="lbl_details_date">21 May 2022</string>
     <string name="lbl_visit_id">Visit ID: %1$s</string>
-    <string name="lbl_openmrs_id">ID-987654jK</string>
+    <string name="lbl_openmrs_id">ID-%1$s</string>
     <string name="lbl_text_visit">Test Fever</string>
     <string name="lbl_dummy_name">Anthony Gonsalves</string>
     <string name="lbl_chw_worker">CHW Worker</string>

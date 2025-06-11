@@ -12,20 +12,15 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
-import org.intelehealth.resource.R
-import org.intelehealth.common.model.CommonHeaderSection
-import org.intelehealth.common.model.ListItemFooter
+import org.intelehealth.app.ui.visit.viewmodel.VisitViewModel
 import org.intelehealth.common.model.ListItemHeaderSection
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.provider.prescription.PrescriptionRepository
 import javax.inject.Inject
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.utility.CommonConstants.LIMIT
 import org.intelehealth.common.utility.NO_DATA_FOUND
-import java.util.LinkedList
 
 /**
  * ViewModel for managing prescription-related data and business logic.
@@ -46,7 +41,7 @@ import java.util.LinkedList
 @HiltViewModel
 class PrescriptionViewModel @Inject constructor(
     private var prescriptionRepository: PrescriptionRepository
-) : BaseViewModel() {
+) : VisitViewModel() {
 
     private var prescriptionCurrentMonthData =
         MutableLiveData<Result<List<ListItemHeaderSection>>>()
@@ -55,11 +50,6 @@ class PrescriptionViewModel @Inject constructor(
     private var pagingData =
         MutableLiveData<List<ListItemHeaderSection>>()
     var pagingLiveData: LiveData<List<ListItemHeaderSection>> = pagingData
-
-    private var offset = 0
-
-    private var otherSectionAdded = false
-    private var addMoreSectionAdded = false
 
     /**
      * Retrieves a Flow of prescription counts from the repository.
@@ -193,13 +183,13 @@ class PrescriptionViewModel @Inject constructor(
 //        }
 //    }
 
-    fun getCurrentMonthPrescriptions(tab: Prescription.TabType, searchQuery: String = "") {
+    fun getCurrentMonthPrescriptions(tab: VisitDetail.TabType, searchQuery: String = "") {
         viewModelScope.launch {
             resetReceivedPrescriptionData()
             Timber.d { "Other => $otherSectionAdded" }
             Timber.d { "Add more => $addMoreSectionAdded" }
 
-            val flow = if (tab == Prescription.TabType.RECEIVED)
+            val flow = if (tab == VisitDetail.TabType.RECEIVED)
                 prescriptionRepository.getCurrentMonthReceivedPrescriptions(searchQuery)
             else prescriptionRepository.getCurrentMonthPendingPrescriptions(searchQuery)
 
@@ -208,9 +198,9 @@ class PrescriptionViewModel @Inject constructor(
     }
 
     private fun mapFlowToResultLiveData(
-        flow: Flow<List<Prescription>>,
+        flow: Flow<List<VisitDetail>>,
         searchQuery: String,
-        tab: Prescription.TabType,
+        tab: VisitDetail.TabType,
     ) = viewModelScope.launch {
         flow.onStart {
             prescriptionCurrentMonthData.postValue(Result.Loading("Please wait..."))
@@ -231,16 +221,16 @@ class PrescriptionViewModel @Inject constructor(
     }
 
 
-    fun fetchPrescriptionWithPagination(tab: Prescription.TabType, searchQuery: String = "") =
+    fun fetchPrescriptionWithPagination(tab: VisitDetail.TabType, searchQuery: String = "") =
         viewModelScope.launch {
-            val flow = if (tab == Prescription.TabType.RECEIVED)
+            val flow = if (tab == VisitDetail.TabType.RECEIVED)
                 prescriptionRepository.getReceivedPrescriptionsWithPaging(offset, searchQuery)
             else prescriptionRepository.getPendingPrescriptionsWithPaging(offset, searchQuery)
 
             handlePagingFlow(flow, searchQuery)
         }
 
-    private fun handlePagingFlow(flow: Flow<List<Prescription>>, searchQuery: String) = viewModelScope.launch {
+    private fun handlePagingFlow(flow: Flow<List<VisitDetail>>, searchQuery: String) = viewModelScope.launch {
         flow.collectLatest {
             if (it.isNotEmpty()) {
                 Timber.d { "Other pagin => $otherSectionAdded" }
@@ -262,71 +252,15 @@ class PrescriptionViewModel @Inject constructor(
     }
 
     private fun mapPrescriptionsWithDateFormat(
-        prescriptions: List<Prescription>
-    ): List<Prescription> {
-        return prescriptions.map { prescription ->
-            prescription.visitStartDate = DateTimeUtils.formatOneToAnother(
+        visitDetails: List<VisitDetail>
+    ): List<VisitDetail> {
+        return visitDetails.map { prescription ->
+            prescription.visitStartDate = DateTimeUtils.formatDbToDisplay(
                 prescription.visitStartDate,
                 DateTimeUtils.USER_DOB_DB_FORMAT,
                 DateTimeUtils.DD_MMM_AT_HH_MM_A_FORMAT
             )
             prescription
         }
-    }
-
-    private fun generatePrescriptionListWithHeaderSection(
-        prescriptions: List<Prescription>
-    ): List<ListItemHeaderSection> {
-        val listWithSection = LinkedList<ListItemHeaderSection>()
-        val today = prescriptions.filter { it.section == CommonConstants.TODAY }
-        val yesterday = prescriptions.filter { it.section == CommonConstants.YESTERDAY }
-        val thisWeek = prescriptions.filter { it.section == CommonConstants.THIS_WEEK }
-        val thisMonth = prescriptions.filter { it.section == CommonConstants.THIS_MONTH }
-        val other = prescriptions.filter { it.section == CommonConstants.OTHER }
-
-        if (today.isEmpty() && yesterday.isEmpty() && thisWeek.isEmpty() && thisMonth.isEmpty() && other.isEmpty()) {
-            return emptyList()
-        }
-
-        if (today.isNotEmpty()) {
-            listWithSection.add(CommonHeaderSection(R.string.lbl_today_visits))
-            listWithSection.addAll(today)
-        }
-
-        if (yesterday.isNotEmpty()) {
-            listWithSection.add(CommonHeaderSection(R.string.lbl_yesterday_visits))
-            listWithSection.addAll(yesterday)
-        }
-
-        if (thisWeek.isNotEmpty()) {
-            listWithSection.add(CommonHeaderSection(R.string.lbl_this_week_visits))
-            listWithSection.addAll(thisWeek)
-        }
-
-        if (thisMonth.isNotEmpty()) {
-            listWithSection.add(CommonHeaderSection(R.string.lbl_this_month_visits))
-            listWithSection.addAll(thisMonth)
-        }
-
-        if (other.isNotEmpty()) {
-            listWithSection.add(CommonHeaderSection(R.string.lbl_this_other_visits))
-            listWithSection.addAll(other)
-            if (!otherSectionAdded) {
-                otherSectionAdded = true
-            }
-        }
-
-        if (!addMoreSectionAdded) {
-            addMoreSectionAdded = true
-            listWithSection.add(ListItemFooter())
-        }
-
-        return listWithSection
-    }
-
-    private fun resetReceivedPrescriptionData() {
-        offset = 0
-        otherSectionAdded = false
-        addMoreSectionAdded = false
     }
 }

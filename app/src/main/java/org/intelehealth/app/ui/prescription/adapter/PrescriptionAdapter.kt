@@ -8,7 +8,7 @@ import org.intelehealth.app.ui.prescription.viewholder.PrescriptionViewHolder
 import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.ui.adapter.CommonHeaderSectionAdapter
 import org.intelehealth.common.ui.adapter.FooterViewMoreAdapter
-import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.VisitDetail
 import java.util.LinkedList
 
 /**
@@ -45,15 +45,15 @@ class PrescriptionAdapter(
 
     /**
      * Replaces the contents of a view (invoked by the layout manager).
-     * Binds the [Prescription] at the given [position] to the [PrescriptionViewHolder].
+     * Binds the [VisitDetail] at the given [position] to the [PrescriptionViewHolder].
      * Sets a click listener on the view holder if one is provided.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) != HEADER && holder is PrescriptionViewHolder && getItem(position) is Prescription) {
+        if (getItemViewType(position) != HEADER && holder is PrescriptionViewHolder && getItem(position) is VisitDetail) {
             // Set click listener from the base adapter or fragment/activity
             viewHolderClickListener?.let { holder.setViewClickListener(it) }
             // Bind data to the ViewHolder
-            holder.bind(getItem(position) as Prescription)
+            holder.bind(getItem(position) as VisitDetail)
         } else super.onBindViewHolder(holder, position)
     }
 }

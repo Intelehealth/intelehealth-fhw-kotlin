@@ -9,11 +9,11 @@
 
         <variable
             name="prescription"
-            type="org.intelehealth.data.offline.entity.Prescription" />
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardItem"
+        android:id="@+id/cardPatientItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/std_8dp"
@@ -47,7 +47,7 @@
                 android:layout_marginStart="@dimen/std_8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{@string/title_name(prescription.firstName, prescription.lastName)}"
+                android:text="@{prescription.patientFullName}"
                 app:layout_constraintStart_toEndOf="@id/sivProfileImage"
                 app:layout_constraintTop_toTopOf="@id/sivProfileImage"
                 app:layout_constraintWidth_percent="0.6"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="@dimen/std_4dp"
-                android:text="@{prescription.gender}"
+                android:text="@{prescription.gender + ' ' + prescription.age}"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvPriorityTag"

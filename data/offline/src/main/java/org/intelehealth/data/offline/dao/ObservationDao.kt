@@ -33,7 +33,7 @@ interface ObservationDao : CoreDao<Observation> {
     @Query("UPDATE tbl_obs SET synced = :isSync WHERE uuid = :uuid")
     suspend fun updateSyncStatus(uuid: String, isSync: Boolean)
 
-    @Query("UPDATE tbl_obs SET obsservermodifieddate = :obsModifiedDate WHERE uuid = :uuid")
+    @Query("UPDATE tbl_obs SET server_updated_at = :obsModifiedDate WHERE uuid = :uuid")
     suspend fun updateServerModifiedDate(obsModifiedDate: String, uuid: String)
 
     @Query("UPDATE tbl_obs SET updated_at = :modifiedDate WHERE uuid = :uuid")

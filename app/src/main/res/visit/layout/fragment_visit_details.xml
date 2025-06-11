@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="visitDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +37,8 @@
                     layout="@layout/view_user_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:patientDetail="@{visitDetail}" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/detailsCard"
@@ -51,7 +61,8 @@
                             layout="@layout/view_complaint_and_datetime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:visitDetail="@{visitDetail}" />
 
                         <!-- Divider -->
                         <View
@@ -70,7 +81,8 @@
                             layout="@layout/view_general_ph"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/dividerChiefComplaint" />
+                            app:layout_constraintTop_toBottomOf="@+id/dividerChiefComplaint"
+                            app:speciality="@{visitDetail}" />
 
                         <!-- Divider-->
                         <View
@@ -106,7 +118,8 @@
                             layout="@layout/view_prescription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@+id/dividerVisitSummary" />
+                            app:layout_constraintTop_toBottomOf="@+id/dividerVisitSummary"
+                            app:presDetail="@{visitDetail}" />
 
                         <!--Follow up view-->
                         <include
@@ -133,6 +146,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/action_end_visit"
+                            android:visibility="@{visitDetail.hasPrescription ? View.GONE : View.VISIBLE}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

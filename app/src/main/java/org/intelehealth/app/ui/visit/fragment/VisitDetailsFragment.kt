@@ -1,17 +1,23 @@
 package org.intelehealth.app.ui.visit.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
+import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.FragmentVisitDetailsBinding
+import org.intelehealth.app.ui.visit.activity.VisitDetailActivityArgs
+import org.intelehealth.app.ui.visit.viewmodel.VisitDetailViewModel
+import org.intelehealth.common.extensions.showToast
+import org.intelehealth.common.extensions.startCallIntent
+import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.MenuFragment
 
 /**
@@ -36,10 +42,22 @@ import org.intelehealth.common.ui.fragment.MenuFragment
 @AndroidEntryPoint
 class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
     private lateinit var binding: FragmentVisitDetailsBinding
+    private val viewModel: VisitDetailViewModel by viewModels()
+    private val args: VisitDetailActivityArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVisitDetailsBinding.bind(view)
         setupClickListeners()
+        observeVisitDetails()
+    }
+
+    private fun observeVisitDetails() {
+        viewModel.fetchVisitDetails(args.visitId).observe(viewLifecycleOwner) { result ->
+            result.separateVisitDateAndTime()
+            result.formatPrescribedDate()
+            binding.visitDetail = result
+        }
     }
 
     /**
@@ -55,6 +73,20 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         binding.visitSummaryView.clVisitSummery.setOnClickListener {
 //            findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
         }
+
+        binding.userInfoView.ivCallButton.setOnClickListener {
+            actionOnNumber { startCallIntent(it) }
+        }
+
+        binding.userInfoView.ivWhatsappButton.setOnClickListener {
+            actionOnNumber { startWhatsappIntent(it, "hi") }
+        }
+    }
+
+    private fun actionOnNumber(action: (String) -> Unit) {
+        val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
+        else showToast(ResourceR.string.error_mobile_no_not_found)
     }
 
     /**

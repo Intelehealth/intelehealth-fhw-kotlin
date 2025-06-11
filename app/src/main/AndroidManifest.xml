@@ -35,9 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDA"
         tools:targetApi="34" >
-        <activity
-            android:name=".ui.prescription.activity.PrescriptionActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".ui.prescription.activity.PrescriptionActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".ui.onboarding.activity.OnboardingActivity"
             android:exported="true"

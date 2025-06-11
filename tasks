@@ -29,3 +29,38 @@ WHERE  e1.visituuid = v.uuid AND e1.encounter_type_uuid = :exitSurveyEnType ) <=
 FROM tbl_encounter e2 WHERE  e2.visituuid = v.uuid AND e2.encounter_type_uuid = :visitCompleteType) > 0
 AND (p.first_name LIKE '%' || :searchQuery || '%' OR p.middle_name LIKE '%' || :searchQuery || '%' OR p.last_name LIKE '%' || :searchQuery || '%' OR p.openmrs_id LIKE '%' || :searchQuery || '%')
 GROUP BY p.openmrs_id ORDER BY v.startdate DESC LIMIT :limit OFFSET :offset
+
+// Visit details query
+SELECT V.uuid as visitId, V.patientuuid as patientId, P.first_name, P.last_name, P.middle_name,
+       P.openmrs_id, P.date_of_birth, PA.value as mobile, V.startdate, O.value as chief_complain,
+       VA.value as speciality, P.gender,(P.first_name || ' ' || P.last_name ) full_name,
+       (CASE WHEN (date_of_birth = '' OR date_of_birth IS NULL )
+       THEN   (strftime('%Y', 'now') - strftime('%Y', 'now', '-10 years')) -   (strftime('%m-%d', 'now') < strftime('%m-%d',  'now', '-10 years'))
+       ELSE   (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) -   (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10)))   END) as age,
+MAX(CASE WHEN E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" THEN 1 ELSE 0 END) prescription,
+MAX(CASE WHEN E.encounter_type_uuid  = "629a9d0b-48eb-405e-953d-a5964c88dc30" THEN 1 ELSE 0 END) completed,
+MAX(CASE WHEN E.encounter_type_uuid  = "ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c" THEN 1 ELSE 0 END) priority,
+MAX(CASE WHEN E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" THEN O.value END) doctor_profile,
+MAX(CASE WHEN (E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" OR E.encounter_type_uuid  = "8d5b27bc-c2cc-11de-8d13-0010c6dffd0f") THEN O.server_updated_at END) prescribed_date,
+MAX(CASE WHEN O.conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" THEN O.value END) follow_up
+FROM tbl_visit V
+LEFT JOIN tbl_encounter E ON E.visituuid = V.uuid
+LEFT JOIN tbl_obs O ON O.encounteruuid = E.uuid
+LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid
+LEFT JOIN tbl_patient_attribute PA ON PA.patient_uuid = P.uuid
+LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid
+LEFT JOIN tbl_visit_attribute VA ON VA.visit_uuid = V.uuid
+WHERE V.uuid = "30887f31-0354-4ef5-8686-6308ba775d29"
+AND VA.visit_attribute_type_uuid = "3f296939-c6d3-4d2e-b8ca-d7f4bfd42c2d"
+AND PAM.name = "Telephone Number" AND V.synced = 1 AND V.voided = 0
+GROUP BY V.uuid
+
+// Calculate age from date of birth
+(CASE WHEN (date_of_birth = "" OR date_of_birth IS NULL )
+  THEN
+  (strftime('%Y', 'now') - strftime('%Y', 'now', '-10 years')) -
+  (strftime('%m-%d', 'now') < strftime('%m-%d',  'now', '-10 years'))
+  ELSE
+  (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) -
+  (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10)))
+  END) as age

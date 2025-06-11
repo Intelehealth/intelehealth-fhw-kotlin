@@ -2,6 +2,8 @@ package org.intelehealth.app.ui.visit.activity
 
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navArgs
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivityPrescriptionBinding
@@ -19,6 +21,7 @@ import org.intelehealth.resource.R as resourceR
 @AndroidEntryPoint
 class VisitDetailActivity : SimpleAppBarActivity() {
     private val binding by lazy { ActivityVisitDetailBinding.inflate(layoutInflater) }
+    private val args: VisitDetailActivityArgs by navArgs()
 
     // Navigation controller for the activity
     private val navController by lazy {
@@ -59,6 +62,10 @@ class VisitDetailActivity : SimpleAppBarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root) // Sets the activity's layout
+        Timber.d { "Activity VisitId => ${args.visitId}" }
+        navController.setGraph(R.navigation.visit_navigation_graph, Bundle().apply {
+            putString(VISIT_ID, args.visitId)
+        })
         setSupportActionBar(binding.appBarLayout.toolbar) // Sets the Toolbar as the support action bar
     }
 
@@ -82,5 +89,9 @@ class VisitDetailActivity : SimpleAppBarActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.appBarLayout.toolbar.title = destination.label
         }
+    }
+
+    companion object {
+        const val VISIT_ID = "visitId" // Key for passing visit ID in intents
     }
 }

@@ -144,5 +144,9 @@
         android:id="@+id/nav_visit_details"
         android:name="org.intelehealth.app.ui.visit.activity.VisitDetailActivity"
         android:label="@string/title_visit_details"
-        tools:layout="@layout/activity_visit_detail" />
+        tools:layout="@layout/activity_visit_detail">
+        <argument
+            android:name="visitId"
+            app:argType="string" />
+    </activity>
 </navigation>

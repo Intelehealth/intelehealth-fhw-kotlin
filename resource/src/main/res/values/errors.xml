@@ -25,4 +25,5 @@
     <string name="error_search_pat_not_found_txt">Patient not found!</string>
     <string name="error_no_visit_found">No visit found</string>
     <string name="error_no_prescription_found">No %1$s prescription found</string>
+    <string name="error_mobile_no_not_found">Mobile number not provided</string>
 </resources>

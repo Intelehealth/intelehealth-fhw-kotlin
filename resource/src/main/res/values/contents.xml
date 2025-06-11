@@ -101,7 +101,8 @@
     <string name="content_chat_fab">chat fab</string>
     <string name="content_followup_info">Please take Prajwal Waingankar\'s follow-up visit.</string>
     <string name="content_followup_visit_info">The doctor suggested a follow-up visit on 15 May, 2022. Does the patient want to take a follow-up visit?</string>
-    <string name="content_test_received_2_hours_ago">Test: Received 2 hours ago</string>
+    <string name="content_prescription_received">Received %1$s</string>
+    <string name="content_prescription_pending">Pending since %1$s</string>
     <string name="content_pending_visit_msg">Doctor is yet to send the prescriptions for &lt;b&gt; %1$s patients &lt;/b&gt; you can remind the doctor.</string>
     <string name="content_loading">Loading…</string>
     <string name="content_no_prescription">You haven\'t any %1$s prescription yet, you can check with doctor or you can add new patient</string>

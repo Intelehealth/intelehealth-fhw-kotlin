@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import org.intelehealth.app.R
 import org.intelehealth.app.ui.prescription.fragment.PrescriptionListFragment
-import org.intelehealth.data.offline.entity.Prescription
+import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.offline.entity.PrescriptionStatusCount
 
 /**
@@ -36,7 +36,7 @@ class PrescriptionPagerAdapter(
      */
     override fun createFragment(position: Int): Fragment {
         return PrescriptionListFragment.newInstance(
-            Prescription.TabType.entries[position],
+            VisitDetail.TabType.entries[position],
             prescriptionStatusCount
         )
     }

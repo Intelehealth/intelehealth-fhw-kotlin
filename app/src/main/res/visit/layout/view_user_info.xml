@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="patientDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardItem"
         android:layout_width="match_parent"
@@ -37,7 +44,7 @@
                 android:ellipsize="end"
                 android:maxLength="@integer/max_name_length"
                 android:maxLines="1"
-                android:text="@string/lbl_dummy_name"
+                android:text="@{patientDetail.patientFullName}"
                 app:layout_constraintStart_toEndOf="@id/sivProfileImage"
                 app:layout_constraintTop_toTopOf="@id/sivProfileImage"
                 tools:text="Anthony Gonsalves" />
@@ -52,7 +59,7 @@
                 android:layout_marginTop="@dimen/std_4dp"
                 android:drawablePadding="@dimen/std_8dp"
                 android:gravity="center"
-                android:text="@string/lbl_openmrs_id"
+                android:text="@{@string/lbl_openmrs_id(patientDetail.openmrsId)}"
                 app:layout_constraintStart_toEndOf="@id/sivProfileImage"
                 app:layout_constraintTop_toBottomOf="@id/tvPatientName"
                 tools:text="ID-987654jK" />
@@ -64,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginStart="@dimen/std_8dp"
-                android:drawablePadding="@dimen/std_4dp"
+                android:drawablePadding="@dimen/std_8dp"
+                android:text="@{patientDetail.gender + ' ' + patientDetail.age}"
                 android:visibility="visible"
                 app:drawableEndCompat="@drawable/ic_patient_edit"
                 app:layout_constraintBottom_toBottomOf="@id/tvPatientName"

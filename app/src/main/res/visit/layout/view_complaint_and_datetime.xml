@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="visitDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,6 +41,7 @@
             android:text="@string/title_priority"
             android:textAllCaps="true"
             android:textSize="@dimen/std_12sp"
+            android:visibility="@{visitDetail.priority ? View.VISIBLE: View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,12 +50,12 @@
             android:id="@+id/visitID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/lbl_visit_id(`Test: XXX543573`)}"
+            android:text="@{@string/lbl_visit_id(visitDetail.hiddenVisitId())}"
             android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
             android:textSize="@dimen/std_14sp"
-            tools:text="@string/lbl_dummy_visit_id"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvChiefComplaint" />
+            app:layout_constraintTop_toBottomOf="@id/tvChiefComplaint"
+            tools:text="@string/lbl_dummy_visit_id" />
 
         <!-- Progress Indicator -->
         <ImageView
@@ -67,7 +77,8 @@
             android:layout_marginTop="@dimen/std_8dp"
             android:drawablePadding="@dimen/std_4dp"
             android:gravity="center_vertical"
-            android:text="@string/lbl_details_date"
+            android:text="@{visitDetail.visitDate}"
+            tools:text="@string/lbl_details_date"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_followup_calendar"
             app:drawableTint="@color/black"
@@ -84,7 +95,8 @@
             android:layout_marginStart="@dimen/std_16dp"
             android:drawablePadding="@dimen/std_4dp"
             android:gravity="center_vertical"
-            android:text="@string/lbl_dummy_time"
+            tools:text="@string/lbl_dummy_time"
+            android:text="@{visitDetail.visitTime}"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_time"
             app:drawableTint="@color/black"

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/prescription_navigation_graph"
+    android:id="@+id/visit_navigation_graph"
     app:startDestination="@id/visitDetailsFragment">
+
+
     <fragment
         android:id="@+id/visitDetailsFragment"
         android:name="org.intelehealth.app.ui.visit.fragment.VisitDetailsFragment"
         android:label="@string/title_visit_details">
+        <argument
+            android:name="visitId"
+            app:argType="string" />
         <action
             android:id="@+id/action_visit_detail_to_prescription_detail"
             app:destination="@id/prescriptionDetailsFragment"

@@ -40,17 +40,18 @@ public class DateTimeUtils {
     public static final String LAST_SYNC_DB_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String LAST_SYNC_DISPLAY_FORMAT = "hh:mm a dd MMM yyyy";
     public static final String USER_DOB_DB_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-
-    //getting this format for visit
+//2024-07-30 14:29:04
+    //getting this format for visit Jul 22, 2007 12:00:00 AM
     public static final String SERVER_FORMAT = "MMM dd, yyyy hh:mm:ss a";
     public static final String DD_MMM_AT_HH_MM_A_FORMAT = "dd MMM 'at' hh:mm a";
             //1997-10-20T00:00:00.000+0530
     public static final String PATIENT_ATTR_CREATE_FORMAT = "dd MMMM, yyyy";
+    public static final String DD_MMM_YYYY_T_HH_MM_A_FORMAT = "dd MMM yyyy'T'hh:mm a";
     //1997-10-20T00:00:00.000+0530
 
     @SuppressLint("SimpleDateFormat")
     public static SimpleDateFormat getSimpleDateFormat(String format, TimeZone timeZone) {
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.ENGLISH);
         if (timeZone != null)
             sdf.setTimeZone(timeZone);
         return sdf;
@@ -160,15 +161,15 @@ public class DateTimeUtils {
         return TimeZone.getTimeZone(TIME_ZONE_UTC);
     }
 
-    public static String formatOneToAnother(String date, String sourceFormat, String anotherFormat) {
+    public static String formatDbToDisplay(String date, String srcFormat, String destFormat) {
         if(date==null || date.isEmpty()) return "";
         String result;
         SimpleDateFormat sdf;
         SimpleDateFormat sdf1;
 
         try {
-            sdf = new SimpleDateFormat(sourceFormat, Locale.ENGLISH);
-            sdf1 = new SimpleDateFormat(anotherFormat, Locale.ENGLISH);
+            sdf = getSimpleDateFormat(srcFormat, TimeZone.getDefault());
+            sdf1 = getSimpleDateFormat(destFormat, TimeZone.getDefault());
             result = sdf1.format(sdf.parse(date));
         } catch (Exception e) {
             return "";
