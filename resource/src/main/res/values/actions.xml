@@ -57,4 +57,5 @@
     <string name="action_start_visit">Start Visit</string>
     <string name="action_household_survey" translatable="false">@string/lbl_household_survey</string>
     <string name="action_view_more">View More</string>
+    <string name="action_start_followup">Start follow-up</string>
 </resources>

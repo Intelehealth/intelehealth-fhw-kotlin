@@ -99,13 +99,14 @@
     <string name="content_visit_details_text">विज़िट का संक्षिप्त विवरण</string>
     <string name="content_calender">कैलेंडर</string>
     <string name="content_chat_fab">chat fab</string>
-    <string name="content_followup_info">कृपया %1$s की फ़ॉलो-अप विज़िट लें।</string>
     <string name="content_followup_visit_info">डॉक्टर ने %1$s को फ़ॉलो-अप विज़िट का सुझाव दिया है। क्या मरीज़ फ़ॉलो-अप विज़िट लेना चाहता है?</string>
     <string name="content_prescription_received">%1$s प्राप्त हुआ</string>
     <string name="content_prescription_pending">%1$s से लंबित</string>
     <string name="content_pending_visit_msg">डॉक्टर द्वारा मरीजों को प्रिस्क्रिप्शन भेजा जाना बाकी है <b> %s रोगी </b> आप डॉक्टर को याद दिला सकते हैं।</string>
     <string name="content_loading">लोड हो रहा है…</string>
     <string name="content_no_prescription">आपके पास अभी तक कोई %1$s प्रिस्क्रिप्शन नहीं है, आप डॉक्टर से पूछ सकते हैं या आप नया मरीज जोड़ सकते हैं</string>
+    <string name="content_follow_up_date_arrived">कृपया %1$s की फ़ॉलो-अप विज़िट लें।\n\nआपका फ़ॉलो-अप समय आ गया है। कृपया अपना फ़ॉलो-अप विज़िट शुरू करने के लिए वर्तमान विज़िट समाप्त करें।</string>
+
     //content description
     <string name="content_search_icon">खोज आइकन</string>
     <string name="content_add_icon">आइकन जोड़ें</string>

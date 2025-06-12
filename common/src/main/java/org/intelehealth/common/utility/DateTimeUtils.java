@@ -47,6 +47,8 @@ public class DateTimeUtils {
             //1997-10-20T00:00:00.000+0530
     public static final String PATIENT_ATTR_CREATE_FORMAT = "dd MMMM, yyyy";
     public static final String DD_MMM_YYYY_T_HH_MM_A_FORMAT = "dd MMM yyyy'T'hh:mm a";
+    public static final String DD_MMM_FORMAT = "dd MMM";
+    public static final String DD_MMM_YYYY_FORMAT = "dd MMM, yyyy";
     //1997-10-20T00:00:00.000+0530
 
     @SuppressLint("SimpleDateFormat")

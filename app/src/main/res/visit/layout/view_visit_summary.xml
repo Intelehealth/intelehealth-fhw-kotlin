@@ -24,7 +24,7 @@
         style="@style/Theme.IDA.TextAppearance.Person.Name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/std_8dp"
+        android:layout_marginStart="@dimen/std_16dp"
         android:text="@string/lbl_visitDetails_text"
         app:drawableEndCompat="@drawable/ic_cupertino_arrow_right"
         app:layout_constraintBottom_toBottomOf="@id/iconVisitDetails"

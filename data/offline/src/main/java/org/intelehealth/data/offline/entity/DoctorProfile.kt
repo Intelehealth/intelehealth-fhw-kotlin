@@ -1,4 +1,4 @@
-package org.intelehealth.app.model
+package org.intelehealth.data.offline.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

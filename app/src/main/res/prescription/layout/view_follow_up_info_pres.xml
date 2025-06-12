@@ -16,15 +16,15 @@
 
 
     <TextView
-        android:id="@+id/followupDateTv"
+        android:id="@+id/tvFollowUpDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/std_8dp"
         android:gravity="center_vertical"
-        android:text="@string/lbl_card_item_date"
+        android:text="@string/lbl_follow_up_on"
         android:textAppearance="@style/Theme.IDA.TextAppearance.Body.Bold"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/followup_accept_text"
+        app:layout_constraintBottom_toTopOf="@+id/tvFollowUpContent"
         app:layout_constraintEnd_toStartOf="@+id/materialButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,14 +36,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_4dp"
         android:gravity="center_vertical"
-        android:text="@string/content_followup_info"
+        android:text="@string/content_follow_up_date_arrived"
         android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/followupDateTv" />
+        app:layout_constraintTop_toBottomOf="@id/tvFollowUpDate" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnStartFollowUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_16dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@id/followup_info" />
 
     <TextView
-        android:id="@+id/followup_accept_text"
+        android:id="@+id/tvFollowUpContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/std_16dp"
@@ -76,7 +76,7 @@
         android:padding="@dimen/std_16dp"
         android:text="@string/action_no"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/followup_accept_text"
+        app:layout_constraintBottom_toTopOf="@+id/tvFollowUpContent"
         app:layout_constraintEnd_toStartOf="@+id/yes_followup_btn"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 

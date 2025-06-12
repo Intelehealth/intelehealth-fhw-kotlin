@@ -69,11 +69,13 @@ data class VisitDetail(
     @ColumnInfo("completed")
     var completed: Boolean? = false,
     @ColumnInfo("doctor_profile")
-    var doctorProfile: String? = null,
+    var doctorProfileJson: String? = null,
     @Ignore
     var visitDate: String? = null,
     @Ignore
     var visitTime: String? = null,
+    @Ignore
+    var doctorProfile: DoctorProfile? = null,
 ) : ListItemHeaderSection, Parcelable {
 
     override fun toString(): String = Gson().toJson(this)
@@ -99,6 +101,69 @@ data class VisitDetail(
                 visitTime = results[1].trim() // "07:13"
             }
         }
+    }
+
+    fun followupDateFormatted(): String {
+        return noFollowupContent {
+            DateTimeUtils.formatDbToDisplay(
+                followupDate,
+                DateTimeUtils.YYYY_MM_DD_HYPHEN,
+                DateTimeUtils.DD_MMM_FORMAT,
+            )
+        }
+    }
+
+    fun followupFullDateFormatted(): String {
+        // Example 2024-07-29, Time: 12:00 PM, Remark: Revisit
+        return noFollowupContent {
+            DateTimeUtils.formatDbToDisplay(
+                followupDate,
+                DateTimeUtils.YYYY_MM_DD_HYPHEN,
+                DateTimeUtils.DD_MMM_YYYY_FORMAT,
+            )
+        }
+    }
+
+    fun isFollowupPastDue(): Boolean {
+        followupDate ?: return false
+        if (followupDate == "No") return false
+        val followupTime = DateTimeUtils.parseDate(
+            followupDate,
+            DateTimeUtils.YYYY_MM_DD_HYPHEN, TimeZone.getDefault()
+        )
+        return followupTime.before(DateTimeUtils.getCurrentDate(TimeZone.getDefault()))
+    }
+
+    private fun noFollowupContent(returnBlock: () -> String): String {
+        followupDate ?: return ""
+        if (followupDate == "No") return "No Follow Up"
+        return returnBlock()
+    }
+
+    private fun hasDoctorProfile(): Boolean {
+        return !doctorProfileJson.isNullOrEmpty()
+    }
+
+    fun extractDoctorProfile() {
+        if (hasDoctorProfile()) {
+            doctorProfile = Gson().fromJson(doctorProfileJson, DoctorProfile::class.java)
+        }
+    }
+
+    fun drWhatsappNumberAvailable(): Boolean {
+        return hasDoctorProfile() && !doctorProfile?.whatsapp.isNullOrEmpty()
+    }
+
+    fun drPhoneNumberAvailable(): Boolean {
+        return hasDoctorProfile() && !doctorProfile?.phoneNumber.isNullOrEmpty()
+    }
+
+    fun hasFollowup(): Boolean {
+        return !followupDate.isNullOrEmpty() && followupDate != "No"
+    }
+
+    fun activeEndVisit(): Boolean {
+        return hasPrescription == true && completed == false && (!hasFollowup() || isFollowupPastDue())
     }
 
     fun formatPrescribedDate() {
@@ -133,8 +198,8 @@ data class VisitDetail(
                 "  (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10))) " +
                 "  END) as age"
 
-        const val SELECT_FROM =
-            "SELECT V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.date_of_birth, P.gender, V.startdate, " +
+        const val COLUMNS =
+            " V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.date_of_birth, P.gender, V.startdate, " +
                     "${PATIENT_AGE}, (P.first_name || ' ' || P.last_name ) full_name, " +
                     "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
                     "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable, " +
@@ -144,8 +209,7 @@ data class VisitDetail(
                     "WHEN V.startdate BETWEEN date('now', '-2 day') AND date('now', '-7 day') THEN '${THIS_WEEK}' " +
                     "WHEN $CONDITION_CURRENT_MONTH THEN '${THIS_MONTH}' " +
                     "ELSE '${OTHER}' " +
-                    "END) AS section, 0 AS priority " +
-                    "FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid "
+                    "END) AS section, 0 AS priority "
 
         const val SEARCHABLE =
             "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +

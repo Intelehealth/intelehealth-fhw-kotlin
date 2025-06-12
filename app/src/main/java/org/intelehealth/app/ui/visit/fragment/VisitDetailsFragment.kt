@@ -19,6 +19,7 @@ import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.startCallIntent
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.MenuFragment
+import androidx.core.view.get
 
 /**
  * Created by Tanvir Hasan on 24-04-25
@@ -56,6 +57,7 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         viewModel.fetchVisitDetails(args.visitId).observe(viewLifecycleOwner) { result ->
             result.separateVisitDateAndTime()
             result.formatPrescribedDate()
+            result.extractDoctorProfile()
             binding.visitDetail = result
         }
     }
@@ -66,6 +68,20 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
      * Attaches actions to interactive views like buttons. Called in `onViewCreated()`.
      */
     private fun setupClickListeners() {
+        binding.userInfoView.cardItem.setOnClickListener {
+            val patientId = binding.visitDetail?.patientId ?: run {
+                Timber.e { "Patient ID is null, cannot navigate to patient detail." }
+                showToast(ResourceR.string.error_search_pat_not_found_txt)
+                return@setOnClickListener
+            }
+
+            findNavController().navigate(
+                VisitDetailsFragmentDirections.actionVisitDetailToPatientDetail(
+                    patientId
+                )
+            )
+        }
+
         binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
             findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
         }
@@ -81,10 +97,29 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         binding.userInfoView.ivWhatsappButton.setOnClickListener {
             actionOnNumber { startWhatsappIntent(it, "hi") }
         }
+
+        binding.doctorSpecialityView.ivDrCallButton.setOnClickListener {
+            val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
+            if (phoneNumber.isNotEmpty()) startCallIntent(phoneNumber)
+            else showToast(ResourceR.string.error_mobile_no_not_found)
+        }
+
+        binding.doctorSpecialityView.ivDrWhatsappButton.setOnClickListener {
+            actionOnNumber { startWhatsappIntent(it, "hi") }
+            val phoneNumber = binding.visitDetail?.doctorProfile?.whatsapp ?: ""
+            if (phoneNumber.isNotEmpty()) startWhatsappIntent(phoneNumber, "Hello Doctor")
+            else showToast(ResourceR.string.error_mobile_no_not_found)
+        }
     }
 
     private fun actionOnNumber(action: (String) -> Unit) {
         val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
+        else showToast(ResourceR.string.error_mobile_no_not_found)
+    }
+
+    private fun actionOnDoctorNumber(action: (String) -> Unit) {
+        val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
         if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
         else showToast(ResourceR.string.error_mobile_no_not_found)
     }
@@ -112,7 +147,7 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
      */
     override fun onPrepareMenu(menu: Menu) {
         super.onPrepareMenu(menu)
-        menu.getItem(1).setVisible(false)
+        menu[1].setVisible(false)
     }
 
     /**

@@ -22,6 +22,7 @@ import org.intelehealth.common.extensions.getSerializableExtra
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.toHTML
+import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.CommonConstants
@@ -171,6 +172,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
         viewModel.pagingLiveData.observe(viewLifecycleOwner) { pagingData ->
             pagingData ?: return@observe
             hideLoading()
+
             if (pagingData.isEmpty() && adapter.itemCount > 0) {
                 adapter.remove(adapter.itemCount - 1) // Remove the footer if no more data
             } else if (adapter.itemCount > 2) {

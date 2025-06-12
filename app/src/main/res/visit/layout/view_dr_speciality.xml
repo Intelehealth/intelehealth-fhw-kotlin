@@ -2,6 +2,9 @@
 <layout>
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="speciality"
             type="org.intelehealth.data.offline.entity.VisitDetail" />
@@ -31,13 +34,14 @@
         <TextView
             android:id="@+id/visitSpeciality"
             style="@style/Theme.IDA.TextAppearance.Person.Name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_8dp"
-            tools:text="@string/lbl_gp_txt"
+            android:layout_marginStart="@dimen/std_16dp"
             android:text="@{speciality.drSpeciality}"
             app:layout_constraintStart_toEndOf="@+id/profile"
-            app:layout_constraintTop_toTopOf="@+id/profile" />
+            app:layout_constraintTop_toTopOf="@+id/profile"
+            app:layout_constraintWidth_percent="0.6"
+            tools:text="@string/lbl_gp_txt" />
 
         <TextView
             android:id="@+id/drSpeciality"
@@ -49,26 +53,33 @@
             app:layout_constraintStart_toStartOf="@+id/visitSpeciality"
             app:layout_constraintTop_toBottomOf="@+id/visitSpeciality" />
 
+        <!--        <androidx.constraintlayout.widget.Guideline-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:layout_height="wrap_content"/>-->
 
         <ImageView
-            android:id="@+id/ivCallButton"
+            android:id="@+id/ivDrCallButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/std_16dp"
             android:background="@drawable/bg_ripple_icon"
             android:contentDescription="@string/lbl_call"
             android:src="@drawable/ic_phone"
+            android:visibility="@{speciality.drPhoneNumberAvailable() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivWhatsappButton"
+            app:layout_constraintEnd_toStartOf="@id/ivDrWhatsappButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/ivWhatsappButton"
+            android:id="@+id/ivDrWhatsappButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_ripple_icon"
             android:contentDescription="@string/lbl_call"
             android:src="@drawable/ic_whatsapp"
+            android:visibility="@{speciality.drWhatsappNumberAvailable() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

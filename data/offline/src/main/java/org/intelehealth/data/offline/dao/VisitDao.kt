@@ -201,7 +201,7 @@ interface VisitDao : CoreDao<Visit> {
 //    ): List<Prescription>?
 
     @Query(
-        "${VisitDetail.SELECT_FROM} " +
+        "SELECT ${VisitDetail.COLUMNS}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
                 "AND ${VisitDetail.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
@@ -212,7 +212,7 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "${VisitDetail.SELECT_FROM} " +
+        "SELECT ${VisitDetail.COLUMNS}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
                 "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
                 "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
@@ -224,7 +224,7 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "${VisitDetail.SELECT_FROM} " +
+        "SELECT ${VisitDetail.COLUMNS}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
                 "AND ${VisitDetail.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
@@ -236,7 +236,7 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "${VisitDetail.SELECT_FROM} " +
+        "SELECT ${VisitDetail.COLUMNS}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
                 "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
                 "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
@@ -260,7 +260,8 @@ interface VisitDao : CoreDao<Visit> {
                 "MAX(CASE WHEN E.encounter_type_uuid  = :visitCompleteEnType THEN O.value END) doctor_profile, " +
                 "MAX(CASE WHEN (E.encounter_type_uuid  = :visitCompleteEnType " +
                 "OR E.encounter_type_uuid  = :adultInitialEnType) THEN O.server_updated_at END) prescribed_date, " +
-                "MAX(CASE WHEN O.conceptuuid = :followUpConceptId THEN O.value END) follow_up " +
+                "MAX(CASE WHEN O.conceptuuid = :followUpConceptId THEN " +
+                "CASE WHEN O.value != 'No' THEN substr(O.value, 1, 10) ELSE O.value END END ) follow_up " +
                 "FROM tbl_visit V  " +
                 "LEFT JOIN tbl_encounter E ON E.visituuid = V.uuid " +
                 "LEFT JOIN tbl_obs O ON O.encounteruuid = E.uuid " +

@@ -78,7 +78,7 @@
                         <!--General Physician View-->
                         <include
                             android:id="@+id/doctorSpecialityView"
-                            layout="@layout/view_general_ph"
+                            layout="@layout/view_dr_speciality"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@+id/dividerChiefComplaint"
@@ -127,6 +127,8 @@
                             layout="@layout/view_follow_up_info_visit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="@{visitDetail.hasFollowup() ? View.VISIBLE : View.GONE}"
+                            app:followUpDetail="@{visitDetail}"
                             app:layout_constraintTop_toBottomOf="@id/prescriptionView" />
 
 
@@ -146,7 +148,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/action_end_visit"
-                            android:visibility="@{visitDetail.hasPrescription ? View.GONE : View.VISIBLE}"
+                            android:visibility="@{visitDetail.activeEndVisit() ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

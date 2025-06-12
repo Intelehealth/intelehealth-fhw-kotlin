@@ -42,7 +42,9 @@ MAX(CASE WHEN E.encounter_type_uuid  = "629a9d0b-48eb-405e-953d-a5964c88dc30" TH
 MAX(CASE WHEN E.encounter_type_uuid  = "ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c" THEN 1 ELSE 0 END) priority,
 MAX(CASE WHEN E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" THEN O.value END) doctor_profile,
 MAX(CASE WHEN (E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" OR E.encounter_type_uuid  = "8d5b27bc-c2cc-11de-8d13-0010c6dffd0f") THEN O.server_updated_at END) prescribed_date,
-MAX(CASE WHEN O.conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" THEN O.value END) follow_up
+MAX(CASE WHEN O.conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" THEN
+CASE WHEN O.value != 'No' THEN substr(O.value, 1, 10) ELSE O.value END END
+) follow_up
 FROM tbl_visit V
 LEFT JOIN tbl_encounter E ON E.visituuid = V.uuid
 LEFT JOIN tbl_obs O ON O.encounteruuid = E.uuid
@@ -50,7 +52,7 @@ LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid
 LEFT JOIN tbl_patient_attribute PA ON PA.patient_uuid = P.uuid
 LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid
 LEFT JOIN tbl_visit_attribute VA ON VA.visit_uuid = V.uuid
-WHERE V.uuid = "30887f31-0354-4ef5-8686-6308ba775d29"
+WHERE V.uuid = "7c7779a8-14e4-4f2d-903f-dee817ce61a5"
 AND VA.visit_attribute_type_uuid = "3f296939-c6d3-4d2e-b8ca-d7f4bfd42c2d"
 AND PAM.name = "Telephone Number" AND V.synced = 1 AND V.voided = 0
 GROUP BY V.uuid

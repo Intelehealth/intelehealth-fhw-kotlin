@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -126,6 +127,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
      * display the last data synchronization time as the toolbar subtitle.
      */
     private fun displayHomeTitle() {
+        binding.contentViewMain.bottomNavHome.apply {
+            this.isVisible = true
+            this.animate().translationY(this.height.toFloat()).setDuration(200).start()
+        }
+
         preferenceUtils.location.let {
             Gson().fromJson(it, SetupLocation::class.java).display
         }?.apply {
@@ -186,15 +192,16 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
      */
     private fun logoutUser() {
         showCommonDialog(
-            DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                         title = ResourceR.string.action_logout,
-                         message = ResourceR.string.content_are_you_sure_logout,
-                         positiveLbl = ResourceR.string.action_logout,
-                         negativeLbl = ResourceR.string.action_cancel,
-                         onPositiveClick = {
-                             userViewModel.logout()
-                             gotoNextActivity(OnboardingActivity::class.java, true)
-                         })
+            DialogParams(
+                icon = ResourceR.drawable.ic_dialog_alert,
+                title = ResourceR.string.action_logout,
+                message = ResourceR.string.content_are_you_sure_logout,
+                positiveLbl = ResourceR.string.action_logout,
+                negativeLbl = ResourceR.string.action_cancel,
+                onPositiveClick = {
+                    userViewModel.logout()
+                    gotoNextActivity(OnboardingActivity::class.java, true)
+                })
         )
     }
 
@@ -244,12 +251,13 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
             if (binding.drawerLayout.isOpen) binding.drawerLayout.closeDrawers()
             else if (navController.currentDestination?.id != R.id.nav_home) navController.navigateUp()
             else showCommonDialog(
-                DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                             title = ResourceR.string.dialog_title_exit_app,
-                             message = ResourceR.string.content_are_you_sure_exit,
-                             positiveLbl = ResourceR.string.action_exit,
-                             negativeLbl = ResourceR.string.action_cancel,
-                             onPositiveClick = { finish() })
+                DialogParams(
+                    icon = ResourceR.drawable.ic_dialog_alert,
+                    title = ResourceR.string.dialog_title_exit_app,
+                    message = ResourceR.string.content_are_you_sure_exit,
+                    positiveLbl = ResourceR.string.action_exit,
+                    negativeLbl = ResourceR.string.action_cancel,
+                    onPositiveClick = { finish() })
             )
         }
     }

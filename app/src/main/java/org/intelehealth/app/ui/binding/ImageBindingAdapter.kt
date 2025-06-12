@@ -149,3 +149,8 @@ fun loadImageWithAuth(imageView: ImageView, url: String, profileVersion: Long) {
             .into(imageView)
     }
 }
+
+@BindingAdapter("app:customTint")
+fun setImageViewTint(imageView: ImageView, color: Int) {
+    imageView.setColorFilter(color)
+}
