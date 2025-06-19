@@ -4,6 +4,20 @@ Pending
 - Add patient consent configuration
 - Nas: add family members
 - Patient profile picture uploading
+- Home bottom menu scrolling issue - DONE
+- Prescription priority filter
+- Reset app button - DONE
+- Notification bell icon
+- Add patient address section
+- Add patient duplicate and empty attributes issue
+- After language change data lost in app
+- Current selected language - DONE
+- White or secondary button ripple color - Ready to test
+- Status bar color
+- Visit detail doctor specialty - Ready to test
+- Drawer menu current selection issue
+- App version name and code - DONE
+- Prescription tab language support
 
 Tanvir code review
 1. Member variable must be declared with `private` access modifier if not used outside the class.

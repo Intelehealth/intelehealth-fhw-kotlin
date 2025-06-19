@@ -120,20 +120,21 @@ fun Context.buildCustomDialog(binding: ViewDataBinding) = MaterialAlertDialogBui
  * @param dialogParams The parameters for the dialog, including title, message, and button labels.
  * @return AlertDialog The created AlertDialog instance.
  */
-fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAlertDialogBuilder(this).apply {
-    setTitle(dialogParams.title)
-    setMessage(dialogParams.message)
-    setPositiveButton(dialogParams.positiveLbl) { dialog, _ ->
-        dialog.dismiss()
-        dialogParams.onPositiveClick.invoke()
-    }
-    if (dialogParams.negativeLbl != 0) {
-        setNegativeButton(dialogParams.negativeLbl) { dialog, _ ->
+fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog =
+    MaterialAlertDialogBuilder(this).apply {
+        setTitle(dialogParams.title)
+        setMessage(dialogParams.message)
+        setPositiveButton(dialogParams.positiveLbl) { dialog, _ ->
             dialog.dismiss()
-            dialogParams.onNegativeClick.invoke()
+            dialogParams.onPositiveClick.invoke()
         }
-    }
-}.show()
+        if (dialogParams.negativeLbl != 0) {
+            setNegativeButton(dialogParams.negativeLbl) { dialog, _ ->
+                dialog.dismiss()
+                dialogParams.onNegativeClick.invoke()
+            }
+        }
+    }.show()
 
 /**
  * Extension function to show a retry dialog when something goes wrong.
@@ -183,3 +184,8 @@ fun Context.getSpinnerArrayAdapter(
 fun <T> Context.getSpinnerItemAdapter(
     list: List<T>
 ) = ArrayAdapterUtils.getSpinnerItemAdapter(this, list)
+
+fun Context.clearData() {
+    val runtime = Runtime.getRuntime()
+    runtime.exec("pm clear ${applicationContext.packageName}")
+}

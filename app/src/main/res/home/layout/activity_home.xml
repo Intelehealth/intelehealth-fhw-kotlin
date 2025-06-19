@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="appVersion"
+            type="String" />
+    </data>
 
     <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -35,7 +40,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/action_reset_app"
                     style="@style/Theme.IDA.TextButton.AppReset"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/std_14dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +53,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginTop="@dimen/std_8dp"
                     android:layout_marginBottom="@dimen/std_16dp"
-                    android:text="@string/content_version"
+                    android:text="@{@string/content_version(appVersion)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

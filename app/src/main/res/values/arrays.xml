@@ -6,11 +6,6 @@
         <item>Date Range</item>
     </string-array>
 
-    <string-array name="tab_prescription_title">
-        <item>Received</item>
-        <item>Pending</item>
-    </string-array>
-
     <string-array name="contact_type">
         <item>Self</item>
         <item>Family</item>
@@ -266,6 +261,11 @@
         <item>Yugoslavia</item>
         <item>Zambia</item>
         <item>Zimbabwe</item>
+    </string-array>
+
+    <string-array name="tab_prescription_title">
+        <item>Received</item>
+        <item>Pending</item>
     </string-array>
 
     <string-array name="caste">

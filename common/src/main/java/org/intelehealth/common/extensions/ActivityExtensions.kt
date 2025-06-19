@@ -22,6 +22,7 @@ import java.util.Locale
 import org.intelehealth.resource.R as ResourceR
 import android.view.View
 import android.widget.FrameLayout
+import org.intelehealth.common.utility.DateTimeResource
 
 /**
  * Created by Vaghela Mithun R. on 15-04-2024 - 13:37.
@@ -84,7 +85,12 @@ fun ComponentActivity.showSuccessSnackBar(anchorView: View? = null, @StringRes m
  * @param message The string resource ID of the error message to display.
  */
 fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, @StringRes message: Int) {
-    showSnackBarWithIcon(anchorView, getString(message), ResourceR.drawable.ic_error, ResourceR.color.red)
+    showSnackBarWithIcon(
+        anchorView,
+        getString(message),
+        ResourceR.drawable.ic_error,
+        ResourceR.color.red
+    )
 }
 
 /**
@@ -131,7 +137,11 @@ fun ComponentActivity.showErrorSnackBar(anchorView: View? = null, message: Strin
  *   Snackbar will appear at the bottom of the screen.
  * @param message The string resource ID of the network lost message to display.
  */
-fun ComponentActivity.showNetworkLostSnackBar(anchorView: View? = null, @StringRes message: Int, action: () -> Unit) {
+fun ComponentActivity.showNetworkLostSnackBar(
+    anchorView: View? = null,
+    @StringRes message: Int,
+    action: () -> Unit
+) {
     showSnackBarWithAction(anchorView, getString(message), ResourceR.color.red, action = action)
 }
 
@@ -178,7 +188,8 @@ fun ComponentActivity.showSnackBarWithAction(
     @StringRes actionText: Int = ResourceR.string.action_retry,
     action: () -> Unit
 ) {
-    val snackBar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
+    val snackBar =
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE)
     snackBar.setBackgroundTint(getColor(colorResId))
     anchorView?.let { snackBar.anchorView = it }
     snackBar.setActionTextColor(getColor(ResourceR.color.white))
@@ -261,7 +272,9 @@ fun ComponentActivity.showCommonDialog(dialogParams: DialogParams) {
  *   the new activity.
  */
 fun ComponentActivity.gotoNextActivity(
-    clazz: Class<out AppCompatActivity>, finish: Boolean = false, onIntent: ((Intent) -> Intent)? = null
+    clazz: Class<out AppCompatActivity>,
+    finish: Boolean = false,
+    onIntent: ((Intent) -> Intent)? = null
 ) {
     onIntent?.let {
         startActivity(it(Intent(this, clazz)))
@@ -298,6 +311,8 @@ fun ComponentActivity.changeLanguage(language: String): Context {
 
             Timber.d { "Language changed to $language" }
             Timber.d { "Language changed to ${Locale.getDefault().language}" }
+
+            DateTimeResource.getInstance()?.updateResource(resources)
         }
     }
     return this
