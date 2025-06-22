@@ -70,19 +70,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
      */
     private fun observeActiveFeatureStatus() {
         activeFeatureViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) { featureStatus ->
-            featureStatus?.let { updatePatientDetailVisibility(it) }
+            featureStatus?.let { binding.activeFeatureStatus = it }
         }
-    }
-
-    /**
-     * Updates the visibility of address and other sections based on the active feature status.
-     *
-     * This method updates the binding with the active status of patient address and other details.
-     *
-     * @param it The active feature status containing visibility information.
-     */
-    private fun updatePatientDetailVisibility(it: ActiveFeatureStatus) {
-        binding.addressActiveStatus = it.activeStatusPatientAddress
-        binding.otherActiveStatus = it.activeStatusPatientOther
     }
 }

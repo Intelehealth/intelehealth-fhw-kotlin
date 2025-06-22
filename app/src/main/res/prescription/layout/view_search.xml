@@ -23,7 +23,7 @@
         android:background="@drawable/bg_ripple_icon"
         android:contentDescription="@string/lbl_filter"
         android:src="@drawable/visit_filter_icon"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/prescriptionSearchView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/prescriptionSearchView"

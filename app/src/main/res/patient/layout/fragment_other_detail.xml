@@ -169,7 +169,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/std_4dp"
-                    android:visibility="@{otherConfig.occuptions.enabled ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{otherConfig.occuption.enabled ? View.VISIBLE : View.GONE}"
                     android:weightSum="2"
                     tools:visibility="visible">
 

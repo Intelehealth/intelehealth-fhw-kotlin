@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Lifecycle
@@ -16,6 +17,7 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentHomeBinding
 import org.intelehealth.app.ui.home.viewmodel.HomeViewModel
 import org.intelehealth.common.ui.fragment.MenuFragment
+import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 
 /**
  * Created by Vaghela Mithun R. on 10-01-2025 - 17:32.
@@ -33,14 +35,23 @@ import org.intelehealth.common.ui.fragment.MenuFragment
 class HomeFragment : MenuFragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
+    private val afsViewModel: ActiveFeatureStatusViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+        observeActiveFeatureStatus()
         updatePrescriptionStatus()
         updateFollowUpStatus()
         updateAppointmentStatus()
         handleClickEvents()
+    }
+
+    private fun observeActiveFeatureStatus() {
+        afsViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) { status ->
+            Timber.d { "Active feature status: $status" }
+            binding.afConfig = status
+        }
     }
 
     /**
@@ -59,7 +70,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
 
         binding.btnFindPatient.setOnClickListener {
             val patientId = "d2e0b4c3-2c3c-40ec-b9a7-21d59a7c8c7d"
-            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient(patientId))
+            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
         }
 
         binding.cardHomePrescription.setOnClickListener {

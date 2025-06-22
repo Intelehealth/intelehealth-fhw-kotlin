@@ -25,7 +25,7 @@
 
         <action
             android:id="@+id/action_home_to_find_patient"
-            app:destination="@id/fragmentPatientDetail"
+            app:destination="@id/nav_find_patient"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -95,23 +95,23 @@
         android:label="@string/lbl_open_visits"
         tools:layout="@layout/activity_open_visits" />
 
-    <!--    <activity-->
-    <!--        android:id="@+id/nav_prescription"-->
-    <!--        android:name="org.intelehealth.app.ui.prescription.activity.PrescriptionActivity"-->
-    <!--        android:label="@string/title_prescriptions"-->
-    <!--        tools:layout="@layout/activity_prescription" />-->
+    <activity
+        android:id="@+id/nav_find_patient"
+        android:name="org.intelehealth.app.ui.patient.activity.FindPatientActivity"
+        android:label="@string/hint_find_patient"
+        tools:layout="@layout/activity_find_patient" />
 
 
-    <fragment
-        android:id="@+id/fragmentPatientDetail"
-        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
-        android:label="@string/title_patient_detail"
-        tools:layout="@layout/fragment_patient_detail">
+<!--    <fragment-->
+<!--        android:id="@+id/fragmentPatientDetail"-->
+<!--        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"-->
+<!--        android:label="@string/title_patient_detail"-->
+<!--        tools:layout="@layout/fragment_patient_detail">-->
 
-        <argument
-            android:name="patientId"
-            app:argType="string" />
-    </fragment>
+<!--        <argument-->
+<!--            android:name="patientId"-->
+<!--            app:argType="string" />-->
+<!--    </fragment>-->
 
     <fragment
         android:id="@+id/nav_prescription"

@@ -3,43 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patient_navigation_graph"
-    app:startDestination="@id/fragmentStartProgressive">
+    app:startDestination="@id/fragmentFindPatient">
 
     <fragment
-        android:id="@+id/fragmentStartProgressive"
-        android:name="org.intelehealth.app.ui.base.fragment.ProgressiveFragment"
-        tools:layout="@layout/fragment_progressive" />
-
-    <fragment
-        android:id="@+id/fragmentPatientConsent"
-        android:name="org.intelehealth.app.ui.patient.fragment.PatientConsentFragment"
-        android:label=""
-        tools:layout="@layout/fragment_patient_consent">
-
-        <argument
-            android:name="consentArgs"
-            app:argType="org.intelehealth.app.model.ConsentArgs" />
-
-        <action
-            android:id="@+id/action_to_self"
-            app:destination="@id/fragmentPatientConsent"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/fragmentPatientConsent"
-            app:popUpToInclusive="true" />
-
-        <action
-            android:id="@+id/action_to_patient_personal_info"
-            app:destination="@id/fragmentPatientPersonalInfo"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/fragmentPatientConsent"
-            app:popUpToInclusive="true" />
-    </fragment>
+        android:id="@+id/fragmentFindPatient"
+        android:name="org.intelehealth.app.ui.patient.fragment.FindPatientFragment"
+        tools:layout="@layout/fragment_patient_list" />
 
     <fragment
         android:id="@+id/fragmentPatientPersonalInfo"

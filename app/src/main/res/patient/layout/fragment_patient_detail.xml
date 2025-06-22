@@ -8,12 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="addressActiveStatus"
-            type="Boolean" />
-
-        <variable
-            name="otherActiveStatus"
-            type="Boolean" />
+            name="activeFeatureStatus"
+            type="org.intelehealth.config.room.entity.ActiveFeatureStatus" />
 
         <variable
             name="patient"
@@ -110,7 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_8dp"
-                    android:visibility="@{addressActiveStatus ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{activeFeatureStatus.activeStatusPatientAddress ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fragmentPersonalDetails" />
@@ -121,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_8dp"
-                    android:visibility="@{otherActiveStatus ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{activeFeatureStatus.activeStatusPatientOther ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/fragmentAddressDetails" />
@@ -143,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/std_16dp"
                 android:text="@string/action_household_survey"
+                android:visibility="@{activeFeatureStatus.activeStatusPatientHouseholdSurvey ? View.VISIBLE : View.GONE}"
                 app:backgroundTint="@color/orange"
                 app:layout_constraintBottom_toTopOf="@id/btnStartVisit"
                 app:layout_constraintEnd_toEndOf="parent"

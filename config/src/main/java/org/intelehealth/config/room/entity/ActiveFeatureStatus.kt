@@ -71,4 +71,8 @@ data class ActiveFeatureStatus(
 
     @SerializedName("patient_draft_survey")
     var activeStatusPatientDraftSurvey: Boolean = true
+
+    var personalDataConsent: Boolean = true
+
+    var telemedicineConsent: Boolean = true
 }

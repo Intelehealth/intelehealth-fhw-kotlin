@@ -204,9 +204,9 @@ data class VisitDetail(
                     "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
                     "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable, " +
                     "(CASE " +
-                    "WHEN V.startdate = date('now') THEN '$TODAY' " +
-                    "WHEN V.startdate = date('now', '-1 day') THEN '$YESTERDAY' " +
-                    "WHEN V.startdate BETWEEN date('now', '-2 day') AND date('now', '-7 day') THEN '${THIS_WEEK}' " +
+                    "WHEN substr(V.startdate, 1, 10) = date('now') THEN '$TODAY' " +
+                    "WHEN substr(V.startdate, 1, 10) = date('now', '-1 day') THEN '$YESTERDAY' " +
+                    "WHEN V.startdate BETWEEN date('now', '-7 day') AND date('now', '-2 day') THEN '${THIS_WEEK}' " +
                     "WHEN $CONDITION_CURRENT_MONTH THEN '${THIS_MONTH}' " +
                     "ELSE '${OTHER}' " +
                     "END) AS section, 0 AS priority "

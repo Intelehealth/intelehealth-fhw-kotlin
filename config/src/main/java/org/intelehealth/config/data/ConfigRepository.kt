@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.config.network.response.ConfigResponse
+import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.utility.PatientInfoGroup
@@ -71,6 +72,12 @@ class ConfigRepository @Inject constructor(
                 activeStatusRosterQuestionnaireSection = config.rosterQuestionnaireSection
                 activeStatusDiagnosticsSection = config.patientDiagnosticsSection
                 activeStatusPatientDraftSurvey = config.patientDraftSurvey
+                personalDataConsent = config.patientRegFields.other.find {
+                    it.idKey == PatientConfigKey.PERSONAL_DATA_CONSENT
+                }?.isEnabled ?: true
+                telemedicineConsent = config.patientRegFields.other.find {
+                    it.idKey == PatientConfigKey.TELEMEDICINE_CONSENT
+                }?.isEnabled ?: true
             }.also { configDb.featureActiveStatusDao().add(it) }
             onCompleted.invoke()
         }

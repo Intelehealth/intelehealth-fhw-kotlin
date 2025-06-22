@@ -15,7 +15,7 @@ import org.intelehealth.resource.R
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
+abstract class StateFragment(@LayoutRes layoutResId: Int) : MenuFragment(layoutResId) {
     abstract val viewModel: BaseViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

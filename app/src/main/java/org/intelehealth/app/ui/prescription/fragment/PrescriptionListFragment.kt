@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.app.databinding.FragmentPrescriptionReceiveBinding
+import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
 import org.intelehealth.app.ui.prescription.adapter.PrescriptionAdapter
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.extensions.getParcelableExtra
@@ -22,7 +22,6 @@ import org.intelehealth.common.extensions.getSerializableExtra
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.toHTML
-import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.CommonConstants
@@ -43,11 +42,11 @@ import org.intelehealth.resource.R as ResourceR
  * Navigates to prescription details on item click.
  */
 @AndroidEntryPoint
-class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescription_receive),
+class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescription_list),
                                  BaseViewHolder.ViewHolderClickListener, SearchView.OnQueryTextListener,
                                  PopupMenu.OnMenuItemClickListener {
     // Fragment for displaying received prescriptions
-    private lateinit var binding: FragmentPrescriptionReceiveBinding
+    private lateinit var binding: FragmentPrescriptionListBinding
 
     // ViewModel for managing prescription data and UI state
     override val viewModel: PrescriptionViewModel by viewModels<PrescriptionViewModel>()
@@ -83,7 +82,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPrescriptionReceiveBinding.bind(view)
+        binding = FragmentPrescriptionListBinding.bind(view)
         extractExtra()
         binding.progressBar.progressLayout.background = Color.TRANSPARENT.toDrawable()
         bindProgressView(binding.progressBar)

@@ -4,9 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_ripple_icon"
-    android:paddingVertical="@dimen/std_8dp"
-    android:paddingStart="0dp"
-    android:paddingEnd="@dimen/std_8dp">
+    android:padding="@dimen/std_8dp">
 
 
     <ImageView

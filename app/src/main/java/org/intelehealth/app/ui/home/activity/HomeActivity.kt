@@ -54,7 +54,7 @@ import org.intelehealth.resource.R as ResourceR
  */
 @AndroidEntryPoint
 class HomeActivity : BaseStatusBarActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
+                     NavigationView.OnNavigationItemSelectedListener {
     // Inject preference utils
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
@@ -82,12 +82,20 @@ class HomeActivity : BaseStatusBarActivity(),
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.contentViewMain.appBarLayout.toolbar)
+        observeActiveFeatureStatus()
         setupNavigation()
         setupHeaderView()
         setupFooterView()
         observeUser()
         handleBackPressEvent()
         updateDeviceToken()
+    }
+
+    private fun observeActiveFeatureStatus() {
+        afsViewModel.fetchActiveFeatureStatus().observe(this) { status ->
+            Timber.d { "Active feature status: $status" }
+            binding.navigationView.menu.findItem(R.id.nav_call_log).isVisible = status.videoSection
+        }
     }
 
     /**
@@ -139,6 +147,7 @@ class HomeActivity : BaseStatusBarActivity(),
      */
     private fun displayHomeTitle() {
         slideInBottomMenu()
+        binding.navigationView.setCheckedItem(R.id.menu_none)
         preferenceUtils.location.let {
             Gson().fromJson(it, SetupLocation::class.java).display
         }?.apply {

@@ -254,7 +254,7 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     }
 
     private fun validOccupation(it: OtherInfoConfig, error: Int): Boolean {
-        return if (it.occuptions?.isEnabled == true && it.occuptions?.isMandatory == true) {
+        return if (it.occuption?.isEnabled == true && it.occuption?.isMandatory == true) {
             binding.textInputLayOccupation.validate(binding.textInputOccupation, error)
         } else true
     }

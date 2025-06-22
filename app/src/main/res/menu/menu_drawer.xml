@@ -5,6 +5,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_achievements"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_drawer_my_achievements"
             android:title="@string/action_my_achievements"
             app:iconTint="?colorPrimary" />
@@ -17,6 +18,7 @@
 
         <item
             android:id="@+id/nav_setting"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_drawer_setting"
             android:title="@string/action_settings"
             app:iconTint="?colorPrimary" />
@@ -24,19 +26,28 @@
 
         <item
             android:id="@+id/nav_call_log"
+            android:checkable="true"
             android:icon="@drawable/ic_call_log"
             android:title="@string/action_call_logs"
             app:iconTint="?colorPrimary" />
 
         <item
             android:id="@+id/nav_about_us"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_drawer_about_us"
             android:title="@string/action_about_us"
             app:iconTint="?colorPrimary" />
         <item
             android:id="@+id/nav_logout"
+            android:checkable="true"
             android:icon="@drawable/ic_menu_drawer_logout"
             android:title="@string/action_logout"
             app:iconTint="?colorPrimary" />
+
+        <item
+            android:id="@+id/menu_none"
+            android:checkable="true"
+            android:title=""
+            android:visible="false" />
     </group>
 </menu>

@@ -1,7 +1,7 @@
 Pending
-- WebRtc configuration
-- Home screen cards configuration
-- Add patient consent configuration
+- WebRtc configuration - DONE
+- Home screen cards configuration - DONE
+- Add patient consent configuration - DONE
 - Nas: add family members
 - Patient profile picture uploading
 - Home bottom menu scrolling issue - DONE
@@ -10,14 +10,14 @@ Pending
 - Notification bell icon
 - Add patient address section
 - Add patient duplicate and empty attributes issue
-- After language change data lost in app
+- After language change data lost in app - DONE
 - Current selected language - DONE
-- White or secondary button ripple color - Ready to test
+- White or secondary button ripple color - DONE
 - Status bar color
-- Visit detail doctor specialty - Ready to test
+- Visit detail doctor specialty - DONE
 - Drawer menu current selection issue
 - App version name and code - DONE
-- Prescription tab language support
+- Prescription tab language support - DONE
 
 Tanvir code review
 1. Member variable must be declared with `private` access modifier if not used outside the class.

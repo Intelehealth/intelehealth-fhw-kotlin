@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_12dp"
                     android:orientation="vertical"
-                    android:visibility="@{otherInfoConfig.occuptions.enabled ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{otherInfoConfig.occuption.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/llNationalId"
@@ -109,14 +109,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
-                        android:text="@{ otherInfoConfig.occuptions.mandatory ? @string/lbl_occupation + ` *` : @string/lbl_occupation}"
+                        android:text="@{ otherInfoConfig.occuption.mandatory ? @string/lbl_occupation + ` *` : @string/lbl_occupation}"
                         android:textSize="@null"
                         tools:text="@string/lbl_occupation" />
 
                     <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
                         android:id="@+id/textInputLayOccupation"
                         style="@style/Theme.IDA.OutlineInputBox"
-                        config="@{otherInfoConfig.occuptions}"
+                        config="@{otherInfoConfig.occuption}"
                         editMode="@{isEditMode}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
