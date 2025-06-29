@@ -107,6 +107,8 @@
     <string name="content_no_prescription">You haven\'t any %1$s prescription yet, you can check with doctor or you can add new patient</string>
     <string name="content_follow_up_date_arrived">Please take %1$s\'s follow-up visit.\n\nYour follow-up time has arrived. Please end the current visit to start your follow-up visit.</string>
     <string name="content_are_you_sure_reset">Are you sure you want to reset the app?</string>
+    <string name="content_pres_received">Prescription received</string>
+    <string name="content_pres_pending">Prescription pending</string>
     //content description
     <string name="content_search_icon">Search Icon</string>
     <string name="content_add_icon">Add Icon</string>

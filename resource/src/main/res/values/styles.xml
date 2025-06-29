@@ -22,4 +22,12 @@
         <item name="tabMaxWidth">0dp</item>
         <item name="tabTextAppearance">@style/Theme.IDA.TextAppearance.Tab</item>
     </style>
+
+    <style name="Theme.IDA.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="chipBackgroundColor">@color/colorPrimaryLightCard</item>
+        <item name="chipCornerRadius">@dimen/std_4dp</item>
+        <item name="closeIconTint">@color/colorPrimary</item>
+    </style>
 </resources>

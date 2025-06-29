@@ -18,6 +18,10 @@ Pending
 - Drawer menu current selection issue
 - App version name and code - DONE
 - Prescription tab language support - DONE
+- Remove duplicate ic_presc_tablayout
+- Protocol download incorrect percentage
+
+
 
 Tanvir code review
 1. Member variable must be declared with `private` access modifier if not used outside the class.

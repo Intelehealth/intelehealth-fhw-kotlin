@@ -48,5 +48,6 @@ class FindPatientActivity : SimpleAppBarActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFindPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.appBarLayout.toolbar.contentInsetStartWithNavigation = 0
     }
 }

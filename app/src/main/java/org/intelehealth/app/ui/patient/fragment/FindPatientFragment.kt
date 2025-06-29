@@ -6,11 +6,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.viewModels
+import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientListBinding
-import org.intelehealth.app.ui.patient.viewmodel.PatientDetailViewModel
+import org.intelehealth.app.ui.patient.adapter.PatientAdapter
+import org.intelehealth.app.ui.patient.viewmodel.FindPatientViewModel
+import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
+import org.intelehealth.common.ui.viewholder.BaseViewHolder
+import org.intelehealth.data.offline.entity.VisitDetail
+import java.util.LinkedList
 
 /**
  * Created by Vaghela Mithun R. on 27-05-2025 - 12:39.
@@ -19,15 +25,50 @@ import org.intelehealth.common.ui.fragment.BaseProgressFragment
  **/
 
 @AndroidEntryPoint
-class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list) {
+class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list),
+    BaseViewHolder.ViewHolderClickListener {
 
-    override val viewModel: PatientDetailViewModel by viewModels()
+    override val viewModel: FindPatientViewModel by viewModels()
     private lateinit var binding: FragmentPatientListBinding
+    private lateinit var adapter: PatientAdapter
+    private var searchQuery: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPatientListBinding.bind(view)
         bindProgressView(binding.progressView)
+        initRecyclerView()
+        observePatientData()
+        observePageData()
+    }
+
+    private fun initRecyclerView() {
+        adapter = PatientAdapter(requireContext(), LinkedList())
+        adapter.viewHolderClickListener = this
+        binding.rvPatientList.setupLinearView(adapter)
+    }
+
+    private fun observePatientData() {
+        viewModel.searchPatient(searchQuery)
+        viewModel.patientLiveData.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            viewModel.handleResponse(it) { patients ->
+                adapter.updateItems(patients.toMutableList())
+            }
+        }
+    }
+
+    private fun observePageData() {
+        viewModel.patientPageLiveData.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            hideLoading()
+            if (it.isEmpty() && adapter.itemCount > 0) {
+                adapter.remove(adapter.itemCount - 1) // Remove the footer if no more data
+            } else if (adapter.itemCount > 2) {
+                adapter.isLoading = false
+                adapter.addItemsAt(adapter.itemCount - 1, it) // Add new items before the footer
+            }
+        }
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -36,5 +77,21 @@ class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list)
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return true
+    }
+
+    override fun onViewHolderViewClicked(view: View?, position: Int) {
+        view ?: return
+        if (view.id == org.intelehealth.common.R.id.btnViewMore) {
+            // Handle view more button click if needed
+            adapter.isLoading = true
+            viewModel.loadPage(searchQuery)
+            return
+        } else if (view.id == R.id.cardPatientItem) {
+            Timber.d { "clicked position => $position" }
+            val item = view.tag as? VisitDetail ?: return
+            val patientId = item.patientId ?: return
+            Timber.d { "VisitId nav => $patientId" }
+//            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
+        }
     }
 }

@@ -107,6 +107,8 @@
     <string name="content_no_prescription">आपके पास अभी तक कोई %1$s प्रिस्क्रिप्शन नहीं है, आप डॉक्टर से पूछ सकते हैं या आप नया मरीज जोड़ सकते हैं</string>
     <string name="content_follow_up_date_arrived">कृपया %1$s की फ़ॉलो-अप विज़िट लें।\n\nआपका फ़ॉलो-अप समय आ गया है। कृपया अपना फ़ॉलो-अप विज़िट शुरू करने के लिए वर्तमान विज़िट समाप्त करें।</string>
     <string name="content_are_you_sure_reset">क्या आप वाकई ऐप को रीसेट करना चाहते हैं?</string>
+    <string name="content_pres_received">प्रिस्क्रिप्शन प्राप्त हुआ</string>
+    <string name="content_pres_pending">प्रिस्क्रिप्शन लंबित</string>
 
     //content description
     <string name="content_search_icon">खोज आइकन</string>

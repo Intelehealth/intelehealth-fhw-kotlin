@@ -49,6 +49,8 @@ data class VisitDetail(
     var dob: String? = null,
     @ColumnInfo("age")
     var age: Int? = 0,
+    @ColumnInfo("patient_created_at")
+    var patientCreatedAt: String? = null,
     @ColumnInfo("startdate")
     var visitStartDate: String? = null,
     @ColumnInfo("dr_speciality")
@@ -66,6 +68,8 @@ data class VisitDetail(
     var prescribedDate: String? = null,
     @ColumnInfo("prescription")
     var hasPrescription: Boolean? = false,
+    @ColumnInfo("has_visit")
+    var hasVisit: Boolean? = false,
     @ColumnInfo("completed")
     var completed: Boolean? = false,
     @ColumnInfo("doctor_profile")
@@ -196,13 +200,15 @@ data class VisitDetail(
                 "  ELSE " +
                 "  (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) - " +
                 "  (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10))) " +
-                "  END) as age"
+                "  END) as age "
+
+        const val SEARCHABLE =
+            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
+                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable "
 
         const val COLUMNS =
             " V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.date_of_birth, P.gender, V.startdate, " +
-                    "${PATIENT_AGE}, (P.first_name || ' ' || P.last_name ) full_name, " +
-                    "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
-                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable, " +
+                    "$PATIENT_AGE, (P.first_name || ' ' || P.last_name ) full_name, $SEARCHABLE, " +
                     "(CASE " +
                     "WHEN substr(V.startdate, 1, 10) = date('now') THEN '$TODAY' " +
                     "WHEN substr(V.startdate, 1, 10) = date('now', '-1 day') THEN '$YESTERDAY' " +
@@ -211,9 +217,6 @@ data class VisitDetail(
                     "ELSE '${OTHER}' " +
                     "END) AS section, 0 AS priority "
 
-        const val SEARCHABLE =
-            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
-                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable "
 
 //        const val PATIENT_FULL_NAME =
 //            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name " +
