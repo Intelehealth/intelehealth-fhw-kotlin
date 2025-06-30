@@ -6,6 +6,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
+import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.ActivityFindPatientBinding
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
@@ -23,21 +24,34 @@ class FindPatientActivity : SimpleAppBarActivity() {
 
     // Navigation controller for the activity
     private val navController by lazy {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navGraphFindPatient) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(org.intelehealth.app.R.id.navGraphFindPatient) as NavHostFragment
         navHostFragment.navController
     }
 
     override fun getAppBarBinding(): SimpleAppbarBinding = binding.appBarLayout
 
-    override fun getScreenTitle(): String =
-        navController.currentDestination?.label?.let {
-            toString()
-        } ?: ""
+    override fun getScreenTitle(): String = navController.currentDestination?.label?.let { toString() } ?: ""
 
     private fun observeActiveFeatureStatus() {
         afsViewModel.fetchActiveFeatureStatus().observe(this) { status ->
             Timber.d { "Active feature status: $status" }
         }
+    }
+
+    private fun changeAppBarColor() {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.fragmentFindPatient -> setToolbarColor(ResourceR.color.colorPrimary)
+                else -> setToolbarColor(ResourceR.color.white)
+            }
+        }
+    }
+
+    private fun setToolbarColor(color: Int) {
+        binding.appBarLayout.toolbar.setBackgroundColor(
+            resources.getColor(color, theme)
+        )
     }
 
     /**
@@ -49,5 +63,6 @@ class FindPatientActivity : SimpleAppBarActivity() {
         binding = ActivityFindPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.appBarLayout.toolbar.contentInsetStartWithNavigation = 0
+        changeAppBarColor()
     }
 }

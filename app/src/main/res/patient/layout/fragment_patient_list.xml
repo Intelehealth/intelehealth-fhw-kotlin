@@ -52,11 +52,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPatientList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:padding="@dimen/std_16dp"
             tools:listitem="@layout/list_row_item_patient"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvPreviouslySearchList" />
 
         <include

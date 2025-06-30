@@ -33,8 +33,7 @@ class FindPatientViewModel @Inject constructor(
         MutableLiveData<Result<List<ListItemHeaderSection>>>()
     val patientLiveData: LiveData<Result<List<ListItemHeaderSection>>> = patientData
 
-    private var patientPageData =
-        MutableLiveData<List<ListItemHeaderSection>>()
+    private var patientPageData = MutableLiveData<List<ListItemHeaderSection>>()
     val patientPageLiveData: LiveData<List<ListItemHeaderSection>> = patientPageData
 
     private var offset = 0
@@ -65,6 +64,7 @@ class FindPatientViewModel @Inject constructor(
         flow.collectLatest {
             if (it.isNotEmpty()) {
                 offset += it.size
+                patientPageData.postValue(it.toMutableList())
                 if (it.size < LIMIT && searchQuery.isEmpty()) {
                     delay(100)
                     patientPageData.postValue(emptyList())

@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,20 +27,22 @@ import java.util.LinkedList
 
 @AndroidEntryPoint
 class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list),
-    BaseViewHolder.ViewHolderClickListener {
+                            BaseViewHolder.ViewHolderClickListener, SearchView.OnQueryTextListener {
 
     override val viewModel: FindPatientViewModel by viewModels()
     private lateinit var binding: FragmentPatientListBinding
     private lateinit var adapter: PatientAdapter
     private var searchQuery: String = ""
+    private lateinit var searchView: SearchView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPatientListBinding.bind(view)
         bindProgressView(binding.progressView)
         initRecyclerView()
-        observePatientData()
         observePageData()
+        observePatientData()
+        viewModel.searchPatient(searchQuery)
     }
 
     private fun initRecyclerView() {
@@ -49,7 +52,6 @@ class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list)
     }
 
     private fun observePatientData() {
-        viewModel.searchPatient(searchQuery)
         viewModel.patientLiveData.observe(viewLifecycleOwner) {
             it ?: return@observe
             viewModel.handleResponse(it) { patients ->
@@ -73,6 +75,11 @@ class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list)
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_search, menu)
+        (menu.findItem(R.id.action_search).actionView)?.let {
+            searchView = it.findViewById(R.id.menu_item_search)
+            searchView.maxWidth = Integer.MAX_VALUE
+            searchView.setOnQueryTextListener(this)
+        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -93,5 +100,17 @@ class FindPatientFragment : BaseProgressFragment(R.layout.fragment_patient_list)
             Timber.d { "VisitId nav => $patientId" }
 //            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        searchView.clearFocus() // Clear focus after submitting the query
+        searchQuery = query ?: ""
+        viewModel.searchPatient(searchQuery)
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        newText?.let { if (it.isEmpty()) viewModel.searchPatient("") }
+        return true
     }
 }
