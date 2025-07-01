@@ -7,9 +7,12 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.ActivityNavigatorExtras
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,14 +71,23 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
             findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
 
-        binding.btnFindPatient.setOnClickListener {
-            val patientId = "d2e0b4c3-2c3c-40ec-b9a7-21d59a7c8c7d"
-            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
-        }
+        binding.btnFindPatient.setOnClickListener { navigateToFindPatient(it) }
 
         binding.cardHomePrescription.setOnClickListener {
             binding.presCount?.let {
                 findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription(it))
+            }
+        }
+    }
+
+    private fun navigateToFindPatient(view: View) {
+        HomeFragmentDirections.actionHomeToFindPatient().also { direction ->
+            ActivityOptionsCompat.makeSceneTransitionAnimation(
+                requireActivity(), view, view.transitionName
+            ).apply {
+                ActivityNavigatorExtras(this).also {
+                    findNavController().navigate(direction, it)
+                }
             }
         }
     }

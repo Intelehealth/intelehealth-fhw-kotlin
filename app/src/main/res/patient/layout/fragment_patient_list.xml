@@ -7,45 +7,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--        <View-->
-        <!--            android:id="@+id/viewSearchBox"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="?actionBarSize"-->
-        <!--            android:background="@color/colorPrimary"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
         <View
             android:id="@+id/viewSearchBoxBottomShape"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/std_32dp"
+            android:layout_height="@dimen/std_16dp"
             android:background="@drawable/shap_find_patient_search_box"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupRecentSearchList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="lblRecentSearchList, rvRecentSearchList, btnClearRecentSearch" />
+
         <TextView
-            android:id="@+id/lblPreviouslySearchList"
+            android:id="@+id/lblRecentSearchList"
             style="@style/Theme.IDA.TextAppearance.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
             android:layout_marginTop="@dimen/std_16dp"
-            android:text="@string/lbl_previous"
+            android:text="@string/lbl_recently_searched"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewSearchBoxBottomShape" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearRecentSearch"
+            style="@style/Theme.IDA.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/std_24dp"
+            android:text="@string/action_clear_all"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintBottom_toBottomOf="@id/lblRecentSearchList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lblRecentSearchList" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvPreviouslySearchList"
+            android:id="@+id/rvRecentSearchList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="@dimen/std_8dp"
+            android:paddingHorizontal="@dimen/std_16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lblPreviouslySearchList"
+            app:layout_constraintTop_toBottomOf="@id/lblRecentSearchList"
             tools:itemCount="5"
             tools:listitem="@layout/list_row_item_prev_search" />
 
@@ -54,16 +65,30 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:padding="@dimen/std_16dp"
-            tools:listitem="@layout/list_row_item_patient"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rvPreviouslySearchList" />
+            app:layout_constraintTop_toBottomOf="@id/rvRecentSearchList"
+            tools:listitem="@layout/list_row_item_patient" />
 
         <include
             android:id="@+id/progressView"
             layout="@layout/view_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <!--No Patient Found-->
+        <include
+            android:id="@+id/noPatientFoundBlock"
+            layout="@layout/view_no_patient_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:contentMessage="@{@string/content_no_search_patient_found}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@{@string/error_search_pat_not_found_txt}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

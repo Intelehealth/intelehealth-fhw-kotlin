@@ -36,6 +36,7 @@
             android:layout_marginHorizontal="@dimen/std_16dp"
             android:layout_marginTop="@dimen/std_16dp"
             android:text="@string/hint_find_patient"
+            android:transitionName="@string/find_patient_transition"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

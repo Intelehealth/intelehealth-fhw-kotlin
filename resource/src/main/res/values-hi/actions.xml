@@ -57,4 +57,5 @@
     <string name="action_share">शेयर</string>
     <string name="action_view_more">अधिक देखें</string>
     <string name="action_start_followup">अनुवर्ती कार्रवाई शुरू करें</string>
+    <string name="action_clear_all">सभी साफ़ करें</string>
 </resources>

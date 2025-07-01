@@ -19,6 +19,7 @@ import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.common.utility.CommonConstants.LIMIT
 import org.intelehealth.common.utility.NO_DATA_FOUND
+import org.intelehealth.data.offline.entity.RecentHistory
 import org.intelehealth.data.provider.patient.search.SearchPatientRepository
 import java.util.LinkedList
 import javax.inject.Inject
@@ -71,5 +72,19 @@ class FindPatientViewModel @Inject constructor(
                 }
             } else patientPageData.postValue(emptyList())
         }
+    }
+
+    fun addRecentSearchHistory(value: String) = viewModelScope.launch {
+        repository.addRecentSearchHistory(value)
+    }
+
+    fun getRecentSearchHistory() = repository.getRecentSearchHistory()
+
+    fun updateRecentSearchHistory(recentHistory: RecentHistory) = viewModelScope.launch {
+        repository.updateRecentSearchHistory(recentHistory)
+    }
+
+    fun clearRecentSearchHistory() = viewModelScope.launch{
+        repository.deleteRecentSearchHistory()
     }
 }

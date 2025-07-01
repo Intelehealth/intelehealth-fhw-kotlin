@@ -2,15 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingVertical="@dimen/std_8dp">
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/menu_item_search"
-        style="@style/Theme.IDA.SearchView"
+        style="@style/Theme.IDA.SearchView.Transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/std_16dp"
+        android:transitionName="@string/find_patient_transition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

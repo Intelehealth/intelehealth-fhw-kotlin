@@ -146,4 +146,5 @@
     <string name="lbl_this_week_visits">इस सप्ताह की विज़िट</string>
     <string name="lbl_this_month_visits">इस महीने की विज़िट</string>
     <string name="lbl_this_other_visits">अन्य सभी दिन की विज़िट</string>
+    <string name="lbl_recently_searched">हाल ही में खोजा गया</string>
 </resources>

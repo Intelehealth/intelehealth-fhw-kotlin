@@ -19,10 +19,12 @@ import org.intelehealth.data.offline.dao.PatientDao
 import org.intelehealth.data.offline.dao.PatientLocationDao
 import org.intelehealth.data.offline.dao.ProviderAttributeDao
 import org.intelehealth.data.offline.dao.ProviderDao
+import org.intelehealth.data.offline.dao.RecentHistoryDao
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.dao.UserSessionDao
 import org.intelehealth.data.offline.dao.VisitAttributeDao
 import org.intelehealth.data.offline.dao.VisitDao
+import org.intelehealth.data.offline.entity.RecentHistory
 import javax.inject.Singleton
 
 /**
@@ -107,4 +109,8 @@ object OfflineDatabaseModule {
     @Provides
     @Singleton
     fun provideUserSessionDao(offlineDatabase: OfflineDatabase): UserSessionDao = offlineDatabase.userSessionDao()
+
+    @Provides
+    @Singleton
+    fun provideRecentHistoryDao(offlineDatabase: OfflineDatabase): RecentHistoryDao = offlineDatabase.recentHistoryDao()
 }

@@ -109,6 +109,7 @@
     <string name="content_are_you_sure_reset">Are you sure you want to reset the app?</string>
     <string name="content_pres_received">Prescription received</string>
     <string name="content_pres_pending">Prescription pending</string>
+    <string name="content_no_search_patient_found">Use correct Username or ID to search or you can a register new patient.</string>
     //content description
     <string name="content_search_icon">Search Icon</string>
     <string name="content_add_icon">Add Icon</string>

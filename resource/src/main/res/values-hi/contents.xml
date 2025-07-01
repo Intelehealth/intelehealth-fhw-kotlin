@@ -109,6 +109,7 @@
     <string name="content_are_you_sure_reset">क्या आप वाकई ऐप को रीसेट करना चाहते हैं?</string>
     <string name="content_pres_received">प्रिस्क्रिप्शन प्राप्त हुआ</string>
     <string name="content_pres_pending">प्रिस्क्रिप्शन लंबित</string>
+    <string name="content_no_search_patient_found">खोज करने के लिए सही उपयोगकर्ता नाम या आईडी का उपयोग करें या आप एक नया रोगी पंजीकृत कर सकते हैं।</string>
 
     //content description
     <string name="content_search_icon">खोज आइकन</string>

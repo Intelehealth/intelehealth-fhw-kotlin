@@ -19,6 +19,7 @@ import org.intelehealth.data.offline.dao.PatientDao
 import org.intelehealth.data.offline.dao.PatientLocationDao
 import org.intelehealth.data.offline.dao.ProviderAttributeDao
 import org.intelehealth.data.offline.dao.ProviderDao
+import org.intelehealth.data.offline.dao.RecentHistoryDao
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.dao.UserSessionDao
 import org.intelehealth.data.offline.dao.VisitAttributeDao
@@ -36,6 +37,7 @@ import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientLocation
 import org.intelehealth.data.offline.entity.Provider
 import org.intelehealth.data.offline.entity.ProviderAttribute
+import org.intelehealth.data.offline.entity.RecentHistory
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.data.offline.entity.UserSession
 import org.intelehealth.data.offline.entity.Visit
@@ -53,7 +55,7 @@ import org.intelehealth.data.offline.entity.VisitAttribute
         Appointment::class, Concept::class, Encounter::class, FollowupScheduleNotification::class,
         LocalNotification::class, MediaRecord::class, Observation::class, Patient::class, PatientAttribute::class,
         PatientAttributeTypeMaster::class, PatientLocation::class, Provider::class, ProviderAttribute::class,
-        User::class, UserSession::class, Visit::class, VisitAttribute::class
+        User::class, UserSession::class, Visit::class, VisitAttribute::class, RecentHistory::class
     ],
     version = 1,
     exportSchema = false
@@ -76,6 +78,7 @@ abstract class OfflineDatabase : RoomDatabase() {
     abstract fun visitAttributeDao(): VisitAttributeDao
     abstract fun userDao(): UserDao
     abstract fun userSessionDao(): UserSessionDao
+    abstract fun recentHistoryDao(): RecentHistoryDao
 
     companion object {
         private const val DATABASE_NAME = "main.db"

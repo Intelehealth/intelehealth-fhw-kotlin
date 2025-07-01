@@ -1,3 +1,4 @@
 <resources>
     <string name="video_transition" translatable="false">video_transition</string>
+    <string name="find_patient_transition" translatable="false">find_patient_transition</string>
 </resources>

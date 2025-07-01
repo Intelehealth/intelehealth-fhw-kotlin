@@ -3,6 +3,8 @@ package org.intelehealth.common.extensions
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.intelehealth.common.ui.decoration.HorizontalSpaceItemDecoration
+import org.intelehealth.common.ui.decoration.VerticalSpaceItemDecoration
 
 /**
  * Extension function for [RecyclerView] to set up a linear layout manager and
@@ -62,6 +64,16 @@ fun RecyclerView.setupHorizontalLinearView(
  */
 fun RecyclerView.setItemDecoration(orientation: Int = DividerItemDecoration.VERTICAL) {
     addItemDecoration(DividerItemDecoration(this.context, orientation))
+}
+
+fun RecyclerView.setSpaceItemDecoration(
+    space: Int,
+    orientation: Int = DividerItemDecoration.VERTICAL
+) {
+    if (orientation == DividerItemDecoration.VERTICAL)
+        addItemDecoration(VerticalSpaceItemDecoration(space))
+    else
+        addItemDecoration(HorizontalSpaceItemDecoration(space))
 }
 
 /**

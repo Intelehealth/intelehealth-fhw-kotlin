@@ -1,7 +1,15 @@
 package org.intelehealth.common.extensions
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.setMargins
 import org.intelehealth.common.ui.custom.TooltipWindow
 
 /**
@@ -79,4 +87,21 @@ fun View.showTooltipOnClick(@StringRes resId: Int) {
 fun View.previousFocus() {
     val previousView = focusSearch(View.FOCUS_LEFT)
     previousView?.requestFocus()
+}
+
+fun SearchView.changeToWhiteOverlayTheme() {
+    maxWidth = Integer.MAX_VALUE
+
+    val searchText = findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+    searchText.setTextColor(Color.WHITE)           // Text color
+    searchText.setHintTextColor(Color.LTGRAY)
+
+
+    val searchIcon = findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+    searchIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+
+    val frame = findViewById<LinearLayout>(androidx.appcompat.R.id.search_edit_frame)
+    val params = frame.layoutParams as ViewGroup.MarginLayoutParams
+    params.setMargins(0)
+    frame.layoutParams = params
 }

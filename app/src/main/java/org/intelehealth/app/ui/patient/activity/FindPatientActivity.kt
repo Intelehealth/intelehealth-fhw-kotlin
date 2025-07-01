@@ -1,7 +1,10 @@
 package org.intelehealth.app.ui.patient.activity
 
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +28,7 @@ class FindPatientActivity : SimpleAppBarActivity() {
     // Navigation controller for the activity
     private val navController by lazy {
         val navHostFragment =
-            supportFragmentManager.findFragmentById(org.intelehealth.app.R.id.navGraphFindPatient) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.navGraphFindPatient) as NavHostFragment
         navHostFragment.navController
     }
 
@@ -49,6 +52,9 @@ class FindPatientActivity : SimpleAppBarActivity() {
     }
 
     private fun setToolbarColor(color: Int) {
+        val upArrow = ContextCompat.getDrawable(this, androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+        upArrow?.setTint(Color.WHITE)
+        supportActionBar?.setHomeAsUpIndicator(upArrow)
         binding.appBarLayout.toolbar.setBackgroundColor(
             resources.getColor(color, theme)
         )
