@@ -3,12 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patient_navigation_graph"
-    app:startDestination="@id/fragmentStartProgressive">
-
-    <fragment
-        android:id="@+id/fragmentStartProgressive"
-        android:name="org.intelehealth.app.ui.base.fragment.ProgressiveFragment"
-        tools:layout="@layout/fragment_progressive" />
+    app:startDestination="@id/fragmentPatientDetail">
 
     <fragment
         android:id="@+id/fragmentPatientConsent"

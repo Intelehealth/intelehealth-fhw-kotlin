@@ -122,7 +122,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
     private fun handleClickEvents() {
         binding.noPatientFoundBlock.btnAddNewPatient.setOnClickListener {
             findNavController().navigate(
-                PrescriptionFragmentDirections.actionNavPrescriptionToAddPatient()
+                PrescriptionFragmentDirections.actionNavPrescriptionToAddPatient(null)
             )
         }
 

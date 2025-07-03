@@ -26,7 +26,7 @@ data class Patient(
     @ColumnInfo("guardian_type") @SerializedName("guardianType") var guardianType: String? = null,
     @SerializedName("syncd")
     override var synced: Boolean = false
-) : PersonAddress(), Parcelable {
+) : BaseEntity(), Parcelable {
 
     override fun toString(): String {
         return Gson().toJson(this)

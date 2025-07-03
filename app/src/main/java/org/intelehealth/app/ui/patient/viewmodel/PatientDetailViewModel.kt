@@ -50,4 +50,8 @@ class PatientDetailViewModel @Inject constructor(
         val otherInfo = async { detailRepository.fetchPatientAttributes(patientId) }.await()
         patientOtherDetail.postValue(otherInfo)
     }
+
+    fun editPatientDetails(patient: Patient) {
+
+    }
 }

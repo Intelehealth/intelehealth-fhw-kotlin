@@ -1,6 +1,7 @@
 package org.intelehealth.data.provider.patient.address
 
 import org.intelehealth.data.offline.dao.PatientDao
+import org.intelehealth.data.offline.dao.PersonAddressDao
 import org.intelehealth.data.offline.entity.PersonAddress
 import javax.inject.Inject
 
@@ -9,11 +10,11 @@ import javax.inject.Inject
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class PatientAddressRepository @Inject constructor(private val patientDao: PatientDao) {
-    fun getPatientAddressById(patientId: String) = patientDao.getLivePatientAddressByUuid(patientId)
+class PatientAddressRepository @Inject constructor(private val personAddressDao: PersonAddressDao) {
+    fun getPatientAddressById(patientId: String) = personAddressDao.getLivePatientAddressByUuid(patientId)
 
-    suspend fun updatePatientAddress(patientAddress: PersonAddress) = patientDao.updatePatientAddress(
-        uuid = patientAddress.uuid,
+    suspend fun updatePatientAddress(patientAddress: PersonAddress) = personAddressDao.updatePatientAddress(
+        patientId = patientAddress.uuid,
         address1 = patientAddress.address1,
         address2 = patientAddress.address2,
         address3 = patientAddress.address3,

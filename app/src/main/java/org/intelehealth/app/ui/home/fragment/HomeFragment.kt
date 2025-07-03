@@ -1,6 +1,7 @@
 package org.intelehealth.app.ui.home.fragment
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavOptions
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +41,14 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel by viewModels<HomeViewModel>()
     private val afsViewModel: ActiveFeatureStatusViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+            .inflateTransition(android.R.transition.move)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,10 +78,13 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.cardHomeAddPatient.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
+            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient(null))
         }
 
-        binding.btnFindPatient.setOnClickListener { navigateToFindPatient(it) }
+        binding.btnFindPatient.setOnClickListener {
+            navigateToFindPatient(it)
+//            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
+        }
 
         binding.cardHomePrescription.setOnClickListener {
             binding.presCount?.let {
@@ -82,12 +95,8 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
 
     private fun navigateToFindPatient(view: View) {
         HomeFragmentDirections.actionHomeToFindPatient().also { direction ->
-            ActivityOptionsCompat.makeSceneTransitionAnimation(
-                requireActivity(), view, view.transitionName
-            ).apply {
-                ActivityNavigatorExtras(this).also {
-                    findNavController().navigate(direction, it)
-                }
+            FragmentNavigatorExtras(view to view.transitionName).also {
+                findNavController().navigate(direction, it)
             }
         }
     }

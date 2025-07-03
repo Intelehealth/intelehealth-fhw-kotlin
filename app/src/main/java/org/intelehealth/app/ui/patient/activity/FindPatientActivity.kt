@@ -52,9 +52,11 @@ class FindPatientActivity : SimpleAppBarActivity() {
     }
 
     private fun setToolbarColor(color: Int) {
-        val upArrow = ContextCompat.getDrawable(this, androidx.appcompat.R.drawable.abc_ic_ab_back_material)
-        upArrow?.setTint(Color.WHITE)
+        val upArrow = ContextCompat.getDrawable(this, ResourceR.drawable.ic_arrow_back)
         supportActionBar?.setHomeAsUpIndicator(upArrow)
+        if (color == ResourceR.color.white) {
+            supportActionBar?.setHomeAsUpIndicator(upArrow?.apply { setTint(Color.BLACK) })
+        }
         binding.appBarLayout.toolbar.setBackgroundColor(
             resources.getColor(color, theme)
         )
@@ -68,7 +70,10 @@ class FindPatientActivity : SimpleAppBarActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFindPatientBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.appBarLayout.toolbar.contentInsetStartWithNavigation = 0
+    }
+
+    override fun onActionBarSet() {
+        super.onActionBarSet()
         changeAppBarColor()
     }
 }

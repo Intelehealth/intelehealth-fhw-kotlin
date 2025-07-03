@@ -64,39 +64,6 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE synced = :synced AND voided = 0")
     suspend fun getAllUnsyncedPatients(synced: Boolean = false): List<Patient>
 
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    fun getLivePatientAddressByUuid(patientId: String): LiveData<PersonAddress>
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    suspend fun getPatientAddressByPatientId(patientId: String): PersonAddress
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE synced = 0 AND voided = 0")
-    fun getAllUnsyncedPatientAddress(): List<PersonAddress>
-
-    @Query(
-        "UPDATE tbl_patient SET address1 = :address1, address2 = :address2, address3 = :address3, " +
-                " address4 = :address4, address5 = :address5, address6 = :address6, city_village = :cityVillage, " +
-                " district = :district, state = :state, country = :country, postal_code = :postalCode, " +
-                " addressOfHf = :addressOfHf WHERE uuid = :uuid"
-    )
-//    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    suspend fun updatePatientAddress(
-        uuid: String,
-        address1: String?,
-        address2: String?,
-        address3: String?,
-        address4: String?,
-        address5: String?,
-        address6: String?,
-        cityVillage: String?,
-        district: String?,
-        state: String?,
-        postalCode: String?,
-        country: String?,
-        addressOfHf: String?
-    ): Int
-
-
     @Query(
         "SELECT P.uuid as  patientId,  P.gender, (P.first_name || ' ' || P.last_name ) full_name, " +
                 "${VisitDetail.PATIENT_AGE}, P.openmrs_id,  PA.value as patient_created_at, " +

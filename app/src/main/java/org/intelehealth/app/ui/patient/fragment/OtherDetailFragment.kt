@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
@@ -42,6 +43,7 @@ class OtherDetailFragment : Fragment(R.layout.fragment_other_detail) {
         observeOtherDetailsVisibility()
         observeOtherDetails()
         toggleOtherDetailsVisibility()
+        editOtherInfo()
     }
 
     /**
@@ -82,6 +84,21 @@ class OtherDetailFragment : Fragment(R.layout.fragment_other_detail) {
         detailViewModel.patientOtherLiveData.observe(viewLifecycleOwner) {
             Timber.d { "Other => $it" }
             binding.otherInfo = it
+        }
+    }
+
+    private fun editOtherInfo() {
+        binding.btnEditOtherInfo.setOnClickListener {
+            navigateToOtherInfo()
+        }
+    }
+
+    private fun navigateToOtherInfo() {
+        binding.otherInfo?.let {
+            val patientId = it.patientId ?: return@let
+            PatientDetailFragmentDirections.actionDetailToOtherInfo(patientId, true).apply {
+                findNavController().navigate(this)
+            }
         }
     }
 }

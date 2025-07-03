@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentAddressDetailBinding
@@ -41,6 +42,7 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
         observeAddressDetailsVisibility()
         observeAddressDetails()
         toggleAddressDetailsVisibility()
+        editAddressInfo()
     }
 
     /**
@@ -80,6 +82,20 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
     private fun observeAddressDetails() {
         detailViewModel.patientAddressLiveData.observe(viewLifecycleOwner) {
             binding.addressInfo = it
+        }
+    }
+
+    private fun editAddressInfo() {
+        binding.btnEditAddressInfo.setOnClickListener {
+            navigateToAddressInfo()
+        }
+    }
+
+    private fun navigateToAddressInfo() {
+        binding.addressInfo?.let {
+            PatientDetailFragmentDirections.actionDetailToAddressInfo(it.uuid, true).apply {
+                findNavController().navigate(this)
+            }
         }
     }
 }

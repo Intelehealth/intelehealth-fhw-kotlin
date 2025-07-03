@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPersonalDetailBinding
@@ -41,6 +42,7 @@ class PersonalDetailFragment : Fragment(R.layout.fragment_personal_detail) {
         observerPersonalDetailsVisibility()
         observePersonalDetails()
         togglePersonalDetailsVisibility()
+        editPersonalInfo()
     }
 
     /**
@@ -84,6 +86,20 @@ class PersonalDetailFragment : Fragment(R.layout.fragment_personal_detail) {
 
         detailViewModel.patientOtherLiveData.observe(viewLifecycleOwner) {
             binding.otherInfo = it
+        }
+    }
+
+    private fun editPersonalInfo() {
+        binding.btnEditPersonalInfo.setOnClickListener {
+            navigateToPersonalInfo()
+        }
+    }
+
+    private fun navigateToPersonalInfo() {
+        binding.personalInfo?.let {
+            PatientDetailFragmentDirections.actionDetailToPersonal(it.uuid).apply {
+                findNavController().navigate(this)
+            }
         }
     }
 }

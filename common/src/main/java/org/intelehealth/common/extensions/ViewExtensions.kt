@@ -90,16 +90,18 @@ fun View.previousFocus() {
 }
 
 fun SearchView.changeToWhiteOverlayTheme() {
-    maxWidth = Integer.MAX_VALUE
-
+    removeExtraSpace()
     val searchText = findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
     searchText.setTextColor(Color.WHITE)           // Text color
     searchText.setHintTextColor(Color.LTGRAY)
 
-
     val searchIcon = findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
     searchIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
 
+}
+
+fun SearchView.removeExtraSpace() {
+    maxWidth = Integer.MAX_VALUE
     val frame = findViewById<LinearLayout>(androidx.appcompat.R.id.search_edit_frame)
     val params = frame.layoutParams as ViewGroup.MarginLayoutParams
     params.setMargins(0)

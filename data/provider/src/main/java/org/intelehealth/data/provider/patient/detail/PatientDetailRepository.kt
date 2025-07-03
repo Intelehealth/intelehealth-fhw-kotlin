@@ -2,6 +2,7 @@ package org.intelehealth.data.provider.patient.detail
 
 import org.intelehealth.data.offline.dao.PatientAttributeDao
 import org.intelehealth.data.offline.dao.PatientDao
+import org.intelehealth.data.offline.dao.PersonAddressDao
 import javax.inject.Inject
 
 /**
@@ -11,11 +12,12 @@ import javax.inject.Inject
  **/
 class PatientDetailRepository @Inject constructor(
     private val patientDao: PatientDao,
+    private val patientAddressDao: PersonAddressDao,
     private val patientAttributeDao: PatientAttributeDao
 ) {
     suspend fun fetchPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
 
-    suspend fun fetchPatientAddress(patientId: String) = patientDao.getPatientAddressByPatientId(patientId)
+    suspend fun fetchPatientAddress(patientId: String) = patientAddressDao.getPatientAddressByPatientId(patientId)
 
     suspend fun fetchPatientAttributes(patientId: String) = patientAttributeDao.getAllPatientAttrsData(patientId)
 }
