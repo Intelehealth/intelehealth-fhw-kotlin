@@ -76,10 +76,6 @@
             android:name=".ui.visit.activity.VisitDetailActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".ui.patient.activity.FindPatientActivity"
-            android:exported="false" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
