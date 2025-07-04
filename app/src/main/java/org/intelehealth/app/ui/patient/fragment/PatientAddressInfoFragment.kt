@@ -14,25 +14,33 @@ import org.intelehealth.app.databinding.FragmentPatientAddressInfoBinding
 import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
 import org.intelehealth.app.model.address.Block
 import org.intelehealth.app.model.address.DistData
+import org.intelehealth.app.model.address.ProvincesAndCities
 import org.intelehealth.app.model.address.StateData
 import org.intelehealth.app.model.address.Village
 import org.intelehealth.app.ui.patient.viewmodel.PatientAddressViewModel
-import org.intelehealth.app.utility.LanguageUtils
+import org.intelehealth.app.utility.MIN_CHAR_LENGTH
 import org.intelehealth.app.utility.POSTAL_CODE_LEN
 import org.intelehealth.common.extensions.addFilter
+import org.intelehealth.common.extensions.getLocalResource
+import org.intelehealth.common.extensions.getLocalString
+import org.intelehealth.common.extensions.getLocalValueFromArray
 import org.intelehealth.common.extensions.getSpinnerArrayAdapter
 import org.intelehealth.common.extensions.getSpinnerItemAdapter
 import org.intelehealth.common.extensions.hideDigitErrorOnTextChang
 import org.intelehealth.common.extensions.hideError
 import org.intelehealth.common.extensions.hideErrorOnTextChang
+import org.intelehealth.common.extensions.setEditableDropDownStatus
+import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.validate
 import org.intelehealth.common.extensions.validateDigit
 import org.intelehealth.common.extensions.validateDropDowb
 import org.intelehealth.common.inputfilter.AlphaNumericInputFilter
 import org.intelehealth.common.inputfilter.AlphabetsInputFilter
 import org.intelehealth.common.inputfilter.FirstLetterUpperCaseInputFilter
+import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.config.presenter.fields.patient.infoconfig.AddressInfoConfig
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
+import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.utility.PatientInfoGroup
 import org.intelehealth.data.offline.entity.PersonAddress
 import org.intelehealth.resource.R as ResourceR
@@ -75,19 +83,21 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
         val country = personAddress.country
         binding.autoCompleteCountry.setAdapter(adapter)
         if (!country.isNullOrEmpty()) {
-            binding.autoCompleteCountry.setText(country, false)
+            val localCountry = requireContext().getLocalValueFromArray(country, R.array.countries)
+            binding.autoCompleteCountry.setText(localCountry, false)
         } else {
             val defaultValue = getString(ResourceR.string.default_country)
             Timber.d { "default $defaultValue index[${adapter.getPosition(defaultValue)}]" }
             binding.autoCompleteCountry.setText(defaultValue, false)
-            languageUtils.getSpecificLocalResource(requireContext(), LanguageUtils.ENGLISH).apply {
-                personAddress.country = this.getString(ResourceR.string.default_country)
+            requireContext().getLocalString(resId = ResourceR.string.default_country).apply {
+                Timber.d { "default country => $this" }
+                personAddress.country = this
             }
         }
         binding.textInputLayCountry.isEnabled = false
         binding.autoCompleteCountry.setOnItemClickListener { _, _, i, _ ->
             binding.textInputLayCountry.hideError()
-            languageUtils.getSpecificLocalResource(requireContext(), LanguageUtils.ENGLISH).apply {
+            requireContext().getLocalResource().apply {
                 personAddress.country = this.getStringArray(R.array.countries)[i]
             }
         }
@@ -127,10 +137,9 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
             findNavController().popBackStack()
         }
         binding.frag2BtnNext.setOnClickListener {
-            PatientAddressInfoFragmentDirections.actionAddressToOther(
-                args.patientId, args.editMode
-            ).apply {
-                findNavController().navigate(this)
+            validateForm {
+                showToast("Valid address")
+                savePatient()
             }
 //            setOtherBlockData()
 //            validateForm { savePatient() }
@@ -138,45 +147,46 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
     }
 
     //
-//    private fun savePatient() {
-//        patient.apply {
-//            postalcode = binding.textInputPostalCode.text?.toString()
-//            /* val village = binding.textInputCityVillage.text?.toString()
-//             cityvillage = if (district.isNullOrEmpty().not()) "${district}:$village"
-//             else village*/
-//            address2 = binding.textInputAddress2.text?.toString()
-//            registrationAddressOfHf = binding.textInputRegistrationAddressOfHf.text?.toString()
-//
-//            //householdNumber = binding.textInputHouseholdNumber.text?.toString()
-//            address1 = binding.textInputAddress1.text?.toString()
-//            address6 = binding.textInputHouseholdNumber.text?.toString()
-//
-//
-//            if (binding.llBlock.isEnabled) {
-//                if (binding.autoCompleteBlock.text.toString().equals(getString(R.string.other_block_option), ignoreCase = true)) {
-//                    address3 = binding.textInputOtherBlock.text.toString()
-//                    cityvillage = binding.textInputCityVillage.text?.toString().toString()
-//                }
-//            } else {
-//                cityvillage = binding.textInputCityVillage.text.toString()
-//            }
-//
-//
-//            patientViewModel.updatedPatient(this)
-//            if (patientViewModel.isEditMode) {
-//                saveAndNavigateToDetails()
-//            } else {
-//                if (patientViewModel.activeStatusOtherSection.not()) {
-//                    saveAndNavigateToDetails()
-//                } else {
-//                    PatientAddressInfoFragmentDirections.navigationAddressToOther().apply {
-//                        findNavController().navigate(this)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
+    private fun savePatient() {
+        personAddress.apply {
+            uuid = args.patientId
+            postalCode = binding.textInputPostalCode.text?.toString()
+            address2 = binding.textInputAddress2.text?.toString()
+            addressOfHf = binding.textInputRegistrationAddressOfHf.text?.toString()
+            address1 = binding.textInputAddress1.text?.toString()
+            address6 = binding.textInputHouseholdNumber.text?.toString()
+            cityVillage = binding.textInputCityVillage.text.toString()
+
+            if (binding.llBlock.isEnabled) {
+                if (binding.autoCompleteBlock.text.toString()
+                        .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
+                ) {
+                    address3 = binding.textInputOtherBlock.text.toString()
+                    cityVillage = binding.textInputCityVillage.text?.toString().toString()
+                }
+            } else {
+                cityVillage = binding.textInputCityVillage.text.toString()
+            }
+        }.also {
+            Timber.d { "Final patient => $it" }
+            saveAndNavigateToDetails(it)
+        }
+    }
+
+    private fun saveAndNavigateToDetails(personAddress: PersonAddress) {
+        viewModel.addAddress(personAddress).observe(viewLifecycleOwner) { result ->
+            result ?: return@observe
+            viewModel.handleResponse(result) {
+                PatientAddressInfoFragmentDirections.actionAddressToOther(
+                    args.patientId, args.editMode
+                ).apply {
+                    findNavController().navigate(this)
+                }
+            }
+        }
+    }
+
+    //
 //    private fun saveAndNavigateToDetails() {
 //        patientViewModel.savePatient().observe(viewLifecycleOwner) {
 //            it ?: return@observe
@@ -214,265 +224,243 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
     }
 
     private fun setupStates() {
-        val isConfigStateEditable = binding.addressInfoConfig?.state?.isEditable ?: true
         val defaultState = languageUtils.getState(getString(ResourceR.string.default_state))
 
-        //binding.autoCompleteDistrict.setAdapter(null)
+        languageUtils.getStateList()?.let {
+            binding.textInputLayStateAndProvince.tag = it
+            val adapter: ArrayAdapter<StateData> = requireContext().getSpinnerItemAdapter(it)
+            binding.autoCompleteStateAndProvince.setAdapter(adapter)
 
-        if (!isConfigStateEditable && defaultState != null && defaultState.state.isNotEmpty()) {
-            /*  For Project with default state values like NAS ::  1 !isConfigStateEditable - state disabled from admin panel
-               2 defaultState - project has default state :: if above both conditions true then it has default value and make it editable false*/
-            setFieldEnabledStatus(binding.textInputLayState, false)
-            binding.autoCompleteState.setText(defaultState.toString(), false)
-            personAddress.state = defaultState.state
-            setupDistricts(defaultState)
-        } else {
-            binding.autoCompleteState.setText("", false)
-            // patient.stateprovince = binding.autoCompleteState.text.toString()
-            // IDA flow (No default value for state
-            setFieldEnabledStatus(binding.textInputLayState, isConfigStateEditable)
-            /*binding.autoCompleteState.setText("", false)
-                patient.stateprovince = binding.autoCompleteState.text.toString()*/
-
-            languageUtils.getStateList()?.let {
-                binding.textInputLayState.tag = it
-                val adapter: ArrayAdapter<StateData> = requireContext().getSpinnerItemAdapter(it)
-                binding.autoCompleteState.setAdapter(adapter)
-
-                personAddress.state?.let { s ->
-                    val state = languageUtils.getState(s)
-                    if (state != null) {
-                        binding.autoCompleteState.setText(languageUtils.getStateLocal(state), false)
-                        setupDistricts(state)
-                    }
+            personAddress.state?.let { s ->
+                val state = languageUtils.getState(s)
+                if (state != null) {
+                    binding.autoCompleteStateAndProvince.setText(state.toString(), false)
+                    setupDistricts(state)
                 }
-
-                binding.autoCompleteState.setOnItemClickListener { _, _, i, _ ->
-                    binding.textInputLayState.hideError()
-                    eraseAllBlockFields()
-                    val list: List<StateData> = binding.textInputLayState.tag as List<StateData>
-                    val selectedState = list[i]
-                    binding.autoCompleteDistrict.setText("", false)
-                    binding.address?.district = binding.autoCompleteDistrict.text.toString()
-                    //patient.stateprovince = selectedState.state
-                    binding.address?.state = selectedState.state
-                    setupDistricts(selectedState)
+            } ?: run {
+                // If no state is set, use the default state
+                if (defaultState != null) {
+                    binding.autoCompleteStateAndProvince.setText(defaultState.toString(), false)
+                    personAddress.state = defaultState.state
+                    setupDistricts(defaultState)
+                } else {
+                    binding.autoCompleteStateAndProvince.setText("", false)
+                    personAddress.state = ""
                 }
+            }
+
+            binding.autoCompleteStateAndProvince.setOnItemClickListener { _, _, i, _ ->
+                binding.textInputLayStateAndProvince.hideError()
+                val list: List<StateData> = binding.textInputLayStateAndProvince.tag as List<StateData>
+                val selectedState = list[i]
+                binding.autoCompleteDistrict.setText("", false)
+                personAddress.district = binding.autoCompleteDistrict.text.toString()
+                personAddress.state = selectedState.state
+                setupDistricts(selectedState)
             }
         }
     }
 
-    //
     private fun setupProvinceAndCities() {
-//        languageUtils.getProvincesAndCities().let {
-//            //province
-//            binding.textInputLayProvince.tag = it
-//            val adapter: ArrayAdapter<String> = ArrayAdapterUtils.getSpinnerItemAdapter(
-//                requireContext(), it.provinces
-//            )
-//            binding.autoCompleteProvince.setAdapter(adapter)
-//
-//            if (patient.province != null && patient.province.isNotEmpty()) {
-//                val province = languageUtils.getProvince(patient.province)
-//                if (province != null) {
-//                    binding.autoCompleteProvince.setText(province.toString(), false)
-//                }
-//            }
-//
-//            binding.autoCompleteProvince.setOnItemClickListener { adapterView, _, i, _ ->
-//                binding.textInputLayProvince.hideError()
-//                val provincesAndCities: ProvincesAndCities =
-//                    binding.textInputLayProvince.tag as ProvincesAndCities
-//                patient.province = provincesAndCities.provinces[i]
-//            }
-//
-//            //cities
-//            binding.textInputLayCity.tag = it
-//            val cityAdapter: ArrayAdapter<String> = ArrayAdapterUtils.getSpinnerItemAdapter(
-//                requireContext(), it.cities
-//            )
-//            binding.autoCompleteCity.setAdapter(cityAdapter)
-//
-//            binding.address?.cityVillage?.let {
-//                val city = languageUtils.getCity(it)
-//                if (city != null) {
-//                    binding.autoCompleteCity.setText(city.toString(), false)
-//                }
-//            }
-//
-//            binding.autoCompleteCity.setOnItemClickListener { adapterView, _, i, _ ->
-//                binding.textInputLayCity.hideError()
-//                val provincesAndCities: ProvincesAndCities =
-//                    binding.textInputLayCity.tag as ProvincesAndCities
-//                binding.address?.cityVillage = provincesAndCities.cities[i]
-//            }
-//        }
+        languageUtils.getProvincesAndCities().let { provinces ->
+            //province
+            binding.textInputLayStateAndProvince.tag = provinces
+            val adapter: ArrayAdapter<String> = ArrayAdapterUtils.getSpinnerItemAdapter(
+                requireContext(), provinces.provinces
+            )
+            binding.autoCompleteStateAndProvince.setAdapter(adapter)
+            personAddress.state?.let {
+                val province = languageUtils.getProvince(it)
+                if (province != null) {
+                    binding.autoCompleteStateAndProvince.setText(province.toString(), false)
+                }
+            }
 
+            binding.autoCompleteStateAndProvince.setOnItemClickListener { _, _, i, _ ->
+                binding.textInputLayStateAndProvince.hideError()
+                val provincesAndCities: ProvincesAndCities =
+                    binding.textInputLayStateAndProvince.tag as ProvincesAndCities
+                personAddress.state = provincesAndCities.provinces[i]
+            }
+
+            //cities
+            binding.textInputLayCity.tag = provinces
+            val cityAdapter: ArrayAdapter<String> = ArrayAdapterUtils.getSpinnerItemAdapter(
+                requireContext(), provinces.cities
+            )
+            binding.autoCompleteCity.setAdapter(cityAdapter)
+
+            personAddress.cityVillage?.let {
+                val city = languageUtils.getCity(it)
+                if (city != null) {
+                    binding.autoCompleteCity.setText(city.toString(), false)
+                }
+            }
+
+            binding.autoCompleteCity.setOnItemClickListener { _, _, i, _ ->
+                binding.textInputLayCity.hideError()
+                val provincesAndCities: ProvincesAndCities =
+                    binding.textInputLayCity.tag as ProvincesAndCities
+                personAddress.cityVillage = provincesAndCities.cities[i]
+            }
+        }
     }
 
-    //
     private fun setupDistricts(stateData: StateData) {
 
         val isConfigDistrictEditable = binding.addressInfoConfig?.district?.isEditable ?: true
-        val defaultDistrict =
-            languageUtils.getDistrict(stateData, getString(ResourceR.string.default_district))
+        val defaultDistrict = languageUtils.getDistrict(stateData, getString(ResourceR.string.default_district))
 
-        if (!isConfigDistrictEditable && defaultDistrict != null && defaultDistrict.name.isNotEmpty()) {
-            /*  For Project with default state values like NAS ::  1 !isConfigDistrictEditable - state disabled from admin panel
-               2 defaultDistrict - project has default state :: if above both conditions true then it has default value and make it editable false*/
-            setFieldEnabledStatus(binding.textInputLayDistrict, false)
-            binding.autoCompleteDistrict.setText(defaultDistrict.toString(), false)
-            //patient.district = binding.autoCompleteDistrict.text.toString()
-            binding.address?.district = defaultDistrict.name
-            if (binding.llBlock.isEnabled) setupBlocks(defaultDistrict)
-        } else {
-            // IDA flow (No default value for state
-            setFieldEnabledStatus(binding.textInputLayDistrict, isConfigDistrictEditable)
-            val adapter: ArrayAdapter<DistData> = requireContext().getSpinnerItemAdapter(stateData.distDataList)
-            binding.autoCompleteDistrict.setAdapter(adapter)
+        val adapter: ArrayAdapter<DistData> = requireContext().getSpinnerItemAdapter(stateData.distDataList)
+        binding.autoCompleteDistrict.setAdapter(adapter)
 
-            binding.address?.district?.let {
-                val selected = languageUtils.getDistrict(stateData, it)
-                if (selected != null) {
-                    binding.autoCompleteDistrict.setText(selected.toString(), false)
-                    if (binding.llBlock.isEnabled) setupBlocks(selected)
-                }
+        personAddress.district?.let {
+            val selected = languageUtils.getDistrict(stateData, it)
+            if (selected != null) {
+                binding.autoCompleteDistrict.setText(selected.toString(), false)
+                if (binding.llBlock.isEnabled) setupBlocks(selected)
             }
-
-            binding.textInputLayDistrict.tag = stateData.distDataList
-            binding.autoCompleteDistrict.setOnItemClickListener { adapterView, _, i, _ ->
-                binding.textInputLayDistrict.hideError()
-                val dList: List<DistData> = binding.textInputLayDistrict.tag as List<DistData>
-                //patient.district = dList[i].name
-                binding.address?.district = dList[i].name
-                if (binding.llBlock.isEnabled) setupBlocks(dList[i])
+        } ?: run {
+            // If no district is set, use the default district
+            if (defaultDistrict != null && defaultDistrict.name.isNotEmpty()) {
+                binding.autoCompleteDistrict.setText(defaultDistrict.toString(), false)
+                personAddress.district = defaultDistrict.name
+                if (binding.addressInfoConfig?.block?.isEnabled == true) setupBlocks(defaultDistrict)
+            } else {
+                binding.autoCompleteDistrict.setText("", false)
+                personAddress.district = ""
             }
         }
+
+        binding.textInputLayDistrict.tag = stateData.distDataList
+        binding.autoCompleteDistrict.setOnItemClickListener { _, _, i, _ ->
+            binding.textInputLayDistrict.hideError()
+            val dList: List<DistData> = binding.textInputLayDistrict.tag as List<DistData>
+            //patient.district = dList[i].name
+            personAddress.district = dList[i].name
+            if (binding.addressInfoConfig?.block?.isEnabled == true) setupBlocks(dList[i])
+        }
+
+        val editable = (isConfigDistrictEditable && defaultDistrict?.name.isNullOrEmpty())
+        binding.textInputLayDistrict.setEditableDropDownStatus(editable, binding.autoCompleteDistrict)
     }
 
+    private fun validPostalCode(config: PatientRegistrationFields?, error: Int): Boolean {
+        val postalCode = binding.textInputPostalCode.text.toString()
+        return if (postalCode.isNotEmpty()) {
+            binding.textInputLayPostalCode.validateDigit(
+                binding.textInputPostalCode,
+                ResourceR.string.error_invalid_postal_code,
+                POSTAL_CODE_LEN
+            )
+        } else if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayPostalCode.validate(binding.textInputPostalCode, ResourceR.string.error_field_required)
+        } else true
+    }
+
+    private fun validCountry(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayCountry.validateDropDowb(binding.autoCompleteCountry, error)
+        } else true
+    }
+
+    private fun validState(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayStateAndProvince.validateDropDowb(binding.autoCompleteStateAndProvince, error)
+        } else true
+    }
+
+    private fun validDistrict(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayDistrict.validateDropDowb(binding.autoCompleteDistrict, error)
+        } else true
+    }
+
+    private fun validCityVillage(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            val valid = binding.textInputLayCityVillage.validate(binding.textInputCityVillage, error)
+            val validDigit = binding.textInputLayCityVillage.validateDigit(
+                binding.textInputCityVillage,
+                ResourceR.string.error_invalid_village,
+                MIN_CHAR_LENGTH
+            )
+            valid && validDigit
+        } else true
+    }
+
+    private fun validCity(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayCity.validateDropDowb(binding.autoCompleteCity, error)
+        } else true
+    }
+
+    private fun validRelativeAddressOfHf(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayRegistrationAddressOfHf.validate(
+                binding.textInputRegistrationAddressOfHf, error
+            )
+        } else true
+    }
+
+    private fun validAddress1(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayAddress1.validate(binding.textInputAddress1, error)
+        } else true
+    }
+
+    private fun validAddress2(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayAddress2.validate(binding.textInputAddress2, error)
+        } else true
+    }
+
+    private fun validBlock(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayBlock.validateDropDowb(binding.autoCompleteBlock, error)
+        } else true
+    }
+
+    private fun validVillageField(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            val isOtherBlockSelected = binding.autoCompleteBlock.text.toString()
+                .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
+            if (isOtherBlockSelected) {
+                binding.textInputLayOtherBlock.validate(binding.textInputOtherBlock, error)
+                binding.textInputLayCityVillage.validate(binding.textInputCityVillage, error)
+            } else {
+                binding.textInputLayVillageDropdown.validateDropDowb(binding.autoCompleteVillageDropdown, error)
+            }
+        } else true
+    }
+
+    private fun validHouseholdNumber(config: PatientRegistrationFields?, error: Int): Boolean {
+        return if (config?.isEnabled == true && config.isMandatory) {
+            binding.textInputLayHouseholdNumber.validate(binding.textInputHouseholdNumber, error)
+        } else true
+    }
+
+    /**
+     * Validates the form fields based on the provided configuration and executes the block if all validations pass.
+     */
     private fun validateForm(block: () -> Unit) {
         Timber.d { "Final patient =>${Gson().toJson(binding.address)}" }
         val error = ResourceR.string.error_field_required
         binding.addressInfoConfig?.let {
-            val bPostalCode =
-                if (it.postalCode?.isEnabled == true && it.postalCode?.isMandatory == true) {
-                    binding.textInputLayPostalCode.validate(binding.textInputPostalCode, error).and(
-                        binding.textInputLayPostalCode.validateDigit(
-                            binding.textInputPostalCode, ResourceR.string.error_invalid_postal_code, POSTAL_CODE_LEN
-                        )
-                    )
-
-                } else {
-                    binding.textInputPostalCode.let { postCodeEt ->
-                        if ((postCodeEt.text ?: "").isNotEmpty()) {
-                            binding.textInputLayPostalCode.validate(
-                                binding.textInputPostalCode,
-                                error
-                            ).and(
-                                binding.textInputLayPostalCode.validateDigit(
-                                    binding.textInputPostalCode,
-                                    ResourceR.string.error_invalid_postal_code,
-                                    POSTAL_CODE_LEN
-                                )
-                            )
-                        } else true
-                    }
-                }
-
-
-            val bCountry = if (it.country?.isEnabled == true && it.country?.isMandatory == true) {
-                binding.textInputLayCountry.validateDropDowb(
-                    binding.autoCompleteCountry, error
-                )
-            } else true
-
-            val bState = if (it.state?.isEnabled == true && it.state?.isMandatory == true) {
-                binding.textInputLayState.validateDropDowb(
-                    binding.autoCompleteState, error
-                )
-            } else true
-
-            val bDistrict =
-                if (it.district?.isEnabled == true && it.district?.isMandatory == true) {
-                    binding.textInputLayDistrict.validateDropDowb(
-                        binding.autoCompleteState, error
-                    )
-                } else true
-
-            val bCityVillage =
-                if (it.cityVillage?.isEnabled == true && it.cityVillage?.isMandatory == true && !it.block!!.isEnabled) {
-                    binding.textInputLayCityVillage.validate(binding.textInputCityVillage, error)
-                        .and(
-                            binding.textInputLayCityVillage.validateDigit(
-                                binding.textInputCityVillage,
-                                ResourceR.string.error_invalid_village,
-                                3
-                            )
-                        )
-                } else true
-
-            val bProvince =
-                if (it.province?.isEnabled == true && it.province?.isMandatory == true) {
-                    binding.textInputLayProvince.validateDropDowb(
-                        binding.autoCompleteProvince,
-                        error
-                    )
-                } else true
-
-            val bCity = if (it.city?.isEnabled == true && it.city?.isMandatory == true) {
-                binding.textInputLayCity.validateDropDowb(
-                    binding.autoCompleteCity,
-                    error
-                )
-            } else true
-
-            val bRelativeAddressOfHf =
-                if (it.registrationAddressOfHf?.isEnabled == true && it.registrationAddressOfHf?.isMandatory == true) {
-                    binding.textInputLayRegistrationAddressOfHf.validate(
-                        binding.textInputRegistrationAddressOfHf,
-                        ResourceR.string.error_field_required,
-                    )
-                } else true
-
-
-            val bAddress1 =
-                if (it.address1?.isEnabled == true && it.address1?.isMandatory == true) {
-                    binding.textInputLayAddress1.validate(binding.textInputAddress1, error)
-                } else true
-
-            val bAddress2 =
-                if (it.address2?.isEnabled == true && it.address2?.isMandatory == true) {
-                    binding.textInputLayAddress2.validate(binding.textInputAddress2, error)
-                } else true
-
-            val bBlock = if (it.block?.isEnabled == true && it.block?.isMandatory == true) {
-                binding.textInputLayBlock.validateDropDowb(
-                    binding.autoCompleteBlock, error
-                )
-            } else true
-
-            val bVillageField = if (it.block?.isEnabled == true && it.block?.isMandatory == true) {
-                if (binding.autoCompleteBlock.text.toString()
-                        .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
-                ) {
-                    binding.textInputLayOtherBlock.validate(binding.textInputOtherBlock, error)
-                    binding.textInputLayCityVillage.validate(binding.textInputCityVillage, error)
-                } else {
-                    binding.textInputLayVillageDropdown.validateDropDowb(
-                        binding.autoCompleteVillageDropdown, error
-                    )
-                }
-            } else true
-
-            val bHouseholdNumber =
-                if (it.householdNumber?.isEnabled == true && it.householdNumber?.isMandatory == true) {
-                    binding.textInputLayHouseholdNumber.validate(
-                        binding.textInputHouseholdNumber, error
-                    )
-                } else true
-
+            val bPostalCode = validPostalCode(it.postalCode, error)
+            val bCountry = validCountry(it.country, error)
+            val bState = validState(it.state, error)
+            val bDistrict = validDistrict(it.district, error)
+            val bCityVillage = validCityVillage(it.cityVillage, error)
+//            val bProvince = validProvince(it.province, error)
+            val bCity = validCity(it.city, error)
+            val bRelativeAddressOfHf = validRelativeAddressOfHf(it.registrationAddressOfHf, error)
+            val bAddress1 = validAddress1(it.address1, error)
+            val bAddress2 = validAddress2(it.address2, error)
+            val bBlock = validBlock(it.block, error)
+            val bVillageField = validVillageField(it.block, error)
+            val bHouseholdNumber = validHouseholdNumber(it.householdNumber, error)
             if (bPostalCode.and(bCountry).and(bState).and(bDistrict).and(bCityVillage)
-                    .and(bAddress1).and(bAddress2).and(bProvince).and(bCity)
+                    .and(bAddress1).and(bAddress2).and(bCity)
                     .and(bRelativeAddressOfHf)
                     .and(bAddress1).and(bAddress2).and(bBlock).and(bVillageField)
                     .and(bHouseholdNumber)
@@ -492,16 +480,14 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
             binding.autoCompleteBlock.setAdapter(adapter)
             binding.textInputLayBlock.tag = districtData.blocks
 
-            binding.address?.address3?.let {
+            personAddress.address3?.let {
                 val selected = languageUtils.getBlock(districtData, it)
                 if (selected == null) {
                     val selected = languageUtils.getBlock(districtData, getString(ResourceR.string.lbl_other_block))
                     binding.autoCompleteBlock.setText(selected.toString(), false)
                     binding.textInputOtherBlock.setText(it)
                     enableOtherBlock()
-//                    isOtherBlockSelected = true;
                 } else {
-//                    isOtherBlockSelected = false;
                     binding.autoCompleteBlock.setText(selected.toString(), false)
                     disableOtherBlock()
                     setupVillages(selected)
@@ -523,19 +509,16 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
                     binding.textInputLayOtherBlock.visibility = View.VISIBLE
                     enableOtherBlock()
                     binding.textInputCityVillage.setText("")
-                    binding.address?.address3 = binding.textInputOtherBlock.text.toString()
-//                    isOtherBlockSelected = true;
+                    personAddress.address3 = binding.textInputOtherBlock.text.toString()
                 } else {
                     disableOtherBlock()
-                    binding.address?.address3 = blocksList[i].name
+                    personAddress.address3 = blocksList[i].name
                     binding.textInputCityVillage.setText("")
-//                    isOtherBlockSelected = false;
                 }
                 setupVillages(selectedBlock)
             }
         } else {
             eraseAllBlockFields()
-
         }
     }
 
@@ -568,7 +551,7 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
                         if (binding.autoCompleteBlock.text.toString()
                                 .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
                         ) binding.textInputCityVillage.setText("")
-                        else binding.address?.cityVillage = selectedVillage.name
+                        else personAddress.cityVillage = selectedVillage.name
                     }
                 } else {
                 }
@@ -597,8 +580,8 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
 
     private fun resetAdaptersAndFieldData() {
         // Reset adapter and clear text for each AutoCompleteTextView
-        binding.autoCompleteState.setAdapter(null)
-        binding.autoCompleteState.setText("", false)
+        binding.autoCompleteStateAndProvince.setAdapter(null)
+        binding.autoCompleteStateAndProvince.setText("", false)
         binding.address?.state = ""
 
         binding.autoCompleteDistrict.setAdapter(null)

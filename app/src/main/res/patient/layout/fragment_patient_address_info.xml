@@ -150,31 +150,31 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
-                    android:id="@+id/llState"
+                    android:id="@+id/llStateAndProvince"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/std_12dp"
                     android:orientation="vertical"
-                    android:visibility="@{addressInfoConfig.state.enabled ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{addressInfoConfig.stateProvinceActive ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/clPostalCountry"
                     tools:visibility="visible">
 
                     <TextView
-                        android:id="@+id/lblState"
+                        android:id="@+id/lblStateAndProvince"
                         style="@style/Theme.IDA.TextAppearance.Label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:lineSpacingExtra="3sp"
-                        android:text="@{ addressInfoConfig.state.mandatory ? @string/lbl_state + ` *` : @string/lbl_state}"
+                        android:text="@{addressInfoConfig.stateProvinceMandatory ? (addressInfoConfig.stateActive ? @string/lbl_state + ` *` : @string/lbl_province + ` *`) : (addressInfoConfig.stateActive ? @string/lbl_state : @string/lbl_province) }"
                         android:textSize="@null"
                         tools:text="@string/lbl_state" />
 
                     <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
-                        android:id="@+id/textInputLayState"
+                        android:id="@+id/textInputLayStateAndProvince"
                         style="@style/Theme.IDA.OutlineInputBox.DropDown"
-                        config="@{addressInfoConfig.state}"
+                        config="@{addressInfoConfig.stateActive ? addressInfoConfig.state : addressInfoConfig.province}"
                         editMode="@{isEditMode}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -182,12 +182,13 @@
                         app:hintEnabled="false">
 
                         <AutoCompleteTextView
-                            android:id="@+id/autoCompleteState"
+                            android:id="@+id/autoCompleteStateAndProvince"
                             style="@style/Theme.IDA.InputBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/hint_drop_down_state"
-                            android:inputType="none" />
+                            android:hint="@{addressInfoConfig.stateActive ? @string/hint_drop_down_state : @string/hint_select_province }"
+                            android:inputType="none"
+                            tools:hint="@string/hint_drop_down_state" />
                     </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
 
                     <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
@@ -220,7 +221,7 @@
                     android:visibility="@{addressInfoConfig.district.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llState"
+                    app:layout_constraintTop_toBottomOf="@id/llStateAndProvince"
                     tools:visibility="visible">
 
                     <TextView
@@ -274,47 +275,47 @@
                 </LinearLayout>
 
                 <!--Province-->
-                <LinearLayout
-                    android:id="@+id/llProvince"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_12dp"
-                    android:orientation="vertical"
-                    android:visibility="@{addressInfoConfig.province.enabled ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llDistrict"
-                    tools:visibility="visible">
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/llProvince"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="@dimen/std_12dp"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:visibility="@{addressInfoConfig.province.enabled ? View.VISIBLE : View.GONE}"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/llDistrict"-->
+                <!--                    tools:visibility="visible">-->
 
-                    <TextView
-                        android:id="@+id/lblProvince"
-                        style="@style/Theme.IDA.TextAppearance.Label"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="3sp"
-                        android:text="@{ addressInfoConfig.province.mandatory ? @string/lbl_province + ` *` : @string/lbl_province}"
-                        android:textSize="@null"
-                        tools:text="@string/lbl_province" />
+                <!--                    <TextView-->
+                <!--                        android:id="@+id/lblProvince"-->
+                <!--                        style="@style/Theme.IDA.TextAppearance.Label"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:lineSpacingExtra="3sp"-->
+                <!--                        android:text="@{ addressInfoConfig.province.mandatory ? @string/lbl_province + ` *` : @string/lbl_province}"-->
+                <!--                        android:textSize="@null"-->
+                <!--                        tools:text="@string/lbl_province" />-->
 
-                    <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout
-                        android:id="@+id/textInputLayProvince"
-                        style="@style/Theme.IDA.OutlineInputBox.DropDown"
-                        config="@{addressInfoConfig.province}"
-                        editMode="@{isEditMode}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/std_4dp"
-                        app:hintEnabled="false">
+                <!--                    <org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout-->
+                <!--                        android:id="@+id/textInputLayProvince"-->
+                <!--                        style="@style/Theme.IDA.OutlineInputBox.DropDown"-->
+                <!--                        config="@{addressInfoConfig.province}"-->
+                <!--                        editMode="@{isEditMode}"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_marginTop="@dimen/std_4dp"-->
+                <!--                        app:hintEnabled="false">-->
 
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteProvince"
-                            style="@style/Theme.IDA.InputBox"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/hint_select_province"
-                            android:inputType="none" />
-                    </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>
-                </LinearLayout>
+                <!--                        <AutoCompleteTextView-->
+                <!--                            android:id="@+id/autoCompleteProvince"-->
+                <!--                            style="@style/Theme.IDA.InputBox"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:hint="@string/hint_select_province"-->
+                <!--                            android:inputType="none" />-->
+                <!--                    </org.intelehealth.common.ui.custom.RightAlignErrorTextInputLayout>-->
+                <!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/llBlock"
@@ -325,7 +326,7 @@
                     android:visibility="@{addressInfoConfig.block.enabled ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llProvince"
+                    app:layout_constraintTop_toBottomOf="@id/llDistrict"
                     tools:visibility="visible">
 
                     <TextView

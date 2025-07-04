@@ -13,6 +13,8 @@ import javax.inject.Inject
 class PatientAddressRepository @Inject constructor(private val personAddressDao: PersonAddressDao) {
     fun getPatientAddressById(patientId: String) = personAddressDao.getLivePatientAddressByUuid(patientId)
 
+    suspend fun addAddress(patientAddress: PersonAddress) = personAddressDao.add(patientAddress)
+
     suspend fun updatePatientAddress(patientAddress: PersonAddress) = personAddressDao.updatePatientAddress(
         patientId = patientAddress.uuid,
         address1 = patientAddress.address1,

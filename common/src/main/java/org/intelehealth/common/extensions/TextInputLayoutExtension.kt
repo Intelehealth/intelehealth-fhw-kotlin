@@ -93,7 +93,9 @@ fun TextInputLayout.validateDigit(
     error: String,
     minDigit: Int,
 ): Boolean {
-    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit || input.text?.all { it.isDigit().not() } == true) {
+    return if (input.text.isNullOrEmpty() || input.text?.length!! < minDigit || input.text?.all {
+            it.isDigit().not()
+        } == true) {
         showError(error)
         false
     } else true
@@ -162,4 +164,21 @@ fun TextInputLayout.validateDropDowb(input: AutoCompleteTextView, @StringRes res
         showError(resId)
         false
     } else true
+}
+
+fun TextInputLayout.setEditableDropDownStatus(editable: Boolean, autoCompleteTextView: AutoCompleteTextView) {
+    if (editable) {
+        isEnabled = true
+        isClickable = true
+        isFocusable = true
+        isFocusableInTouchMode = true
+    } else {
+        isEnabled = false
+        isClickable = false
+        isFocusable = false
+        isFocusableInTouchMode = false
+    }
+
+    if (editable) setEndIconOnClickListener { autoCompleteTextView.showDropDown() }
+    else endIconMode = TextInputLayout.END_ICON_NONE
 }
