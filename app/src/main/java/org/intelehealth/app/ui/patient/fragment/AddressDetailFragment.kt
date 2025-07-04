@@ -80,7 +80,7 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
      * and updates the binding with the latest address information.
      */
     private fun observeAddressDetails() {
-        detailViewModel.patientAddressLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientAddress().observe(viewLifecycleOwner) {
             binding.addressInfo = it
         }
     }

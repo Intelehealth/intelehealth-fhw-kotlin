@@ -15,9 +15,9 @@ class PatientDetailRepository @Inject constructor(
     private val patientAddressDao: PersonAddressDao,
     private val patientAttributeDao: PatientAttributeDao
 ) {
-    suspend fun fetchPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
+    fun fetchPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
 
-    suspend fun fetchPatientAddress(patientId: String) = patientAddressDao.getPatientAddressByPatientId(patientId)
+    fun fetchPatientAddress(patientId: String) = patientAddressDao.getLivePatientAddressByUuid(patientId)
 
-    suspend fun fetchPatientAttributes(patientId: String) = patientAttributeDao.getAllPatientAttrsData(patientId)
+    fun fetchPatientAttributes(patientId: String) = patientAttributeDao.getAllPatientAttrsData(patientId)
 }

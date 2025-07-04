@@ -27,31 +27,11 @@ class PatientDetailViewModel @Inject constructor(
     networkHelper: NetworkHelper
 ) : RegFieldViewModel(regFieldRepository, networkHelper = networkHelper) {
 
-    private var patientPersonalDetail = MutableLiveData<Patient>()
-    val patientPersonalLiveData: LiveData<Patient> get() = patientPersonalDetail
+    lateinit var patientId: String
 
-    private var patientAddressDetail = MutableLiveData<PersonAddress>()
-    val patientAddressLiveData: LiveData<PersonAddress> get() = patientAddressDetail
+    fun fetchPatientPersonalDetail() = detailRepository.fetchPatientById(patientId)
 
-    private var patientOtherDetail = MutableLiveData<PatientOtherInfo>()
-    val patientOtherLiveData: LiveData<PatientOtherInfo> get() = patientOtherDetail
+    fun fetchPatientAddress() = detailRepository.fetchPatientAddress(patientId)
 
-    fun fetchPatientPersonalDetail(patientId: String) = viewModelScope.launch {
-        val patient = async { detailRepository.fetchPatientById(patientId) }.await()
-        patientPersonalDetail.postValue(patient)
-    }
-
-    fun fetchPatientAddress(patientId: String) = viewModelScope.launch {
-        val address = async { detailRepository.fetchPatientAddress(patientId) }.await()
-        patientAddressDetail.postValue(address)
-    }
-
-    fun fetchPatientOtherDetails(patientId: String) = viewModelScope.launch {
-        val otherInfo = async { detailRepository.fetchPatientAttributes(patientId) }.await()
-        patientOtherDetail.postValue(otherInfo)
-    }
-
-    fun editPatientDetails(patient: Patient) {
-
-    }
+    fun fetchPatientOtherDetails() = detailRepository.fetchPatientAttributes(patientId)
 }

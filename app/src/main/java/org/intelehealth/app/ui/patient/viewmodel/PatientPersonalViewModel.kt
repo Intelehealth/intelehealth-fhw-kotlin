@@ -39,25 +39,13 @@ class PatientPersonalViewModel @Inject constructor(
     regFieldRepository = patientRegFieldRepository,
     networkHelper = networkHelper
 ) {
-
-    private var patientData: MutableLiveData<Patient> = MutableLiveData()
-    val patientLiveData: LiveData<Patient> get() = patientData
-
     /**
      * Fetches the personal information of a patient by their ID.
      *
      * @param patientId The ID of the patient whose information is to be fetched.
      * @return A LiveData object containing the patient's personal information.
      */
-    fun fetchPersonalInfo(patientId: String?): LiveData<Patient> {
-        viewModelScope.launch {
-            val data = patientId?.let {
-                async { patientPersonalInfoRepository.getPatientById(it) }.await()
-            } ?: Patient().apply { uuid = UUID.randomUUID().toString() }
-            patientData.postValue(data)
-        }
-        return patientLiveData
-    }
+    fun fetchPersonalInfo(patientId: String) = patientPersonalInfoRepository.getPatientById(patientId)
 
     fun createPatient(patient: Patient, otherInfo: PatientOtherInfo) = executeLocalQuery {
         patientPersonalInfoRepository.insertPatient(patient)

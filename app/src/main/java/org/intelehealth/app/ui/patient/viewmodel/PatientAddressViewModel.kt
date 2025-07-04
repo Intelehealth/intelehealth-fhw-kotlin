@@ -21,8 +21,9 @@ class PatientAddressViewModel @Inject constructor(
     private val patientRegFieldRepository: RegFieldRepository
 ) : RegFieldViewModel(patientRegFieldRepository, networkHelper = networkHelper) {
 
-    fun fetchPatientAddress(patientId: String) =
-        patientAddressRepository.getPatientAddressById(patientId)
+    fun fetchPatientAddress(patientId: String) = patientAddressRepository.getPatientAddressById(patientId)
 
-    fun addAddress(address: PersonAddress) = executeLocalQuery { patientAddressRepository.addAddress(address) }.asLiveData()
+    fun addAddress(address: PersonAddress) = executeLocalQuery {
+        patientAddressRepository.addAddress(address)
+    }.asLiveData()
 }

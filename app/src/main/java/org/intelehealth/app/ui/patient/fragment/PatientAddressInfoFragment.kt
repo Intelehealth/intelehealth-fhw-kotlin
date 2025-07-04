@@ -132,11 +132,11 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
 
     //
     private fun setClickListener() {
-        binding.frag2BtnBack.setOnClickListener {
+        binding.btnAddressBack.setOnClickListener {
 //            setOtherBlockData()
             findNavController().popBackStack()
         }
-        binding.frag2BtnNext.setOnClickListener {
+        binding.btnAddressNext.setOnClickListener {
             validateForm {
                 showToast("Valid address")
                 savePatient()
@@ -157,16 +157,18 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
             address6 = binding.textInputHouseholdNumber.text?.toString()
             cityVillage = binding.textInputCityVillage.text.toString()
 
-            if (binding.llBlock.isEnabled) {
-                if (binding.autoCompleteBlock.text.toString()
-                        .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
-                ) {
-                    address3 = binding.textInputOtherBlock.text.toString()
-                    cityVillage = binding.textInputCityVillage.text?.toString().toString()
-                }
-            } else {
-                cityVillage = binding.textInputCityVillage.text.toString()
-            }
+            Timber.d { "City Village => $cityVillage" }
+
+//            if (binding.llBlock.isEnabled) {
+//                if (binding.autoCompleteBlock.text.toString()
+//                        .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
+//                ) {
+//                    address3 = binding.textInputOtherBlock.text.toString()
+//                    cityVillage = binding.textInputCityVillage.text?.toString().toString()
+//                }
+//            } else {
+//                cityVillage = binding.textInputCityVillage.text.toString()
+//            }
         }.also {
             Timber.d { "Final patient => $it" }
             saveAndNavigateToDetails(it)
@@ -428,7 +430,8 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
                 binding.textInputLayOtherBlock.validate(binding.textInputOtherBlock, error)
                 binding.textInputLayCityVillage.validate(binding.textInputCityVillage, error)
             } else {
-                binding.textInputLayVillageDropdown.validateDropDowb(binding.autoCompleteVillageDropdown, error)
+                true
+//                binding.textInputLayVillageDropdown.validateDropDowb(binding.autoCompleteVillageDropdown, error)
             }
         } else true
     }
@@ -495,13 +498,13 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
             }
 
             binding.autoCompleteBlock.setOnItemClickListener { adapterView, _, i, _ ->
-                binding.autoCompleteVillageDropdown.setText("", false)
+//                binding.autoCompleteVillageDropdown.setText("", false)
                 //patient.cityvillage = binding.autoCompleteVillageDropdown.text.toString()
                 binding.textInputLayBlock.hideError()
 
                 binding.textInputCityVillage.setText("")
                 binding.textInputOtherBlock.setText("")
-                binding.autoCompleteVillageDropdown.setText("")
+//                binding.autoCompleteVillageDropdown.setText("")
 
                 val blocksList: List<Block> = binding.textInputLayBlock.tag as List<Block>
                 val selectedBlock = blocksList[i]
@@ -532,32 +535,32 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
                 binding.address?.getVillageWithoutDistrict()
             )
             if (selected != null) {
-                binding.autoCompleteVillageDropdown.setText(selected.toString(), false)
+//                binding.autoCompleteVillageDropdown.setText(selected.toString(), false)
             }
         }
 
-        blocksData.gramPanchayats?.forEach { gramPanchayat ->
-            gramPanchayat.villages?.let { villageList ->
-                if (villageList.isNotEmpty()) {
-                    villages.addAll(villageList)
-
-                    val adapter: ArrayAdapter<Village> = requireContext().getSpinnerItemAdapter(villages)
-                    binding.autoCompleteVillageDropdown.setAdapter(adapter)
-                    binding.textInputLayVillageDropdown.tag = blocksData.gramPanchayats
-
-                    binding.autoCompleteVillageDropdown.setOnItemClickListener { adapterView, _, i, _ ->
-                        binding.textInputLayVillageDropdown.hideError()
-                        val selectedVillage = villages[i]
-                        if (binding.autoCompleteBlock.text.toString()
-                                .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
-                        ) binding.textInputCityVillage.setText("")
-                        else personAddress.cityVillage = selectedVillage.name
-                    }
-                } else {
-                }
-            } ?: run {
-            }
-        }
+//        blocksData.gramPanchayats?.forEach { gramPanchayat ->
+//            gramPanchayat.villages?.let { villageList ->
+//                if (villageList.isNotEmpty()) {
+//                    villages.addAll(villageList)
+//
+//                    val adapter: ArrayAdapter<Village> = requireContext().getSpinnerItemAdapter(villages)
+//                    binding.autoCompleteVillageDropdown.setAdapter(adapter)
+//                    binding.textInputLayVillageDropdown.tag = blocksData.gramPanchayats
+//
+//                    binding.autoCompleteVillageDropdown.setOnItemClickListener { adapterView, _, i, _ ->
+//                        binding.textInputLayVillageDropdown.hideError()
+//                        val selectedVillage = villages[i]
+//                        if (binding.autoCompleteBlock.text.toString()
+//                                .equals(getString(ResourceR.string.lbl_other_block), ignoreCase = true)
+//                        ) binding.textInputCityVillage.setText("")
+//                        else personAddress.cityVillage = selectedVillage.name
+//                    }
+//                } else {
+//                }
+//            } ?: run {
+//            }
+//        }
     }
 
 //    private fun observeBlockAndVillageChange() {
@@ -592,7 +595,7 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
     private fun enableOtherBlock() {
         binding.textInputLayOtherBlock.visibility = View.VISIBLE
         binding.llCityVillage.visibility = View.VISIBLE
-        binding.llVillageDropdown.visibility = View.GONE
+//        binding.llVillageDropdown.visibility = View.GONE
         binding.llOtherBlock.visibility = View.VISIBLE
 //        if (isOtherBlockSelected) {
 //            binding.lblCityVillage.text =
@@ -603,7 +606,7 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
     private fun disableOtherBlock() {
         binding.textInputLayOtherBlock.visibility = View.GONE
         binding.llCityVillage.visibility = View.GONE
-        binding.llVillageDropdown.visibility = View.VISIBLE
+//        binding.llVillageDropdown.visibility = View.VISIBLE
         binding.llOtherBlock.visibility = View.GONE
         //binding.lblCityVillage.text = getString(R.string.identification_screen_prompt_city)
     }
@@ -638,10 +641,10 @@ class PatientAddressInfoFragment : PatientInfoTabFragment(R.layout.fragment_pati
 
     private fun eraseAllBlockFields() {
         binding.autoCompleteBlock.setText("", false)
-        binding.autoCompleteVillageDropdown.setText("", false)
+//        binding.autoCompleteVillageDropdown.setText("", false)
         binding.textInputOtherBlock.setText("")
         binding.autoCompleteBlock.setAdapter(null)
-        binding.autoCompleteVillageDropdown.setAdapter(null)
+//        binding.autoCompleteVillageDropdown.setAdapter(null)
 //        if (isOtherBlockSelected)
 //            binding.textInputCityVillage.setText("")
 //        if (binding.llBlock.isEnabled) {

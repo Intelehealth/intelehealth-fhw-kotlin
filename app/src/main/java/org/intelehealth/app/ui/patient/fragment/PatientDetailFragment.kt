@@ -44,6 +44,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
         applyLabelAsScreenTitle()
         binding = FragmentPatientDetailBinding.bind(view)
         observeActiveFeatureStatus()
+        detailViewModel.patientId = args.patientId
         observePatientDetails()
     }
 
@@ -54,10 +55,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
      * visibility based on the active feature status.
      */
     private fun observePatientDetails() {
-        detailViewModel.fetchPatientPersonalDetail(args.patientId)
-        detailViewModel.fetchPatientAddress(args.patientId)
-        detailViewModel.fetchPatientOtherDetails(args.patientId)
-        detailViewModel.patientPersonalLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientPersonalDetail().observe(viewLifecycleOwner) {
             binding.patient = it
         }
     }

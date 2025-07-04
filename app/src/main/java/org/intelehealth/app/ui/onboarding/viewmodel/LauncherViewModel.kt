@@ -17,6 +17,7 @@ import org.intelehealth.app.BuildConfig
 import org.intelehealth.app.utility.KEY_FORCE_UPDATE_VERSION_CODE
 import org.intelehealth.common.extensions.hide
 import org.intelehealth.common.helper.NetworkHelper
+import org.intelehealth.common.state.StateWorker.Companion.WORK_STATUS
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND
@@ -83,7 +84,9 @@ class LauncherViewModel @Inject constructor(
                 if (forceUpdateVersionCode > BuildConfig.VERSION_CODE) onNewUpdateAvailable.invoke()
                 else requestConfig()
             }
-        } else dataConnectionStatus.postValue(false)
+        } else if (preferenceUtils.initialLaunchStatus) {
+            dataConnectionStatus.postValue(false)
+        } else startPlashTimer()
     }
 
     /**
@@ -107,24 +110,29 @@ class LauncherViewModel @Inject constructor(
             scope.launch {
                 workManager.getWorkInfoByIdFlow(configWorkRequest.id).collect {
                     Timber.d { "startConfigSyncWorker: ${Gson().toJson(it?.outputData)}" }
-                    it?.state?.name?.let { state ->
-                        if (state == WorkInfo.State.SUCCEEDED.name) {
-                            mutableInitialLaunchStatus.postValue(true)
-                        } else if (state == WorkInfo.State.FAILED.name) {
-                            val workResult = it.outputData.getString(WORKER_RESULT)
-                            when (workResult) {
-                                API_ERROR -> errorResult.postValue(Throwable(API_ERROR))
-                                NO_NETWORK -> dataConnectionStatus.postValue(false)
-                                else -> failResult.postValue(NO_DATA_FOUND)
-                            }
-                        }
-                    }
+                    it?.let { it1 -> handleWorkerState(it1) }
                 }
             }
-        } else Handler(Looper.getMainLooper()).postDelayed(
-            { mutableInitialLaunchStatus.postValue(false) }, SPLASH_DELAY_TIME
-        )
+        } else startPlashTimer()
     }
+
+    private fun handleWorkerState(workInfo: WorkInfo) = when (workInfo.state) {
+        WorkInfo.State.SUCCEEDED -> mutableInitialLaunchStatus.postValue(true)
+        WorkInfo.State.FAILED -> {
+            val workResult = workInfo.outputData.getString(WORK_STATUS)
+            when (workResult) {
+                API_ERROR -> errorResult.postValue(Throwable(API_ERROR))
+                NO_NETWORK -> dataConnectionStatus.postValue(false)
+                else -> failResult.postValue(NO_DATA_FOUND)
+            }
+        }
+
+        else -> Timber.d { "do nothing" }
+    }
+
+    private fun startPlashTimer() = Handler(Looper.getMainLooper()).postDelayed(
+        { mutableInitialLaunchStatus.postValue(false) }, SPLASH_DELAY_TIME
+    )
 
     /**
      * Checks if the user is currently logged in.

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
-import org.intelehealth.data.offline.entity.PersonAddress
+import org.intelehealth.data.offline.entity.PatientWithAge
 import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
 
@@ -18,8 +18,8 @@ import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
  **/
 @Dao
 interface PatientDao : CoreDao<Patient> {
-    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS} FROM tbl_patient WHERE uuid = :uuid")
-    suspend fun getPatientByUuid(uuid: String): Patient
+    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS}, ${VisitDetail.PATIENT_AGE} FROM tbl_patient WHERE uuid = :uuid")
+    fun getPatientByUuid(uuid: String): LiveData<PatientWithAge>
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
     fun getPatientByOpenMrsId(openMrsId: String): LiveData<Patient>

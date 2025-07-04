@@ -8,7 +8,7 @@
 
         <variable
             name="personalInfo"
-            type="org.intelehealth.data.offline.entity.Patient" />
+            type="org.intelehealth.data.offline.entity.PatientWithAge" />
 
         <variable
             name="otherInfo"
@@ -219,6 +219,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:placeholder="@{@string/content_not_provided}"
+                        android:text="@{personalInfo.age + ` `+ @string/lbl_years }"
                         android:textColor="@color/colorTextPrimary"
                         tools:text="22 years" />
                 </TableRow>

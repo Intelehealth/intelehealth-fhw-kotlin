@@ -21,9 +21,6 @@ interface PersonAddressDao : CoreDao<PersonAddress> {
     @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_person_address WHERE uuid = :patientId")
     fun getLivePatientAddressByUuid(patientId: String): LiveData<PersonAddress>
 
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_person_address WHERE uuid = :patientId")
-    suspend fun getPatientAddressByPatientId(patientId: String): PersonAddress
-
     @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_person_address WHERE synced = 0 AND voided = 0")
     fun getAllUnsyncedPatientAddress(): List<PersonAddress>
 

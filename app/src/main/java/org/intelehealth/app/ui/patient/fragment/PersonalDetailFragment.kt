@@ -80,11 +80,12 @@ class PersonalDetailFragment : Fragment(R.layout.fragment_personal_detail) {
      * and updates the binding accordingly.
      */
     private fun observePersonalDetails() {
-        detailViewModel.patientPersonalLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientPersonalDetail().observe(viewLifecycleOwner){
+            it ?: return@observe
             binding.personalInfo = it
         }
 
-        detailViewModel.patientOtherLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientOtherDetails().observe(viewLifecycleOwner) {
             binding.otherInfo = it
         }
     }

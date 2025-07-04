@@ -48,6 +48,7 @@ import org.intelehealth.data.offline.entity.PatientOtherInfo
 import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
+import java.util.UUID
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -82,7 +83,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun observePatientPersonalInfo() {
-        val patientId = args.patientId ?: viewModel.patientLiveData.value?.uuid
+        val patientId = args.patientId ?: binding.patient?.uuid
+        patientId?.let { fetchPersonalInfo(it) } ?: run {
+            binding.patient = Patient().apply { uuid = UUID.randomUUID().toString() }
+            fetchPersonalInfoConfig()
+        }
+    }
+
+    private fun fetchPersonalInfo(patientId: String) {
         viewModel.fetchPersonalInfo(patientId).observe(viewLifecycleOwner) {
             it ?: return@observe
             binding.patient = it

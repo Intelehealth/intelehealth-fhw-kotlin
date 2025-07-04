@@ -81,7 +81,7 @@ class OtherDetailFragment : Fragment(R.layout.fragment_other_detail) {
      * with the fetched data.
      */
     private fun observeOtherDetails() {
-        detailViewModel.patientOtherLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientOtherDetails().observe(viewLifecycleOwner) {
             Timber.d { "Other => $it" }
             binding.otherInfo = it
         }
