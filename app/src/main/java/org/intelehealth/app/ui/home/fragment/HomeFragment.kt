@@ -1,19 +1,11 @@
 package org.intelehealth.app.ui.home.fragment
 
 import android.os.Bundle
-import android.transition.TransitionInflater
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
-import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.ActivityNavigatorExtras
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
@@ -66,7 +58,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
      */
     private fun handleClickEvents() {
         binding.cardHomeOpenVisits.setOnClickListener {
-//            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
         }
 
         binding.cardHomeAddPatient.setOnClickListener {
