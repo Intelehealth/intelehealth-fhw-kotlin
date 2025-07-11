@@ -73,6 +73,17 @@ open class VisitViewModel @Inject constructor() : BaseViewModel() {
         return listWithSection
     }
 
+    fun addOtherSectionData(visitDetails: List<VisitDetail>): List<ListItemHeaderSection> {
+        val listWithSection = LinkedList<ListItemHeaderSection>()
+        if (visitDetails.isNotEmpty()) {
+            otherSectionAdded = true
+            val header = CommonHeaderSection(R.string.lbl_this_other_visits)
+            listWithSection.add(header)
+            listWithSection.addAll(visitDetails)
+        }
+        return listWithSection
+    }
+
     fun resetReceivedPrescriptionData() {
         offset = 0
         otherSectionAdded = false

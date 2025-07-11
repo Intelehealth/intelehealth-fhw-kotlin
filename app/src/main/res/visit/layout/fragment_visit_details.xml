@@ -53,7 +53,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/std_16dp">
+                        android:paddingTop="@dimen/std_16dp"
+                        android:paddingHorizontal="@dimen/std_16dp">
 
                         <!--Complaint Info View-->
                         <include
@@ -148,6 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/action_end_visit"
+                            android:layout_marginBottom="@dimen/std_16dp"
                             android:visibility="@{visitDetail.activeEndVisit() ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

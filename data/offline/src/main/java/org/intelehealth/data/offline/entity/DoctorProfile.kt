@@ -49,6 +49,6 @@ data class DoctorProfile(
     @SerializedName("emailId") var emailId: String? = null,
     @SerializedName("workExperienceDetails") var workExperienceDetails: String? = null,
     @SerializedName("signatureType") var signatureType: String? = null,
-    @SerializedName("signature") var signature: String? = null
-
+    @SerializedName("signature") var signature: String? = null,
+    @SerializedName("age") var age: Int? = null
 ) : Parcelable

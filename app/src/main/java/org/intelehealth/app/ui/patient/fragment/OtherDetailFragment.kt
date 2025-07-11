@@ -53,11 +53,11 @@ class OtherDetailFragment : Fragment(R.layout.fragment_other_detail) {
      * of the other section when clicked.
      */
     private fun toggleOtherDetailsVisibility() {
-        binding.btnExpandableOtherSection.isSelected = true
-        binding.btnExpandableOtherSection.setOnClickListener {
+        binding.lblOtherInfo.isSelected = true
+        binding.lblOtherInfo.setOnClickListener {
             val visibility = binding.groupOtherSection.isVisible
             binding.groupOtherSection.isVisible = !visibility
-            binding.btnExpandableOtherSection.isSelected = !visibility
+            binding.lblOtherInfo.isSelected = !visibility
         }
     }
 

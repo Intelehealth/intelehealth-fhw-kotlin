@@ -114,7 +114,9 @@
     <string name="lbl_prescribed_medication">Prescribed Medications</string>
     <string name="lbl_drug_name">Drug name</string>
     <string name="lbl_dos">Dos.</string>
+    <string name="lbl_frequency">Frequency</string>
     <string name="lbl_remarks">Remarks</string>
+    <string name="lbl_timing">Timing</string>
     <string name="lbl_advice">Advice</string>
     <string name="lbl_test">Test</string>
     <string name="lbl_referred_sp">Referred Specialist</string>
@@ -137,12 +139,13 @@
     <string name="lbl_this_month_visits">This month\'s visits</string>
     <string name="lbl_this_other_visits">All other day\'s visits</string>
     <string name="lbl_recently_searched">Recently searched</string>
+    <string name="lbl_column_visit_id">Visit ID</string>
 
     <!-- Dummy data for testing -->
     <string name="lbl_gp_txt">General physician</string>
     <string name="lbl_details_date">21 May 2022</string>
     <string name="lbl_visit_id">Visit ID: %1$s</string>
-    <string name="lbl_openmrs_id">ID-%1$s</string>
+    <string name="lbl_openmrs_id">ID: %1$s</string>
     <string name="lbl_text_visit">Test Fever</string>
     <string name="lbl_dummy_name">Anthony Gonsalves</string>
     <string name="lbl_chw_worker">CHW Worker</string>

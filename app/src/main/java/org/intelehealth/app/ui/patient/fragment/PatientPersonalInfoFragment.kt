@@ -36,12 +36,9 @@ import org.intelehealth.common.inputfilter.AlphabetsInputFilter
 import org.intelehealth.common.inputfilter.FirstLetterUpperCaseInputFilter
 import org.intelehealth.common.model.AgePeriod
 import org.intelehealth.common.utility.AgeUtils
-import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoConfig
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
-import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.config.utility.PatientInfoGroup
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientOtherInfo

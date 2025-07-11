@@ -32,29 +32,44 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/std_8dp">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgPersonalInfo"
-                android:layout_width="@dimen/fabDefaultSize"
-                android:layout_height="@dimen/fabDefaultSize"
-                android:contentDescription="@string/lbl_personal_identification"
-                android:src="@drawable/ic_personal_info"
+            <TextView
+                android:id="@+id/lblPersonalIdentification"
+                style="@style/Theme.IDA.TextAppearance.Person.Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_list_item"
+                android:drawablePadding="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/std_8dp"
+                android:text="@string/lbl_personal_identification"
+                app:drawableEndCompat="@drawable/selector_dropdown_arrow_rotate"
+                app:drawableStartCompat="@drawable/ic_personal_info"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnExpandablePersonalSection"
-                style="@style/Theme.IDA.TextButton.DropDown"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/lbl_personal_identification"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/imgPersonalInfo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imgPersonalInfo"
-                app:layout_constraintTop_toTopOf="@id/imgPersonalInfo" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imgPersonalInfo"-->
+            <!--                android:layout_width="@dimen/fabDefaultSize"-->
+            <!--                android:layout_height="@dimen/fabDefaultSize"-->
+            <!--                android:contentDescription="@string/lbl_personal_identification"-->
+            <!--                android:src="@drawable/ic_personal_info"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/lblPersonalIdentification" />-->
+
+            <!--            <com.google.android.material.button.MaterialButton-->
+            <!--                android:id="@+id/btnExpandablePersonalSection"-->
+            <!--                style="@style/Theme.IDA.TextButton.DropDown"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/lbl_personal_identification"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/imgPersonalInfo"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/imgPersonalInfo"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/imgPersonalInfo" />-->
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/groupPersonalSection"
@@ -66,18 +81,21 @@
                 android:id="@+id/vPersonalSectionDivider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/std_1dp"
+                android:layout_marginHorizontal="@dimen/std_8dp"
                 android:layout_marginTop="@dimen/std_8dp"
                 android:background="@color/colorLightGray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imgPersonalInfo" />
+                app:layout_constraintTop_toBottomOf="@id/lblPersonalIdentification" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/lblPersonalSectionDetail"
-                style="@style/Theme.IDA.TextAppearance.Body"
+                style="@style/Theme.IDA.TextAppearance.Primary.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_8dp"
                 android:text="@string/lbl_details"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/btnEditPersonalInfo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/btnEditPersonalInfo" />
@@ -88,6 +106,7 @@
                 android:layout_width="@dimen/std_72dp"
                 android:layout_height="@dimen/std_24dp"
                 android:layout_marginTop="@dimen/std_16dp"
+                android:layout_marginEnd="@dimen/std_8dp"
                 android:drawablePadding="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/vPersonalSectionDivider" />
@@ -97,6 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/std_8dp"
+                android:padding="@dimen/std_8dp"
                 android:shrinkColumns="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

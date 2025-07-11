@@ -90,11 +90,11 @@
             app:argType="string" />
     </activity>
 
-    <activity
+    <fragment
         android:id="@+id/nav_open_visits"
-        android:name="org.intelehealth.app.ui.visit.activity.OpenVisitsActivity"
+        android:name="org.intelehealth.app.ui.visit.fragment.OpenVisitFragment"
         android:label="@string/lbl_open_visits"
-        tools:layout="@layout/activity_open_visits" />
+        tools:layout="@layout/fragment_open_visit" />
 
     <fragment
         android:id="@+id/nav_prescription"

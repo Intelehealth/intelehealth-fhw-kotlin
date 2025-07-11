@@ -12,7 +12,6 @@ import org.intelehealth.app.databinding.FragmentPatientDetailBinding
 import org.intelehealth.app.ui.patient.viewmodel.PatientDetailViewModel
 import org.intelehealth.common.extensions.applyLabelAsScreenTitle
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
-import org.intelehealth.config.room.entity.ActiveFeatureStatus
 
 /**
  * Created by Vaghela Mithun R. on 05-05-2025 - 16:29.

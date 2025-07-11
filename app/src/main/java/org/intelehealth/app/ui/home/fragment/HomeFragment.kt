@@ -42,14 +42,6 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     private val homeViewModel by viewModels<HomeViewModel>()
     private val afsViewModel: ActiveFeatureStatusViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.move)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
@@ -74,7 +66,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
      */
     private fun handleClickEvents() {
         binding.cardHomeOpenVisits.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
+//            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavOpenVisits())
         }
 
         binding.cardHomeAddPatient.setOnClickListener {

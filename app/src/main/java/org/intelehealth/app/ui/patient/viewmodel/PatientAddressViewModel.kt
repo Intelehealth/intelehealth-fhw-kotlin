@@ -18,7 +18,7 @@ import javax.inject.Inject
 class PatientAddressViewModel @Inject constructor(
     networkHelper: NetworkHelper,
     private val patientAddressRepository: PatientAddressRepository,
-    private val patientRegFieldRepository: RegFieldRepository
+    patientRegFieldRepository: RegFieldRepository
 ) : RegFieldViewModel(patientRegFieldRepository, networkHelper = networkHelper) {
 
     fun fetchPatientAddress(patientId: String) = patientAddressRepository.getPatientAddressById(patientId)

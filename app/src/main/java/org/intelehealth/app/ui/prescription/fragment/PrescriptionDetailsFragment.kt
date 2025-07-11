@@ -5,12 +5,15 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPrescriptionDetailsBinding
 import org.intelehealth.common.ui.fragment.MenuFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewModel
+import org.intelehealth.app.ui.visit.viewmodel.VisitDetailViewModel
 
 /**
  * Created by Tanvir Hasan on 2-04-25
@@ -24,15 +27,24 @@ import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewMod
  * interface to integrate with the options menu system.
  */
 @AndroidEntryPoint
-class
-PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_details) {
+class PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_details) {
     private lateinit var binding: FragmentPrescriptionDetailsBinding
-    val viewModel: PrescriptionDetailsViewModel by viewModels<PrescriptionDetailsViewModel>()
+    private val viewModel: PrescriptionDetailsViewModel by activityViewModels<PrescriptionDetailsViewModel>()
+    private val visitViewModel: VisitDetailViewModel by viewModels<VisitDetailViewModel>()
+    private val args: PrescriptionDetailsFragmentArgs by navArgs<PrescriptionDetailsFragmentArgs>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPrescriptionDetailsBinding.bind(view)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModel
+        viewModel.visitId = args.visitId
+        observerVisitAndPatientDetails(args.visitId)
+    }
+
+    private fun observerVisitAndPatientDetails(visitId: String) {
+        visitViewModel.fetchVisitDetails(visitId).observe(viewLifecycleOwner) { visitDetail ->
+            viewModel.updateVisitDetails(visitDetail)
+        }
     }
 
     /**
@@ -59,11 +71,10 @@ PrescriptionDetailsFragment : MenuFragment(R.layout.fragment_prescription_detail
 
         return when (menuItem.itemId) {
             R.id.action_more -> {
-                viewModel.updateOptionsVisibility()
                 true
             }
 
-            else ->  false
+            else -> false
         }
     }
 

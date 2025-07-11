@@ -23,7 +23,6 @@ import org.intelehealth.common.utility.API_ERROR
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.common.utility.NO_NETWORK
 import org.intelehealth.common.utility.PreferenceUtils
-import org.intelehealth.common.utility.WORKER_RESULT
 import org.intelehealth.config.worker.ConfigSyncWorker
 import org.intelehealth.fcm.utils.FcmRemoteConfig.getRemoteConfig
 import org.intelehealth.fcm.utils.FcmTokenGenerator.getDeviceToken
@@ -52,7 +51,7 @@ const val ANIM_DURATION = 2000L
 class LauncherViewModel @Inject constructor(
     private val preferenceUtils: PreferenceUtils,
     private val workManager: WorkManager,
-    private val networkHelper: NetworkHelper
+    networkHelper: NetworkHelper
 ) : BaseViewModel(networkHelper = networkHelper) {
 
     private val mutableInitialLaunchStatus: MutableLiveData<Boolean> = MutableLiveData()

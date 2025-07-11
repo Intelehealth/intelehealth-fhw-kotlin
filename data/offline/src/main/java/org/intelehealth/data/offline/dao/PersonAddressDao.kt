@@ -3,12 +3,7 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
-import org.intelehealth.common.utility.CommonConstants
-import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PersonAddress
-import org.intelehealth.data.offline.entity.VisitDetail
-import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
 
 /**
  * Created by Vaghela Mithun R. on 02-04-2024 - 10:24.

@@ -201,7 +201,7 @@ interface VisitDao : CoreDao<Visit> {
 //    ): List<Prescription>?
 
     @Query(
-        "SELECT ${VisitDetail.COLUMNS}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+        "SELECT ${VisitDetail.COLUMNS_WITH_CURRENT_MONTH_DURATION}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
                 "AND ${VisitDetail.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
@@ -212,8 +212,9 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "SELECT ${VisitDetail.COLUMNS}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+        "SELECT ${VisitDetail.COLUMN_OTHER_SECTION}, 1 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid = :visitCompleteType) " +
+                "AND ${VisitDetail.BELOW_CURRENT_MONTH} " +
                 "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
                 "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
     )
@@ -224,7 +225,7 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "SELECT ${VisitDetail.COLUMNS}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+        "SELECT ${VisitDetail.COLUMNS_WITH_CURRENT_MONTH_DURATION}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
                 "AND ${VisitDetail.CONDITION_CURRENT_MONTH} AND searchable LIKE '%' || :searchQuery || '%' " +
                 "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
@@ -236,8 +237,9 @@ interface VisitDao : CoreDao<Visit> {
     ): Flow<List<VisitDetail>>
 
     @Query(
-        "SELECT ${VisitDetail.COLUMNS}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+        "SELECT ${VisitDetail.COLUMN_OTHER_SECTION}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid NOT IN (:visitCompleteType, :exitSurveyEnType)) " +
+                "AND ${VisitDetail.BELOW_CURRENT_MONTH} " +
                 "AND patientId IS NOT NULL AND searchable LIKE '%' || :searchQuery || '%' " +
                 "ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
     )
@@ -267,12 +269,9 @@ interface VisitDao : CoreDao<Visit> {
                 "LEFT JOIN tbl_obs O ON O.encounteruuid = E.uuid " +
                 "LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
                 "LEFT JOIN tbl_patient_attribute PA ON PA.patient_uuid = P.uuid " +
-                "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid " +
-                "LEFT JOIN tbl_visit_attribute VA ON VA.visit_uuid = V.uuid " +
-                "WHERE V.uuid = :visitId " +
-                "AND VA.visit_attribute_type_uuid = :specialityAttrType " +
-                "AND PAM.name = :patientAttrName AND V.synced = 1 AND V.voided = 0 " +
-                "GROUP BY V.uuid"
+                "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid AND PAM.name = :patientAttrName " +
+                "LEFT JOIN tbl_visit_attribute VA ON VA.visit_uuid = V.uuid AND VA.visit_attribute_type_uuid = :specialityAttrType " +
+                "WHERE V.uuid = :visitId AND V.voided = 0 GROUP BY V.uuid"
     )
     fun getVisitDetailsByUuid(
         visitId: String,
@@ -284,4 +283,22 @@ interface VisitDao : CoreDao<Visit> {
         specialityAttrType: String,
         patientAttrName: String
     ): LiveData<VisitDetail>
+
+    @Query(
+        "SELECT ${VisitDetail.COLUMNS_WITH_CURRENT_MONTH_DURATION}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid != :exitSurveyEnType) " +
+                "AND (V.enddate IS NULL OR V.enddate = '') " +
+                "AND ${VisitDetail.CONDITION_CURRENT_MONTH} " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC"
+    )
+    fun getCurrentMonthOpenVisit(exitSurveyEnType: String?): Flow<List<VisitDetail>>
+
+    @Query(
+        "SELECT ${VisitDetail.COLUMN_OTHER_SECTION}, 0 as prescription FROM tbl_visit V LEFT JOIN tbl_patient P ON P.uuid = V.patientuuid " +
+                "WHERE V.uuid in (SELECT visituuid FROM tbl_encounter WHERE encounter_type_uuid != :exitSurveyEnType) " +
+                "AND (V.enddate IS NULL OR V.enddate = '') " +
+                "AND ${VisitDetail.BELOW_CURRENT_MONTH} " +
+                "AND patientId IS NOT NULL ORDER BY V.startdate DESC LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
+    )
+    fun getOtherOpenVisitWithPaging(exitSurveyEnType: String?, offset: Int): Flow<List<VisitDetail>>
 }

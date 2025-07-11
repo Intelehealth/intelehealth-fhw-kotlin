@@ -20,4 +20,12 @@ class VisitDetailRepository @Inject constructor(private val visitDao: VisitDao) 
         specialityAttrType = VisitAttributeType.DR_SPECIALITY.value,
         patientAttrName = PatientAttributeTypeMaster.TELEPHONE
     )
+
+    fun getCurrentMonthOpenVisits() = visitDao.getCurrentMonthOpenVisit(
+        EncounterType.PATIENT_EXIT_SURVEY.value
+    )
+
+    fun getOtherOpenVisitsWithPaging(offset: Int) = visitDao.getOtherOpenVisitWithPaging(
+        EncounterType.PATIENT_EXIT_SURVEY.value, offset
+    )
 }

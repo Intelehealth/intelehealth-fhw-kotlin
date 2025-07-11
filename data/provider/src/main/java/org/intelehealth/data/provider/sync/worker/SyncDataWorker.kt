@@ -2,11 +2,18 @@ package org.intelehealth.data.provider.sync.worker
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import com.github.ajalt.timberkt.Timber
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.service.HttpStatusCode.HTTP_OK
@@ -26,11 +33,12 @@ class SyncDataWorker @AssistedInject constructor(
     @Assisted private val params: WorkerParameters,
     private val syncDataRepository: SyncDataRepository
 ) : StateWorker(ctx, params) {
-    private var progress = 0
+    private var progress = START_PROGRESS
+    private var currentPage = START_PAGE
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         setProgress(workDataOf(WORK_PROGRESS to progress))
-        pullData(0)
+        pullData(currentPage)
         workerResult
     }
 
@@ -49,10 +57,17 @@ class SyncDataWorker @AssistedInject constructor(
     private suspend fun saveData(data: PullResponse) {
         syncDataRepository.saveData(data) { totalCount, page ->
             if (page > 0 && totalCount > 0) {
+
+                if (currentPage < page) currentPage = page
+                else if (currentPage == page) currentPage++
+                else currentPage = page
+                Timber.d { "currentPage => $currentPage" }
+//                43a68f64-38f3-483c-b0f4-cef92b268669
                 val percentage = (data.patients.size * 100) / totalCount
                 progress += percentage
                 setProgress(workDataOf(WORK_PROGRESS to progress))
-                withContext(Dispatchers.IO) { pullData(page) }
+                withContext(Dispatchers.IO) { pullData(currentPage) }
+
             } else {
                 syncDataRepository.preferenceUtils.lastSyncedTime = data.pullExecutedTime
                 workerResult = Result.success()
@@ -60,19 +75,8 @@ class SyncDataWorker @AssistedInject constructor(
         }
     }
 
-//    companion object {
-//        const val WORK_PROGRESS = "work_progress"
-//        const val WORK_STATUS = "work_status"
-//        fun startSyncWorker(context: Context, onResult: (WorkInfo) -> Unit) {
-//            val configWorkRequest = OneTimeWorkRequestBuilder<SyncDataWorker>().build()
-//            val workManager = WorkManager.getInstance(context.applicationContext)
-//            workManager.enqueue(configWorkRequest)
-//            val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-//            scope.launch {
-//                workManager.getWorkInfoByIdFlow(configWorkRequest.id).collect {
-//                    it?.let { it1 -> onResult(it1) }
-//                }
-//            }
-//        }
-//    }
+    companion object {
+        const val START_PROGRESS = 0
+        const val START_PAGE = 0
+    }
 }

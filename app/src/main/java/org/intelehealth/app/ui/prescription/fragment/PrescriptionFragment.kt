@@ -58,7 +58,7 @@ class PrescriptionFragment : MenuFragment(R.layout.fragment_prescription) {
         } else {
             tab.text = "${adapter.getTitle(position)} (${args.prescriptionCount.pending})"
         }
-        tab.icon = ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_presc_tablayout)
+        tab.icon = ContextCompat.getDrawable(requireActivity(), resourceR.drawable.ic_prescription)
     }
 
     /**

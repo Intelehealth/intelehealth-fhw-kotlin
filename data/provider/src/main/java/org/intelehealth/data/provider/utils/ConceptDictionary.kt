@@ -27,7 +27,13 @@ enum class ObsConcept(val value: String) {
     FOLLOW_UP("e8caffd6-5d22-41c4-8d6a-bc31a44d0c86"),
     RATING("78284507-fb71-4354-9b34-046ab205e18f"),
     CURRENT_COMPLAINT("3edb0e09-9135-481e-b8f0-07a26fa9a5ce"),
-//    COMMENTS("36d207d6-bee7-4b3e-9196-7d053c6eddce"),
+
+    //    COMMENTS("36d207d6-bee7-4b3e-9196-7d053c6eddce"),
+    TELEMEDICINE_DIAGNOSIS("537bb20d-d09d-4f88-930b-cc45c7d662df"),
+    JSV_MEDICATIONS("c38c0c50-2fd2-4ae3-b7ba-7dd25adca4ca"),
+    MEDICAL_ADVICE("67a050c1-35e5-451c-a4ab-fff9d57b0db1"),
+    REQUESTED_TESTS("23601d71-50e6-483f-968d-aeef3031346d"),
+    REFERRED_SPECIALIST("605b6f15-8f7a-4c45-b06d-14165f6974be")
 }
 
 enum class PersonAttributeType(val value: String) {

@@ -23,98 +23,28 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/std_16dp"
-            android:paddingTop="@dimen/std_16dp"
             android:paddingBottom="@{prescription.hasPrescription ? @dimen/std_4dp : @dimen/std_16dp}"
             tools:paddingBottom="@dimen/std_4dp">
 
-            <!-- Profile Image Card -->
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/sivProfileImage"
-                android:layout_width="@dimen/std_40dp"
-                android:layout_height="@dimen/std_40dp"
-                android:contentDescription="@string/lbl_profile_image"
-                android:src="@drawable/img_avatar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
-
-            <!-- Patient Name and Priority -->
-            <TextView
-                android:id="@+id/tvPatientName"
-                style="@style/Theme.IDA.TextAppearance.Person.Name"
-                android:layout_width="0dp"
+            <include
+                android:id="@+id/patientCard"
+                layout="@layout/view_patient_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/std_8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{prescription.patientFullName}"
-                app:layout_constraintStart_toEndOf="@id/sivProfileImage"
-                app:layout_constraintTop_toTopOf="@id/sivProfileImage"
-                app:layout_constraintWidth_percent="0.6"
-                tools:text="@string/lbl_dummy_name" />
-
-            <!-- Calendar and Date -->
-            <TextView
-                android:id="@+id/tvVisitStartDate"
-                style="@style/Theme.IDA.TextAppearance.Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/std_8dp"
-                android:layout_marginTop="@dimen/std_4dp"
-                android:drawablePadding="@dimen/std_8dp"
-                android:gravity="center"
-                android:text="@{prescription.visitStartDate}"
-                app:drawableStartCompat="@drawable/ic_followup_calendar"
-                app:drawableTint="@color/colorTextSecondary"
-                app:layout_constraintStart_toEndOf="@id/sivProfileImage"
-                app:layout_constraintTop_toBottomOf="@id/tvPatientName"
-                tools:text="@string/lbl_follow_up_on" />
-
-            <TextView
-                android:id="@+id/tvPriorityTag"
-                style="@style/Theme.IDA.Dark.TextAppearance.Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_priority"
-                android:gravity="center"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/title_priority"
-                android:textAllCaps="true"
-                android:textSize="@dimen/std_12sp"
-                android:visibility="@{prescription.priority ? View.VISIBLE: View.GONE}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvPersonGender"
-                android:layout_marginBottom="@dimen/std_8dp"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPersonGender"
-                style="@style/Theme.IDA.TextAppearance.Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@{prescription.gender + ' ' + prescription.age}"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPriorityTag"
-                app:layout_constraintBottom_toTopOf="@id/btnSharePrescription"
-                tools:ignore="RtlSymmetry"
-                tools:text="@string/lbl_gender_with_age" />
+                app:patient="@{prescription}" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSharePrescription"
                 style="@style/Theme.IDA.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/std_36dp"
-                android:layout_marginEnd="-8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/action_share"
                 android:visibility="@{prescription.hasPrescription ? View.VISIBLE : View.GONE}"
                 app:icon="@drawable/ic_prescription"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPersonGender" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/patientCard" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

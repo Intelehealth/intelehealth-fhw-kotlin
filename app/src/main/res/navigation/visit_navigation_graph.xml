@@ -36,7 +36,11 @@
         android:id="@+id/prescriptionDetailsFragment"
         android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionDetailsFragment"
         android:label="@string/title_prescription_details"
-        tools:layout="@layout/fragment_prescription_details" />
+        tools:layout="@layout/fragment_prescription_details">
+        <argument
+            android:name="visitId"
+            app:argType="string" />
+    </fragment>
 
     <activity
         android:id="@+id/patientDetailActivity"

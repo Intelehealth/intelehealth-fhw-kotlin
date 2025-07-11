@@ -44,7 +44,7 @@ import androidx.core.view.get
 class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
     private lateinit var binding: FragmentVisitDetailsBinding
     private val viewModel: VisitDetailViewModel by viewModels()
-    private val args: VisitDetailActivityArgs by navArgs()
+    private val args: VisitDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +54,9 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
     }
 
     private fun observeVisitDetails() {
+        Timber.d { "Visit args => ${args.visitId}" }
         viewModel.fetchVisitDetails(args.visitId).observe(viewLifecycleOwner) { result ->
+            result ?: return@observe
             result.separateVisitDateAndTime()
             result.formatPrescribedDate()
             result.extractDoctorProfile()
@@ -83,7 +85,9 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         }
 
         binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
-            findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
+            binding.visitDetail?.visitId?.let {
+                findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail(it))
+            }
         }
 
         binding.visitSummaryView.clVisitSummery.setOnClickListener {

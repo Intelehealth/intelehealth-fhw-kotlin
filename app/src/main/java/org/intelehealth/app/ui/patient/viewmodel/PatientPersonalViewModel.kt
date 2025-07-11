@@ -1,15 +1,8 @@
 package org.intelehealth.app.ui.patient.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.zip
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.intelehealth.common.helper.NetworkHelper
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.utility.DateTimeUtils
@@ -19,7 +12,6 @@ import org.intelehealth.data.offline.entity.PatientOtherInfo
 import org.intelehealth.data.provider.patient.otherinfo.PatientOtherDataRepository
 import org.intelehealth.data.provider.patient.personal.PatientPersonalDataRepository
 import org.intelehealth.data.provider.user.UserRepository
-import java.util.UUID
 import javax.inject.Inject
 
 /**

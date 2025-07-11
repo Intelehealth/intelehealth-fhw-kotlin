@@ -37,7 +37,7 @@ object AndroidConfig {
     private const val versionPatch = 0
 
     const val VERSION_CODE = 1
-    const val VERSION_NAME = "$versionMajor.$versionMinor.$versionPatch"
+    const val VERSION_NAME = "$versionMajor.$versionMinor.$versionPatch-kotlin"
 
 
     /*

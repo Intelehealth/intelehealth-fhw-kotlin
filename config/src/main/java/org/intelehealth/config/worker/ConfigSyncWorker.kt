@@ -2,7 +2,6 @@ package org.intelehealth.config.worker
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker
-import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkerParameters
@@ -24,6 +23,9 @@ import org.intelehealth.common.utility.NO_NETWORK
 import org.intelehealth.common.utility.WORKER_RESULT
 import org.intelehealth.config.data.ConfigRepository
 import org.intelehealth.config.network.response.ConfigResponse
+import kotlin.Pair
+import kotlin.String
+import kotlin.Unit
 import org.intelehealth.common.state.Result as APIResult
 
 /**
@@ -55,18 +57,18 @@ class ConfigSyncWorker @AssistedInject constructor(
         return workerResult
     }
 
-    private fun setFailureResult(result: APIResult<ConfigResponse>) {
-        workerResult = when (result.status) {
-            APIResult.State.FAIL -> if (result.message == NO_NETWORK) Result.failure(
-                workDataOf(Pair(WORKER_RESULT, NO_NETWORK))
-            )
-            else Result.failure(workDataOf(Pair(WORKER_RESULT, NO_DATA_FOUND)))
-
-            APIResult.State.ERROR -> Result.failure(workDataOf(Pair(WORKER_RESULT, API_ERROR)))
-
-            else -> Result.failure()
-        }
-    }
+//    private fun setFailureResult(result: APIResult<ConfigResponse>) {
+//        workerResult = when (result.status) {
+//            APIResult.State.FAIL -> if (result.message == NO_NETWORK) Result.failure(
+//                workDataOf(Pair(WORKER_RESULT, NO_NETWORK))
+//            )
+//            else Result.failure(workDataOf(Pair(WORKER_RESULT, NO_DATA_FOUND)))
+//
+//            APIResult.State.ERROR -> Result.failure(workDataOf(Pair(WORKER_RESULT, API_ERROR)))
+//
+//            else -> Result.failure()
+//        }
+//    }
 
     companion object {
         fun startConfigSyncWorker(context: Context, onResult: (String) -> Unit) {

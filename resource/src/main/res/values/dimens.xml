@@ -71,4 +71,9 @@
 
     <dimen name="youtube_thumbnail_width">@dimen/std_220dp</dimen>
     <dimen name="tab_indicator_height">@dimen/std_2dp</dimen>
+
+    <dimen name="list_item_profile_pic_size">@dimen/std_32dp</dimen>
+    <dimen name="detail_card_profile_pic_size">@dimen/std_48dp</dimen>
+    <dimen name="detail_item_card_icon_size">@dimen/std_40dp</dimen>
+    <dimen name="add_patient_section_icon_size">@dimen/std_36dp</dimen>
 </resources>

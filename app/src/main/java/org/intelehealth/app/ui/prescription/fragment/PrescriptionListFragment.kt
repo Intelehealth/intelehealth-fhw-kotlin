@@ -139,7 +139,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      * The RecyclerView is set up with a linear layout manager.
      */
     private fun initPrescriptionListView() {
-        adapter = PrescriptionAdapter(requireActivity(), LinkedList())
+        adapter = PrescriptionAdapter(requireContext(), LinkedList())
         adapter.viewHolderClickListener = this
         binding.rvPrescriptionList.setupLinearView(adapter, false)
     }

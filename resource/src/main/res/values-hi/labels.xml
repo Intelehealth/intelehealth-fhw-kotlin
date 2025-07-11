@@ -107,8 +107,8 @@
     <string name="lbl_dr_speciality">डॉक्टर की विशेषता</string>
     <string name="lbl_gp_txt">सामान्य चिकित्सक</string>
     <string name="lbl_details_date">21 मई 2022</string>
-    <string name="lbl_visit_id">विज़िट आईडी</string>
-    <string name="lbl_openmrs_id">ID-987654jK</string>
+    <string name="lbl_visit_id">विज़िट आईडी: %1$s</string>
+    <string name="lbl_openmrs_id">ID: %1$s</string>
     <string name="lbl_text_visit">बुखार की जाँच करें</string>
     <string name="lbl_dummy_name">एंथनी गोंसाल्वेस</string>
     <string name="lbl_chw_worker">CHW कार्यकर्ता</string>
@@ -122,7 +122,9 @@
     <string name="lbl_prescribed_medication">निर्धारित दवाएँ</string>
     <string name="lbl_drug_name">दवा का नाम</string>
     <string name="lbl_dos">डॉस.</string>
+    <string name="lbl_frequency">आवृत्ति</string>
     <string name="lbl_remarks">टिप्पणियाँ</string>
+    <string name="lbl_timing">समय</string>
     <string name="lbl_advice">सलाह</string>
     <string name="lbl_test">परीक्षण</string>
     <string name="lbl_referred_sp">रेफ़र किए गए विशेषज्ञ</string>
@@ -147,4 +149,5 @@
     <string name="lbl_this_month_visits">इस महीने की विज़िट</string>
     <string name="lbl_this_other_visits">अन्य सभी दिन की विज़िट</string>
     <string name="lbl_recently_searched">हाल ही में खोजा गया</string>
+    <string name="lbl_column_visit_id">विज़िट आईडी</string>
 </resources>

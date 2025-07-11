@@ -49,6 +49,7 @@ class SpinnerItemAdapter<T>(
         view.id = position
         val item = getItem(position)
         (view as TextView).text = item.toString()
+        view.contentDescription = item.toString()
         return view
     }
 

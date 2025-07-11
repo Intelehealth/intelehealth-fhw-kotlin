@@ -58,7 +58,7 @@ class IHApplication : Application(), Configuration.Provider {
         Timber.plant(Timber.DebugTree())
         FirebaseApp.initializeApp(this)
 
-        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = false
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = BuildConfig.ACTIVE_CRASH
         ProcessLifecycleOwner.get().lifecycle.addObserver(appUsesStatisticsObserver)
     }
 

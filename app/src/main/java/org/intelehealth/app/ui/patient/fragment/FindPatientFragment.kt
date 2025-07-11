@@ -48,14 +48,6 @@ class FindPatientFragment : StateFragment(
     private var searchQuery: String = ""
     private lateinit var searchView: SearchView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.move)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPatientListBinding.bind(view)

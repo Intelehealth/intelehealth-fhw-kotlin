@@ -52,11 +52,11 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
      * of the address section when clicked.
      */
     private fun toggleAddressDetailsVisibility() {
-        binding.btnExpandableAddressSection.isSelected = true
-        binding.btnExpandableAddressSection.setOnClickListener {
+        binding.lblAddressInfo.isSelected = true
+        binding.lblAddressInfo.setOnClickListener {
             val visibility = binding.groupAddressSection.isVisible
             binding.groupAddressSection.isVisible = !visibility
-            binding.btnExpandableAddressSection.isSelected = !visibility
+            binding.lblAddressInfo.isSelected = !visibility
         }
     }
 

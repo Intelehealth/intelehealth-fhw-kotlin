@@ -19,7 +19,7 @@ import org.intelehealth.common.ui.decoration.VerticalSpaceItemDecoration
  *                          `false` otherwise. Defaults to `false`.
  */
 fun RecyclerView.setupLinearView(
-    adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>,
+    adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>,
     hasItemDecoration: Boolean = false
 ) {
     layoutManager = LinearLayoutManager(this.context)
