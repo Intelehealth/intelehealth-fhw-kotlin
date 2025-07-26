@@ -122,12 +122,18 @@ class OpenVisitFragment : BaseProgressFragment(R.layout.fragment_open_visit), Ba
             adapter.isLoading = true
             viewModel.fetchOtherOpenVisitWithPagination()
             return
-        } else if (view.id == R.id.cardPatientItem) {
+        } else if (view.id == R.id.cardItem) {
             Timber.d { "clicked position => $position" }
             val item = view.tag as? VisitDetail ?: return
             val visitId = item.visitId ?: return
             Timber.d { "VisitId nav => $visitId" }
-//            findNavController().navigate(OpenVisitFragment.actionNavPrescriptionToVisitDetails(visitId))
+            findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitToVisitDetails(visitId))
+        } else if (view.id == R.id.btnCloseVisit) {
+            Timber.d { "clicked position => $position" }
+            val item = view.tag as? VisitDetail ?: return
+            val visitId = item.visitId ?: return
+            Timber.d { "VisitId nav => $visitId" }
+//            findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitToVisitDetails(visitId))
         }
     }
 

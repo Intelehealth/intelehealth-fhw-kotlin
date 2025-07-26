@@ -1,5 +1,6 @@
 <resources>
 
+    <dimen name="none_padding">0dp</dimen>
     <dimen name="std_05dp">0.5dp</dimen>
     <dimen name="std_1dp">1dp</dimen>
     <dimen name="std_2dp">2dp</dimen>
@@ -11,6 +12,7 @@
     <dimen name="std_16dp">16dp</dimen>
     <dimen name="std_17dp">17dp</dimen>
     <dimen name="std_18dp">18dp</dimen>
+    <dimen name="std_20dp">20dp</dimen>
     <dimen name="std_24dp">24dp</dimen>
     <dimen name="std_28dp">28dp</dimen>
     <dimen name="std_32dp">32dp</dimen>

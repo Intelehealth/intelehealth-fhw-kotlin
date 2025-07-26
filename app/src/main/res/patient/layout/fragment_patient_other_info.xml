@@ -23,7 +23,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBG">
 
         <include
             android:id="@+id/patientTab"
@@ -640,9 +641,9 @@
             style="@style/Theme.IDA.Button.Tertiary"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/action_back"
             android:layout_marginStart="@dimen/std_16dp"
             android:layout_marginBottom="@dimen/std_16dp"
+            android:text="@string/action_back"
             android:visibility="@{isEditMode ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnPatientOtherNext"
@@ -654,10 +655,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
-            android:text="@{isEditMode ? @string/action_save : @string/action_next}"
-            app:iconGravity="end"
             android:layout_marginEnd="@dimen/std_16dp"
             android:layout_marginBottom="@dimen/std_16dp"
+            android:text="@{isEditMode ? @string/action_save : @string/action_next}"
+            app:iconGravity="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnPatientOtherBack" />

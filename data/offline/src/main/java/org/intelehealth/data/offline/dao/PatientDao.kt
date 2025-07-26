@@ -3,6 +3,8 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
+import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.flow.Flow
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Patient
@@ -30,7 +32,7 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE creatoruuid = :creatorId")
     fun getPatientByCreatorId(creatorId: String): LiveData<List<Patient>>
 
-    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId WHERE uuid = :uuid")
+    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId, synced = 1 WHERE uuid = :uuid")
     suspend fun updateOpenMrsId(uuid: String, openMrsId: String)
 
     @Query("UPDATE tbl_patient SET first_name = :firstName WHERE uuid = :uuid")
@@ -88,4 +90,12 @@ interface PatientDao : CoreDao<Patient> {
         searchQuery: String,
         offset: Int
     ): Flow<List<VisitDetail>>
+
+    @Transaction
+    suspend fun updateOpenMrsIds(users: List<Patient>) {
+        users.forEach {
+            Timber.d { "uuid => ${it.uuid} OpenMrsId => ${it.openMrsId}" }
+            updateOpenMrsId(it.uuid, it.openMrsId ?: "")
+        }
+    }
 }

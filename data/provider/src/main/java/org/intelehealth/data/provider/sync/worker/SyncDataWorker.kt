@@ -2,22 +2,15 @@ package org.intelehealth.data.provider.sync.worker
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.github.ajalt.timberkt.Timber
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.service.HttpStatusCode.HTTP_OK
-import org.intelehealth.common.service.HttpStatusCode.HTTP_SUCCESS
 import org.intelehealth.common.state.StateWorker
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.provider.sync.data.SyncDataRepository

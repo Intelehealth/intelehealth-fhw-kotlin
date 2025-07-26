@@ -12,6 +12,8 @@ class OpenVisitViewHolder(
         binding.visit = visitDetail
         binding.cardItem.tag = visitDetail
         binding.cardItem.setOnClickListener(this)
+        binding.btnCloseVisit.tag = visitDetail
+        binding.btnCloseVisit.setOnClickListener(this)
         binding.executePendingBindings()
     }
 }

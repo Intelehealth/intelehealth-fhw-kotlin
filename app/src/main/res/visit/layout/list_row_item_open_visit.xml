@@ -31,20 +31,19 @@
                 android:layout_height="wrap_content"
                 app:patient="@{visit}" />
 
-            <com.google.android.material.button.MaterialButton
+            <TextView
                 android:id="@+id/btnCloseVisit"
-                style="@style/Theme.IDA.TextButton"
-                android:layout_width="wrap_content"
+                style="@style/Theme.IDA.TextButton.Nav.Primary.Light"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:paddingHorizontal="@dimen/std_16dp"
+                android:paddingVertical="@dimen/std_2dp"
+                android:paddingStart="@dimen/std_20dp"
+                android:paddingEnd="@dimen/std_16dp"
                 android:text="@string/lbl_close_visit"
-                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
-                android:textStyle="bold"
-                app:cornerRadius="0dp"
-                app:icon="@drawable/ic_prescription"
+                app:drawableStartCompat="@drawable/ic_prescription"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/patientCard" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/patientCard" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

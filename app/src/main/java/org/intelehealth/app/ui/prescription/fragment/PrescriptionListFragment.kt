@@ -227,6 +227,12 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
             val visitId = item.visitId ?: return
             Timber.d { "VisitId nav => $visitId" }
             findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
+        } else if (view.id == R.id.btnSharePrescription) {
+            Timber.d { "clicked position => $position" }
+            val item = view.tag as? VisitDetail ?: return
+            val visitId = item.visitId ?: return
+            Timber.d { "VisitId nav => $visitId" }
+//            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
         }
     }
 

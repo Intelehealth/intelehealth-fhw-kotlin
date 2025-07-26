@@ -11,6 +11,8 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorBG"
+            android:fitsSystemWindows="true"
             app:defaultNavHost="true"
             app:navGraph="@navigation/profile_navigation_graph" />
 

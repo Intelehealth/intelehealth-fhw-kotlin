@@ -62,6 +62,7 @@
         tools:layout="@layout/activity_patient">
         <argument
             android:name="patientId"
+            android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
     </activity>
@@ -94,7 +95,17 @@
         android:id="@+id/nav_open_visits"
         android:name="org.intelehealth.app.ui.visit.fragment.OpenVisitFragment"
         android:label="@string/lbl_open_visits"
-        tools:layout="@layout/fragment_open_visit" />
+        tools:layout="@layout/fragment_open_visit">
+
+        <action
+            android:id="@+id/action_nav_open_visit_to_visit_details"
+            app:destination="@id/nav_visit_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_prescription"

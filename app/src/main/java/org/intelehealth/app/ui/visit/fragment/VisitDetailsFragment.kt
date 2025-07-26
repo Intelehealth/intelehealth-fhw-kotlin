@@ -84,9 +84,11 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
             )
         }
 
-        binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
-            binding.visitDetail?.visitId?.let {
-                findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail(it))
+        if (binding.visitDetail?.hasPrescription == true) {
+            binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
+                binding.visitDetail?.visitId?.let {
+                    findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail(it))
+                }
             }
         }
 

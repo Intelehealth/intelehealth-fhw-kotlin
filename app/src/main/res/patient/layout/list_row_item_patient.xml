@@ -41,7 +41,7 @@
                 android:drawablePadding="@dimen/std_8dp"
                 android:enabled="@{patient.hasPrescription}"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="@dimen/std_24dp"
+                android:paddingHorizontal="@dimen/std_20dp"
                 android:text="@{patient.hasPrescription ? @string/content_pres_received : @string/content_pres_pending}"
                 android:visibility="@{patient.hasVisit ? View.VISIBLE : View.GONE}"
                 app:drawableStartCompat="@drawable/ic_prescription"

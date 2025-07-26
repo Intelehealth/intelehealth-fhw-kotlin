@@ -283,4 +283,8 @@ class SyncDataRepository @Inject constructor(
             KEY_PERSON_ID to person, KEY_IDENTIFIER to identifiers
         )
     }
+
+    suspend fun updatePatients(patients: List<Patient>) = withContext(Dispatchers.IO) {
+        db.patientDao().updateOpenMrsIds(patients)
+    }
 }

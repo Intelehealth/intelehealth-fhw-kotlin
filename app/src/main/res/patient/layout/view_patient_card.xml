@@ -81,6 +81,7 @@
             android:visibility="@{patient.priority ? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/tvPersonGender"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -91,9 +92,9 @@
             android:layout_gravity="end"
             android:text="@{patient.gender + ' ' + patient.age}"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPriorityTag"
+            app:layout_constraintTop_toBottomOf="@id/tvPriorityTag"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="RtlSymmetry"
             tools:text="@string/lbl_gender_with_age" />
 

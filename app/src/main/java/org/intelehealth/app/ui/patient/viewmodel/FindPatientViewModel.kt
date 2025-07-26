@@ -20,6 +20,7 @@ import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.common.utility.CommonConstants.LIMIT
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.data.offline.entity.RecentHistory
+import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.provider.patient.search.SearchPatientRepository
 import java.util.LinkedList
 import javax.inject.Inject
@@ -52,7 +53,7 @@ class FindPatientViewModel @Inject constructor(
         }.flowOn(dispatcher).collectLatest {
             if (it.isNotEmpty()) {
                 val patients = LinkedList<ListItemHeaderSection>()
-                patients.addAll(it)
+                patients.addAll(setScreenType(it))
                 if (it.size >= LIMIT) patients.addLast(ListItemFooter())
                 patientData.postValue(Result.Success(patients, ""))
                 offset = it.size
@@ -64,14 +65,20 @@ class FindPatientViewModel @Inject constructor(
         val flow = repository.searchPatient(searchQuery, offset)
         flow.collectLatest {
             if (it.isNotEmpty()) {
-                offset += it.size
-                patientPageData.postValue(it.toMutableList())
-                if (it.size < LIMIT && searchQuery.isEmpty()) {
+                val patients = setScreenType(it)
+                offset += patients.size
+                patientPageData.postValue(patients.toMutableList())
+                if (patients.size < LIMIT && searchQuery.isEmpty()) {
                     delay(100)
                     patientPageData.postValue(emptyList())
                 }
             } else patientPageData.postValue(emptyList())
         }
+    }
+
+    private fun setScreenType(patients: List<VisitDetail>) = patients.map { patient ->
+        patient.screenView = VisitDetail.CardScreenType.PATIENT
+        return@map patient
     }
 
     fun addRecentSearchHistory(value: String) = viewModelScope.launch {
@@ -84,7 +91,7 @@ class FindPatientViewModel @Inject constructor(
         repository.updateRecentSearchHistory(recentHistory)
     }
 
-    fun clearRecentSearchHistory() = viewModelScope.launch{
+    fun clearRecentSearchHistory() = viewModelScope.launch {
         repository.deleteRecentSearchHistory()
     }
 }

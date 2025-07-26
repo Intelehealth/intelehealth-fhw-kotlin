@@ -13,6 +13,7 @@ import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.ui.viewmodel.WorkerViewModel
 import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 import org.intelehealth.data.network.constants.NO_NETWORK
+import org.intelehealth.data.provider.sync.worker.DataRefreshWorker
 import org.intelehealth.data.provider.sync.worker.SyncDataWorker
 import javax.inject.Inject
 
@@ -40,6 +41,18 @@ class SyncDataViewModel @Inject constructor(
      */
     fun startDataSync() {
         val configWorkRequest = OneTimeWorkRequestBuilder<SyncDataWorker>().build()
+        enqueueOneTimeWorkRequest(configWorkRequest)
+    }
+
+    /**
+     * Observes the status of the data synchronization worker.
+     *
+     * @return LiveData containing the list of [WorkInfo] objects representing
+     * the status of the worker.
+     */
+
+    fun startPushDataWorker() {
+        val configWorkRequest = OneTimeWorkRequestBuilder<DataRefreshWorker>().build()
         enqueueOneTimeWorkRequest(configWorkRequest)
     }
 }

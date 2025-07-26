@@ -55,11 +55,9 @@ data class VisitDetail(
     @Ignore var visitDate: String? = null,
     @Ignore var visitTime: String? = null,
     @Ignore var doctorProfile: DoctorProfile? = null,
-
-    ) : ListItemHeaderSection, Parcelable {
-
     @Ignore
     var screenView: CardScreenType = CardScreenType.VISIT
+) : ListItemHeaderSection, Parcelable {
 
     override fun toString(): String = Gson().toJson(this)
 
@@ -163,6 +161,10 @@ data class VisitDetail(
     fun cardDate(): String? {
         return if (screenView == CardScreenType.PATIENT) patientCreatedAt
         else visitStartDate ?: ""
+    }
+
+    fun visiblePrescription(): Boolean {
+        return hasPrescription == true && screenView == CardScreenType.VISIT && hasVisit == true
     }
 
     enum class TabType(val value: String) {
