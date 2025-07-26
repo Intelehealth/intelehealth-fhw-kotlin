@@ -9,7 +9,6 @@ import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentOpenVisitBinding
-import org.intelehealth.app.ui.prescription.fragment.PrescriptionFragmentDirections
 import org.intelehealth.app.ui.visit.adapter.OpenVisitAdapter
 import org.intelehealth.app.ui.visit.viewmodel.OpenVisitViewModel
 import org.intelehealth.common.extensions.setupLinearView

@@ -3,7 +3,6 @@ package org.intelehealth.common.ui.activity
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import org.intelehealth.resource.R

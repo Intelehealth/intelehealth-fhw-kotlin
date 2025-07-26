@@ -67,7 +67,6 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      *
      * Initializes the ViewModel and sets up the toolbar title.
      *
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     private lateinit var filterPopupMenu: PopupMenu
 
@@ -254,7 +253,6 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      *
      * Hides the data state group and shows the "no patient found" block when an error occurs.
      *
-     * @param reason The error message, which can be logged or displayed to the user.
      */
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.searchView.prescriptionSearchView.clearFocus() // Clear focus after submitting the query

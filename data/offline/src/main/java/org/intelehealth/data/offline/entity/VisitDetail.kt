@@ -163,10 +163,6 @@ data class VisitDetail(
         else visitStartDate ?: ""
     }
 
-    fun visiblePrescription(): Boolean {
-        return hasPrescription == true && screenView == CardScreenType.VISIT && hasVisit == true
-    }
-
     enum class TabType(val value: String) {
         RECEIVED("received"), PENDING("pending")
     }

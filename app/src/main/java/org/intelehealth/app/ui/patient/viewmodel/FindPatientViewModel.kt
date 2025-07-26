@@ -16,7 +16,6 @@ import org.intelehealth.common.model.ListItemFooter
 import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.common.utility.CommonConstants.LIMIT
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.data.offline.entity.RecentHistory

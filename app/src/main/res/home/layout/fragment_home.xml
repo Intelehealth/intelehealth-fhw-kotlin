@@ -263,6 +263,7 @@
                     android:id="@+id/ivHomeAppointmentsIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/lbl_appointments"
                     android:src="@drawable/ic_appointments"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

@@ -5,21 +5,20 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.FragmentVisitDetailsBinding
-import org.intelehealth.app.ui.visit.activity.VisitDetailActivityArgs
 import org.intelehealth.app.ui.visit.viewmodel.VisitDetailViewModel
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.startCallIntent
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.MenuFragment
-import androidx.core.view.get
+import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Tanvir Hasan on 24-04-25
@@ -124,11 +123,11 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         else showToast(ResourceR.string.error_mobile_no_not_found)
     }
 
-    private fun actionOnDoctorNumber(action: (String) -> Unit) {
-        val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
-        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
-        else showToast(ResourceR.string.error_mobile_no_not_found)
-    }
+//    private fun actionOnDoctorNumber(action: (String) -> Unit) {
+//        val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
+//        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
+//        else showToast(ResourceR.string.error_mobile_no_not_found)
+//    }
 
     /**
      * Initializes the Activity's options menu.

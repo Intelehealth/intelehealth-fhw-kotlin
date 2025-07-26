@@ -1,7 +1,6 @@
 package org.intelehealth.common.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 
