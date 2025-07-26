@@ -20,6 +20,7 @@ Pending
 - Prescription tab language support - DONE
 - Remove duplicate ic_presc_tablayout
 - Protocol download incorrect percentage
+- Home page appointment card alignment
 
 
 Work [ id=cb3744b3-04ed-4003-a296-7c00cbeabda5, tags={ org.intelehealth.data.provider.sync.worker.SyncDataWorker } ] failed because it threw an exception/error (Ask Gemini)

@@ -48,7 +48,6 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVisitDetailsBinding.bind(view)
-        setupClickListeners()
         observeVisitDetails()
     }
 
@@ -60,6 +59,7 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
             result.formatPrescribedDate()
             result.extractDoctorProfile()
             binding.visitDetail = result
+            setupClickListeners()
         }
     }
 
@@ -96,38 +96,30 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         }
 
         binding.userInfoView.ivCallButton.setOnClickListener {
-            actionOnNumber { startCallIntent(it) }
+            val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+            actionOnNumber(phoneNumber) { startCallIntent(it) }
         }
 
         binding.userInfoView.ivWhatsappButton.setOnClickListener {
-            actionOnNumber { startWhatsappIntent(it, "hi") }
+            val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+            actionOnNumber(phoneNumber) { startWhatsappIntent(it, "hi") }
         }
 
         binding.doctorSpecialityView.ivDrCallButton.setOnClickListener {
             val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
-            if (phoneNumber.isNotEmpty()) startCallIntent(phoneNumber)
-            else showToast(ResourceR.string.error_mobile_no_not_found)
+            actionOnNumber(phoneNumber) { startCallIntent(phoneNumber) }
         }
 
         binding.doctorSpecialityView.ivDrWhatsappButton.setOnClickListener {
-            actionOnNumber { startWhatsappIntent(it, "hi") }
             val phoneNumber = binding.visitDetail?.doctorProfile?.whatsapp ?: ""
-            if (phoneNumber.isNotEmpty()) startWhatsappIntent(phoneNumber, "Hello Doctor")
-            else showToast(ResourceR.string.error_mobile_no_not_found)
+            actionOnNumber(phoneNumber) { startWhatsappIntent(it, "Hello Doctor") }
         }
     }
 
-    private fun actionOnNumber(action: (String) -> Unit) {
-        val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+    private fun actionOnNumber(phoneNumber: String, action: (String) -> Unit) {
         if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
         else showToast(ResourceR.string.error_mobile_no_not_found)
     }
-
-//    private fun actionOnDoctorNumber(action: (String) -> Unit) {
-//        val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
-//        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
-//        else showToast(ResourceR.string.error_mobile_no_not_found)
-//    }
 
     /**
      * Initializes the Activity's options menu.

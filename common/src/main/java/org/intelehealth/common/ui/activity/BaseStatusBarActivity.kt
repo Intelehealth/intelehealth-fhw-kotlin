@@ -40,17 +40,6 @@ open class BaseStatusBarActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Set the status bar color
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                window.insetsController?.setSystemBarsAppearance(
-//                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-//                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-//                )
-//                window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-//            } else {
-//                window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-//            }
-//        }
         val color = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) { // Android 15+
             window.decorView.setOnApplyWindowInsetsListener { view, insets ->
