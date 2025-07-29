@@ -17,3 +17,7 @@ const val KEY_ATTRIBUTE_TYPE_ID = "attributeType"
 const val KEY_IDENTIFIER = "identifiers"
 const val KEY_ENCOUNTER_ROLE = "encounterRole"
 const val KEY_PROVIDER = "provider"
+//notification
+const val KEY_USERID = "userId"
+const val KEY_PAGE = "page"
+const val KEY_SIZE = "size"

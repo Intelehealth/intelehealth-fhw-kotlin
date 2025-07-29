@@ -9,6 +9,7 @@ import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.network.model.request.PushRequest
 import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
+import org.intelehealth.data.network.model.response.NotificationResponse
 import org.intelehealth.data.network.model.response.PersonAttributes
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
@@ -227,6 +228,12 @@ interface RestClient {
         @Body value: HashMap<String, String>
     ): Response<PersonAttributes>
 //
+
+    @GET("/api/mindmap/notifications")
+    suspend fun fetchAllNotifications(@Header("Authorization") authHeader: String,@Body value: HashMap<String, String>): Response<NotificationResponse>
+
+
+
 //    @POST
 //    suspend fun uploadPersonProfilePicture(
 //        @Url url: String, @Header("Authorization") authHeader: String, @Body patientProfile: PatientProfile

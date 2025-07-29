@@ -79,6 +79,9 @@
         <activity
             android:name=".ui.patient.activity.FindPatientActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.notification.activity.NotificationActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

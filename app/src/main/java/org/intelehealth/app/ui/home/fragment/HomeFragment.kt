@@ -1,11 +1,13 @@
 package org.intelehealth.app.ui.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.viewModels
@@ -19,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentHomeBinding
 import org.intelehealth.app.ui.home.viewmodel.HomeViewModel
+import org.intelehealth.app.ui.notification.activity.NotificationActivity
 import org.intelehealth.common.ui.fragment.MenuFragment
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 
@@ -68,7 +71,8 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.cardHomeAddPatient.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
+            startActivity(Intent(requireActivity(),NotificationActivity::class.java))
+//            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
 
         binding.btnFindPatient.setOnClickListener { navigateToFindPatient(it) }
@@ -136,6 +140,15 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return true
+
+        return when (menuItem.itemId) {
+            R.id.action_notification -> {
+                startActivity(Intent(requireActivity(),NotificationActivity::class.java))
+                true
+            }
+
+            else ->  false
+        }
+//        return true
     }
 }

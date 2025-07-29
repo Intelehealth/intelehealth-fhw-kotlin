@@ -3,6 +3,7 @@ package org.intelehealth.app.ui.patient.fragment
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem

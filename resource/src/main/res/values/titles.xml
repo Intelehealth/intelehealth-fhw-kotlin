@@ -30,6 +30,7 @@
     <string name="title_prescriptions">Prescriptions</string>
     <string name="title_visit_details">Visit Details</string>
     <string name="title_prescription_details">Prescription Details</string>
+    <string name="title_notification">Notification</string>
 
     <string name="title_received">Received</string>
     <string name="title_pending">Pending</string>

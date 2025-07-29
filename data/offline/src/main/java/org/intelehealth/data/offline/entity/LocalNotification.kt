@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import org.intelehealth.common.model.ListItemHeaderSection
 
 /**
  * Created by Vaghela Mithun R. on 29-03-2024 - 19:04.
@@ -22,4 +23,6 @@ data class LocalNotification(
     @ColumnInfo("obs_server_modified_date") @SerializedName("obs_server_modified_date")
     var obsServerModifiedDate: String? = null,
     @ColumnInfo("isdeleted") @SerializedName("isdeleted") var deleted: Boolean = false,
-) : Parcelable
+) : Parcelable,ListItemHeaderSection{
+    override fun isHeader(): Boolean = false
+}

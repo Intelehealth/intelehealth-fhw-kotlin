@@ -17,11 +17,12 @@
 
         <action
             android:id="@+id/action_home_to_add_patient"
-            app:destination="@id/nav_add_patient"
+            app:destination="@id/nav_view_notification"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <!--app:destination="@id/nav_add_patient"-->
 
         <action
             android:id="@+id/action_home_to_find_patient"
@@ -100,6 +101,12 @@
         android:name="org.intelehealth.app.ui.patient.activity.FindPatientActivity"
         android:label="@string/hint_find_patient"
         tools:layout="@layout/activity_find_patient" />
+
+    <activity
+        android:id="@+id/nav_view_notification"
+        android:name="org.intelehealth.app.ui.notification.activity.NotificationActivity"
+        android:label="@string/action_notification"
+        tools:layout="@layout/activity_notification" />
 
 
 <!--    <fragment-->

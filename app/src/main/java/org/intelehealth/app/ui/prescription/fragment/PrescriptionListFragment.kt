@@ -2,6 +2,7 @@ package org.intelehealth.app.ui.prescription.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.PopupMenu

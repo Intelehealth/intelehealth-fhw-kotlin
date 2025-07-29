@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_notification_navigation_graph"
+    app:startDestination="@id/fragmentViewNotification">
+
+    <fragment
+        android:id="@+id/fragmentViewNotification"
+        android:name="org.intelehealth.app.ui.notification.fragment.NotificationListFragment"
+        android:label="@string/action_notification"
+        tools:layout="@layout/fragment_notification_list">
+
+    </fragment>
+
+</navigation>
