@@ -115,4 +115,7 @@
     <string name="content_add_icon">Add Icon</string>
     <string name="content_send_prescription">Send prescriptions to the patients</string>
     <string name="join_now">Join Now</string>
+    <string name="content_prescriptions_received">Prescriptions received</string>
+
+
 </resources>

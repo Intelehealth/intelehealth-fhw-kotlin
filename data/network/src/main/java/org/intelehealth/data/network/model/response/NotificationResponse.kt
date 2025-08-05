@@ -2,7 +2,8 @@ package org.intelehealth.data.network.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class NotificationResponse (
+
+/*data class NotificationResponse (
     @SerializedName("total") var total: Int? = null,
     @SerializedName("rows") var rows: ArrayList<NotificationList> = arrayListOf(),
     @SerializedName("totalPages") var totalPages: Int? = null,
@@ -43,4 +44,4 @@ data class Payload(
     @SerializedName("title") var title: String? = null,
     @SerializedName("regTokens") var regTokens: ArrayList<String> = arrayListOf()
 
-)
+)*/

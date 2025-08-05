@@ -25,6 +25,9 @@ import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.CommonConstants
+import org.intelehealth.data.offline.entity.NotificationList
+import org.intelehealth.data.offline.entity.VisitDetail
+import java.util.ArrayList
 import java.util.LinkedList
 
 @AndroidEntryPoint
@@ -32,23 +35,58 @@ class NotificationListFragment() : BaseProgressFragment(R.layout.fragment_notifi
 
     private lateinit var binding: FragmentNotificationListBinding
     private lateinit var adapter: NotificationAdapter
+    private var notificationList = ArrayList<NotificationList>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNotificationListBinding.bind(view)
 
         initNotificationListView()
+        getApidata()
         getNotifidata()
         observePagingData()
+        handleClickEvent()
+
     }
 
+    fun handleClickEvent(){
+        binding.btnClearNotification.setOnClickListener {
+            clearAllNotification()
+        }
+    }
     fun getNotifidata(){
         viewModel.notifications.observe(viewLifecycleOwner, Observer {list ->
             list ?: return@Observer
             viewModel.handleResponse(list) { data ->
+                Log.d("TAG", "getNotifidata: $data")
                 adapter.updateItems(data.toMutableList())
 
             }
+        })
+    }
+
+    fun clearAllNotification(){
+        viewModel.clearAllNotificationDB()
+        viewModel.clearAllNotification().observe(viewLifecycleOwner, Observer {
+            if(it.data != null){
+
+            }
+        })
+    }
+
+    fun deletenotification(id:Int,position: Int){
+        viewModel.deleteNotificationID(id)
+//        notificationList.removeAt(position)
+        adapter.notifyItemRemoved(position)
+    }
+    fun getApidata(){
+        viewModel.fetchAllnotification().observe(viewLifecycleOwner, Observer {
+           if(it.data != null){
+               if(!it.data!!.rows.isEmpty()){
+                   viewModel.insertdata(it.data!!.rows)
+               }
+               binding.notiCountHeader.notiReceivedText.text = "${it.data!!.total} ${getString(org.intelehealth.resource.R.string.content_prescriptions_received)}"
+           }
         })
     }
 
@@ -79,6 +117,11 @@ class NotificationListFragment() : BaseProgressFragment(R.layout.fragment_notifi
         if (view.id == org.intelehealth.common.R.id.btnViewMore) {
             adapter.isLoading = true
             viewModel.loadPage()
+            return
+        }else if(view.id == R.id.cardPatientItem){
+            val item = view.tag as? NotificationList ?: return
+            val itemId = item.id ?: return
+            deletenotification(itemId,position)
             return
         }
     }

@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="notifiCount"
+            type="org.intelehealth.data.offline.entity.NotificationResponse" />
+
+    </data>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/notifiReceivedCardHeader"
         android:layout_width="match_parent"
@@ -48,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text=""
+                android:text="@string/content_send_prescription"
                 android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
                 app:layout_constraintStart_toStartOf="@id/notiReceivedText"
                 app:layout_constraintTop_toBottomOf="@id/notiReceivedText"

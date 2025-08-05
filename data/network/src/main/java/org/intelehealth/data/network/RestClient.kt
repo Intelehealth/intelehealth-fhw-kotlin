@@ -9,13 +9,14 @@ import org.intelehealth.data.network.model.request.OtpRequestParam
 import org.intelehealth.data.network.model.request.PushRequest
 import org.intelehealth.data.network.model.request.UserProfileEditableDetails
 import org.intelehealth.data.network.model.response.LoginResponse
-import org.intelehealth.data.network.model.response.NotificationResponse
 import org.intelehealth.data.network.model.response.PersonAttributes
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.network.model.response.UserResponse
+import org.intelehealth.data.offline.entity.NotificationResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -229,8 +230,16 @@ interface RestClient {
     ): Response<PersonAttributes>
 //
 
-    @GET("/api/mindmap/notifications")
-    suspend fun fetchAllNotifications(@Header("Authorization") authHeader: String,@Body value: HashMap<String, String>): Response<NotificationResponse>
+    @GET
+    suspend fun fetchAllNotifications(@Url url: String = BuildConfig.SERVER_URL + ":3004/api/mindmap/notifications",
+                                      @Header("Authorization") authHeader: String,
+                                      @Query("userId") userId: String,
+                                      @Query("page") page: String,
+                                      @Query("size") size: String,): Response<NotificationResponse>
+
+    @DELETE("/api/mindmap/clearAll/{id}")
+    fun clearALlNotification(@Header("Authorization")  authHeader:String, @Path("id") id:String): Response<ResponseBody>
+
 
 
 

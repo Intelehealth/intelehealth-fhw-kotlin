@@ -14,10 +14,8 @@ class NotificationDataSource @Inject constructor(
 ) : BaseDataSource(networkHelper = networkHelper) {
 
     fun fetchAllnotification(bearerToken: String, userId: String, page: String, size: String) = getResult {
-        restClient.fetchAllNotifications(bearerToken,
-            hashMapOf(
-                KEY_USERID to userId, KEY_PAGE to page, KEY_SIZE to size
-            )
-        )
+        restClient.fetchAllNotifications(authHeader = bearerToken,userId =userId,page= page,size= size)
     }
+
+    fun clearAllnotification(bearerToken: String, userId: String) = getResult { restClient.clearALlNotification(bearerToken,userId) }
 }

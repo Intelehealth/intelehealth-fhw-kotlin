@@ -9,7 +9,7 @@ import org.intelehealth.app.ui.prescription.viewholder.PrescriptionViewHolder
 import org.intelehealth.common.model.ListItemHeaderSection
 import org.intelehealth.common.ui.adapter.CommonHeaderSectionAdapter
 import org.intelehealth.common.ui.adapter.FooterViewMoreAdapter
-import org.intelehealth.data.offline.entity.LocalNotification
+import org.intelehealth.data.offline.entity.NotificationList
 import org.intelehealth.data.offline.entity.VisitDetail
 import java.util.LinkedList
 
@@ -40,11 +40,11 @@ class NotificationAdapter(
      * Sets a click listener on the view holder if one is provided.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) != HEADER && holder is NotificationViewHolder && getItem(position) is LocalNotification) {
+        if (getItemViewType(position) != HEADER && holder is NotificationViewHolder && getItem(position) is NotificationList) {
             // Set click listener from the base adapter or fragment/activity
             viewHolderClickListener?.let { holder.setViewClickListener(it) }
             // Bind data to the ViewHolder
-            holder.bind(getItem(position) as LocalNotification)
+            holder.bind(getItem(position) as NotificationList)
         } else super.onBindViewHolder(holder, position)
     }
 }

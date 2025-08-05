@@ -9,8 +9,19 @@
 
         <variable
             name="notification"
-            type="org.intelehealth.data.offline.entity.LocalNotification" />
+            type="org.intelehealth.data.offline.entity.NotificationList" />
     </data>
+    <!--<com.zerobranch.layout.SwipeLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/std_10dp"
+        app:draggedItem="@id/scroll_relative"
+        app:isEnabledSwipe="true"
+        app:isFreeDragAfterOpen="true"
+        app:rightItem="@id/delete_relative"
+        app:swipeDirection="left">
+    </com.zerobranch.layout.SwipeLayout>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPatientItem"
@@ -43,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="@{notification.description}"
+                android:text="@{notification.title}"
                 android:layout_marginHorizontal="@dimen/std_10dp"
                 android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
                 app:layout_constraintStart_toEndOf="@+id/notiprofileImage"
@@ -57,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="@string/open_prescription"
+                android:text="@{notification.description}"
                 android:textColor="@color/primary_blue"
                 android:padding="@dimen/std_6dp"
                 android:background="@drawable/bg_rounded_corner_color_secondary"

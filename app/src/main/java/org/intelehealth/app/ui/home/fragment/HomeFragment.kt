@@ -142,7 +142,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
 
         return when (menuItem.itemId) {
-            R.id.action_notification -> {
+            R.id.ivNotificationIcon -> {
                 startActivity(Intent(requireActivity(),NotificationActivity::class.java))
                 true
             }

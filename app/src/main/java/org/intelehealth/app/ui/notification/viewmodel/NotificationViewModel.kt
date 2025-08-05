@@ -1,8 +1,10 @@
 package org.intelehealth.app.ui.notification.viewmodel
 
 import android.util.Log
+import android.util.Size
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,8 +23,10 @@ import org.intelehealth.common.state.Result
 import org.intelehealth.common.ui.viewmodel.BaseViewModel
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.common.utility.CommonConstants.LIMIT
+import org.intelehealth.common.utility.CommonConstants.PAGE
+import org.intelehealth.common.utility.CommonConstants.SIZE
 import org.intelehealth.common.utility.NO_DATA_FOUND
-import org.intelehealth.data.offline.entity.LocalNotification
+import org.intelehealth.data.offline.entity.NotificationList
 import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.provider.notification.NotificationRepository
 import org.intelehealth.data.provider.prescription.PrescriptionRepository
@@ -38,8 +42,6 @@ import javax.inject.Inject
 @HiltViewModel
 class NotificationViewModel @Inject constructor( private var notificationRepository: NotificationRepository): BaseViewModel() {
 
-   /* private val _notifications = MutableLiveData<List<LocalNotification>>()
-    val notifications: LiveData<List<LocalNotification>> = _notifications*/
 
     private val _notifications =  MutableLiveData<Result<List<ListItemHeaderSection>>>()
     val notifications: LiveData<Result<List<ListItemHeaderSection>>> = _notifications
@@ -49,51 +51,28 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
 
     var addMoreSectionAdded = false
     private var offset = 0
-   init {
-     /*  loadNotifications()
-       getNotificationList()*/
-       insertdata()
 
+
+    fun fetchAllnotification() =
+        notificationRepository.fetchAllnotification(PAGE,SIZE).asLiveData()
+
+    fun clearAllNotificationDB() = viewModelScope.launch {
+        notificationRepository.clearNotificationDB()
+    }
+    fun deleteNotificationID(id:Int) = viewModelScope.launch {
+        notificationRepository.deleteNotificationID(id)
     }
 
-    /* fun loadNotifications() {
-        viewModelScope.launch {
-            val result = notificationRepository.getAllNotification()
-            _notifications.postValue(result)
-        }
-    }*/
+    fun clearAllNotification() = notificationRepository.clearAllNotification().asLiveData()
 
-    fun insertdata(){
+    fun insertdata(notifications: List<NotificationList>){
         viewModelScope.launch {
-            notificationRepository.insertnotification(getNotificationList())
+            notificationRepository.insertnotification(notifications)
         }
         getNotificationdata(LIMIT,offset)
     }
 
-    fun getNotificationList():List<LocalNotification>{
-        var list = ArrayList<LocalNotification>()
-        var id = 556
-        for(i in 0 until 20){
-            list.add(LocalNotification("${id+i}","Muskan Kala’s prescription has been received!",
-                "","2025-07-19T13:25:41.000Z"))
-        }
-        return list
-    }
-    /*fun getNotificationList()= listOf(LocalNotification("556","Muskan Kala’s prescription has been received!",
-                "","2025-07-19T13:25:41.000Z" ),
-                LocalNotification("557","Muskan Kala’s prescription has been received!",
-                "","2025-07-21T13:25:41.000Z" ),
-                LocalNotification("558","Muskan Kala’s prescription has been received!",
-           "","2025-07-09T13:25:41.000Z" ),
-                LocalNotification("559","Muskan Kala’s prescription has been received!",
-                    "","2025-07-09T13:25:41.000Z" ),
-                LocalNotification("560","Muskan Kala’s prescription has been received!",
-                    "","2025-07-10T13:25:41.000Z" ))*/
-
-
-
-
-    fun splitNotificationsByDate(notifications: List<LocalNotification>): Map<String, List<LocalNotification>> {
+    fun splitNotificationsByDate(notifications: List<NotificationList>): Map<String, List<NotificationList>> {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val today = LocalDate.now()
         val yesterday = today.minusDays(1)
@@ -101,7 +80,7 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
         val startOfMonth = today.withDayOfMonth(1)
 
         val result = mutableMapOf(
-            CommonConstants.TODAY to mutableListOf<LocalNotification>(),
+            CommonConstants.TODAY to mutableListOf<NotificationList>(),
             CommonConstants.YESTERDAY to mutableListOf(),
             CommonConstants.THIS_WEEK to mutableListOf(),
             CommonConstants.THIS_MONTH to mutableListOf(),
@@ -109,7 +88,7 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
         )
 
         for (notification in notifications) {
-            val dateTime = ZonedDateTime.parse(notification.obsServerModifiedDate).toLocalDate()
+            val dateTime = ZonedDateTime.parse(notification.updatedAt).toLocalDate()
 
             when {
                 dateTime.isEqual(today) -> result[CommonConstants.TODAY]?.add(notification)
@@ -123,7 +102,7 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
         return result
     }
 
-    fun getcategorizedData(notifications: List<LocalNotification>): List<ListItemHeaderSection> {
+    fun getcategorizedData(notifications: List<NotificationList>): List<ListItemHeaderSection> {
         val notificationList = LinkedList<ListItemHeaderSection>()
         val grouped = splitNotificationsByDate(notifications)
         val today = grouped[CommonConstants.TODAY]
@@ -157,21 +136,15 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
         if (others!!.isNotEmpty()) {
             notificationList.add(CommonHeaderSection(R.string.lbl_this_other_visits))
             notificationList.addAll(others)
-           /* if (!otherSectionAdded) {
-                otherSectionAdded = true
-            }*/
+
         }
 
-       /* if (!addMoreSectionAdded) {
-            addMoreSectionAdded = true
-            notificationList.add(ListItemFooter())
-        }*/
+
         return notificationList
     }
 
     fun getNotificationdata(limit: Int, offset: Int){
         viewModelScope.launch {
-//            val flow = notificationRepository.getNotificationData()
             val flow = notificationRepository.getNotifiDatawithOffset(limit,offset)
             mapFlowToResultLiveData(flow)
         }
@@ -192,7 +165,7 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
     }
 
     private fun mapFlowToResultLiveData(
-        flow: Flow<List<LocalNotification>>) = viewModelScope.launch {
+        flow: Flow<List<NotificationList>>) = viewModelScope.launch {
         flow.onStart {
             _notifications.postValue(Result.Loading("Please wait..."))
         }.catch { e ->
@@ -207,13 +180,6 @@ class NotificationViewModel @Inject constructor( private var notificationReposit
                 notificationList.addAll(formattedData)
                 if (data.size >= LIMIT) notificationList.addLast(ListItemFooter())
                 _notifications.postValue(Result.Success(notificationList, ""))
-
-                /*val patients = LinkedList<ListItemHeaderSection>()
-                    patients.add(CommonHeaderSection(R.string.lbl_today_visits))
-                    patients.addAll(data)
-                    if (data.size >= LIMIT) patients.addLast(ListItemFooter())
-                    _notifications.postValue(Result.Success(patients, ""))*/
-
                 } else _notifications.postValue(Result.Fail(NO_DATA_FOUND))
 
             }

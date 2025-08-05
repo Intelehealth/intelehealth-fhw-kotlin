@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.intelehealth.common.extensions.appName
 import org.intelehealth.data.offline.dao.AppointmentDao
@@ -28,13 +29,15 @@ import org.intelehealth.data.offline.entity.Appointment
 import org.intelehealth.data.offline.entity.Concept
 import org.intelehealth.data.offline.entity.Encounter
 import org.intelehealth.data.offline.entity.FollowupScheduleNotification
-import org.intelehealth.data.offline.entity.LocalNotification
 import org.intelehealth.data.offline.entity.MediaRecord
+import org.intelehealth.data.offline.entity.NotificationList
+import org.intelehealth.data.offline.entity.NotificationResponse
 import org.intelehealth.data.offline.entity.Observation
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientAttribute
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientLocation
+import org.intelehealth.data.offline.entity.PayloadConverter
 import org.intelehealth.data.offline.entity.Provider
 import org.intelehealth.data.offline.entity.ProviderAttribute
 import org.intelehealth.data.offline.entity.RecentHistory
@@ -53,14 +56,14 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 @Database(
     entities = [
         Appointment::class, Concept::class, Encounter::class, FollowupScheduleNotification::class,
-        LocalNotification::class, MediaRecord::class, Observation::class, Patient::class, PatientAttribute::class,
+        NotificationList::class, MediaRecord::class, Observation::class, Patient::class, PatientAttribute::class,
         PatientAttributeTypeMaster::class, PatientLocation::class, Provider::class, ProviderAttribute::class,
         User::class, UserSession::class, Visit::class, VisitAttribute::class, RecentHistory::class
     ],
     version = 1,
     exportSchema = false
 )
-
+@TypeConverters( PayloadConverter::class)
 abstract class OfflineDatabase : RoomDatabase() {
     abstract fun appointmentDao(): AppointmentDao
     abstract fun conceptDao(): ConceptDao
