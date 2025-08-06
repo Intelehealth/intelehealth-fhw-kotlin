@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.annotation.ArrayRes
 import androidx.annotation.LayoutRes
+import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.R
 
 /**
@@ -46,10 +47,12 @@ class SpinnerItemAdapter<T>(
      */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: View.inflate(context, layoutResId, null)
-        view.id = position
+        view.id = View.generateViewId()
         val item = getItem(position)
         (view as TextView).text = item.toString()
         view.contentDescription = item.toString()
+        Timber.d { "View Id => ${view.id}" }
+        Timber.d { "View contentDescription =>${view.contentDescription}" }
         return view
     }
 

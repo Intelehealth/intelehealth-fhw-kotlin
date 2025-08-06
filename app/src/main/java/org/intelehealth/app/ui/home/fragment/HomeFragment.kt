@@ -5,6 +5,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -48,6 +50,15 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         afsViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) { status ->
             Timber.d { "Active feature status: $status" }
             binding.afConfig = status
+            handleFollowUpCardStartMarginOnVisibilityChange(status.visitSummeryHwFollowUp)
+        }
+    }
+
+    private fun handleFollowUpCardStartMarginOnVisibilityChange(isVisible: Boolean) {
+        val margin = resources.getDimensionPixelSize(org.intelehealth.resource.R.dimen.std_16dp)
+        binding.cardHomeFollowUp.layoutParams.apply {
+            val params = this as ConstraintLayout.LayoutParams
+            params.marginStart = if (isVisible) margin else 0
         }
     }
 

@@ -8,13 +8,18 @@ import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
+import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.FragmentOpenVisitBinding
 import org.intelehealth.app.ui.visit.adapter.OpenVisitAdapter
 import org.intelehealth.app.ui.visit.viewmodel.OpenVisitViewModel
 import org.intelehealth.common.extensions.setupLinearView
+import org.intelehealth.common.extensions.showCommonDialog
+import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
 import org.intelehealth.common.utility.CommonConstants
+import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
+import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.data.offline.entity.VisitDetail
 import java.util.LinkedList
 
@@ -26,8 +31,10 @@ import java.util.LinkedList
 @AndroidEntryPoint
 class OpenVisitFragment : BaseProgressFragment(R.layout.fragment_open_visit), BaseViewHolder.ViewHolderClickListener {
     override val viewModel: OpenVisitViewModel by viewModels()
+    private val afsViewModel: ActiveFeatureStatusViewModel by viewModels()
     private lateinit var binding: FragmentOpenVisitBinding
     private lateinit var adapter: OpenVisitAdapter
+    private lateinit var activeStatus: ActiveFeatureStatus
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,6 +44,13 @@ class OpenVisitFragment : BaseProgressFragment(R.layout.fragment_open_visit), Ba
         observeOpenVisitData()
         observePagingData()
         viewModel.getCurrentMonthOpenVisits()
+        observeActiveFeatureStatus()
+    }
+
+    private fun observeActiveFeatureStatus() {
+        afsViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) {
+            activeStatus = it ?: return@observe
+        }
     }
 
     /**
@@ -132,8 +146,51 @@ class OpenVisitFragment : BaseProgressFragment(R.layout.fragment_open_visit), Ba
             val item = view.tag as? VisitDetail ?: return
             val visitId = item.visitId ?: return
             Timber.d { "VisitId nav => $visitId" }
+            closeVisit(item)
 //            findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitToVisitDetails(visitId))
         }
+    }
+
+    private fun closeVisit(visit: VisitDetail) {
+        if (visit.hasPrescription == true) navigateToUserFeedback(visit.visitId)
+        else if (activeStatus.restrictEndVisit) showWaitForPrescriptionDialog(visit)
+        else showAlertNoPrescriptionDialog(visit)
+    }
+
+    private fun showAlertNoPrescriptionDialog(visit: VisitDetail) {
+        showCommonDialog(
+            DialogParams(
+                icon = ResourceR.drawable.ic_circle_prescription,
+                title = ResourceR.string.action_end_visit,
+                message = ResourceR.string.content_close_visit_without_prescription,
+                positiveLbl = ResourceR.string.action_end_visit,
+                negativeLbl = ResourceR.string.action_cancel,
+                onPositiveClick = { navigateToUserFeedback(visit.visitId) }
+            )
+        )
+    }
+
+    private fun showWaitForPrescriptionDialog(visit: VisitDetail) {
+        showCommonDialog(
+            DialogParams(
+                icon = ResourceR.drawable.ic_circle_prescription,
+                title = ResourceR.string.action_end_visit,
+                message = ResourceR.string.content_prescription_pending
+            )
+        )
+    }
+
+    private fun checkFollowUpBeforeClosingVisit(visit: VisitDetail): Boolean {
+        return false
+    }
+
+    private fun checkIfAnyAppointmentExists(visit: VisitDetail): Boolean {
+        // Logic to check if any appointment exists for the visit
+        return false // Placeholder return value
+    }
+
+    private fun navigateToUserFeedback(visitId: String?) {
+//        findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitToUserFeedback(visitId))
     }
 
     /**

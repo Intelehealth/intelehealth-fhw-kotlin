@@ -72,8 +72,6 @@ class HomeActivity : BaseStatusBarActivity(),
     // AppBarConfiguration for the activity
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val syncViewModel: SyncDataViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -85,11 +83,6 @@ class HomeActivity : BaseStatusBarActivity(),
         observeUser()
         handleBackPressEvent()
         updateDeviceToken()
-
-        syncViewModel.startPushDataWorker()
-        syncViewModel.workerProgress.observe(this) { progress ->
-            if (progress == 100) showToast("Data sync completed successfully.")
-        }
     }
 
     private fun observeActiveFeatureStatus() {

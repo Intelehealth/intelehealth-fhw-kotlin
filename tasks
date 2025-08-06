@@ -8,17 +8,17 @@ Pending
 - Prescription priority filter
 - Reset app button - DONE
 - Notification bell icon
-- Add patient address section
-- Add patient duplicate and empty attributes issue
+- Add patient address section - DONE
+- Add patient duplicate and empty attributes issue - DONE
 - After language change data lost in app - DONE
 - Current selected language - DONE
 - White or secondary button ripple color - DONE
-- Status bar color
+- Status bar color - DONE
 - Visit detail doctor specialty - DONE
 - Drawer menu current selection issue
 - App version name and code - DONE
 - Prescription tab language support - DONE
-- Remove duplicate ic_presc_tablayout
+- Remove duplicate ic_presc_tablayout - DONE
 - Protocol download incorrect percentage
 - Home page appointment card alignment
 

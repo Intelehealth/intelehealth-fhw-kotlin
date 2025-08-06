@@ -29,7 +29,7 @@ object AndroidConfig {
     object IDA {
         const val APPLICATION_ID = "org.intelehealth.app"
         const val VERSION_NAME = "1.0.0"
-        const val VERSION_CODE = 51
+        const val VERSION_CODE = 80
     }
 
     private const val versionMajor = 1

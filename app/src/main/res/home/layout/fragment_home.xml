@@ -26,8 +26,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/colorBG"
-        android:layout_height="match_parent">
+        android:paddingVertical="@dimen/std_16dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFindPatient"
@@ -35,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_16dp"
             android:text="@string/hint_find_patient"
             android:transitionName="@string/find_patient_transition"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,9 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_12dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnFindPatient"
@@ -109,9 +109,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardHomeAddPatient"
@@ -174,9 +174,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardHomePrescription">
@@ -238,16 +238,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:layout_marginEnd="@dimen/std_4dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
             android:visibility="@{afConfig.visitSummeryAppointment ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toStartOf="@+id/cardHomeFollowUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
-            app:strokeColor="@color/colorLightGray"
-            app:strokeWidth="1dp"
             tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -297,19 +295,16 @@
             android:id="@+id/cardHomeFollowUp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_4dp"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
             android:backgroundTint="@color/white"
+            android:layout_marginEnd="@dimen/std_16dp"
             android:visibility="@{afConfig.visitSummeryHwFollowUp ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/cardHomeAppointments"
             app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
-            app:strokeColor="@color/colorLightGray"
-            app:strokeWidth="1dp"
             tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
