@@ -1,7 +1,5 @@
 package org.intelehealth.data.offline.entity
 
-import android.os.Parcelable
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
@@ -9,7 +7,6 @@ import androidx.room.TypeConverters
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
-import kotlinx.parcelize.Parcelize
 import org.intelehealth.common.model.ListItemHeaderSection
 
 /**
