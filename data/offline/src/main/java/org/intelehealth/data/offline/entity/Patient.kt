@@ -9,8 +9,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Entity(tableName = "tbl_patient")
-data class Patient(
-    @ColumnInfo("openmrs_id") @SerializedName("openmrs_id") val openMrsId: String? = null,
+open class Patient(
+    @ColumnInfo("openmrs_id") @SerializedName("openmrs_id") var openMrsId: String? = null,
     @ColumnInfo("first_name") @SerializedName("firstname") var firstName: String? = null,
     @ColumnInfo("middle_name") @SerializedName("middlename") var middleName: String? = null,
     @ColumnInfo("last_name") @SerializedName("lastname") var lastName: String? = null,
@@ -19,14 +19,14 @@ data class Patient(
     @ColumnInfo("creatoruuid") @SerializedName("creatoruuid") var creatorUuid: String? = null,
     @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
     @ColumnInfo("created_at") @SerializedName("dateCreated") override var createdAt: String? = null,
-    @ColumnInfo("abha_number") @SerializedName("abha_number") val abhaNumber: String? = null,
-    @ColumnInfo("abha_address") @SerializedName("abha_address") val abhaAddress: String? = null,
-    @ColumnInfo("profile_version") @SerializedName("profile_version") val profileVersion: Long? = null,
+    @ColumnInfo("abha_number") @SerializedName("abha_number") var abhaNumber: String? = null,
+    @ColumnInfo("abha_address") @SerializedName("abha_address") var abhaAddress: String? = null,
+    @ColumnInfo("profile_version") @SerializedName("profile_version") var profileVersion: Long? = null,
     @ColumnInfo("guardian_name") @SerializedName("guardianName") var guardianName: String? = null,
     @ColumnInfo("guardian_type") @SerializedName("guardianType") var guardianType: String? = null,
     @SerializedName("syncd")
     override var synced: Boolean = false
-) : PersonAddress(), Parcelable {
+) : BaseEntity(), Parcelable {
 
     override fun toString(): String {
         return Gson().toJson(this)

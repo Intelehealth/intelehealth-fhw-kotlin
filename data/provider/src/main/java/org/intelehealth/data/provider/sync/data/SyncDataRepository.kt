@@ -132,9 +132,12 @@ class SyncDataRepository @Inject constructor(
                     DateTimeUtils.USER_DOB_DB_FORMAT,
                 )
                 it.synced = true
+                it.toPatient()
             }.apply {
-                db.patientDao().insert(pullResponse.patients)
+                db.patientDao().insert(this)
             }
+
+            pullResponse.patients.map { it.toAddress() }.apply { db.personAddressDao().insert(this) }
         }
         if (pullResponse.patientAttributeTypeListMaster.isNotEmpty() && pullResponse.pageNo == 1) {
             pullResponse.patientAttributeTypeListMaster.map { it.synced = true }.apply {
@@ -163,6 +166,7 @@ class SyncDataRepository @Inject constructor(
 
     suspend fun pushData() = withContext(Dispatchers.IO) {
         val patients = async { db.patientDao().getAllUnsyncedPatients() }.await()
+        val addresses = async { db.personAddressDao().getAllUnsyncedPatientAddress() }.await()
         val patientAttrs =
             async { db.patientAttrDao().getPatientAttributes(patients.map { it.uuid }) }.await()
         val visits = async { db.visitDao().getAllUnsyncedVisits() }.await()
@@ -180,14 +184,14 @@ class SyncDataRepository @Inject constructor(
 
         val pushRequest = PushRequest(
             patients = mappingPatientsList(patients),
-            persons = getPersonWithAttributes(patients, patientAttrs),
+            persons = getPersonWithAttributes(patients, addresses, patientAttrs),
             visits = getVisitWithAttributes(visits, visitAttrs),
             encounters = getEncounterWithObservation(encounters, observations),
             providers = providers
         )
 
         Timber.d { "Encounter: $pushRequest" }
-//        return@withContext dataSource.pushData(preferenceUtils.basicToken, pushRequest)
+        return@withContext dataSource.pushData(preferenceUtils.basicToken, pushRequest)
     }
 
     private fun getEncounterWithObservation(
@@ -229,7 +233,7 @@ class SyncDataRepository @Inject constructor(
     )
 
     private suspend fun getPersonWithAttributes(
-        patients: List<Patient>, patientAttrs: List<PatientAttribute>
+        patients: List<Patient>, addresses: List<PersonAddress>, patientAttrs: List<PatientAttribute>
     ): List<Person> {
         val personList = mutableListOf<Person>()
         return withContext(Dispatchers.IO) {
@@ -237,7 +241,10 @@ class SyncDataRepository @Inject constructor(
                 getPerson(
                     patient,
                     patientAttrs
-                ).also { personList.add(it) }
+                ).also {
+                    it.addresses = addresses
+                    personList.add(it)
+                }
             }
             return@withContext personList
         }
@@ -248,7 +255,6 @@ class SyncDataRepository @Inject constructor(
         gender = patient.gender,
         uuid = patient.uuid,
         names = getListOfName(patient),
-        addresses = getAddresses(patient),
         attributes = patientAttrs.filter {
             it.patientUuid == patient.uuid
         }.map { mappingPatentAttributes(it.value, it.personAttributeTypeUuid) },
@@ -259,22 +265,6 @@ class SyncDataRepository @Inject constructor(
             familyName = patient.lastName,
             givenName = patient.firstName,
             middleName = patient.middleName,
-        )
-    )
-
-    private fun getAddresses(patient: Patient) = listOf(
-        PersonAddress(
-            address1 = patient.address1,
-            address2 = patient.address2,
-            address3 = patient.address3,
-            address4 = patient.address4,
-            address5 = patient.address5,
-            address6 = patient.address6,
-            cityVillage = patient.cityVillage,
-            district = patient.district,
-            state = patient.state,
-            postalCode = patient.postalCode,
-            country = patient.country
         )
     )
 
@@ -292,5 +282,9 @@ class SyncDataRepository @Inject constructor(
         return hashMapOf(
             KEY_PERSON_ID to person, KEY_IDENTIFIER to identifiers
         )
+    }
+
+    suspend fun updatePatients(patients: List<Patient>) = withContext(Dispatchers.IO) {
+        db.patientDao().updateOpenMrsIds(patients)
     }
 }

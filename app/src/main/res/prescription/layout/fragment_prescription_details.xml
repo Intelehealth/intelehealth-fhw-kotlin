@@ -9,14 +9,13 @@
         <import type="android.view.View" />
 
         <variable
-            name="viewModel"
-            type="org.intelehealth.app.ui.prescription.viewmodel.PrescriptionDetailsViewModel" />
+            name="visitDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
         android:padding="@dimen/std_16dp">
 
         <androidx.core.widget.NestedScrollView
@@ -36,96 +35,101 @@
                 android:layout_height="wrap_content">
 
                 <!-- CHW Info-->
-                <include
-                    android:id="@+id/chwInfoView"
-                    layout="@layout/view_expandable_chw_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPatientInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PatientInfoCardFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout="@layout/fragment_patient_card" />
 
                 <!--Doctor Info-->
-                <include
-                    android:id="@+id/doctorInfoView"
-                    layout="@layout/view_expandable_dr_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvConsultedDoctorInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.ConsultedDoctorProfileFragment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chwInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvPatientInfoCard"
+                    tools:layout="@layout/fragment_consulted_doctor_profile" />
 
                 <!--Diagnosis Info-->
-                <include
-                    android:id="@+id/diagnosisInfoView"
-                    layout="@layout/view_expandable_diagnosis_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvDiagnosisInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.SymptomDiagnosisFragment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/doctorInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvConsultedDoctorInfoCard"
+                    tools:layout="@layout/fragment_symptoms_diagnosis" />
 
                 <!--Prescribed Medication Info-->
-                <include
-                    android:id="@+id/prescribedMedicationInfoView"
-                    layout="@layout/view_expandable_medication_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPrescribedMedicationInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PrescribedMedicationFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/diagnosisInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvDiagnosisInfoCard"
+                    tools:layout="@layout/fragment_prescribed_medication" />
 
 
                 <!--Advice Info-->
-                <include
-                    android:id="@+id/adviceInfoView"
-                    layout="@layout/view_expandable_advice_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvAdviceInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.DoctorAdviceFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/prescribedMedicationInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvPrescribedMedicationInfoCard"
+                    tools:layout="@layout/fragment_doctor_advice" />
 
                 <!--Test Info-->
-                <include
-                    android:id="@+id/testInfoView"
-                    layout="@layout/view_expandable_test_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvTestInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.RecommendTestFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/adviceInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvAdviceInfoCard"
+                    tools:layout="@layout/fragment_recommend_test" />
 
                 <!--Referred Sp Info-->
-                <include
-                    android:id="@+id/referredSpInfoView"
-                    layout="@layout/view_expandable_referred_sp_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvReferredSpecialityInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.ReferredSpecialityFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_16dp"
+                    android:layout_marginTop="@dimen/std_8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/testInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvTestInfoCard"
+                    tools:layout="@layout/fragment_referred_speciality" />
 
                 <!--Follow Up Info-->
-                <include
-                    android:id="@+id/followUpInfoView"
-                    layout="@layout/view_expandable_follow_up_info"
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPatientFollowUpInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PatientFollowUpInfoFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/std_8dp"
-                    android:layout_marginTop="@dimen/std_16dp"
-                    android:layout_marginEnd="@dimen/std_8dp"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:visibility="@{visitDetail.hasFollowup() ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/referredSpInfoView" />
+                    app:layout_constraintTop_toBottomOf="@+id/fcvReferredSpecialityInfoCard"
+                    tools:layout="@layout/fragment_patient_follow_up_info" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -161,14 +165,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include
-            layout="@layout/view_options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="top|end"
-            android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"
-            tools:visibility="visible" />
+        <!--        <include-->
+        <!--            layout="@layout/view_options"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_gravity="top|end"-->
+        <!--            android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"-->
+        <!--            tools:visibility="visible" />-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

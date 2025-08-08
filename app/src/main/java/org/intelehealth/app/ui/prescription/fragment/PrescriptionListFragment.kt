@@ -68,7 +68,6 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      *
      * Initializes the ViewModel and sets up the toolbar title.
      *
-     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
      */
     private lateinit var filterPopupMenu: PopupMenu
 
@@ -123,7 +122,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
     private fun handleClickEvents() {
         binding.noPatientFoundBlock.btnAddNewPatient.setOnClickListener {
             findNavController().navigate(
-                PrescriptionFragmentDirections.actionNavPrescriptionToAddPatient()
+                PrescriptionFragmentDirections.actionNavPrescriptionToAddPatient(null)
             )
         }
 
@@ -140,7 +139,7 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      * The RecyclerView is set up with a linear layout manager.
      */
     private fun initPrescriptionListView() {
-        adapter = PrescriptionAdapter(requireActivity(), LinkedList())
+        adapter = PrescriptionAdapter(requireContext(), LinkedList())
         adapter.viewHolderClickListener = this
         binding.rvPrescriptionList.setupLinearView(adapter, false)
     }
@@ -228,6 +227,12 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
             val visitId = item.visitId ?: return
             Timber.d { "VisitId nav => $visitId" }
             findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
+        } else if (view.id == R.id.btnSharePrescription) {
+            Timber.d { "clicked position => $position" }
+            val item = view.tag as? VisitDetail ?: return
+            val visitId = item.visitId ?: return
+            Timber.d { "VisitId nav => $visitId" }
+//            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
         }
     }
 
@@ -249,7 +254,6 @@ class PrescriptionListFragment : BaseProgressFragment(R.layout.fragment_prescrip
      *
      * Hides the data state group and shows the "no patient found" block when an error occurs.
      *
-     * @param reason The error message, which can be logged or displayed to the user.
      */
     override fun onQueryTextSubmit(query: String?): Boolean {
         binding.searchView.prescriptionSearchView.clearFocus() // Clear focus after submitting the query

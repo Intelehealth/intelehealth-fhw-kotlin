@@ -1,21 +1,16 @@
 package org.intelehealth.app.ui.patient.fragment
 
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
+import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.core.view.setMargins
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +18,7 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientListBinding
 import org.intelehealth.app.ui.patient.adapter.PatientAdapter
 import org.intelehealth.app.ui.patient.viewmodel.FindPatientViewModel
-import org.intelehealth.common.extensions.changeToWhiteOverlayTheme
+import org.intelehealth.common.extensions.removeExtraSpace
 import org.intelehealth.common.extensions.setSpaceItemDecoration
 import org.intelehealth.common.extensions.setupHorizontalLinearView
 import org.intelehealth.common.extensions.setupLinearView
@@ -127,7 +122,7 @@ class FindPatientFragment : StateFragment(
         menuInflater.inflate(R.menu.menu_search, menu)
         (menu.findItem(R.id.action_search).actionView)?.let {
             searchView = it.findViewById(R.id.menu_item_search)
-            searchView.changeToWhiteOverlayTheme()
+            searchView.removeExtraSpace()
             searchView.setOnQueryTextListener(this)
         }
     }
@@ -138,28 +133,45 @@ class FindPatientFragment : StateFragment(
 
     override fun onViewHolderViewClicked(view: View?, position: Int) {
         view ?: return
-        if (view.id == org.intelehealth.common.R.id.btnViewMore) {
-            // Handle view more button click if needed
-            adapter.isLoading = true
-            viewModel.loadPage(searchQuery)
-            return
-        } else if (view.id == R.id.cardPatientItem) {
-            Timber.d { "clicked position => $position" }
-            val item = view.tag as? VisitDetail ?: return
-            val patientId = item.patientId ?: return
-            Timber.d { "VisitId nav => $patientId" }
-//            findNavController().navigate(PrescriptionFragmentDirections.actionNavPrescriptionToVisitDetails(visitId))
-        } else if (view.id == org.intelehealth.common.R.id.chipRecentHistory) {
-            // Handle close button click in recent search history
-            val item = view.tag as? RecentItem ?: return
-            Timber.d { "Close clicked for item: $item" }
-            if (item is RecentHistory) {
-                viewModel.updateRecentSearchHistory(item)
-                searchQuery = item.value
-                searchView.setQuery(searchQuery, false)
-                viewModel.searchPatient(searchQuery)
+        when (view.id) {
+            org.intelehealth.common.R.id.btnViewMore -> {
+                loadMoreData()
+                return
             }
-            return
+
+            R.id.cardPatientItem -> {
+                val item = view.tag as? VisitDetail ?: return
+                moveToPatientDetails(item)
+            }
+
+            org.intelehealth.common.R.id.chipRecentHistory -> {
+                val item = view.tag as? RecentItem ?: return
+                searchRecentTag(item)
+                return
+            }
+        }
+    }
+
+    private fun loadMoreData() {
+        Timber.d { "Loading more data..." }
+        adapter.isLoading = true
+        viewModel.loadPage(searchQuery)
+    }
+
+    private fun moveToPatientDetails(item: VisitDetail) {
+        Timber.d { "Navigating to patient details for item: $item" }
+        val patientId = item.patientId ?: return
+        Timber.d { "VisitId nav => $patientId" }
+        findNavController().navigate(FindPatientFragmentDirections.actionNavFindPatientToDetail(patientId))
+    }
+
+    private fun searchRecentTag(item: RecentItem) {
+        Timber.d { "Search recent tag: $item" }
+        if (item is RecentHistory) {
+            viewModel.updateRecentSearchHistory(item)
+            searchQuery = item.value
+            searchView.setQuery(searchQuery, false)
+            viewModel.searchPatient(searchQuery)
         }
     }
 
@@ -180,6 +192,11 @@ class FindPatientFragment : StateFragment(
         viewModel.clearRecentSearchHistory()
         recentItemAdapter.updateItems(mutableListOf())
         binding.groupRecentSearchList.isVisible = false
+        if (searchView.query.isNotEmpty()) {
+            searchQuery = ""
+            viewModel.searchPatient(searchQuery)
+            searchView.setQuery("", false)
+        }
     }
 
     /**

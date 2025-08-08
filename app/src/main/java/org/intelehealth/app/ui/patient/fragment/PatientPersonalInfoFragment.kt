@@ -36,18 +36,16 @@ import org.intelehealth.common.inputfilter.AlphabetsInputFilter
 import org.intelehealth.common.inputfilter.FirstLetterUpperCaseInputFilter
 import org.intelehealth.common.model.AgePeriod
 import org.intelehealth.common.utility.AgeUtils
-import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.common.utility.DateTimeUtils
-import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.config.presenter.fields.patient.infoconfig.PersonalInfoConfig
 import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
-import org.intelehealth.config.room.entity.ActiveFeatureStatus
 import org.intelehealth.config.utility.PatientInfoGroup
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientOtherInfo
 import java.util.Calendar
 import java.util.Date
 import java.util.TimeZone
+import java.util.UUID
 import org.intelehealth.resource.R as ResourceR
 
 /**
@@ -82,7 +80,14 @@ class PatientPersonalInfoFragment : PatientInfoTabFragment(R.layout.fragment_pat
     }
 
     private fun observePatientPersonalInfo() {
-        val patientId = args.patientId ?: viewModel.patientLiveData.value?.uuid
+        val patientId = args.patientId ?: binding.patient?.uuid
+        patientId?.let { fetchPersonalInfo(it) } ?: run {
+            binding.patient = Patient().apply { uuid = UUID.randomUUID().toString() }
+            fetchPersonalInfoConfig()
+        }
+    }
+
+    private fun fetchPersonalInfo(patientId: String) {
         viewModel.fetchPersonalInfo(patientId).observe(viewLifecycleOwner) {
             it ?: return@observe
             binding.patient = it

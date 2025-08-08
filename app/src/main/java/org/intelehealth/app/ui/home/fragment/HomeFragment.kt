@@ -2,7 +2,6 @@ package org.intelehealth.app.ui.home.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,11 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
+
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.ActivityNavigatorExtras
-import androidx.navigation.NavOptions
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,6 +57,15 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         afsViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) { status ->
             Timber.d { "Active feature status: $status" }
             binding.afConfig = status
+            handleFollowUpCardStartMarginOnVisibilityChange(status.visitSummeryHwFollowUp)
+        }
+    }
+
+    private fun handleFollowUpCardStartMarginOnVisibilityChange(isVisible: Boolean) {
+        val margin = resources.getDimensionPixelSize(org.intelehealth.resource.R.dimen.std_16dp)
+        binding.cardHomeFollowUp.layoutParams.apply {
+            val params = this as ConstraintLayout.LayoutParams
+            params.marginStart = if (isVisible) margin else 0
         }
     }
 
@@ -71,11 +80,13 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.cardHomeAddPatient.setOnClickListener {
-            startActivity(Intent(requireActivity(),NotificationActivity::class.java))
-//            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
+            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient(null))
         }
 
-        binding.btnFindPatient.setOnClickListener { navigateToFindPatient(it) }
+        binding.btnFindPatient.setOnClickListener {
+            navigateToFindPatient(it)
+//            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
+        }
 
         binding.cardHomePrescription.setOnClickListener {
             binding.presCount?.let {
@@ -86,12 +97,8 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
 
     private fun navigateToFindPatient(view: View) {
         HomeFragmentDirections.actionHomeToFindPatient().also { direction ->
-            ActivityOptionsCompat.makeSceneTransitionAnimation(
-                requireActivity(), view, view.transitionName
-            ).apply {
-                ActivityNavigatorExtras(this).also {
-                    findNavController().navigate(direction, it)
-                }
+            FragmentNavigatorExtras(view to view.transitionName).also {
+                findNavController().navigate(direction, it)
             }
         }
     }

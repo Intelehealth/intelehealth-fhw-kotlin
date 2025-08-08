@@ -105,9 +105,11 @@ class DownloadProtocolsWorker @AssistedInject constructor(
         val buffer = ByteArray(1024)
         val zis = ZipInputStream(inputStream)
         var zipEntry: ZipEntry? = zis.nextEntry
+
         var totalRead = 0L
         while (zipEntry != null) {
             val newFile = File(outputDir, zipEntry.name)
+            Timber.d { "zipEntry size => ${zipEntry?.compressedSize}" }
             if (zipEntry.isDirectory) {
                 newFile.mkdirs()
             } else {
@@ -125,6 +127,7 @@ class DownloadProtocolsWorker @AssistedInject constructor(
             Timber.d { "Progress: $progress" }
             Timber.d { "Total Read: $totalRead" }
             Timber.d { "Content Length: $contentLength" }
+            Timber.d { "zipEntry size => ${zipEntry.compressedSize}" }
             setProgress(workDataOf(WORK_PROGRESS to progress))
         }
         zis.closeEntry()

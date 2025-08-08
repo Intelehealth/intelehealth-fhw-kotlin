@@ -103,11 +103,7 @@
 
     <style name="Theme.IDA.SearchView.Transparent" parent="Theme.IDA.SearchView">
         <item name="android:background">@drawable/bg_search_view_white_overlay</item>
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/colorTextPrimary</item>
         <item name="queryHint">@string/hint_find_patient</item>
-        <item name="cursorColor">@color/white</item>
-        <item name="iconTint">@color/white</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="showDividers">none</item>
     </style>
 </resources>

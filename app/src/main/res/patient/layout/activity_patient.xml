@@ -5,7 +5,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:background="@color/colorBG">
 
         <include
             android:id="@+id/appBarLayout"
@@ -14,12 +14,18 @@
             android:layout_height="wrap_content" />
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/navGraphFindPatient"
+            android:id="@+id/navGraphPatient"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:defaultNavHost="true"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:navGraph="@navigation/find_patient_navigation_graph" />
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        <ProgressBar
+            android:id="@+id/progressStartDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -18,6 +18,8 @@ class PrescriptionViewHolder(private val binding: PrescriptionListItemBinding) :
         binding.prescription = visitDetail
         binding.cardPatientItem.tag = visitDetail
         binding.cardPatientItem.setOnClickListener(this)
+        binding.btnSharePrescription.tag = visitDetail
+        binding.btnSharePrescription.setOnClickListener(this)
         binding.executePendingBindings()
     }
 }

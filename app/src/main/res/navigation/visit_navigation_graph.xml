@@ -25,7 +25,7 @@
 
         <action
             android:id="@+id/action_visit_detail_to_patient_detail"
-            app:destination="@id/fragmentPatientDetail"
+            app:destination="@id/patientDetailActivity"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -36,16 +36,20 @@
         android:id="@+id/prescriptionDetailsFragment"
         android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionDetailsFragment"
         android:label="@string/title_prescription_details"
-        tools:layout="@layout/fragment_prescription_details" />
-
-    <fragment
-        android:id="@+id/fragmentPatientDetail"
-        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
-        android:label="@string/title_patient_detail"
-        tools:layout="@layout/fragment_patient_detail">
-
+        tools:layout="@layout/fragment_prescription_details">
         <argument
-            android:name="patientId"
+            android:name="visitId"
             app:argType="string" />
     </fragment>
+
+    <activity
+        android:id="@+id/patientDetailActivity"
+        android:name="org.intelehealth.app.ui.patient.activity.PatientActivity"
+        android:label="@string/action_add_patient"
+        tools:layout="@layout/activity_patient">
+        <argument
+            android:name="patientId"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 </navigation>

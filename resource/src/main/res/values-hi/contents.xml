@@ -110,6 +110,10 @@
     <string name="content_pres_received">प्रिस्क्रिप्शन प्राप्त हुआ</string>
     <string name="content_pres_pending">प्रिस्क्रिप्शन लंबित</string>
     <string name="content_no_search_patient_found">खोज करने के लिए सही उपयोगकर्ता नाम या आईडी का उपयोग करें या आप एक नया रोगी पंजीकृत कर सकते हैं।</string>
+    <string name="content_prescription_pending_from_dr">डॉक्टर ने प्रिस्क्रिप्शन नहीं दिया है। कृपया मुलाक़ात समाप्त करने के लिए प्रिस्क्रिप्शन का इंतज़ार करें।</string>
+    <string name="content_close_visit_without_prescription">विजि़ट बंद करने से पहले प्रिस्क्रिप्शन साझा किया जाना चाहिए, क्या आप वाकई विजि़ट बंद करना चाहते हैं?</string>
+    <string name="content_follow_up_reminder">कृपया मरीज़ को उनकी फ़ॉलो-अप तिथि याद दिलाएँ: </string>
+    <string name="content_visit_upload_reminder">विज़िटिंग समाप्त करने का प्रयास करने से पहले कृपया अपलोड करें।</string>
 
     //content description
     <string name="content_search_icon">खोज आइकन</string>

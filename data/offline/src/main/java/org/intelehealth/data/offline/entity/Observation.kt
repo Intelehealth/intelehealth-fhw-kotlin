@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -23,4 +24,7 @@ data class Observation(
     @ColumnInfo("updated_at") @SerializedName("modified_date") override var updatedAt: String? = null,
     @ColumnInfo("created_at") @SerializedName("created_date") override var createdAt: String? = null,
     @ColumnInfo("concept_set_uuid") @SerializedName("conceptsetuuid") var conceptSetUuid: String? = null,
-) : BaseEntity(), Parcelable
+) : BaseEntity(), Parcelable{
+
+    override fun toString(): String = Gson().toJson(this)
+}

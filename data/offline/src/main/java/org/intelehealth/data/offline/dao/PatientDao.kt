@@ -3,11 +3,13 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
+import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.flow.Flow
 import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
-import org.intelehealth.data.offline.entity.PersonAddress
+import org.intelehealth.data.offline.entity.PatientWithAge
 import org.intelehealth.data.offline.entity.VisitDetail
 import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
 
@@ -18,8 +20,8 @@ import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
  **/
 @Dao
 interface PatientDao : CoreDao<Patient> {
-    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS} FROM tbl_patient WHERE uuid = :uuid")
-    suspend fun getPatientByUuid(uuid: String): Patient
+    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS}, ${VisitDetail.PATIENT_AGE} FROM tbl_patient WHERE uuid = :uuid")
+    fun getPatientByUuid(uuid: String): LiveData<PatientWithAge>
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
     fun getPatientByOpenMrsId(openMrsId: String): LiveData<Patient>
@@ -30,7 +32,7 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE creatoruuid = :creatorId")
     fun getPatientByCreatorId(creatorId: String): LiveData<List<Patient>>
 
-    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId WHERE uuid = :uuid")
+    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId, synced = 1 WHERE uuid = :uuid")
     suspend fun updateOpenMrsId(uuid: String, openMrsId: String)
 
     @Query("UPDATE tbl_patient SET first_name = :firstName WHERE uuid = :uuid")
@@ -64,39 +66,6 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE synced = :synced AND voided = 0")
     suspend fun getAllUnsyncedPatients(synced: Boolean = false): List<Patient>
 
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    fun getLivePatientAddressByUuid(patientId: String): LiveData<PersonAddress>
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    suspend fun getPatientAddressByPatientId(patientId: String): PersonAddress
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE synced = 0 AND voided = 0")
-    fun getAllUnsyncedPatientAddress(): List<PersonAddress>
-
-    @Query(
-        "UPDATE tbl_patient SET address1 = :address1, address2 = :address2, address3 = :address3, " +
-                " address4 = :address4, address5 = :address5, address6 = :address6, city_village = :cityVillage, " +
-                " district = :district, state = :state, country = :country, postal_code = :postalCode, " +
-                " addressOfHf = :addressOfHf WHERE uuid = :uuid"
-    )
-//    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    suspend fun updatePatientAddress(
-        uuid: String,
-        address1: String?,
-        address2: String?,
-        address3: String?,
-        address4: String?,
-        address5: String?,
-        address6: String?,
-        cityVillage: String?,
-        district: String?,
-        state: String?,
-        postalCode: String?,
-        country: String?,
-        addressOfHf: String?
-    ): Int
-
-
     @Query(
         "SELECT P.uuid as  patientId,  P.gender, (P.first_name || ' ' || P.last_name ) full_name, " +
                 "${VisitDetail.PATIENT_AGE}, P.openmrs_id,  PA.value as patient_created_at, " +
@@ -121,4 +90,12 @@ interface PatientDao : CoreDao<Patient> {
         searchQuery: String,
         offset: Int
     ): Flow<List<VisitDetail>>
+
+    @Transaction
+    suspend fun updateOpenMrsIds(users: List<Patient>) {
+        users.forEach {
+            Timber.d { "uuid => ${it.uuid} OpenMrsId => ${it.openMrsId}" }
+            updateOpenMrsId(it.uuid, it.openMrsId ?: "")
+        }
+    }
 }

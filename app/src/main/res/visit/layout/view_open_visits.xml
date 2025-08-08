@@ -65,7 +65,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/noDataFoundTv"
             tools:itemCount="2"
-            tools:listitem="@layout/item_open_visit" />
+            tools:listitem="@layout/list_row_item_open_visit" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -80,7 +80,7 @@
             android:text="@{visitDetail.visitDate}"
             tools:text="@string/lbl_details_date"
             android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_followup_calendar"
+            app:drawableStartCompat="@drawable/ic_calendar"
             app:drawableTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/progressIndicator"

@@ -2,41 +2,35 @@ package org.intelehealth.app.ui.home.activity
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.view.isVisible
-import androidx.core.view.updateLayoutParams
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.behavior.HideViewOnScrollBehavior
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivityHomeBinding
 import org.intelehealth.app.databinding.DrawerHomeNavHeaderBinding
-import org.intelehealth.app.ui.home.fragment.HomeFragmentDirections
 import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
+import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
 import org.intelehealth.common.extensions.appVersion
 import org.intelehealth.common.extensions.clearData
 import org.intelehealth.common.extensions.gotoNextActivity
 import org.intelehealth.common.extensions.imageSpan
-import org.intelehealth.common.extensions.show
 import org.intelehealth.common.extensions.showCommonDialog
+import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.ImageSpanGravity
-import org.intelehealth.common.utility.LocalUtils
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.data.network.model.SetupLocation
-import java.util.Locale
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
 
@@ -195,6 +189,12 @@ class HomeActivity : BaseStatusBarActivity(),
                 true
             }
 
+//            R.id.nav_achievements -> {
+//                navController.navigate(R.id.nav_add_patient, Bundle().apply {
+//                    putBoolean("patientId", )
+//                })
+//                true
+//            }
             else -> false
         }
     }
