@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_24dp"
+            android:contentDescription="@string/content_enter_following_details"
             android:drawablePadding="@dimen/std_8dp"
             android:text="@string/content_enter_following_details"
             app:drawableEndCompat="@drawable/ic_help_info"
@@ -51,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_16dp"
+            android:contentDescription="@string/lbl_location"
             android:text="@string/lbl_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvInstructionDetails" />
@@ -60,6 +62,7 @@
             style="@style/Theme.IDA.OutlineInputBox.DropDown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/content_location_dropdown"
             app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLblLocation">
@@ -81,6 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_16dp"
+            android:contentDescription="@string/lbl_username"
             android:text="@string/lbl_username"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLocation" />
@@ -90,6 +94,7 @@
             style="@style/Theme.IDA.OutlineInputBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/hint_enter_username"
             app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLblUsername">
@@ -109,6 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_8dp"
+            android:contentDescription="@string/action_forgot_username"
             android:gravity="end"
             android:text="@string/action_forgot_username"
             android:visibility="visible"
@@ -121,6 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_16dp"
+            android:contentDescription="@string/lbl_password"
             android:text="@string/lbl_password"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvForgotUsername" />
@@ -130,6 +137,7 @@
             style="@style/Theme.IDA.OutlineInputBox.Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/hint_enter_password"
             app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLblPassword">
@@ -149,6 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_8dp"
+            android:contentDescription="@string/action_forgot_password"
             android:gravity="end"
             android:text="@string/action_forgot_password"
             android:visibility="visible"
@@ -161,6 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/std_64dp"
+            android:contentDescription="@{btnLbl}"
             android:text="@{btnLbl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

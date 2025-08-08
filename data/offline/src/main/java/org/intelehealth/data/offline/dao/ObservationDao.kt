@@ -88,4 +88,15 @@ interface ObservationDao : CoreDao<Observation> {
 
     @Query("SELECT * FROM tbl_obs WHERE encounteruuid IN (:encounterIds) AND synced = 0 AND voided = 0")
     fun getAllUnsyncedObservations(encounterIds: List<String>): List<Observation>
+
+    @Query("SELECT * FROM tbl_obs O " +
+                   "LEFT JOIN tbl_encounter E ON E.uuid = O.encounteruuid " +
+                   "LEFT JOIN tbl_visit V ON V.uuid = E.visituuid " +
+                   "WHERE V.uuid = :visitId AND O.conceptuuid = :conceptId " +
+                   "AND E.encounter_type_uuid = :visitNoteEncounterTypeId AND O.voided = 0")
+    fun getVisitNoteItemDetails(
+        visitId: String,
+        visitNoteEncounterTypeId: String,
+        conceptId: String
+    ): Flow<List<Observation>>
 }

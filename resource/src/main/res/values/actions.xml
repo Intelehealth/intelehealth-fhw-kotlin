@@ -59,4 +59,5 @@
     <string name="action_view_more">View More</string>
     <string name="action_start_followup">Start follow-up</string>
     <string name="action_clear_all">Clear All</string>
+    <string name="action_share_prescription">Share Prescription</string>
 </resources>

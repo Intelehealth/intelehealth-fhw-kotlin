@@ -34,7 +34,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDA"
-        tools:targetApi="34">
+        tools:targetApi="35">
         <!--        <activity-->
         <!--            android:name=".ui.prescription.activity.PrescriptionActivity"-->
         <!--            android:exported="false" />-->
@@ -58,7 +58,7 @@
             android:name=".ui.setting.activity.SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.patient.activity.PatientRegistrationActivity"
+            android:name=".ui.patient.activity.PatientActivity"
             android:exported="true" />
         <activity
             android:name=".ui.user.activity.UserProfileActivity"
@@ -68,9 +68,9 @@
             android:exported="true"
             android:theme="@style/Theme.IDA.Transparent" />
 
-        <activity
-            android:name=".ui.visit.activity.OpenVisitsActivity"
-            android:exported="true" />
+        <!--        <activity-->
+        <!--            android:name=".ui.visit.activity.OpenVisitsActivity"-->
+        <!--            android:exported="true" />-->
 
         <activity
             android:name=".ui.visit.activity.VisitDetailActivity"

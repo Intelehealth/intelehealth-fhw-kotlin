@@ -26,60 +26,37 @@ import java.util.TimeZone
 @Parcelize
 @Entity
 data class VisitDetail(
-    @ColumnInfo("encounterId")
-    var encounterUuid: String? = null,
-    @ColumnInfo("visitId")
-    var visitId: String? = null,
-    @ColumnInfo("patientId")
-    var patientId: String? = null,
-    @ColumnInfo("full_name")
-    var patientFullName: String? = null,
-    @ColumnInfo("openmrs_id")
-    var openmrsId: String? = null,
-    @ColumnInfo("first_name")
-    var firstName: String? = null,
-    @ColumnInfo("middle_name")
-    var middleName: String? = null,
-    @ColumnInfo("last_name")
-    var lastName: String? = null,
-    @ColumnInfo("phone_number")
-    var phoneNumber: String? = null,
+    @ColumnInfo("encounterId") var encounterUuid: String? = null,
+    @ColumnInfo("visitId") var visitId: String? = null,
+    @ColumnInfo("patientId") var patientId: String? = null,
+    @ColumnInfo("full_name") var patientFullName: String? = null,
+    @ColumnInfo("openmrs_id") var openmrsId: String? = null,
+    @ColumnInfo("first_name") var firstName: String? = null,
+    @ColumnInfo("middle_name") var middleName: String? = null,
+    @ColumnInfo("last_name") var lastName: String? = null,
+    @ColumnInfo("phone_number") var phoneNumber: String? = null,
     var gender: String? = null,
-    @ColumnInfo("date_of_birth")
-    var dob: String? = null,
-    @ColumnInfo("age")
-    var age: Int? = 0,
-    @ColumnInfo("patient_created_at")
-    var patientCreatedAt: String? = null,
-    @ColumnInfo("startdate")
-    var visitStartDate: String? = null,
-    @ColumnInfo("dr_speciality")
-    var drSpeciality: String? = null,
-    @ColumnInfo("follow_up")
-    var followupDate: String? = null,
+    @ColumnInfo("date_of_birth") var dob: String? = null,
+    @ColumnInfo("age") var age: Int? = 0,
+    @ColumnInfo("patient_created_at") var patientCreatedAt: String? = null,
+    @ColumnInfo("startdate") var visitStartDate: String? = null,
+    @ColumnInfo("dr_speciality") var drSpeciality: String? = null,
+    @ColumnInfo("follow_up") var followupDate: String? = null,
     var sync: String? = null,
-    @ColumnInfo("priority")
-    var isPriority: Boolean? = false,
+    @ColumnInfo("priority") var isPriority: Boolean? = false,
     var patientPhoto: String? = null,
-    @ColumnInfo("chief_complain")
-    var chiefComplaint: String? = null,
+    @ColumnInfo("chief_complain") var chiefComplaint: String? = null,
     var section: String? = null,
-    @ColumnInfo("prescribed_date")
-    var prescribedDate: String? = null,
-    @ColumnInfo("prescription")
-    var hasPrescription: Boolean? = false,
-    @ColumnInfo("has_visit")
-    var hasVisit: Boolean? = false,
-    @ColumnInfo("completed")
-    var completed: Boolean? = false,
-    @ColumnInfo("doctor_profile")
-    var doctorProfileJson: String? = null,
+    @ColumnInfo("prescribed_date") var prescribedDate: String? = null,
+    @ColumnInfo("prescription") var hasPrescription: Boolean? = false,
+    @ColumnInfo("has_visit") var hasVisit: Boolean? = false,
+    @ColumnInfo("completed") var completed: Boolean? = false,
+    @ColumnInfo("doctor_profile") var doctorProfileJson: String? = null,
+    @Ignore var visitDate: String? = null,
+    @Ignore var visitTime: String? = null,
+    @Ignore var doctorProfile: DoctorProfile? = null,
     @Ignore
-    var visitDate: String? = null,
-    @Ignore
-    var visitTime: String? = null,
-    @Ignore
-    var doctorProfile: DoctorProfile? = null,
+    var screenView: CardScreenType = CardScreenType.VISIT
 ) : ListItemHeaderSection, Parcelable {
 
     override fun toString(): String = Gson().toJson(this)
@@ -88,7 +65,7 @@ data class VisitDetail(
 
     fun hiddenVisitId(): String {
         visitId ?: return ""
-        return "XXXX${visitId?.takeLast(4)}"
+        return "X".repeat(6) + "X${visitId?.takeLast(4)}"
     }
 
     fun separateVisitDateAndTime() {
@@ -132,8 +109,7 @@ data class VisitDetail(
         followupDate ?: return false
         if (followupDate == "No") return false
         val followupTime = DateTimeUtils.parseDate(
-            followupDate,
-            DateTimeUtils.YYYY_MM_DD_HYPHEN, TimeZone.getDefault()
+            followupDate, DateTimeUtils.YYYY_MM_DD_HYPHEN, TimeZone.getDefault()
         )
         return followupTime.before(DateTimeUtils.getCurrentDate(TimeZone.getDefault()))
     }
@@ -177,51 +153,56 @@ data class VisitDetail(
             DateTimeUtils.LAST_SYNC_DB_FORMAT, TimeZone.getDefault(),
         ).apply {
             prescribedDate = DateUtils.getRelativeTimeSpanString(
-                this.time,
-                System.currentTimeMillis(),
-                DateUtils.MINUTE_IN_MILLIS
+                this.time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS
             ).toString()
         }
     }
 
+    fun cardDate(): String? {
+        return if (screenView == CardScreenType.PATIENT) patientCreatedAt
+        else visitStartDate ?: ""
+    }
+
     enum class TabType(val value: String) {
-        RECEIVED("received"),
-        PENDING("pending")
+        RECEIVED("received"), PENDING("pending")
     }
 
     companion object {
         const val CONDITION_CURRENT_MONTH =
-            " V.startdate BETWEEN date('now', 'start of month') AND date('now', 'start of month', '+1 month', '-1 day')"
+            " substr(V.startdate, 1, 10) BETWEEN date('now', 'start of month') AND date('now', 'start of month', '+1 month', '-1 day')"
 
-        const val PATIENT_AGE = "(CASE WHEN (date_of_birth = '' OR date_of_birth IS NULL ) " +
-                "  THEN " +
-                "  (strftime('%Y', 'now') - strftime('%Y', 'now', '-10 years')) - " +
-                "  (strftime('%m-%d', 'now') < strftime('%m-%d',  'now', '-10 years')) " +
-                "  ELSE " +
-                "  (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) - " +
-                "  (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10))) " +
-                "  END) as age "
+        const val PATIENT_AGE =
+            "(CASE WHEN (date_of_birth = '' OR date_of_birth IS NULL ) " + "  THEN " + "  (strftime('%Y', 'now') - strftime('%Y', 'now', '-10 years')) - " + "  (strftime('%m-%d', 'now') < strftime('%m-%d',  'now', '-10 years')) " + "  ELSE " + "  (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) - " + "  (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10))) " + "  END) as age "
 
         const val SEARCHABLE =
-            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " +
-                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable "
+            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name || ' ' || P.openmrs_id " + "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name || ' ' || P.openmrs_id  END) searchable "
 
-        const val COLUMNS =
-            " V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.date_of_birth, P.gender, V.startdate, " +
-                    "$PATIENT_AGE, (P.first_name || ' ' || P.last_name ) full_name, $SEARCHABLE, " +
-                    "(CASE " +
-                    "WHEN substr(V.startdate, 1, 10) = date('now') THEN '$TODAY' " +
+        private const val PATIENT_FULL_NAME = "(P.first_name || ' ' || P.last_name ) full_name "
+
+        private const val DURATION_SECTION_TILL_CURRENT_MONTH =
+            "(CASE WHEN substr(V.startdate, 1, 10) = date('now') THEN '$TODAY' " +
                     "WHEN substr(V.startdate, 1, 10) = date('now', '-1 day') THEN '$YESTERDAY' " +
-                    "WHEN V.startdate BETWEEN date('now', '-7 day') AND date('now', '-2 day') THEN '${THIS_WEEK}' " +
-                    "WHEN $CONDITION_CURRENT_MONTH THEN '${THIS_MONTH}' " +
-                    "ELSE '${OTHER}' " +
-                    "END) AS section, 0 AS priority "
+                    "WHEN substr(V.startdate, 1, 10) BETWEEN date('now', '-7 day') AND date('now', '-2 day') THEN '${THIS_WEEK}' " +
+                    "ELSE '${THIS_MONTH}' END) AS section "
 
+        private const val REQUIRED_COLUMNS =
+            " V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.date_of_birth, P.gender, V.startdate "
 
-//        const val PATIENT_FULL_NAME =
-//            "(CASE WHEN P.middle_name IS NULL THEN P.first_name || ' ' || P.last_name " +
-//                    "ELSE P.first_name || ' ' || P.middle_name || ' ' || P.last_name END) full_name "
+        const val COLUMNS_WITH_CURRENT_MONTH_DURATION = " $REQUIRED_COLUMNS, " +
+                "$PATIENT_AGE, $PATIENT_FULL_NAME, $SEARCHABLE, $DURATION_SECTION_TILL_CURRENT_MONTH, 0 AS priority "
 
-        const val PATIENT_FULL_NAME = "(P.first_name || ' ' || P.last_name ) full_name "
+        private const val OTHER_SECTION_ONLY = "'${OTHER}' AS section "
+
+        const val COLUMN_OTHER_SECTION =
+            "$REQUIRED_COLUMNS, $PATIENT_AGE, $PATIENT_FULL_NAME, $SEARCHABLE, $OTHER_SECTION_ONLY, 0 AS priority "
+
+        const val BELOW_CURRENT_MONTH = " substr(V.startdate, 1, 10) < date('now', 'start of month') "
+
+    }
+
+    enum class CardScreenType(val value: String) {
+        PATIENT("patient"),
+        PRESCRIPTION("prescription"),
+        VISIT("visit")
     }
 }

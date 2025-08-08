@@ -14,8 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -53,7 +52,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="@dimen/std_16dp">
+                        android:paddingHorizontal="@dimen/std_16dp"
+                        android:paddingTop="@dimen/std_16dp">
 
                         <!--Complaint Info View-->
                         <include
@@ -147,6 +147,7 @@
                             style="@style/Theme.IDA.Button.Primary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/std_16dp"
                             android:text="@string/action_end_visit"
                             android:visibility="@{visitDetail.activeEndVisit() ? View.VISIBLE : View.GONE}"
                             app:layout_constraintBottom_toBottomOf="parent"

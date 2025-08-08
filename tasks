@@ -8,19 +8,67 @@ Pending
 - Prescription priority filter
 - Reset app button - DONE
 - Notification bell icon
-- Add patient address section
-- Add patient duplicate and empty attributes issue
+- Add patient address section - DONE
+- Add patient duplicate and empty attributes issue - DONE
 - After language change data lost in app - DONE
 - Current selected language - DONE
 - White or secondary button ripple color - DONE
-- Status bar color
+- Status bar color - DONE
 - Visit detail doctor specialty - DONE
 - Drawer menu current selection issue
 - App version name and code - DONE
 - Prescription tab language support - DONE
-- Remove duplicate ic_presc_tablayout
+- Remove duplicate ic_presc_tablayout - DONE
 - Protocol download incorrect percentage
+- Home page appointment card alignment
 
+
+Work [ id=cb3744b3-04ed-4003-a296-7c00cbeabda5, tags={ org.intelehealth.data.provider.sync.worker.SyncDataWorker } ] failed because it threw an exception/error (Ask Gemini)
+                 java.lang.OutOfMemoryError: Failed to allocate a 16006560 byte allocation with 15467408 free bytes and 14MB until OOM, target footprint 201326592, growth limit 201326592
+                 	at java.lang.StringUTF16.newBytesFor(StringUTF16.java:50)
+                 	at java.lang.AbstractStringBuilder.inflate(AbstractStringBuilder.java:238)
+                 	at java.lang.AbstractStringBuilder.putStringAt(AbstractStringBuilder.java:1691)
+                 	at java.lang.AbstractStringBuilder.append(AbstractStringBuilder.java:549)
+                 	at java.lang.StringBuilder.append(StringBuilder.java:186)
+                 	at org.intelehealth.common.state.StateWorker.handleState(StateWorker.kt:28)
+                 	at org.intelehealth.data.provider.sync.worker.SyncDataWorker$pullData$2.emit(SyncDataWorker.kt:39)
+                 	at org.intelehealth.data.provider.sync.worker.SyncDataWorker$pullData$2.emit(SyncDataWorker.kt:38)
+                 	at kotlinx.coroutines.flow.FlowKt__ErrorsKt$catchImpl$2.emit(Errors.kt:154)
+                 	at kotlinx.coroutines.flow.internal.SafeCollectorKt$emitFun$1.invoke(SafeCollector.kt:11)
+                 	at kotlinx.coroutines.flow.internal.SafeCollectorKt$emitFun$1.invoke(SafeCollector.kt:11)
+                 	at kotlinx.coroutines.flow.internal.SafeCollector.emit(SafeCollector.kt:113)
+                 	at kotlinx.coroutines.flow.internal.SafeCollector.emit(SafeCollector.kt:82)
+                 	at org.intelehealth.common.data.BaseDataSource$getResult$1.invokeSuspend(BaseDataSource.kt:73)
+                 	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+                 	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:101)
+                 	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:113)
+                 	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+                 	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:589)
+                 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:823)
+                 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:720)
+                 	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:707)
+
+
+// Visit details query
+SELECT V.uuid as visitId, V.patientuuid as patientId, P.first_name, P.last_name, P.middle_name, P.gender, (P.first_name || ' ' || P.last_name ) full_name,
+(CASE WHEN (date_of_birth = '' OR date_of_birth IS NULL )   THEN   (strftime('%Y', 'now') - strftime('%Y', 'now', '-10 years')) -   (strftime('%m-%d', 'now') < strftime('%m-%d',  'now', '-10 years'))
+ELSE   (strftime('%Y', 'now') - strftime('%Y', substr(date_of_birth, 1, 10))) -   (strftime('%m-%d', 'now') < strftime('%m-%d', substr(date_of_birth, 1, 10)))   END) as age ,
+P.openmrs_id, P.date_of_birth, PA.value as phone_number, V.startdate, O.value as chief_complain, VA.value as dr_speciality,
+MAX(CASE WHEN E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" THEN 1 ELSE 0 END) prescription,
+MAX(CASE WHEN E.encounter_type_uuid  = "629a9d0b-48eb-405e-953d-a5964c88dc30" THEN 1 ELSE 0 END) completed,
+MAX(CASE WHEN E.encounter_type_uuid  = "ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c" THEN 1 ELSE 0 END) priority,
+MAX(CASE WHEN E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" THEN O.value END) doctor_profile,
+MAX(CASE WHEN (E.encounter_type_uuid  = "bd1fbfaa-f5fb-4ebd-b75c-564506fc309e" OR E.encounter_type_uuid  = "8d5b27bc-c2cc-11de-8d13-0010c6dffd0f") THEN O.server_updated_at END) prescribed_date,
+MAX(CASE WHEN O.conceptuuid = "e8caffd6-5d22-41c4-8d6a-bc31a44d0c86" THEN CASE WHEN O.value != 'No' THEN substr(O.value, 1, 10) ELSE O.value END END ) follow_up
+FROM tbl_visit V
+LEFT OUTER JOIN tbl_encounter E ON E.visituuid = V.uuid
+LEFT OUTER JOIN tbl_obs O ON O.encounteruuid = E.uuid
+LEFT OUTER JOIN tbl_patient P ON P.uuid = V.patientuuid
+LEFT OUTER JOIN tbl_patient_attribute PA ON PA.patient_uuid = P.uuid
+LEFT OUTER JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid AND PAM.name = "Telephone Number"
+LEFT OUTER JOIN tbl_visit_attribute VA ON VA.visit_uuid = V.uuid AND VA.visit_attribute_type_uuid = "3f296939-c6d3-4d2e-b8ca-d7f4bfd42c2d"
+WHERE V.uuid = "43a68f64-38f3-483c-b0f4-cef92b268669"
+AND V.synced = 1 AND V.voided = 0 GROUP BY V.uuid
 
 
 Tanvir code review

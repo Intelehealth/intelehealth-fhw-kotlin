@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="appVersion"
             type="String" />
@@ -16,7 +18,7 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:background="@color/colorBG"
         android:visibility="visible"
         tools:openDrawer="start">
 
@@ -30,10 +32,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@drawable/bg_home_drawer"
-            android:fitsSystemWindows="false"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/drawer_home_nav_header"
             app:itemIconPadding="@dimen/std_16dp"
-            app:itemIconTint="?colorPrimary"
+            app:itemIconTint="@color/colorPrimary"
             app:menu="@menu/menu_drawer">
 
             <androidx.constraintlayout.widget.ConstraintLayout

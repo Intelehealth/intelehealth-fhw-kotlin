@@ -5,21 +5,20 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ajalt.timberkt.Timber
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
-import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.FragmentVisitDetailsBinding
-import org.intelehealth.app.ui.visit.activity.VisitDetailActivityArgs
 import org.intelehealth.app.ui.visit.viewmodel.VisitDetailViewModel
 import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.extensions.startCallIntent
 import org.intelehealth.common.extensions.startWhatsappIntent
 import org.intelehealth.common.ui.fragment.MenuFragment
-import androidx.core.view.get
+import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Tanvir Hasan on 24-04-25
@@ -44,21 +43,23 @@ import androidx.core.view.get
 class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
     private lateinit var binding: FragmentVisitDetailsBinding
     private val viewModel: VisitDetailViewModel by viewModels()
-    private val args: VisitDetailActivityArgs by navArgs()
+    private val args: VisitDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentVisitDetailsBinding.bind(view)
-        setupClickListeners()
         observeVisitDetails()
     }
 
     private fun observeVisitDetails() {
+        Timber.d { "Visit args => ${args.visitId}" }
         viewModel.fetchVisitDetails(args.visitId).observe(viewLifecycleOwner) { result ->
+            result ?: return@observe
             result.separateVisitDateAndTime()
             result.formatPrescribedDate()
             result.extractDoctorProfile()
             binding.visitDetail = result
+            setupClickListeners()
         }
     }
 
@@ -82,8 +83,12 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
             )
         }
 
-        binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
-            findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail())
+        if (binding.visitDetail?.hasPrescription == true) {
+            binding.prescriptionView.clPrescriptionDetails.setOnClickListener {
+                binding.visitDetail?.visitId?.let {
+                    findNavController().navigate(VisitDetailsFragmentDirections.actionVisitDetailToPrescriptionDetail(it))
+                }
+            }
         }
 
         binding.visitSummaryView.clVisitSummery.setOnClickListener {
@@ -91,35 +96,27 @@ class VisitDetailsFragment : MenuFragment(R.layout.fragment_visit_details) {
         }
 
         binding.userInfoView.ivCallButton.setOnClickListener {
-            actionOnNumber { startCallIntent(it) }
+            val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+            actionOnNumber(phoneNumber) { startCallIntent(it) }
         }
 
         binding.userInfoView.ivWhatsappButton.setOnClickListener {
-            actionOnNumber { startWhatsappIntent(it, "hi") }
+            val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
+            actionOnNumber(phoneNumber) { startWhatsappIntent(it, "hi") }
         }
 
         binding.doctorSpecialityView.ivDrCallButton.setOnClickListener {
             val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
-            if (phoneNumber.isNotEmpty()) startCallIntent(phoneNumber)
-            else showToast(ResourceR.string.error_mobile_no_not_found)
+            actionOnNumber(phoneNumber) { startCallIntent(phoneNumber) }
         }
 
         binding.doctorSpecialityView.ivDrWhatsappButton.setOnClickListener {
-            actionOnNumber { startWhatsappIntent(it, "hi") }
             val phoneNumber = binding.visitDetail?.doctorProfile?.whatsapp ?: ""
-            if (phoneNumber.isNotEmpty()) startWhatsappIntent(phoneNumber, "Hello Doctor")
-            else showToast(ResourceR.string.error_mobile_no_not_found)
+            actionOnNumber(phoneNumber) { startWhatsappIntent(it, "Hello Doctor") }
         }
     }
 
-    private fun actionOnNumber(action: (String) -> Unit) {
-        val phoneNumber = binding.visitDetail?.phoneNumber ?: ""
-        if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
-        else showToast(ResourceR.string.error_mobile_no_not_found)
-    }
-
-    private fun actionOnDoctorNumber(action: (String) -> Unit) {
-        val phoneNumber = binding.visitDetail?.doctorProfile?.phoneNumber ?: ""
+    private fun actionOnNumber(phoneNumber: String, action: (String) -> Unit) {
         if (phoneNumber.isNotEmpty()) action.invoke(phoneNumber)
         else showToast(ResourceR.string.error_mobile_no_not_found)
     }

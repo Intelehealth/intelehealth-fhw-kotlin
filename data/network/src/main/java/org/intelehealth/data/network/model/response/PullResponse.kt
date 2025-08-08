@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import org.intelehealth.data.offline.entity.Encounter
 import org.intelehealth.data.offline.entity.Observation
-import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientAttribute
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientLocation
@@ -20,7 +19,7 @@ import org.intelehealth.data.offline.entity.VisitAttribute
  **/
 data class PullResponse(
 
-    @SerializedName("patientlist") @Expose var patients: List<Patient>,
+    @SerializedName("patientlist") @Expose var patients: List<PatientWithAddress>,
 
     @SerializedName("pullexecutedtime") @Expose var pullExecutedTime: String,
 

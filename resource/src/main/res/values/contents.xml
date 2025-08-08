@@ -110,12 +110,18 @@
     <string name="content_pres_received">Prescription received</string>
     <string name="content_pres_pending">Prescription pending</string>
     <string name="content_no_search_patient_found">Use correct Username or ID to search or you can a register new patient.</string>
+    <string name="content_prescription_pending_from_dr">Doctor has not given prescription. Please wait for prescription to end the visit.</string>
+    <string name="content_close_visit_without_prescription">Prescription should be shared before closing visit,are you sure you want to close the visit?</string>
+    <string name="content_follow_up_reminder">Please remind the patient of their follow up date: </string>
+    <string name="content_visit_upload_reminder">Please upload first before attempting to end the visit.</string>
     //content description
     <string name="content_search_icon">Search Icon</string>
     <string name="content_add_icon">Add Icon</string>
+
     <string name="content_send_prescription">Send prescriptions to the patients</string>
     <string name="join_now">Join Now</string>
     <string name="content_prescriptions_received">Prescriptions received</string>
-
+    <string name="content_location_dropdown">Location selection dropdown</string>
+    <string name="content_user_feedback_icon">User Feedback</string>
 
 </resources>
