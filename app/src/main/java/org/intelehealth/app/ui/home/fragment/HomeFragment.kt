@@ -1,12 +1,18 @@
 package org.intelehealth.app.ui.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
+
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -15,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentHomeBinding
 import org.intelehealth.app.ui.home.viewmodel.HomeViewModel
+import org.intelehealth.app.ui.notification.activity.NotificationActivity
 import org.intelehealth.common.ui.fragment.MenuFragment
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 
@@ -140,6 +147,15 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return true
+
+        return when (menuItem.itemId) {
+            R.id.ivNotificationIcon -> {
+                startActivity(Intent(requireActivity(),NotificationActivity::class.java))
+                true
+            }
+
+            else ->  false
+        }
+//        return true
     }
 }

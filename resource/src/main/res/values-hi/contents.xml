@@ -119,5 +119,8 @@
     <string name="content_search_icon">खोज आइकन</string>
     <string name="content_add_icon">आइकन जोड़ें</string>
     <string name="content_follow_up_list_item_priority_tag">फ़ॉलो अप सूची आइटम प्राथमिकता टैग</string>
+    <string name="content_send_prescription">मरीजों को दवाइयाँ भेजें</string>
+    <string name="join_now">अब शामिल हों</string>
 
+    <string name="content_prescriptions_received">नुस्खे प्राप्त हुए</string>
 </resources>

@@ -29,6 +29,7 @@
     <string name="title_received">प्राप्त</string>
     <string name="title_pending">लंबित</string>
     <string name="title_older_visit">पुरानी विज़िट</string>
+    <string name="title_notification">अधिसूचना</string>
 
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>

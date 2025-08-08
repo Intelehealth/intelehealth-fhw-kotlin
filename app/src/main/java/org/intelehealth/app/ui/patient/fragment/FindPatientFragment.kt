@@ -1,6 +1,7 @@
 package org.intelehealth.app.ui.patient.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.transition.TransitionInflater
 import android.view.Menu
 import android.view.MenuInflater

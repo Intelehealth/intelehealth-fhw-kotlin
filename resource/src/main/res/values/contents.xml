@@ -117,6 +117,11 @@
     //content description
     <string name="content_search_icon">Search Icon</string>
     <string name="content_add_icon">Add Icon</string>
+
+    <string name="content_send_prescription">Send prescriptions to the patients</string>
+    <string name="join_now">Join Now</string>
+    <string name="content_prescriptions_received">Prescriptions received</string>
     <string name="content_location_dropdown">Location selection dropdown</string>
     <string name="content_user_feedback_icon">User Feedback</string>
+
 </resources>
