@@ -108,11 +108,11 @@
 
     </fragment>
 
-      <activity
-        android:id="@+id/nav_find_patient"
-        android:name="org.intelehealth.app.ui.patient.activity.FindPatientActivity"
-        android:label="@string/hint_find_patient"
-        tools:layout="@layout/activity_find_patient" />
+<!--      <activity-->
+<!--        android:id="@+id/nav_find_patient"-->
+<!--        android:name="org.intelehealth.app.ui.patient.activity.FindPatientActivity"-->
+<!--        android:label="@string/hint_find_patient"-->
+<!--        tools:layout="@layout/activity_find_patient" />-->
 
     <activity
         android:id="@+id/nav_view_notification"
