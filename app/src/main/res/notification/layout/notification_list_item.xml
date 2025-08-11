@@ -63,20 +63,15 @@
                 tools:text="@string/content_send_prescription" />
 
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
+                style="@style/Theme.IDA.Button.Secondary.Next"
                 android:id="@+id/notification_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/std_36dp"
                 android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/std_8dp"
                 android:text="@{notification.description}"
-                android:textColor="@color/primary_blue"
-                android:padding="@dimen/std_6dp"
-                android:background="@drawable/bg_rounded_corner_color_secondary"
-                android:layout_marginTop="@dimen/std_10dp"
                 android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
-                app:drawableEndCompat="@drawable/ic_notification_arrow_right"
-                app:drawableTint="@color/primary_blue"
-                android:drawablePadding="@dimen/std_4dp"
                 app:layout_constraintStart_toStartOf="@+id/notification_details"
                 app:layout_constraintTop_toBottomOf="@+id/notification_details"
                 tools:text="@string/join_now" />

@@ -132,4 +132,15 @@
         <item name="drawableEndCompat">@drawable/ic_arrow_right_alt</item>
         <item name="drawableTint">@color/colorTextSecondary</item>
     </style>
+
+    <style name="Theme.IDA.Button.Secondary.Next" parent="Theme.IDA.Button.Secondary">
+        <item name="iconGravity">end</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="icon">@drawable/ic_arrow_next</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:backgroundTint">@color/colorPrimaryLightCard</item>
+        <item name="android:maxHeight">@dimen/std_32dp</item>
+        <item name="iconPadding">@dimen/std_16dp</item>
+        <item name="rippleColor">@color/white</item>
+    </style>
 </resources>
