@@ -39,6 +39,8 @@ android {
         jvmTarget = AndroidConfig.JVM_TARGET
     }
     buildFeatures {
+        viewBinding = true
+        dataBinding = true
         buildConfig = true
     }
 

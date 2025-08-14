@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="visitDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/std_16dp">
+
+                <!--User Info View-->
+                <include
+                    android:id="@+id/userInfoView"
+                    layout="@layout/view_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:patientDetail="@{visitDetail}" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/detailsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_16dp"
+                    app:cardCornerRadius="@dimen/std_8dp"
+                    app:cardElevation="@dimen/std_2dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintTop_toBottomOf="@+id/userInfoView">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="@dimen/std_16dp"
+                        android:paddingTop="@dimen/std_16dp">
+
+                        <!--Complaint Info View-->
+                        <include
+                            android:id="@+id/complaintView"
+                            layout="@layout/view_complaint_and_datetime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:visitDetail="@{visitDetail}" />
+
+                        <!-- Divider -->
+                        <View
+                            android:id="@+id/dividerChiefComplaint"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="@dimen/std_16dp"
+                            android:background="@color/colorLightGray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/complaintView" />
+
+                        <!--General Physician View-->
+                        <include
+                            android:id="@+id/doctorSpecialityView"
+                            layout="@layout/view_dr_speciality"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerChiefComplaint"
+                            app:speciality="@{visitDetail}" />
+
+                        <!-- Divider-->
+                        <View
+                            android:id="@+id/dividerDoctorSpeciality"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/std_1dp"
+                            android:background="@color/colorLightGray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/doctorSpecialityView" />
+
+                        <!--Visit Summary View-->
+                        <include
+                            android:id="@+id/visitSummaryView"
+                            layout="@layout/view_visit_summary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerDoctorSpeciality" />
+
+                        <!-- Divider Line -->
+                        <View
+                            android:id="@+id/dividerVisitSummary"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/std_1dp"
+                            android:background="@color/colorLightGray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/visitSummaryView" />
+
+                        <!--Prescription View-->
+                        <include
+                            android:id="@+id/prescriptionView"
+                            layout="@layout/view_prescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerVisitSummary"
+                            app:presDetail="@{visitDetail}" />
+
+                        <!--Follow up view-->
+                        <include
+                            android:id="@+id/followUpView"
+                            layout="@layout/view_follow_up_info_visit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="@{visitDetail.hasFollowup() ? View.VISIBLE : View.GONE}"
+                            app:followUpDetail="@{visitDetail}"
+                            app:layout_constraintTop_toBottomOf="@id/prescriptionView" />
+
+
+                        <View
+                            android:id="@+id/dividerFollowUp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorGreenLightCard"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/followUpView" />
+
+                        <!-- End Visit Button-->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/endVisitBt"
+                            style="@style/Theme.IDA.Button.Primary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/std_16dp"
+                            android:text="@string/action_end_visit"
+                            android:visibility="@{visitDetail.activeEndVisit() ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dividerFollowUp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Past Visit Layout-->
+                <!--                <include-->
+                <!--                    layout="@layout/view_past_visit"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="@dimen/std_16dp"-->
+                <!--                    android:layout_marginTop="@dimen/std_16dp"-->
+                <!--                    android:layout_marginEnd="@dimen/std_16dp"-->
+                <!--                    android:layout_marginBottom="@dimen/std_16dp"-->
+                <!--                    android:paddingBottom="@dimen/std_16dp"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/detailsCard" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!--Call Fab-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:contentDescription="@string/content_chat_fab"
+            android:src="@drawable/ic_video_call"
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white"
+            tools:visibility="visible" />
+
+
+        <!--Char Fab-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:contentDescription="@string/content_chat_fab"
+            android:src="@drawable/ic_chat_new"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

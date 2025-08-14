@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="notification"
+            type="org.intelehealth.data.offline.entity.NotificationList" />
+    </data>
+    <!--<com.zerobranch.layout.SwipeLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/std_10dp"
+        app:draggedItem="@id/scroll_relative"
+        app:isEnabledSwipe="true"
+        app:isFreeDragAfterOpen="true"
+        app:rightItem="@id/delete_relative"
+        app:swipeDirection="left">
+    </com.zerobranch.layout.SwipeLayout>-->
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardPatientItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/std_16dp"
+            android:padding="@dimen/std_16dp">
+
+            <!-- Profile Image Card -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/notiprofileImage"
+                android:layout_width="@dimen/std_40dp"
+                android:layout_height="@dimen/std_40dp"
+                android:contentDescription="@string/lbl_profile_image"
+                android:src="@drawable/ic_notification_profile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+
+            <TextView
+                android:id="@+id/notification_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@{notification.title}"
+                android:layout_marginHorizontal="@dimen/std_10dp"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
+                app:layout_constraintStart_toEndOf="@+id/notiprofileImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/content_send_prescription" />
+
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Theme.IDA.Button.Secondary.Next"
+                android:id="@+id/notification_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/std_36dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/std_8dp"
+                android:text="@{notification.description}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
+                app:layout_constraintStart_toStartOf="@+id/notification_details"
+                app:layout_constraintTop_toBottomOf="@+id/notification_details"
+                tools:text="@string/join_now" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

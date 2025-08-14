@@ -17,7 +17,25 @@
     <string name="title_other_fuel_type">Other fuel type</string>
     <string name="title_other_lighting_source">Other lighting source</string>
     <string name="title_other_water_purification">Other water purification method</string>
+
+    <string name="title_older_visit">Older Visits</string>
+    <string name="title_fu_item" translatable="false">Anthony G</string>
+    <string name="title_name" translatable="false">%1$s %2$s</string>
     <string name="title_patient_detail">Patient Details</string>
+    <string name="title_priority_visits">@string/lbl_priority_visits</string>
+    <string name="title_recent_visit">Recent Visits</string>
+    <string name="title_priority">Priority</string>
+    <string name="title_visit_summary_patient_details">Visit details</string>
+    <string name="title_past_visits">Past Visits</string>
+    <string name="title_prescriptions">Prescriptions</string>
+    <string name="title_visit_details">Visit Details</string>
+    <string name="title_prescription_details">Prescription Details</string>
+    <string name="title_notification">Notification</string>
+
+    <string name="title_received">Received</string>
+    <string name="title_pending">Pending</string>
+
+
     <!--  Dialog Title  -->
     <string name="dialog_title_patient_registered">Patient Registered!</string>
     <string name="dialog_title_exit_app">Exit App</string>

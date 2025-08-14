@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import org.intelehealth.common.extensions.appName
 import org.intelehealth.data.offline.dao.AppointmentDao
@@ -17,8 +18,10 @@ import org.intelehealth.data.offline.dao.PatientAttributeDao
 import org.intelehealth.data.offline.dao.PatientAttributeTypeMasterDao
 import org.intelehealth.data.offline.dao.PatientDao
 import org.intelehealth.data.offline.dao.PatientLocationDao
+import org.intelehealth.data.offline.dao.PersonAddressDao
 import org.intelehealth.data.offline.dao.ProviderAttributeDao
 import org.intelehealth.data.offline.dao.ProviderDao
+import org.intelehealth.data.offline.dao.RecentHistoryDao
 import org.intelehealth.data.offline.dao.UserDao
 import org.intelehealth.data.offline.dao.UserSessionDao
 import org.intelehealth.data.offline.dao.VisitAttributeDao
@@ -27,15 +30,19 @@ import org.intelehealth.data.offline.entity.Appointment
 import org.intelehealth.data.offline.entity.Concept
 import org.intelehealth.data.offline.entity.Encounter
 import org.intelehealth.data.offline.entity.FollowupScheduleNotification
-import org.intelehealth.data.offline.entity.LocalNotification
 import org.intelehealth.data.offline.entity.MediaRecord
+import org.intelehealth.data.offline.entity.NotificationList
+import org.intelehealth.data.offline.entity.NotificationResponse
 import org.intelehealth.data.offline.entity.Observation
 import org.intelehealth.data.offline.entity.Patient
 import org.intelehealth.data.offline.entity.PatientAttribute
 import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
 import org.intelehealth.data.offline.entity.PatientLocation
+import org.intelehealth.data.offline.entity.PayloadConverter
+import org.intelehealth.data.offline.entity.PersonAddress
 import org.intelehealth.data.offline.entity.Provider
 import org.intelehealth.data.offline.entity.ProviderAttribute
+import org.intelehealth.data.offline.entity.RecentHistory
 import org.intelehealth.data.offline.entity.User
 import org.intelehealth.data.offline.entity.UserSession
 import org.intelehealth.data.offline.entity.Visit
@@ -50,15 +57,15 @@ import org.intelehealth.data.offline.entity.VisitAttribute
 
 @Database(
     entities = [
-        Appointment::class,Concept::class, Encounter::class,FollowupScheduleNotification::class,
-        LocalNotification::class,MediaRecord::class,Observation::class,Patient::class,PatientAttribute::class,
-        PatientAttributeTypeMaster::class,PatientLocation::class,Provider::class,ProviderAttribute::class,
-        User::class,UserSession::class,Visit::class,VisitAttribute::class
+        Appointment::class, Concept::class, Encounter::class, FollowupScheduleNotification::class,
+        NotificationList::class, MediaRecord::class, Observation::class, Patient::class, PersonAddress::class, PatientAttribute::class,
+        PatientAttributeTypeMaster::class, PatientLocation::class, Provider::class, ProviderAttribute::class,
+        User::class, UserSession::class, Visit::class, VisitAttribute::class, RecentHistory::class
     ],
     version = 1,
     exportSchema = false
 )
-
+@TypeConverters( PayloadConverter::class)
 abstract class OfflineDatabase : RoomDatabase() {
     abstract fun appointmentDao(): AppointmentDao
     abstract fun conceptDao(): ConceptDao
@@ -76,6 +83,8 @@ abstract class OfflineDatabase : RoomDatabase() {
     abstract fun visitAttributeDao(): VisitAttributeDao
     abstract fun userDao(): UserDao
     abstract fun userSessionDao(): UserSessionDao
+    abstract fun recentHistoryDao(): RecentHistoryDao
+    abstract fun personAddressDao(): PersonAddressDao
 
     companion object {
         private const val DATABASE_NAME = "main.db"
@@ -88,11 +97,6 @@ abstract class OfflineDatabase : RoomDatabase() {
             val databaseName = "${appContext.appName()}.$DATABASE_NAME"
             return Room.databaseBuilder(appContext, OfflineDatabase::class.java, databaseName)
                 .fallbackToDestructiveMigration()   // on migration if no migration scheme is provided than it will perform destructive migration.
-                .addCallback(object : RoomDatabase.Callback() {
-                    override fun onOpen(db: SupportSQLiteDatabase) {
-                        db.enableWriteAheadLogging()
-                    }
-                })
                 .build()
         }
     }

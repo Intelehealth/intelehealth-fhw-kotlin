@@ -49,3 +49,32 @@ select count(patientuuid) created from tbl_patient_attribute where value = "54b0
 and person_attribute_type_uuid = "84f94425-789d-4293-a0d8-9dc01dbb4f07"
 and patientuuid IN (select patientuuid from tbl_patient_attribute where value = "30 January, 2025"
 and person_attribute_type_uuid = "ffc8ebee-f70c-4743-bc3c-2fe4ac843245")
+
+select startdate, substr(REPLACE(startdate, substr(startdate, 1, 3),
+(SELECT CASE substr(startdate, 1, 3)
+WHEN 'Jan' THEN '01' WHEN 'Feb' THEN '02' WHEN 'Mar' THEN '03'
+WHEN 'Apr' THEN '04' WHEN 'May' THEN '05' WHEN 'Jun' THEN '06'
+WHEN 'Jul' THEN '07' WHEN 'Aug' THEN '08' WHEN 'Sep' THEN '09'
+WHEN 'Oct' THEN '10' WHEN 'Nov' THEN '11' WHEN 'Dec' THEN '12'
+END )), 1, 12) as visitDate, date(), strftime('%m %d, %Y', date('now', '-5 day')) as str
+from tbl_visit where uuid in (select visituuid from tbl_encounter where encounter_type_uuid ="bd1fbfaa-f5fb-4ebd-b75c-564506fc309e")
+
+SELECT *,
+ (CASE WHEN date(visitDate) = date(str) THEN "Today" END) as period FROM (select V.uuid as visitId, P.uuid as patientId, P.first_name, P.last_name, P.gender,
+substr(V.startdate, 1, 6) as displayDate, substr(REPLACE(V.startdate, substr(V.startdate, 1, 3),
+(SELECT CASE substr(V.startdate, 1, 3)
+WHEN 'Jan' THEN '01' WHEN 'Feb' THEN '02' WHEN 'Mar' THEN '03'
+WHEN 'Apr' THEN '04' WHEN 'May' THEN '05' WHEN 'Jun' THEN '06'
+WHEN 'Jul' THEN '07' WHEN 'Aug' THEN '08' WHEN 'Sep' THEN '09'
+WHEN 'Oct' THEN '10' WHEN 'Nov' THEN '11' WHEN 'Dec' THEN '12'
+END )), 1, 11) as visitDate, strftime('%m %d, %Y', date('now', '-6 day')) as str, v.startdate
+from tbl_visit V
+LEFT JOIN tbl_patient P ON p.uuid = V.patientuuid
+where V.uuid in (select visituuid from tbl_encounter where encounter_type_uuid ="bd1fbfaa-f5fb-4ebd-b75c-564506fc309e"))
+
+Feb 24, 2025
+SELECT strftime('%Y-%m-%d', substr('05 25 2025', 7, 4) || '-' || substr('05 25 2025', 1, 2) || '-' || trim(substr('05 25 2025', 3, 3))) AS formatted_date,
+substr('01 1 2025', 3, 3) as day,
+substr('01 3 2025', 6, 4) as year,
+LENGTH('01 1 2025') AS string_lengthA,
+LENGTH('01 13 2025') AS string_lengthB;

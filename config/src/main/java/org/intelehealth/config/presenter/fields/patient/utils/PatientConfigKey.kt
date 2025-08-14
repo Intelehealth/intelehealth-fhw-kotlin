@@ -55,6 +55,8 @@ object PatientConfigKey {
     const val CODE_OF_HEALTHY_FACILITY = "o_code_of_the_health_facility"
     const val HEALTH_FACILITY_NAME = "o_health_facility_name"
     const val CODE_OF_DEPARTMENT = "o_code_of_the_department"
+    const val PERSONAL_DATA_CONSENT = "o_data_privacy_policy"
+    const val TELEMEDICINE_CONSENT = "o_telemedicine_consent_policy"
 
     @JvmStatic
     fun buildPatientPersonalInfoConfig(patientRegistrationFields: List<PatientRegistrationFields>): PersonalInfoConfig {
@@ -108,7 +110,7 @@ object PatientConfigKey {
             patientRegistrationFields.forEach {
                 when (it.idKey) {
                     NATIONAL_ID -> nationalId = it
-                    OCCUPATION -> occuptions = it
+                    OCCUPATION -> occuption = it
                     SOCIAL_CATEGORY -> socialCategory = it
                     EDUCATION -> education = it
                     ECONOMIC_CATEGORY -> economicCategory = it
@@ -121,6 +123,8 @@ object PatientConfigKey {
                     CODE_OF_HEALTHY_FACILITY -> codeOfHealthyFacility = it
                     HEALTH_FACILITY_NAME -> healthFacilityName = it
                     CODE_OF_DEPARTMENT -> codeOfDepartment = it
+                    PERSONAL_DATA_CONSENT -> personalDataConsent = it
+                    TELEMEDICINE_CONSENT -> telemedicineConsent = it
                 }
             }
         }

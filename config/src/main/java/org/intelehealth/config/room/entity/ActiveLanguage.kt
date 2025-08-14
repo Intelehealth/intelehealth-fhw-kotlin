@@ -3,6 +3,7 @@ package org.intelehealth.config.room.entity
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -18,8 +19,12 @@ data class ActiveLanguage(
     @SerializedName("en_name")
     val generalName: String,
     @SerializedName("is_default")
-    val isDefault: Boolean,
+    var isDefault: Boolean,
 ) {
     @Ignore
     var selected: Boolean = isDefault
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
 }

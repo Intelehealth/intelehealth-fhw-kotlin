@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_view_all_visits"
+        android:title="@string/lbl_all_visits"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_filter_priority_visits"
+        android:title="@string/title_priority_visits"
+        app:showAsAction="always" />
+</menu>

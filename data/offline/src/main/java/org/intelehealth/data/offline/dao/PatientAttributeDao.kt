@@ -65,5 +65,5 @@ interface PatientAttributeDao : CoreDao<PatientAttribute> {
                 + "LEFT JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid "
                 + "WHERE patient_uuid = :patientId GROUP BY patientId"
     )
-    suspend fun getAllPatientAttrsData(patientId: String): PatientOtherInfo
+    fun getAllPatientAttrsData(patientId: String): LiveData<PatientOtherInfo>
 }

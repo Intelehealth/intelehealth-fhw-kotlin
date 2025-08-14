@@ -3,6 +3,7 @@ package org.intelehealth.data.offline.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -13,7 +14,7 @@ import kotlinx.parcelize.Parcelize
  * Mob   : +919727206702
  **/
 @Parcelize
-@Entity
+@Entity(tableName = "tbl_person_address")
 open class PersonAddress(
     @SerializedName("address1") var address1: String? = null,
     @SerializedName("address2") var address2: String? = null,

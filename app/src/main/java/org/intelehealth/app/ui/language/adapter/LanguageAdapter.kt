@@ -56,6 +56,13 @@ class LanguageAdapter(context: Context, languages: List<ActiveLanguage>) :
         getList().toMutableList()[position] = language
         notifyItemRangeChanged(0, itemCount)
     }
+
+    fun setDefaultLang(lang: String) {
+        getList().forEach { activeLanguage ->
+            activeLanguage.selected = activeLanguage.code == lang
+        }
+        notifyItemRangeChanged(0, itemCount)
+    }
 }
 
 /**

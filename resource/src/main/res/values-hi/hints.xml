@@ -73,4 +73,7 @@
     <string name="hint_enter_occupation">व्यवसाय दर्ज करें</string>
     <string name="hint_enter_emergency_contact_name">आपातकालीन संपर्क नाम दर्ज करें</string>
     <string name="hint_enter_guardian_name">अभिभावक का नाम दर्ज करें</string>
+    <string name="hint_search_pat_txt">सर्च करने के लिए सही यूजरनेम या आईडी का इस्तेमाल करें या आप नया रोगी पंजीकृत कर सकते हैं।</string>
+    <string name="hint_search_patient">Search patient</string>
+
 </resources>

@@ -2,6 +2,9 @@ package org.intelehealth.common.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Parcelable
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.model.DialogParams
+import java.io.Serializable
 
 /**
  * Created by Vaghela Mithun R. on 15-04-2024 - 13:37.
@@ -218,7 +222,19 @@ fun Fragment.requestNeededPermissions(onPermissionsGranted: (() -> Unit)) {
     requireActivity().requestNeededPermissions { onPermissionsGranted() }
 }
 
-
+/**
+ * Changes the app's language to the specified language code.
+ *
+ * This extension function on [Fragment] changes the app's language by calling
+ * the `changeLanguage` function defined on the [android.content.Context]
+ * (assumed to be available through `requireActivity()`). It allows the app to
+ * switch to a different language dynamically, which can be useful for
+ * localization purposes.
+ *
+ * @param language The language code (e.g., "en", "fr", "es") to change the app's
+ *   language to.
+ * @return The updated [Context] after changing the language.
+ */
 fun Fragment.changeLanguage(language: String): Context {
     return requireActivity().changeLanguage(language)
 }
@@ -246,6 +262,13 @@ fun Fragment.startWhatsappIntent(phoneNumber: String, message: String) {
     }
 }
 
+fun Fragment.startCallIntent(phoneNumber: String) {
+    Intent(Intent.ACTION_DIAL).apply {
+        data = "tel:$phoneNumber".toUri()
+        startActivity(this)
+    }
+}
+
 /**
  * Sets the screen title in the app bar based on the current destination's label.
  *
@@ -262,5 +285,33 @@ fun Fragment.applyLabelAsScreenTitle() {
         (requireActivity() as? AppCompatActivity)?.supportActionBar?.title = it
     } ?: run {
         Timber.e { "Screen title not found in the current destination." }
+    }
+}
+
+/**
+ * Retrieves a Serializable extra from the Fragment's arguments.
+ *
+ * This extension function on [Fragment] retrieves a Serializable extra from the
+ * Fragment's arguments. It checks the Android version to use the appropriate
+ * method for retrieving the Serializable type, ensuring compatibility with
+ * newer API levels.
+ *
+ * @param key The key associated with the Serializable extra in the Fragment's arguments.
+ * @param defaultValue The default value to return if the extra is not found or is null.
+ * @return The Serializable extra associated with the provided key, or the default value if not found.
+ */
+inline fun <reified T : Serializable> Fragment.getSerializableExtra(key: String, defaultValue: T): T {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        requireArguments().getSerializable(key, T::class.java) ?: defaultValue
+    } else {
+        requireArguments().getSerializable(key) as? T ?: defaultValue
+    }
+}
+
+inline fun <reified T : Parcelable> Fragment.getParcelableExtra(key: String): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        requireArguments().getParcelable(key, T::class.java)
+    } else {
+        requireArguments().getParcelable(key) as? T
     }
 }

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/patient_navigation_graph"
-    app:startDestination="@id/fragmentPatientConsent"
-    tools:ignore="InvalidNavigation">
+    app:startDestination="@id/fragmentPatientDetail">
 
     <fragment
         android:id="@+id/fragmentPatientConsent"
@@ -142,5 +141,29 @@
         <argument
             android:name="patientId"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_detail_to_personal"
+            app:destination="@id/fragmentPatientPersonalInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_detail_to_address_info"
+            app:destination="@id/fragmentPatientAddressInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_detail_to_other_info"
+            app:destination="@id/fragmentPatientOtherInfo"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>

@@ -3,6 +3,7 @@ package org.intelehealth.common.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import org.intelehealth.common.R
 import org.intelehealth.common.databinding.FragmentCircularProgressbarBinding
 import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
@@ -15,6 +16,16 @@ import org.intelehealth.common.utility.CommonConstants.MAX_PROGRESS
 abstract class CircularProgressFragment : StateFragment(R.layout.fragment_circular_progressbar) {
     private val binding: FragmentCircularProgressbarBinding by lazy {
         FragmentCircularProgressbarBinding.bind(requireView())
+    }
+
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

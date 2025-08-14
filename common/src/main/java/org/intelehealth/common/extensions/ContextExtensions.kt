@@ -1,10 +1,13 @@
 package org.intelehealth.common.extensions
 
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.annotation.ArrayRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -12,12 +15,15 @@ import org.intelehealth.common.databinding.DialogCommonMessageBinding
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.utility.ArrayAdapterUtils
 import org.intelehealth.resource.R
+import java.util.Locale
 
 /**
  * Created by Vaghela Mithun R. on 25-09-2024 - 17:07.
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
+
+const val ENGLISH = "en"
 
 /**
  * Extension function to get the application name from the context.
@@ -120,20 +126,21 @@ fun Context.buildCustomDialog(binding: ViewDataBinding) = MaterialAlertDialogBui
  * @param dialogParams The parameters for the dialog, including title, message, and button labels.
  * @return AlertDialog The created AlertDialog instance.
  */
-fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog = MaterialAlertDialogBuilder(this).apply {
-    setTitle(dialogParams.title)
-    setMessage(dialogParams.message)
-    setPositiveButton(dialogParams.positiveLbl) { dialog, _ ->
-        dialog.dismiss()
-        dialogParams.onPositiveClick.invoke()
-    }
-    if (dialogParams.negativeLbl != 0) {
-        setNegativeButton(dialogParams.negativeLbl) { dialog, _ ->
+fun Context.showOkDialog(dialogParams: DialogParams): AlertDialog =
+    MaterialAlertDialogBuilder(this).apply {
+        setTitle(dialogParams.title)
+        setMessage(dialogParams.message)
+        setPositiveButton(dialogParams.positiveLbl) { dialog, _ ->
             dialog.dismiss()
-            dialogParams.onNegativeClick.invoke()
+            dialogParams.onPositiveClick.invoke()
         }
-    }
-}.show()
+        if (dialogParams.negativeLbl != 0) {
+            setNegativeButton(dialogParams.negativeLbl) { dialog, _ ->
+                dialog.dismiss()
+                dialogParams.onNegativeClick.invoke()
+            }
+        }
+    }.show()
 
 /**
  * Extension function to show a retry dialog when something goes wrong.
@@ -183,3 +190,30 @@ fun Context.getSpinnerArrayAdapter(
 fun <T> Context.getSpinnerItemAdapter(
     list: List<T>
 ) = ArrayAdapterUtils.getSpinnerItemAdapter(this, list)
+
+fun Context.clearData() {
+    val runtime = Runtime.getRuntime()
+    runtime.exec("pm clear ${applicationContext.packageName}")
+}
+
+fun Context.getLocalResource(locale: String = ENGLISH): Resources {
+    val configuration = Configuration(resources.configuration)
+    configuration.setLocale(Locale(locale))
+    return createConfigurationContext(configuration).resources
+}
+
+fun Context.getLocalString(locale: String = ENGLISH, @StringRes resId: Int): String {
+    return getLocalResource(locale).getString(resId)
+}
+
+fun Context.getLocalValueFromArray(
+    dbString: String, @ArrayRes arrayResId: Int
+): String {
+    return if (Locale.getDefault().language == ENGLISH) {
+        dbString
+    } else {
+        val array = resources.getStringArray(arrayResId)
+        val index = getLocalResource(ENGLISH).getStringArray(arrayResId).indexOf(dbString)
+        if (index >= 0) array[index] else ""
+    }
+}

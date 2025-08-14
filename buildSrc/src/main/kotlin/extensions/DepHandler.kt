@@ -76,6 +76,10 @@ fun DependencyHandler.appModuleDeps() {
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
     kapt(Deps.Dagger.hiltWorkerKapt)
+
+    //swipe delete
+    implementation(Deps.SwipeDelete.SwipeLayout)
+
 }
 
 /**
@@ -211,6 +215,8 @@ fun DependencyHandler.featureOnDemandVideoModuleDeps() {
     kapt(Deps.Dagger.hiltAndroidCompiler)
     implementation(Deps.Dagger.hiltWorker)
     kapt(Deps.Dagger.hiltWorkerKapt)
+
+
 }
 
 /**

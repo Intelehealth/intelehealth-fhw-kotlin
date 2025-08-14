@@ -117,7 +117,7 @@ class UserRepository @Inject constructor(
      *
      * @return The user data.
      */
-    suspend fun getUser() = userDao.getUser(preferenceUtils.userId)
+    private suspend fun getUser() = userDao.getUser(preferenceUtils.userId)
 
     /**
      * Retrieves the user's name from the local database.

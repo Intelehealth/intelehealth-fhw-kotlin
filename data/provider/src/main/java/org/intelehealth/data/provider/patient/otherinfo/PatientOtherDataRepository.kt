@@ -167,6 +167,7 @@ class PatientOtherDataRepository @Inject constructor(
         val masterAttributes = otherInfo.patientMasterAttrs
 
         otherInfo.nationalId?.let { nationalId ->
+            if(nationalId.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -177,6 +178,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.providerId?.let { providerId ->
+            if(providerId.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -187,6 +189,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.telephone?.let { telephone ->
+            if(telephone.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -197,6 +200,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.swd?.let { swd ->
+            if(swd.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -207,6 +211,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.economicStatus?.let { economicStatus ->
+            if(economicStatus.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -217,6 +222,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.cast?.let { cast ->
+            if(cast.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -227,6 +233,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.profileImgTimestamp?.let { profileImgTimestamp ->
+            if(profileImgTimestamp.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -237,6 +244,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.householdUuidLinking?.let { householdUuidLinking ->
+            if(householdUuidLinking.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -247,6 +255,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.block?.let { block ->
+            if(block.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -257,6 +266,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.occupation?.let { occupation ->
+            if(occupation.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -267,6 +277,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.education?.let { education ->
+            if(education.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -277,6 +288,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.tmhCaseNumber?.let { tmhCaseNumber ->
+            if(tmhCaseNumber.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -287,6 +299,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.requestId?.let { requestId ->
+            if(requestId.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -297,6 +310,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.relativePhoneNumber?.let { relativePhoneNumber ->
+            if(relativePhoneNumber.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -307,6 +321,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.discipline?.let { discipline ->
+            if(discipline.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -317,6 +332,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.department?.let { department ->
+            if(department.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -327,6 +343,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.inn?.let { inn ->
+            if(inn.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -337,6 +354,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.healthFacilityName?.let { healthFacilityName ->
+            if(healthFacilityName.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -347,6 +365,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.codeOfDepartment?.let { codeOfDepartment ->
+            if(codeOfDepartment.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -357,6 +376,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.emergencyContactName?.let { emergencyContactName ->
+            if(emergencyContactName.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -367,6 +387,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.emergencyContactNumber?.let { emergencyContactNumber ->
+            if(emergencyContactNumber.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -377,6 +398,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.emergencyContactType?.let { emergencyContactType ->
+            if(emergencyContactType.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -387,6 +409,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.createdDate?.let { createdDate ->
+            if(createdDate.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -397,6 +420,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.provinces?.let { provinces ->
+            if(provinces.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -407,6 +431,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.cities?.let { cities ->
+            if(cities.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -417,6 +442,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.registrationAddressOfHf?.let { registrationAddressOfHf ->
+            if(registrationAddressOfHf.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -427,6 +453,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.codeOfHealthFacility?.let { codeOfHealthFacility ->
+            if(codeOfHealthFacility.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,
@@ -437,6 +464,7 @@ class PatientOtherDataRepository @Inject constructor(
         }
 
         otherInfo.reportDateOfPatientCreated?.let { reportDate ->
+            if(reportDate.trim().isEmpty()) return@let
             add(
                 createPatientAttribute(
                     patientUuid = otherInfo.patientId,

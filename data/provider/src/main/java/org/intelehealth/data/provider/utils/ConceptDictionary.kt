@@ -9,7 +9,10 @@ package org.intelehealth.data.provider.utils
 enum class EncounterType(val value: String) {
     VISIT_COMPLETE("bd1fbfaa-f5fb-4ebd-b75c-564506fc309e"),
     PATIENT_EXIT_SURVEY("629a9d0b-48eb-405e-953d-a5964c88dc30"),
-    EMERGENCY("ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c")
+    EMERGENCY("ca5f5dc3-4f0b-4097-9cae-5cf2eb44a09c"),
+    ADULT_INITIAL("8d5b27bc-c2cc-11de-8d13-0010c6dffd0f"),
+    VISIT_NOTES("d7151f82-c1f3-4152-a605-2f9ea7414a79"),
+    VITAL("67a71486-1a54-468f-ac3e-7091a9a79584")
 }
 
 enum class ObsConcept(val value: String) {
@@ -23,7 +26,14 @@ enum class ObsConcept(val value: String) {
 //    BLOOD_GLUCOSE("5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
     FOLLOW_UP("e8caffd6-5d22-41c4-8d6a-bc31a44d0c86"),
     RATING("78284507-fb71-4354-9b34-046ab205e18f"),
-//    COMMENTS("36d207d6-bee7-4b3e-9196-7d053c6eddce"),
+    CURRENT_COMPLAINT("3edb0e09-9135-481e-b8f0-07a26fa9a5ce"),
+
+    //    COMMENTS("36d207d6-bee7-4b3e-9196-7d053c6eddce"),
+    TELEMEDICINE_DIAGNOSIS("537bb20d-d09d-4f88-930b-cc45c7d662df"),
+    JSV_MEDICATIONS("c38c0c50-2fd2-4ae3-b7ba-7dd25adca4ca"),
+    MEDICAL_ADVICE("67a050c1-35e5-451c-a4ab-fff9d57b0db1"),
+    REQUESTED_TESTS("23601d71-50e6-483f-968d-aeef3031346d"),
+    REFERRED_SPECIALIST("605b6f15-8f7a-4c45-b06d-14165f6974be")
 }
 
 enum class PersonAttributeType(val value: String) {
@@ -38,4 +48,8 @@ enum class PersonIdentifier(val value: String) {
 
 enum class ProviderRole(val value: String) {
     NURSE("73bbb069-9781-4afc-a9d1-54b6b2270e04"),
+}
+
+enum class VisitAttributeType(val value: String) {
+    DR_SPECIALITY("3f296939-c6d3-4d2e-b8ca-d7f4bfd42c2d"),
 }

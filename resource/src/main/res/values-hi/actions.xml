@@ -40,6 +40,7 @@
     <string name="action_exit">बाहर निकलें</string>
     <string name="action_sync">सिंक करें</string>
     <string name="action_notification">अधिसूचना</string>
+    <string name="action_more">More</string>
     <string name="action_go_to_website">वेबसाइट पर जाएं</string>
     <string name="action_change_language">भाषा बदलें</string>
     <string name="action_download_protocol">डाउनलोड प्रोटोकॉल</string>
@@ -50,5 +51,12 @@
     <string name="action_choose_from_gallery">गैलरी से चयन करो</string>
     <string name="action_sign_back_in">वापस साइन इन करें</string>
     <string name="action_back">वापस</string>
+    <string name="action_end_visit">विज़िट समाप्त करें</string>
     <string name="action_start_visit">विज़िट शुरू करें</string>
+    <string name="action_print">प्रिंट</string>
+    <string name="action_share">शेयर</string>
+    <string name="action_view_more">अधिक देखें</string>
+    <string name="action_start_followup">अनुवर्ती कार्रवाई शुरू करें</string>
+    <string name="action_clear_all">सभी साफ़ करें</string>
+    <string name="action_share_prescription">प्रिस्क्रिप्शन साझा करें</string>
 </resources>

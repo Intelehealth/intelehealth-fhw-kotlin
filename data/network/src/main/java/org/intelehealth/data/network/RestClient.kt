@@ -13,8 +13,10 @@ import org.intelehealth.data.network.model.response.PersonAttributes
 import org.intelehealth.data.network.model.response.Profile
 import org.intelehealth.data.network.model.response.PullResponse
 import org.intelehealth.data.network.model.response.UserResponse
+import org.intelehealth.data.offline.entity.NotificationResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -227,6 +229,20 @@ interface RestClient {
         @Body value: HashMap<String, String>
     ): Response<PersonAttributes>
 //
+
+    @GET
+    suspend fun fetchAllNotifications(@Url url: String = BuildConfig.SERVER_URL + ":3004/api/mindmap/notifications",
+                                      @Header("Authorization") authHeader: String,
+                                      @Query("userId") userId: String,
+                                      @Query("page") page: String,
+                                      @Query("size") size: String,): Response<NotificationResponse>
+
+    @DELETE("/api/mindmap/clearAll/{id}")
+    fun clearALlNotification(@Header("Authorization")  authHeader:String, @Path("id") id:String): Response<ResponseBody>
+
+
+
+
 //    @POST
 //    suspend fun uploadPersonProfilePicture(
 //        @Url url: String, @Header("Authorization") authHeader: String, @Body patientProfile: PatientProfile

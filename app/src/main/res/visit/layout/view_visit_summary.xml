@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clVisitSummery"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selector_list_item"
+    android:paddingVertical="@dimen/std_16dp">
+
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/iconVisitDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/lbl_visitDetails_text"
+        android:src="@drawable/ic_circle_followup_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Label Text -->
+    <TextView
+        android:id="@+id/visitDetailsText"
+        style="@style/Theme.IDA.TextAppearance.Person.Name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/std_16dp"
+        android:text="@string/lbl_visitDetails_text"
+        app:drawableEndCompat="@drawable/ic_cupertino_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@id/iconVisitDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iconVisitDetails"
+        app:layout_constraintTop_toTopOf="@id/iconVisitDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

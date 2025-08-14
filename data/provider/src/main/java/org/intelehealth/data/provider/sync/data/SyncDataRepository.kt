@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.state.Result
+import org.intelehealth.common.utility.DateTimeUtils
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.data.network.KEY_ATTRIBUTE_TYPE_ID
 import org.intelehealth.data.network.KEY_ENCOUNTER_ROLE
@@ -46,12 +47,19 @@ class SyncDataRepository @Inject constructor(
     private val dataSource: SyncDataSource,
     val preferenceUtils: PreferenceUtils
 ) {
-    fun pullData(pageNo: Int, pageLimit: Int = 50): Flow<Result<BaseResponse<String, PullResponse>>> {
+    fun pullData(
+        pageNo: Int,
+        pageLimit: Int = 50
+    ): Flow<Result<BaseResponse<String, PullResponse>>> {
         val locationStr = preferenceUtils.location
         val location = Gson().fromJson(locationStr, SetupLocation::class.java)
         location?.uuid ?: throw NotFoundException("Location not found")
         return dataSource.pullData(
-            preferenceUtils.basicToken, location.uuid!!, preferenceUtils.lastSyncedTime, pageNo, pageLimit
+            preferenceUtils.basicToken,
+            location.uuid!!,
+            preferenceUtils.lastSyncedTime,
+            pageNo,
+            pageLimit
         )
     }
 
@@ -85,7 +93,16 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun saveVisitData(pullResponse: PullResponse) {
-        if (pullResponse.visitlist.isNotEmpty()) db.visitDao().insert(pullResponse.visitlist)
+        if (pullResponse.visitlist.isNotEmpty()) {
+            pullResponse.visitlist.map {
+                it.startDate = DateTimeUtils.formatDbToDisplay(
+                    it.startDate,
+                    DateTimeUtils.SERVER_FORMAT,
+                    DateTimeUtils.USER_DOB_DB_FORMAT,
+                )
+                db.visitDao().insert(pullResponse.visitlist)
+            }
+        }
         if (pullResponse.visitAttributeList.isNotEmpty()) {
             pullResponse.visitAttributeList.map { it.synced = true }.apply {
                 db.visitAttributeDao().insert(pullResponse.visitAttributeList)
@@ -94,7 +111,8 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun saveEncounterData(pullResponse: PullResponse) {
-        if (pullResponse.encounterlist.isNotEmpty()) db.encounterDao().insert(pullResponse.encounterlist)
+        if (pullResponse.encounterlist.isNotEmpty()) db.encounterDao()
+            .insert(pullResponse.encounterlist)
     }
 
     private suspend fun saveObservationData(pullResponse: PullResponse) {
@@ -106,7 +124,21 @@ class SyncDataRepository @Inject constructor(
     }
 
     private suspend fun savePatientData(pullResponse: PullResponse) {
-        if (pullResponse.patients.isNotEmpty()) db.patientDao().insert(pullResponse.patients)
+        if (pullResponse.patients.isNotEmpty()) {
+            pullResponse.patients.map {
+                it.dateOfBirth = DateTimeUtils.formatDbToDisplay(
+                    it.dateOfBirth,
+                    DateTimeUtils.SERVER_FORMAT,
+                    DateTimeUtils.USER_DOB_DB_FORMAT,
+                )
+                it.synced = true
+                it.toPatient()
+            }.apply {
+                db.patientDao().insert(this)
+            }
+
+            pullResponse.patients.map { it.toAddress() }.apply { db.personAddressDao().insert(this) }
+        }
         if (pullResponse.patientAttributeTypeListMaster.isNotEmpty() && pullResponse.pageNo == 1) {
             pullResponse.patientAttributeTypeListMaster.map { it.synced = true }.apply {
                 db.patientAttrMasterDao().insert(pullResponse.patientAttributeTypeListMaster)
@@ -134,11 +166,15 @@ class SyncDataRepository @Inject constructor(
 
     suspend fun pushData() = withContext(Dispatchers.IO) {
         val patients = async { db.patientDao().getAllUnsyncedPatients() }.await()
-        val patientAttrs = async { db.patientAttrDao().getPatientAttributes(patients.map { it.uuid }) }.await()
+        val addresses = async { db.personAddressDao().getAllUnsyncedPatientAddress() }.await()
+        val patientAttrs =
+            async { db.patientAttrDao().getPatientAttributes(patients.map { it.uuid }) }.await()
         val visits = async { db.visitDao().getAllUnsyncedVisits() }.await()
-        val visitAttrs = async { db.visitAttributeDao().getVisitAttributes(visits.map { it.uuid }) }.await()
+        val visitAttrs =
+            async { db.visitAttributeDao().getVisitAttributes(visits.map { it.uuid }) }.await()
         val encounters = async { db.encounterDao().getAllUnsyncedEncounters() }.await()
-        val normalEncounter = encounters?.filter { it.encounterTypeUuid != EncounterType.EMERGENCY.value }
+        val normalEncounter =
+            encounters?.filter { it.encounterTypeUuid != EncounterType.EMERGENCY.value }
         val observations: List<Observation>? = normalEncounter?.let {
             return@let async {
                 db.observationDao().getAllUnsyncedObservations(it.map { it.uuid })
@@ -148,14 +184,14 @@ class SyncDataRepository @Inject constructor(
 
         val pushRequest = PushRequest(
             patients = mappingPatientsList(patients),
-            persons = getPersonWithAttributes(patients, patientAttrs),
+            persons = getPersonWithAttributes(patients, addresses, patientAttrs),
             visits = getVisitWithAttributes(visits, visitAttrs),
             encounters = getEncounterWithObservation(encounters, observations),
             providers = providers
         )
 
         Timber.d { "Encounter: $pushRequest" }
-//        return@withContext dataSource.pushData(preferenceUtils.basicToken, pushRequest)
+        return@withContext dataSource.pushData(preferenceUtils.basicToken, pushRequest)
     }
 
     private fun getEncounterWithObservation(
@@ -197,11 +233,19 @@ class SyncDataRepository @Inject constructor(
     )
 
     private suspend fun getPersonWithAttributes(
-        patients: List<Patient>, patientAttrs: List<PatientAttribute>
+        patients: List<Patient>, addresses: List<PersonAddress>, patientAttrs: List<PatientAttribute>
     ): List<Person> {
         val personList = mutableListOf<Person>()
         return withContext(Dispatchers.IO) {
-            patients.forEach { patient -> getPerson(patient, patientAttrs).also { personList.add(it) } }
+            patients.forEach { patient ->
+                getPerson(
+                    patient,
+                    patientAttrs
+                ).also {
+                    it.addresses = addresses
+                    personList.add(it)
+                }
+            }
             return@withContext personList
         }
     }
@@ -211,7 +255,6 @@ class SyncDataRepository @Inject constructor(
         gender = patient.gender,
         uuid = patient.uuid,
         names = getListOfName(patient),
-        addresses = getAddresses(patient),
         attributes = patientAttrs.filter {
             it.patientUuid == patient.uuid
         }.map { mappingPatentAttributes(it.value, it.personAttributeTypeUuid) },
@@ -222,22 +265,6 @@ class SyncDataRepository @Inject constructor(
             familyName = patient.lastName,
             givenName = patient.firstName,
             middleName = patient.middleName,
-        )
-    )
-
-    private fun getAddresses(patient: Patient) = listOf(
-        PersonAddress(
-            address1 = patient.address1,
-            address2 = patient.address2,
-            address3 = patient.address3,
-            address4 = patient.address4,
-            address5 = patient.address5,
-            address6 = patient.address6,
-            cityVillage = patient.cityVillage,
-            district = patient.district,
-            state = patient.state,
-            postalCode = patient.postalCode,
-            country = patient.country
         )
     )
 
@@ -255,5 +282,9 @@ class SyncDataRepository @Inject constructor(
         return hashMapOf(
             KEY_PERSON_ID to person, KEY_IDENTIFIER to identifiers
         )
+    }
+
+    suspend fun updatePatients(patients: List<Patient>) = withContext(Dispatchers.IO) {
+        db.patientDao().updateOpenMrsIds(patients)
     }
 }

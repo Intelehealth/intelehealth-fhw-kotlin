@@ -11,18 +11,15 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-
     <uses-permission
         android:name="android.permission.READ_MEDIA_IMAGES"
-        android:minSdkVersion="33" />
-    <!--    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />-->
+        android:minSdkVersion="33" /> <!-- <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" /> -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" /> <!-- added support to lenova tab 2 -->
-
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
@@ -37,8 +34,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDA"
-        tools:targetApi="34">
-
+        tools:targetApi="35">
+        <!--        <activity-->
+        <!--            android:name=".ui.prescription.activity.PrescriptionActivity"-->
+        <!--            android:exported="false" />-->
         <activity
             android:name=".ui.onboarding.activity.OnboardingActivity"
             android:exported="true"
@@ -49,31 +48,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.home.activity.HomeActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.aboutus.activity.AboutUsActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.setting.activity.SettingActivity"
             android:exported="true" />
-
         <activity
-            android:name=".ui.patient.activity.PatientRegistrationActivity"
+            android:name=".ui.patient.activity.PatientActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.user.activity.UserProfileActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.help.activity.YoutubeVideoPlayerActivity"
             android:exported="true"
             android:theme="@style/Theme.IDA.Transparent" />
+
+        <!--        <activity-->
+        <!--            android:name=".ui.visit.activity.OpenVisitsActivity"-->
+        <!--            android:exported="true" />-->
+
+        <activity
+            android:name=".ui.visit.activity.VisitDetailActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.patient.activity.FindPatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification.activity.NotificationActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -84,17 +92,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path_provider" />
         </provider>
-        <!--        <provider-->
-        <!--            android:name="androidx.startup.InitializationProvider"-->
-        <!--            android:authorities="${applicationId}.androidx-startup"-->
-        <!--            android:exported="false"-->
-        <!--            tools:node="merge">-->
-        <!--            &lt;!&ndash; If you are using androidx.startup to initialize other components &ndash;&gt;-->
-        <!--            <meta-data-->
-        <!--                android:name="androidx.work.WorkManagerInitializer"-->
-        <!--                android:value="androidx.startup"-->
-        <!--                tools:node="remove" />-->
-        <!--        </provider>-->
     </application>
 
 </manifest>

@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="presCount"
             type="org.intelehealth.data.offline.entity.PrescriptionStatusCount" />
@@ -16,11 +18,17 @@
         <variable
             name="appointmentCount"
             type="org.intelehealth.data.offline.entity.AppointmentStatusCount" />
+
+        <variable
+            name="afConfig"
+            type="org.intelehealth.config.room.entity.ActiveFeatureStatus" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBG"
+        android:paddingVertical="@dimen/std_16dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFindPatient"
@@ -28,23 +36,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_16dp"
             android:text="@string/hint_find_patient"
+            android:transitionName="@string/find_patient_transition"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardHomeAddPatient"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_12dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnFindPatient">
+            app:layout_constraintTop_toBottomOf="@+id/btnFindPatient"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clHomeAddPatient"
@@ -57,7 +67,7 @@
                     android:id="@+id/ivHomeAddPatientIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/oval_white_overlay_icon_bg"
+                    android:background="@drawable/bg_oval_white_overlay"
                     android:contentDescription="@string/action_add_patient"
                     android:padding="@dimen/std_12dp"
                     android:src="@drawable/ic_unselected_menu_add_patient"
@@ -84,7 +94,7 @@
                     android:id="@+id/ivHomeAddPatientNavigate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/oval_black_overlay_icon_bg"
+                    android:background="@drawable/bg_oval_black_overlay"
                     android:contentDescription="@string/action_add_patient"
                     android:padding="@dimen/std_8dp"
                     android:src="@drawable/ic_arrow_next"
@@ -99,12 +109,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardHomeAddPatient">
+            app:layout_constraintTop_toBottomOf="@+id/cardHomeAddPatient"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -127,8 +138,8 @@
                     style="@style/Theme.IDA.TextAppearance.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_4dp"
                     android:layout_below="@+id/tvHomePrescriptionLbl"
+                    android:layout_marginTop="@dimen/std_4dp"
                     android:text="@{@string/content_prescription_received_count(presCount.received, presCount.pending)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHomePrescriptionLbl"
@@ -140,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvHomePrescriptionReceivedCount"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:background="@drawable/oval_accent_icon_bg"
+                    android:background="@drawable/bg_oval_accent_icon"
                     android:contentDescription="@string/lbl_previous"
                     android:src="@drawable/ic_arrow_next"
                     app:layout_constraintStart_toStartOf="parent"
@@ -163,9 +174,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_16dp"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardHomePrescription">
@@ -191,8 +202,8 @@
                     style="@style/Theme.IDA.TextAppearance.Label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/std_4dp"
                     android:layout_below="@+id/tvHomeOpenVisitsLbl"
+                    android:layout_marginTop="@dimen/std_4dp"
                     android:text="@{@string/content_unclosed_visits(presCount.pending + presCount.received)}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvHomeOpenVisitsLbl"
@@ -204,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvHomeOpenVisitsCount"
                     android:layout_marginTop="@dimen/std_24dp"
-                    android:background="@drawable/oval_primary_icon_bg"
+                    android:background="@drawable/bg_oval_primary_icon"
                     android:contentDescription="@string/lbl_open_visits"
                     android:src="@drawable/ic_arrow_next"
                     app:layout_constraintStart_toStartOf="parent"
@@ -227,15 +238,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/std_16dp"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:layout_marginEnd="@dimen/std_4dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:visibility="@{afConfig.visitSummeryAppointment ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toStartOf="@+id/cardHomeFollowUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
-            app:strokeColor="@color/colorLightGray"
-            app:strokeWidth="1dp">
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -250,6 +261,7 @@
                     android:id="@+id/ivHomeAppointmentsIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/lbl_appointments"
                     android:src="@drawable/ic_appointments"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -283,18 +295,17 @@
             android:id="@+id/cardHomeFollowUp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/std_4dp"
-            android:layout_marginTop="@dimen/std_8dp"
-            android:layout_marginEnd="@dimen/std_16dp"
+            android:layout_marginTop="@dimen/std_16dp"
             android:backgroundTint="@color/white"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:visibility="@{afConfig.visitSummeryHwFollowUp ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/std_8dp"
-            app:cardUseCompatPadding="true"
+            app:cardElevation="@dimen/std_4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@+id/cardHomeAppointments"
             app:layout_constraintTop_toBottomOf="@id/cardHomeOpenVisits"
-            app:strokeColor="@color/colorLightGray"
-            app:strokeWidth="1dp">
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
