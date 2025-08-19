@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import org.intelehealth.common.utility.DateTimeUtils
@@ -36,7 +37,7 @@ data class User(
     @ColumnInfo("session_id") @SerializedName("sessionId") var sessionId: String,
     @ColumnInfo("first_login_in_time") @SerializedName("first_login_in_time") var firstLoginInTime: String,
     @ColumnInfo("last_login_in_time") @SerializedName("last_login_in_time") var lastLoginInTime: String,
-    @ColumnInfo("profile_version") @SerializedName("last_login_in_time") var profileVersion: Long = 0L,
+    @ColumnInfo("profile_version") @SerializedName("profile_version") var profileVersion: Long = 0L,
 ) : Parcelable {
     fun dobInDisplayFormat(): String = dob?.let {
         return@let DateTimeUtils.utcToLocalDate(
@@ -45,4 +46,8 @@ data class User(
             DateTimeUtils.MMM_DD_YYYY_FORMAT
         )
     } ?: ""
+
+    override fun toString(): String {
+        return Gson().toJson(this)
+    }
 }

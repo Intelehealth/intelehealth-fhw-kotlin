@@ -12,20 +12,25 @@
         tools:layout="@layout/fragment_home">
 
         <action
+            android:id="@+id/action_nav_home_to_nav_open_visits"
+            app:destination="@id/nav_open_visits" />
+
+        <action
             android:id="@+id/action_home_to_add_patient"
-            app:destination="@id/nav_add_patient"
+            app:destination="@id/nav_view_notification"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <!--app:destination="@id/nav_add_patient"-->
 
         <action
             android:id="@+id/action_home_to_find_patient"
-            app:destination="@id/fragmentPatientDetail"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/nav_find_patient" />
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_prescription"
+            app:destination="@id/nav_prescription" />
     </fragment>
 
     <fragment
@@ -53,9 +58,15 @@
 
     <activity
         android:id="@+id/nav_add_patient"
-        android:name="org.intelehealth.app.ui.patient.activity.PatientRegistrationActivity"
+        android:name="org.intelehealth.app.ui.patient.activity.PatientActivity"
         android:label="@string/action_add_patient"
-        tools:layout="@layout/activity_patient_registration" />
+        tools:layout="@layout/activity_patient">
+        <argument
+            android:name="patientId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </activity>
 
     <activity
         android:id="@+id/nav_setting"
@@ -82,13 +93,80 @@
     </activity>
 
     <fragment
-        android:id="@+id/fragmentPatientDetail"
-        android:name="org.intelehealth.app.ui.patient.fragment.PatientDetailFragment"
-        android:label="@string/title_patient_detail"
-        tools:layout="@layout/fragment_patient_detail">
+        android:id="@+id/nav_open_visits"
+        android:name="org.intelehealth.app.ui.visit.fragment.OpenVisitFragment"
+        android:label="@string/lbl_open_visits"
+        tools:layout="@layout/fragment_open_visit">
+
+        <action
+            android:id="@+id/action_nav_open_visit_to_visit_details"
+            app:destination="@id/nav_visit_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+<!--      <activity-->
+<!--        android:id="@+id/nav_find_patient"-->
+<!--        android:name="org.intelehealth.app.ui.patient.activity.FindPatientActivity"-->
+<!--        android:label="@string/hint_find_patient"-->
+<!--        tools:layout="@layout/activity_find_patient" />-->
+
+    <activity
+        android:id="@+id/nav_view_notification"
+        android:name="org.intelehealth.app.ui.notification.activity.NotificationActivity"
+        android:label="@string/action_notification"
+        tools:layout="@layout/activity_notification" />
+      
+    <fragment
+        android:id="@+id/nav_prescription"
+        android:name="org.intelehealth.app.ui.prescription.fragment.PrescriptionFragment"
+        android:label="@string/title_prescriptions"
+        tools:layout="@layout/fragment_prescription">
 
         <argument
-            android:name="patientId"
-            app:argType="string" />
+            android:name="prescriptionCount"
+            app:argType="org.intelehealth.data.offline.entity.PrescriptionStatusCount" />
+
+        <action
+            android:id="@+id/action_nav_prescription_to_visit_details"
+            app:destination="@id/nav_visit_details"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_nav_prescription_to_add_patient"
+            app:destination="@id/nav_add_patient"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_find_patient"
+        android:name="org.intelehealth.app.ui.patient.fragment.FindPatientFragment"
+        tools:layout="@layout/fragment_patient_list">
+        <action
+            android:id="@+id/action_nav_find_patient_to_detail"
+            app:destination="@id/nav_add_patient"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <activity
+        android:id="@+id/nav_visit_details"
+        android:name="org.intelehealth.app.ui.visit.activity.VisitDetailActivity"
+        android:label="@string/title_visit_details"
+        tools:layout="@layout/activity_visit_detail">
+        <argument
+            android:name="visitId"
+            app:argType="string" />
+    </activity>
 </navigation>

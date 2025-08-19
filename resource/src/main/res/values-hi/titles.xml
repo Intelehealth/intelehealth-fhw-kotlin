@@ -13,11 +13,24 @@
     <string name="title_reset_password">पासवर्ड रीसेट करें</string>
     <string name="title_login">लॉगिन</string>
     <string name="title_my_profile">मेरा प्रोफ़ाइल</string>
-    <string name="title_add_new_patient">Add New Patient</string>
+    <string name="title_add_new_patient">नया पेशेंट जोड़ें</string>
     <string name="title_other_fuel_type">अन्य ईंधन प्रकार</string>
     <string name="title_other_lighting_source">अन्य प्रकाश स्रोत</string>
     <string name="title_other_water_purification">अन्य जल शोधन विधि</string>
     <string name="title_patient_detail">रोगी विवरण</string>
+    <string name="title_priority_visits">प्राथमिकता विज़िट</string>
+    <string name="title_recent_visit">हाल के विज़िट्स</string>
+    <string name="title_priority">प्राथमिकता</string>
+    <string name="title_visit_summary_patient_details">विज़िट विवरण</string>
+    <string name="title_past_visits">पिछली विज़िट</string>
+    <string name="title_prescriptions">प्रिस्क्रिप्शन</string>
+    <string name="title_visit_details">विज़िट विवरण</string>
+    <string name="title_prescription_details">प्रिस्क्रिप्शन विवरण</string>
+    <string name="title_received">प्राप्त</string>
+    <string name="title_pending">लंबित</string>
+    <string name="title_older_visit">पुरानी विज़िट</string>
+    <string name="title_notification">अधिसूचना</string>
+
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>

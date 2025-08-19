@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="followUpDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/std_1dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:background="@color/colorLightGray"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tvFollowUpDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/divider"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="4sp"
+            android:text="@{@string/lbl_follow_up_on(followUpDetail.followupDateFormatted())}"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Person.Name"
+            android:textColor="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            tools:text="@string/lbl_follow_up_on" />
+
+        <TextView
+            android:id="@+id/tvFollowUpContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/std_16dp"
+            android:text="@{followUpDetail.isFollowupPastDue() ? @string/content_follow_up_date_arrived(followUpDetail.patientFullName) : @string/content_followup_visit_info(followUpDetail.followupFullDateFormatted())}"
+            android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvFollowUpDate"
+            tools:text="@string/content_followup_visit_info" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFollowUpDecline"
+            style="@style/Theme.IDA.Button.Secondary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_8dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:text="@string/action_no"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/btnFollowUpAccept"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFollowUpContent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFollowUpAccept"
+            style="@style/Theme.IDA.Button.Primary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:text="@string/action_yes"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnFollowUpDecline"
+            app:layout_constraintTop_toBottomOf="@+id/tvFollowUpContent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartFollowUp"
+            style="@style/Theme.IDA.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:layout_marginBottom="@dimen/std_16dp"
+            android:text="@string/action_start_followup"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnFollowUpAccept" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

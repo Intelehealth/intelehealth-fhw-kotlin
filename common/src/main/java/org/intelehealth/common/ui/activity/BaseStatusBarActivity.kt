@@ -2,7 +2,7 @@ package org.intelehealth.common.ui.activity
 
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsetsController
+import android.view.WindowInsets
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import org.intelehealth.resource.R
@@ -40,17 +40,18 @@ open class BaseStatusBarActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         // Set the status bar color
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//                window.insetsController?.setSystemBarsAppearance(
-//                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-//                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-//                )
-//                window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-//            } else {
-//                window.statusBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-//            }
-//        }
+        val color = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) { // Android 15+
+            window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars()).top
+                view.setPadding(0, statusBarInsets, 0, 0)
+                view.setBackgroundColor(color)
+                insets
+            }
+        } else {
+            // For Android 14 and below
+            window.statusBarColor = color
+        }
         super.onCreate(savedInstanceState)
     }
 }

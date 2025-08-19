@@ -174,6 +174,11 @@ object Deps {
         const val volley = "com.android.volley:volley:$version"
     }
 
+    object SwipeDelete{
+        private const val version = "1.3.1"
+        const val SwipeLayout = "com.github.zerobranch:SwipeLayout:$version"
+    }
+
 //    object LeakCanary {
 //        private const val version = "2.12"
 //        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:$version"

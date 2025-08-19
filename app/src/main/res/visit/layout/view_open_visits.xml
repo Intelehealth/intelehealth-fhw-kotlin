@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="isListEmpty"
+            type="java.lang.Boolean" />
+
+        <variable
+            name="visitTitle"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- Title-->
+        <TextView
+            android:id="@+id/recentTitleTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:lineSpacingExtra="3sp"
+            android:padding="@dimen/std_4dp"
+            android:text="@{visitTitle}"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textSize="@dimen/std_14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Frame 100314 -->
+        <TextView
+            android:id="@+id/noDataFoundTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/std_4dp"
+            android:text="@string/error_no_visit_found"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@null"
+            android:textSize="@dimen/std_14sp"
+            android:visibility="@{isListEmpty ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentTitleTv"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_visit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/std_16dp"
+            android:nestedScrollingEnabled="false"
+            android:padding="@dimen/std_4dp"
+            android:visibility="@{isListEmpty ? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/noDataFoundTv"
+            tools:itemCount="2"
+            tools:listitem="@layout/list_row_item_open_visit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

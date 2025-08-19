@@ -12,7 +12,6 @@ import org.intelehealth.app.databinding.FragmentPatientDetailBinding
 import org.intelehealth.app.ui.patient.viewmodel.PatientDetailViewModel
 import org.intelehealth.common.extensions.applyLabelAsScreenTitle
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
-import org.intelehealth.config.room.entity.ActiveFeatureStatus
 
 /**
  * Created by Vaghela Mithun R. on 05-05-2025 - 16:29.
@@ -44,6 +43,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
         applyLabelAsScreenTitle()
         binding = FragmentPatientDetailBinding.bind(view)
         observeActiveFeatureStatus()
+        detailViewModel.patientId = args.patientId
         observePatientDetails()
     }
 
@@ -54,10 +54,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
      * visibility based on the active feature status.
      */
     private fun observePatientDetails() {
-        detailViewModel.fetchPatientPersonalDetail(args.patientId)
-        detailViewModel.fetchPatientAddress(args.patientId)
-        detailViewModel.fetchPatientOtherDetails(args.patientId)
-        detailViewModel.patientPersonalLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientPersonalDetail().observe(viewLifecycleOwner) {
             binding.patient = it
         }
     }
@@ -70,19 +67,7 @@ class PatientDetailFragment : Fragment(R.layout.fragment_patient_detail) {
      */
     private fun observeActiveFeatureStatus() {
         activeFeatureViewModel.fetchActiveFeatureStatus().observe(viewLifecycleOwner) { featureStatus ->
-            featureStatus?.let { updatePatientDetailVisibility(it) }
+            featureStatus?.let { binding.activeFeatureStatus = it }
         }
-    }
-
-    /**
-     * Updates the visibility of address and other sections based on the active feature status.
-     *
-     * This method updates the binding with the active status of patient address and other details.
-     *
-     * @param it The active feature status containing visibility information.
-     */
-    private fun updatePatientDetailVisibility(it: ActiveFeatureStatus) {
-        binding.addressActiveStatus = it.activeStatusPatientAddress
-        binding.otherActiveStatus = it.activeStatusPatientOther
     }
 }

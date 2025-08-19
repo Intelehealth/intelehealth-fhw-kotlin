@@ -263,6 +263,11 @@
         <item>Zimbabwe</item>
     </string-array>
 
+    <string-array name="tab_prescription_title">
+        <item>Received</item>
+        <item>Pending</item>
+    </string-array>
+
     <string-array name="caste">
         <item>General</item>
         <item>OBC</item>

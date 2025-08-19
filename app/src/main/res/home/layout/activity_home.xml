@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="appVersion"
+            type="String" />
+
+        <variable
+            name="activeFeatures"
+            type="org.intelehealth.config.room.entity.ActiveFeatureStatus" />
+    </data>
+
     <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:background="@color/colorBG"
         android:visibility="visible"
         tools:openDrawer="start">
 
@@ -20,11 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@drawable/home_drawer_bg"
-            android:fitsSystemWindows="false"
+            android:background="@drawable/bg_home_drawer"
+            android:fitsSystemWindows="true"
             app:headerLayout="@layout/drawer_home_nav_header"
             app:itemIconPadding="@dimen/std_16dp"
-            app:itemIconTint="?colorPrimary"
+            app:itemIconTint="@color/colorPrimary"
             app:menu="@menu/menu_drawer">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +46,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/action_reset_app"
                     style="@style/Theme.IDA.TextButton.AppReset"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/std_14dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +59,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:layout_marginTop="@dimen/std_8dp"
                     android:layout_marginBottom="@dimen/std_16dp"
-                    android:text="@string/content_version"
+                    android:text="@{@string/content_version(appVersion)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

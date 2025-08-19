@@ -6,13 +6,11 @@ import android.os.Bundle
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.databinding.ActivityAboutUsBinding
 import org.intelehealth.app.ui.aboutus.adapter.AboutUsThumbAdapter
-import org.intelehealth.app.utility.INTELEHEALTH_WEB_LINK
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 import org.intelehealth.common.extensions.enableMovementMethod
 import org.intelehealth.common.extensions.setupHorizontalLinearView
 import org.intelehealth.common.ui.activity.SimpleAppBarActivity
 import org.intelehealth.resource.R
-import org.intelehealth.resource.R as ResourceR
 
 /**
  * Created by Vaghela Mithun R. on 17-03-2025 - 16:03.

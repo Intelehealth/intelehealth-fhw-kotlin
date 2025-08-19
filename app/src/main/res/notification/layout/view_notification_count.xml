@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="notifiCount"
+            type="org.intelehealth.data.offline.entity.NotificationResponse" />
+
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/notifiReceivedCardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_green_card_bg"
+            android:padding="@dimen/std_16dp">
+
+            <ImageView
+                android:id="@+id/iconVisitDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/std_16dp"
+                android:background="@null"
+                android:src="@drawable/ic_notifi_header_count"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/notiReceivedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Person.Name"
+                app:layout_constraintStart_toEndOf="@id/iconVisitDetails"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/prescTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/content_send_prescription"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                app:layout_constraintStart_toStartOf="@id/notiReceivedText"
+                app:layout_constraintTop_toBottomOf="@id/notiReceivedText"
+                tools:text="@string/content_send_prescription" />
+
+            <ImageView
+                android:id="@+id/prescArrowRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/lbl_next_arrow"
+                android:src="@drawable/ic_cupertino_arrow_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

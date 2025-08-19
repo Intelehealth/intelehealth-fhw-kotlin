@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.github.ajalt.timberkt.Timber
+import com.google.android.material.behavior.HideViewOnScrollBehavior
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,18 +17,20 @@ import org.intelehealth.app.R
 import org.intelehealth.app.databinding.ActivityHomeBinding
 import org.intelehealth.app.databinding.DrawerHomeNavHeaderBinding
 import org.intelehealth.app.ui.onboarding.activity.OnboardingActivity
+import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
 import org.intelehealth.app.ui.user.viewmodel.UserViewModel
+import org.intelehealth.common.extensions.appVersion
+import org.intelehealth.common.extensions.clearData
 import org.intelehealth.common.extensions.gotoNextActivity
 import org.intelehealth.common.extensions.imageSpan
 import org.intelehealth.common.extensions.showCommonDialog
+import org.intelehealth.common.extensions.showToast
 import org.intelehealth.common.model.DialogParams
 import org.intelehealth.common.ui.activity.BaseStatusBarActivity
 import org.intelehealth.common.utility.ImageSpanGravity
-import org.intelehealth.common.utility.LocalUtils
 import org.intelehealth.common.utility.PreferenceUtils
 import org.intelehealth.config.presenter.feature.viewmodel.ActiveFeatureStatusViewModel
 import org.intelehealth.data.network.model.SetupLocation
-import java.util.Locale
 import javax.inject.Inject
 import org.intelehealth.resource.R as ResourceR
 
@@ -43,7 +47,8 @@ import org.intelehealth.resource.R as ResourceR
  * user information in the navigation drawer header, and handles navigation events.
  */
 @AndroidEntryPoint
-class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity : BaseStatusBarActivity(),
+                     NavigationView.OnNavigationItemSelectedListener {
     // Inject preference utils
     @Inject
     lateinit var preferenceUtils: PreferenceUtils
@@ -59,7 +64,8 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
 
     // Navigation controller for the activity
     private val navController by lazy {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHome) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.navHome) as NavHostFragment
         navHostFragment.navController
     }
 
@@ -70,11 +76,20 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setSupportActionBar(binding.contentViewMain.appBarLayout.toolbar)
+        observeActiveFeatureStatus()
         setupNavigation()
         setupHeaderView()
+        setupFooterView()
         observeUser()
         handleBackPressEvent()
         updateDeviceToken()
+    }
+
+    private fun observeActiveFeatureStatus() {
+        afsViewModel.fetchActiveFeatureStatus().observe(this) { status ->
+            Timber.d { "Active feature status: $status" }
+            binding.navigationView.menu.findItem(R.id.nav_call_log).isVisible = status.videoSection
+        }
     }
 
     /**
@@ -125,6 +140,8 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
      * display the last data synchronization time as the toolbar subtitle.
      */
     private fun displayHomeTitle() {
+        slideInBottomMenu()
+        binding.navigationView.setCheckedItem(R.id.menu_none)
         preferenceUtils.location.let {
             Gson().fromJson(it, SetupLocation::class.java).display
         }?.apply {
@@ -172,6 +189,12 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
                 true
             }
 
+//            R.id.nav_achievements -> {
+//                navController.navigate(R.id.nav_add_patient, Bundle().apply {
+//                    putBoolean("patientId", )
+//                })
+//                true
+//            }
             else -> false
         }
     }
@@ -185,15 +208,16 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
      */
     private fun logoutUser() {
         showCommonDialog(
-            DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                         title = ResourceR.string.action_logout,
-                         message = ResourceR.string.content_are_you_sure_logout,
-                         positiveLbl = ResourceR.string.action_logout,
-                         negativeLbl = ResourceR.string.action_cancel,
-                         onPositiveClick = {
-                             userViewModel.logout()
-                             gotoNextActivity(OnboardingActivity::class.java, true)
-                         })
+            DialogParams(
+                icon = ResourceR.drawable.ic_dialog_alert,
+                title = ResourceR.string.action_logout,
+                message = ResourceR.string.content_are_you_sure_logout,
+                positiveLbl = ResourceR.string.action_logout,
+                negativeLbl = ResourceR.string.action_cancel,
+                onPositiveClick = {
+                    userViewModel.logout()
+                    gotoNextActivity(OnboardingActivity::class.java, true)
+                })
         )
     }
 
@@ -206,6 +230,7 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
     private fun observeUser() {
         userViewModel.getUser().observe(this) {
             it ?: return@observe
+            Timber.d { "User => $it" }
             headerBinding.user = it
         }
     }
@@ -229,6 +254,11 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
         }
     }
 
+    private fun setupFooterView() {
+        binding.appVersion = appVersion()
+        binding.actionResetApp.setOnClickListener { showResetAppConfirmationDialog() }
+    }
+
     /**
      * Handles the back button press event.
      *
@@ -240,15 +270,17 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
      */
     private fun handleBackPressEvent() {
         onBackPressedDispatcher.addCallback(this, true) {
+            binding.navigationView.checkedItem?.isChecked = false
             if (binding.drawerLayout.isOpen) binding.drawerLayout.closeDrawers()
             else if (navController.currentDestination?.id != R.id.nav_home) navController.navigateUp()
             else showCommonDialog(
-                DialogParams(icon = ResourceR.drawable.ic_dialog_alert,
-                             title = ResourceR.string.dialog_title_exit_app,
-                             message = ResourceR.string.content_are_you_sure_exit,
-                             positiveLbl = ResourceR.string.action_exit,
-                             negativeLbl = ResourceR.string.action_cancel,
-                             onPositiveClick = { finish() })
+                DialogParams(
+                    icon = ResourceR.drawable.ic_dialog_alert,
+                    title = ResourceR.string.dialog_title_exit_app,
+                    message = ResourceR.string.content_are_you_sure_exit,
+                    positiveLbl = ResourceR.string.action_exit,
+                    negativeLbl = ResourceR.string.action_cancel,
+                    onPositiveClick = { finish() })
             )
         }
     }
@@ -265,5 +297,24 @@ class HomeActivity : BaseStatusBarActivity(), NavigationView.OnNavigationItemSel
             it ?: return@observe
             Timber.d { "Device token save status: ${it.status.name}" }
         }
+    }
+
+    private fun slideInBottomMenu() {
+        val bottomView = binding.contentViewMain.bottomNavHome
+        val params = bottomView.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as HideViewOnScrollBehavior
+        behavior.slideIn(bottomView, false)
+    }
+
+    private fun showResetAppConfirmationDialog() {
+        showCommonDialog(
+            DialogParams(
+                icon = ResourceR.drawable.ic_dialog_alert,
+                title = ResourceR.string.action_reset_app_new,
+                message = ResourceR.string.content_are_you_sure_reset,
+                positiveLbl = ResourceR.string.action_reset_app_new,
+                negativeLbl = ResourceR.string.action_cancel,
+                onPositiveClick = { clearData() })
+        )
     }
 }

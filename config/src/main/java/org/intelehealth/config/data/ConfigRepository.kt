@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import org.intelehealth.common.state.Result
 import org.intelehealth.common.utility.NO_DATA_FOUND
 import org.intelehealth.config.network.response.ConfigResponse
+import org.intelehealth.config.presenter.fields.patient.utils.PatientConfigKey
 import org.intelehealth.config.room.ConfigDatabase
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.utility.PatientInfoGroup
@@ -56,6 +57,9 @@ class ConfigRepository @Inject constructor(
             groupingPatientRegFields(config.patientRegFields.address, PatientInfoGroup.ADDRESS)
             groupingPatientRegFields(config.patientRegFields.other, PatientInfoGroup.OTHER)
             configDb.patientVitalDao().save(config.vitals)
+            configDb.patientDiagnosticsDao().save(config.diagnostics)
+            configDb.activeSectionDao().save(config.patientVisitSection)
+            configDb.activeSectionDao().save(config.homeScreen)
             config.patientVisitSummery.apply {
                 chatSection = if (config.webrtcSection) config.webrtcStatus.chat else false
                 videoSection = if (config.webrtcSection) config.webrtcStatus.video else false
@@ -63,6 +67,17 @@ class ConfigRepository @Inject constructor(
                 activeStatusPatientAddress = config.activeStatusPatientAddress
                 activeStatusPatientOther = config.activeStatusPatientOther
                 activeStatusAbha = config.activeStatusAbha
+                activeStatusPatientFamilyMemberRegistration = config.activeStatusFamilyRegistration
+                activeStatusPatientHouseholdSurvey = config.activeStatusHouseholdSurvey
+                activeStatusRosterQuestionnaireSection = config.rosterQuestionnaireSection
+                activeStatusDiagnosticsSection = config.patientDiagnosticsSection
+                activeStatusPatientDraftSurvey = config.patientDraftSurvey
+                personalDataConsent = config.patientRegFields.other.find {
+                    it.idKey == PatientConfigKey.PERSONAL_DATA_CONSENT
+                }?.isEnabled ?: true
+                telemedicineConsent = config.patientRegFields.other.find {
+                    it.idKey == PatientConfigKey.TELEMEDICINE_CONSENT
+                }?.isEnabled ?: true
             }.also { configDb.featureActiveStatusDao().add(it) }
             onCompleted.invoke()
         }

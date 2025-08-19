@@ -30,7 +30,7 @@ import org.intelehealth.config.room.entity.ActiveLanguage
  */
 @AndroidEntryPoint
 class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_language),
-                               BaseViewHolder.ViewHolderClickListener {
+    BaseViewHolder.ViewHolderClickListener {
 
     private lateinit var binding: FragmentChangeLanguageBinding
     private lateinit var adapter: LanguageAdapter
@@ -41,6 +41,12 @@ class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_languag
         binding = FragmentChangeLanguageBinding.bind(view)
         setupLanguageListView()
         handleChangeLanguageClickEvent()
+    }
+
+    private fun observeCurrentLang() {
+        settingViewModel.languageStateData.observe(viewLifecycleOwner) {
+            if (::adapter.isInitialized) adapter.setDefaultLang(it)
+        }
     }
 
     /**
@@ -75,6 +81,7 @@ class ChangeLanguageFragment : LanguageFragment(R.layout.fragment_change_languag
     override fun onLanguageLoaded(languages: List<ActiveLanguage>) {
         super.onLanguageLoaded(languages)
         adapter.updateItems(languages.toMutableList())
+        observeCurrentLang()
     }
 
     override fun onViewHolderViewClicked(view: View?, position: Int) {

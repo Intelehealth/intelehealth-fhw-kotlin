@@ -15,7 +15,7 @@ import org.intelehealth.resource.R
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId) {
+abstract class StateFragment(@LayoutRes layoutResId: Int) : MenuFragment(layoutResId) {
     abstract val viewModel: BaseViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,11 +42,19 @@ abstract class StateFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId
             it ?: return@observe
             if (it) showLoading() else hideLoading()
         }
+
+        viewModel.loadingPage.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            if (it) showPageLoading() else hidePageLoading()
+        }
     }
 
     open fun getAnchorView(): View? = null
     open fun showLoading() {}
     open fun hideLoading() {}
+
+    open fun showPageLoading() {}
+    open fun hidePageLoading() {}
     open fun retryOnNetworkLost() {
         Timber.d { "Retry on network lost" }
     }

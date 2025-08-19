@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="medication"
+            type="org.intelehealth.data.offline.model.Medication" />
+    </data>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/std_16dp">
+
+        <!--Drug Name-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:visibility="@{medication.name != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_drug_name + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_drug_name" />
+
+            <TextView
+                android:id="@+id/tvDrugNameValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.name}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+
+        <!--Dose -->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:layout_weight="2"
+            android:visibility="@{medication.dosage != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/lblDrugDose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_dos + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_dos" />
+
+            <TextView
+                android:id="@+id/tvDrubDoseValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.dosage}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+
+        <!--Days-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:layout_weight="2"
+            android:visibility="@{medication.days != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/lblDrugDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_days + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_days" />
+
+            <TextView
+                android:id="@+id/tvDrugDurationValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.days}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+        <!--Remarks-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:layout_weight="2"
+            android:visibility="@{medication.timing != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/lblDrugTiming"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_timing + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_timing" />
+
+            <TextView
+                android:id="@+id/tvDrugTimingValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.timing}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+
+        <!--Remarks-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:layout_weight="2"
+            android:visibility="@{medication.remarks != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/lblDrugRemarks"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_remarks + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_remarks" />
+
+            <TextView
+                android:id="@+id/tvDrugRemarksValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.remarks}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+
+        <!--Frequency-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:layout_weight="2"
+            android:visibility="@{medication.frequency != null ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/lblDrugFrequency"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="@{@string/lbl_frequency + `:`}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                android:textStyle="bold"
+                tools:text="@string/lbl_frequency" />
+
+            <TextView
+                android:id="@+id/tvDrugFrequencyValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{medication.frequency}"
+                android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+        </TableRow>
+    </TableLayout>
+</layout>

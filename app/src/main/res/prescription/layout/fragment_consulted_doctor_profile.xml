@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="doctorDetail"
+            type="org.intelehealth.data.offline.entity.DoctorProfile" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/doctorDetailsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_4dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblConsultedDoctor"
+                style="@style/Theme.IDA.TextAppearance.Person.Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_list_item"
+                android:drawablePadding="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/std_16dp"
+                android:text="@string/lbl_consulted_doctor_details"
+                app:drawableEndCompat="@drawable/selector_dropdown_arrow_rotate"
+                app:drawableStartCompat="@drawable/ic_dr_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/drInfoInfoExpandableLayoutGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="divider, lblDetails, tableLayoutCHWDetails" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/std_16dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintTop_toBottomOf="@id/lblConsultedDoctor" />
+
+            <TextView
+                android:id="@+id/lblDetails"
+                style="@style/Theme.IDA.TextAppearance.Primary.Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_16dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:text="@string/lbl_details"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <TableLayout
+                android:id="@+id/tableLayoutCHWDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/std_16dp"
+                android:shrinkColumns="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblDetails"
+                tools:layout_editor_absoluteX="12dp">
+
+                <!--Name-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_name + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_name" />
+
+                    <TextView
+                        android:id="@+id/drNameTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:placeholder="@{@string/lbl_no_information}"
+                        android:text="@{doctorDetail.name}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+                <!--Age -->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2"
+                    android:visibility="@{doctorDetail.age == null ? View.GONE : View.VISIBLE}">
+
+                    <TextView
+                        android:id="@+id/lblAge"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_age + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_age" />
+
+                    <TextView
+                        android:id="@+id/dr_age_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:placeholder="@{@string/lbl_no_information}"
+                        android:text="@{doctorDetail.age + `, years`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+                <!--Qualification-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/lblQualification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@{@string/lbl_qualification + `:`}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_qualification" />
+
+                    <TextView
+                        android:id="@+id/qualification"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:placeholder="@{@string/lbl_no_information}"
+                        android:text="@{doctorDetail.qualification}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+                <!--Speciality-->
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/std_4dp"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:text="@string/lbl_speciality"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Label"
+                        tools:text="@string/lbl_speciality" />
+
+                    <TextView
+                        android:id="@+id/tvDrSpeciality"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:placeholder="@{@string/lbl_no_information}"
+                        android:text="@{doctorDetail.specialization}"
+                        android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label" />
+                </TableRow>
+
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
