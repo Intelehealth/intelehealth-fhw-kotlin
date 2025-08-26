@@ -118,6 +118,10 @@
     <string name="content_search_icon">Search Icon</string>
     <string name="content_add_icon">Add Icon</string>
 
+    <!--Feedback Screen-->
+    <string name="content_how_we_can_improve_experience">Rate us so we can improve the experience for you.</string>
+
+
     <string name="content_send_prescription">Send prescriptions to the patients</string>
     <string name="join_now">Join Now</string>
     <string name="content_prescriptions_received">Prescriptions received</string>

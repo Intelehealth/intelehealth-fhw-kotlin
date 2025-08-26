@@ -35,9 +35,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDA"
         tools:targetApi="35">
-        <!--        <activity-->
-        <!--            android:name=".ui.prescription.activity.PrescriptionActivity"-->
-        <!--            android:exported="false" />-->
+        <activity
+            android:name=".ui.feedback.Activity.FeedbackActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".ui.prescription.activity.PrescriptionActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".ui.onboarding.activity.OnboardingActivity"
             android:exported="true"
@@ -66,16 +69,12 @@
         <activity
             android:name=".ui.help.activity.YoutubeVideoPlayerActivity"
             android:exported="true"
-            android:theme="@style/Theme.IDA.Transparent" />
-
-        <!--        <activity-->
-        <!--            android:name=".ui.visit.activity.OpenVisitsActivity"-->
-        <!--            android:exported="true" />-->
-
+            android:theme="@style/Theme.IDA.Transparent" /> <!-- <activity -->
+        <!-- android:name=".ui.visit.activity.OpenVisitsActivity" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".ui.visit.activity.VisitDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.patient.activity.FindPatientActivity"
             android:exported="false" />

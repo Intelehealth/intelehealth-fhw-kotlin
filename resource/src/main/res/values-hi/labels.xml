@@ -143,6 +143,9 @@
     <string name="lbl_date_recent">3:15 बजे</string>
     <string name="lbl_date_older">24 जून</string>
 
+    <!--Feedback Screen-->
+    <string name="lbl_give_feedback">Give feedback</string>
+
     <string name="lbl_today_visits">आज की विज़िट</string>
     <string name="lbl_yesterday_visits">कल की विज़िट</string>
     <string name="lbl_this_week_visits">इस सप्ताह की विज़िट</string>

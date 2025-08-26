@@ -31,6 +31,9 @@
     <string name="title_older_visit">पुरानी विज़िट</string>
     <string name="title_notification">अधिसूचना</string>
 
+    <!--Feedback Screen-->
+    <string name="title_rate_your_experience">Rate your experience</string>
+
     <!-- Dialog Title -->
     <string name="dialog_title_patient_registered">रोगी पंजीकृत!</string>
     <string name="dialog_title_exit_app">ऐप से बाहर निकलें</string>

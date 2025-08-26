@@ -59,4 +59,5 @@
     <string name="action_start_followup">अनुवर्ती कार्रवाई शुरू करें</string>
     <string name="action_clear_all">सभी साफ़ करें</string>
     <string name="action_share_prescription">प्रिस्क्रिप्शन साझा करें</string>
+    <string name="action_submit">Submit</string>"
 </resources>

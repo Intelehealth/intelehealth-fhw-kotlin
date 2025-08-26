@@ -115,6 +115,9 @@
     <string name="content_follow_up_reminder">कृपया मरीज़ को उनकी फ़ॉलो-अप तिथि याद दिलाएँ: </string>
     <string name="content_visit_upload_reminder">विज़िटिंग समाप्त करने का प्रयास करने से पहले कृपया अपलोड करें।</string>
 
+    <!--Feedback Screen-->
+    <string name="content_how_we_can_improve_experience">Rate us so we can improve the experience for you.</string>
+
     //content description
     <string name="content_search_icon">खोज आइकन</string>
     <string name="content_add_icon">आइकन जोड़ें</string>

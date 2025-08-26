@@ -60,4 +60,5 @@
     <string name="action_start_followup">Start follow-up</string>
     <string name="action_clear_all">Clear All</string>
     <string name="action_share_prescription">Share Prescription</string>
+    <string name="action_submit">Submit</string>"
 </resources>

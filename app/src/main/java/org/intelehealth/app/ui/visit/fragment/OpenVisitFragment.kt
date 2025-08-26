@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.resource.R as ResourceR
 import org.intelehealth.app.databinding.FragmentOpenVisitBinding
+import org.intelehealth.app.ui.patient.fragment.FindPatientFragmentDirections
 import org.intelehealth.app.ui.visit.adapter.OpenVisitAdapter
 import org.intelehealth.app.ui.visit.viewmodel.OpenVisitViewModel
 import org.intelehealth.common.extensions.setupLinearView
@@ -190,7 +191,9 @@ class OpenVisitFragment : BaseProgressFragment(R.layout.fragment_open_visit), Ba
     }
 
     private fun navigateToUserFeedback(visitId: String?) {
-//        findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitToUserFeedback(visitId))
+        visitId?.let {
+            findNavController().navigate(OpenVisitFragmentDirections.actionNavOpenVisitsToNavFeedback(it))
+        }
     }
 
     /**

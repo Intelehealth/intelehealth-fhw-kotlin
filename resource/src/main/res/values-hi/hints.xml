@@ -75,5 +75,6 @@
     <string name="hint_enter_guardian_name">अभिभावक का नाम दर्ज करें</string>
     <string name="hint_search_pat_txt">सर्च करने के लिए सही यूजरनेम या आईडी का इस्तेमाल करें या आप नया रोगी पंजीकृत कर सकते हैं।</string>
     <string name="hint_search_patient">Search patient</string>
+    <string name="hint_type_here">Type here...</string>
 
 </resources>

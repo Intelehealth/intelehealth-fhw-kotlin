@@ -141,6 +141,10 @@
     <string name="lbl_recently_searched">Recently searched</string>
     <string name="lbl_column_visit_id">Visit ID</string>
 
+    <!--Feedback Screen-->
+    <string name="lbl_give_feedback">Give feedback</string>
+
+
     <!-- Dummy data for testing -->
     <string name="lbl_gp_txt">General physician</string>
     <string name="lbl_details_date">21 May 2022</string>

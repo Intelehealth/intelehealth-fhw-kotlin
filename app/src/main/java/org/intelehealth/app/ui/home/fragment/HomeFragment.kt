@@ -80,7 +80,7 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.cardHomeAddPatient.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient(null))
+            findNavController().navigate(HomeFragmentDirections.actionHomeToAddPatient())
         }
 
         binding.btnFindPatient.setOnClickListener {

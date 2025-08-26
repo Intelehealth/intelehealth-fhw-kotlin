@@ -35,6 +35,9 @@
     <string name="title_received">Received</string>
     <string name="title_pending">Pending</string>
 
+    <!--Feedback Screen-->
+    <string name="title_rate_your_experience">Rate your experience</string>
+
 
     <!--  Dialog Title  -->
     <string name="dialog_title_patient_registered">Patient Registered!</string>
