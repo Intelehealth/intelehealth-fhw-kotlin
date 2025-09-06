@@ -84,21 +84,12 @@ class HomeFragment : MenuFragment(R.layout.fragment_home) {
         }
 
         binding.btnFindPatient.setOnClickListener {
-            navigateToFindPatient(it)
-//            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
+            findNavController().navigate(HomeFragmentDirections.actionHomeToFindPatient())
         }
 
         binding.cardHomePrescription.setOnClickListener {
             binding.presCount?.let {
                 findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavPrescription(it))
-            }
-        }
-    }
-
-    private fun navigateToFindPatient(view: View) {
-        HomeFragmentDirections.actionHomeToFindPatient().also { direction ->
-            FragmentNavigatorExtras(view to view.transitionName).also {
-                findNavController().navigate(direction, it)
             }
         }
     }

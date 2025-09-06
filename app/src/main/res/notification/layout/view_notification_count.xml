@@ -10,6 +10,7 @@
             type="org.intelehealth.data.offline.entity.NotificationResponse" />
 
     </data>
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/notifiReceivedCardHeader"
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_green_card_bg"
+            android:background="@color/colorAccentLightCard"
             android:padding="@dimen/std_16dp">
 
             <ImageView
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/std_16dp"
                 android:background="@null"
-                android:src="@drawable/ic_notifi_header_count"
+                android:src="@drawable/ic_circle_visit_header"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

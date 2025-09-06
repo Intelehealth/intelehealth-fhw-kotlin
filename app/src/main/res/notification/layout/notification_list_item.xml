@@ -22,7 +22,6 @@
         app:rightItem="@id/delete_relative"
         app:swipeDirection="left">
     </com.zerobranch.layout.SwipeLayout>-->
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardPatientItem"
         android:layout_width="match_parent"
@@ -34,8 +33,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/std_16dp"
-            android:padding="@dimen/std_16dp">
+            android:padding="@dimen/std_16dp"
+            android:paddingHorizontal="@dimen/std_16dp">
 
             <!-- Profile Image Card -->
             <com.google.android.material.imageview.ShapeableImageView
@@ -53,23 +52,23 @@
                 android:id="@+id/notification_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/std_10dp"
                 android:gravity="center_vertical"
                 android:text="@{notification.title}"
-                android:layout_marginHorizontal="@dimen/std_10dp"
                 android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/notiprofileImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="@string/content_send_prescription" />
 
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Theme.IDA.Button.Secondary.Next"
                 android:id="@+id/notification_comment"
+                style="@style/Theme.IDA.Button.Secondary.Next"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/std_36dp"
-                android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/std_8dp"
+                android:gravity="center_vertical"
                 android:text="@{notification.description}"
                 android:textAppearance="@style/Theme.IDA.TextAppearance.Primary.Label"
                 app:layout_constraintStart_toStartOf="@+id/notification_details"

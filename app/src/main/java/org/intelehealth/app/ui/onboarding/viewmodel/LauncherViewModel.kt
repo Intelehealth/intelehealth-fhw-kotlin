@@ -126,7 +126,7 @@ class LauncherViewModel @Inject constructor(
             }
         }
 
-        else -> Timber.d { "do nothing" }
+        else -> Timber.d { "do nothing => ${workInfo.state}" }
     }
 
     private fun startPlashTimer() = Handler(Looper.getMainLooper()).postDelayed(

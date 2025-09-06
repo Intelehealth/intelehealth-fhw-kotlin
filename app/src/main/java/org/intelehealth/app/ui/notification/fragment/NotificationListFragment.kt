@@ -2,32 +2,18 @@ package org.intelehealth.app.ui.notification.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentNotificationListBinding
-import org.intelehealth.app.databinding.FragmentPrescriptionListBinding
 import org.intelehealth.app.ui.notification.adapter.NotificationAdapter
 import org.intelehealth.app.ui.notification.viewmodel.NotificationViewModel
-import org.intelehealth.app.ui.prescription.adapter.PrescriptionAdapter
-import org.intelehealth.app.ui.prescription.viewmodel.PrescriptionViewModel
 import org.intelehealth.common.extensions.setupLinearView
 import org.intelehealth.common.ui.fragment.BaseProgressFragment
 import org.intelehealth.common.ui.viewholder.BaseViewHolder
-import org.intelehealth.common.ui.viewmodel.BaseViewModel
-import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.NotificationList
-import org.intelehealth.data.offline.entity.VisitDetail
-import java.util.ArrayList
 import java.util.LinkedList
 
 @AndroidEntryPoint

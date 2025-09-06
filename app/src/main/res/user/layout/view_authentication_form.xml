@@ -67,11 +67,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLblLocation">
 
-            <AutoCompleteTextView
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/autotv_select_location"
-                style="@style/Theme.IDA.InputBox"
+                style="@style/Theme.IDA.OutlineInputBox.AutoComplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:hint="@string/hint_start_typing_location"
                 android:importantForAutofill="no"
                 android:inputType="none" />

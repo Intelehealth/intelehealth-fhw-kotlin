@@ -1,5 +1,6 @@
 package org.intelehealth.data.network
 
+import androidx.lifecycle.LiveData
 import okhttp3.ResponseBody
 import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.data.network.model.SetupLocation
