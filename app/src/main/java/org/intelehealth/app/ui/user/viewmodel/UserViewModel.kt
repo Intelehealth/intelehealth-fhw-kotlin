@@ -87,8 +87,7 @@ class UserViewModel @Inject constructor(
      * @param param The [JWTParams] containing the parameters for generating the token.
      * @return A [LiveData] emitting the result of the network call.
      */
-    fun generateJWTAuthToken(param: JWTParams) =
-        executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
+    fun generateJWTAuthToken(param: JWTParams) = executeNetworkCall { userRepository.generateJWTAuthToken(param) }.asLiveData()
 
     /**
      * Logs in a user with the given username and password.

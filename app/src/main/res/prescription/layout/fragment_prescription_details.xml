@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.intelehealth.app.ui.prescription.fragment.PrescriptionDetailsFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="visitDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/std_16dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nsvPrescriptionDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- CHW Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPatientInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PatientInfoCardFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout="@layout/fragment_patient_card" />
+
+                <!--Doctor Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvConsultedDoctorInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.ConsultedDoctorProfileFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvPatientInfoCard"
+                    tools:layout="@layout/fragment_consulted_doctor_profile" />
+
+                <!--Diagnosis Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvDiagnosisInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.SymptomDiagnosisFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvConsultedDoctorInfoCard"
+                    tools:layout="@layout/fragment_symptoms_diagnosis" />
+
+                <!--Prescribed Medication Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPrescribedMedicationInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PrescribedMedicationFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvDiagnosisInfoCard"
+                    tools:layout="@layout/fragment_prescribed_medication" />
+
+
+                <!--Advice Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvAdviceInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.DoctorAdviceFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvPrescribedMedicationInfoCard"
+                    tools:layout="@layout/fragment_doctor_advice" />
+
+                <!--Test Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvTestInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.RecommendTestFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvAdviceInfoCard"
+                    tools:layout="@layout/fragment_recommend_test" />
+
+                <!--Referred Sp Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvReferredSpecialityInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.ReferredSpecialityFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvTestInfoCard"
+                    tools:layout="@layout/fragment_referred_speciality" />
+
+                <!--Follow Up Info-->
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcvPatientFollowUpInfoCard"
+                    android:name="org.intelehealth.app.ui.prescription.fragment.PatientFollowUpInfoFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/std_8dp"
+                    android:visibility="@{visitDetail.hasFollowup() ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/fcvReferredSpecialityInfoCard"
+                    tools:layout="@layout/fragment_patient_follow_up_info" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:layout_behavior="com.google.android.material.behavior.HideViewOnScrollBehavior">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/printBtn"
+                style="@style/Theme.IDA.Button.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/std_8dp"
+                android:text="@string/action_print"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/shareBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shareBtn"
+                style="@style/Theme.IDA.Button.Primary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/std_8dp"
+                android:text="@string/action_share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/printBtn"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--        <include-->
+        <!--            layout="@layout/view_options"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:layout_gravity="top|end"-->
+        <!--            android:visibility="@{viewModel.optionsVisibility ? View.VISIBLE : View.GONE}"-->
+        <!--            tools:visibility="visible" />-->
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

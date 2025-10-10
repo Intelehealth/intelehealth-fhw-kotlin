@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginStart="@dimen/std_8dp"
+        android:layout_marginTop="@dimen/std_8dp"
+        android:layout_marginEnd="@dimen/std_32dp"
+        android:layout_marginBottom="@dimen/std_8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="@dimen/std_4dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/std_16dp"
+            android:layout_marginStart="@dimen/std_16dp"
+            android:layout_marginEnd="@dimen/std_16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/std_32dp"
+                android:layout_marginBottom="@dimen/std_16dp"
+                android:text="@string/lbl_notifi_reminders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGray" />
+
+            <TextView
+                android:id="@+id/incomplete_act"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:layout_marginEnd="@dimen/std_32dp"
+                android:text="@string/lbl_notifi_incompl_activity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
+
+            <View
+                android:id="@+id/hl_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:background="@color/colorLightGray" />
+
+            <TextView
+                android:id="@+id/archieved_notifi"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/std_16dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/std_32dp"
+                android:text="@string/lbl_notifi_archived"
+                android:textColor="@color/black"
+                android:textSize="@dimen/std_14sp" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

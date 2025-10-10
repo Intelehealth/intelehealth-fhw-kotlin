@@ -33,7 +33,7 @@ interface ObservationDao : CoreDao<Observation> {
     @Query("UPDATE tbl_obs SET synced = :isSync WHERE uuid = :uuid")
     suspend fun updateSyncStatus(uuid: String, isSync: Boolean)
 
-    @Query("UPDATE tbl_obs SET obsservermodifieddate = :obsModifiedDate WHERE uuid = :uuid")
+    @Query("UPDATE tbl_obs SET server_updated_at = :obsModifiedDate WHERE uuid = :uuid")
     suspend fun updateServerModifiedDate(obsModifiedDate: String, uuid: String)
 
     @Query("UPDATE tbl_obs SET updated_at = :modifiedDate WHERE uuid = :uuid")
@@ -88,4 +88,15 @@ interface ObservationDao : CoreDao<Observation> {
 
     @Query("SELECT * FROM tbl_obs WHERE encounteruuid IN (:encounterIds) AND synced = 0 AND voided = 0")
     fun getAllUnsyncedObservations(encounterIds: List<String>): List<Observation>
+
+    @Query("SELECT * FROM tbl_obs O " +
+                   "LEFT JOIN tbl_encounter E ON E.uuid = O.encounteruuid " +
+                   "LEFT JOIN tbl_visit V ON V.uuid = E.visituuid " +
+                   "WHERE V.uuid = :visitId AND O.conceptuuid = :conceptId " +
+                   "AND E.encounter_type_uuid = :visitNoteEncounterTypeId AND O.voided = 0")
+    fun getVisitNoteItemDetails(
+        visitId: String,
+        visitNoteEncounterTypeId: String,
+        conceptId: String
+    ): Flow<List<Observation>>
 }

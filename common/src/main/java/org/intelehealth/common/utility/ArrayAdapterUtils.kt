@@ -3,6 +3,7 @@ package org.intelehealth.common.utility
 import android.content.Context
 import android.widget.ArrayAdapter
 import androidx.annotation.ArrayRes
+import org.intelehealth.common.BR
 import org.intelehealth.common.R
 import org.intelehealth.common.ui.adapter.SpinnerItemAdapter
 

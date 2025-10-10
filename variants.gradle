@@ -5,11 +5,13 @@ android {
             flavor.applicationId = flavor.appId
             flavor.versionCode = flavor.vCode
             flavor.versionName = flavor.vName
+            flavor.applicationIdSuffix = ".kotlin"
         }
     }
 
     if (isApplicationModule()) {
         applicationVariants.configureEach { variant -> // 3
+//            variant.applicationIdSuffix = ".kotlin"
             configureVariantFields(variant)
         }
     } else {

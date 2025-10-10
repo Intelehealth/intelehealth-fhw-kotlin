@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.detekt.plugin)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 apply("${rootProject.projectDir}/whitelabel.gradle")
@@ -37,6 +38,8 @@ android {
     }
 
     buildFeatures {
+        viewBinding = true
+        dataBinding = true
         buildConfig = true
     }
 

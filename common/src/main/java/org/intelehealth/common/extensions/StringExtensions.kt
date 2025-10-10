@@ -1,5 +1,6 @@
 package org.intelehealth.common.extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
@@ -7,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -161,5 +163,14 @@ fun String.getRealPathFromURI(context: Context, contentUri: Uri): String? {
         cursor?.getString(columnIndex ?: 0)
     } finally {
         cursor?.close()
+    }
+}
+
+@SuppressLint("ObsoleteSdkInt")
+fun String.toHTML(): Spanned? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    } else {
+        Html.fromHtml(this)
     }
 }

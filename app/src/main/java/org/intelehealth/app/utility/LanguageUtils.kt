@@ -42,7 +42,6 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
         private const val PROVINCE_AND_CITIES_JSON = "province_and_cities.json"
         const val ENGLISH = "en"
     }
-
     /**
      * Gets the current locale's language code (e.g., "en", "hi").
      *
@@ -59,7 +58,7 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
      * @return The corresponding [StateData] object, or `null` if not found.
      */
     fun getState(state: String): StateData? {
-        return parseStatesJson().stateDataList.find { it.state == state }
+        return parseStatesJson().stateDataList.find { it.toString() == state }
     }
 
     /**
@@ -127,7 +126,7 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
      * @return The corresponding [DistData] object, or `null` if not found.
      */
     fun getDistrict(state: StateData?, district: String): DistData? {
-        return state?.distDataList?.find { it.name == district }
+        return state?.distDataList?.find { it.toString() == district }
     }
 
     /**
@@ -138,7 +137,7 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
      * @return The corresponding [Block] object, or `null` if not found.
      */
     fun getBlock(district: DistData?, block: String?): Block? {
-        return block?.let { return@let district?.blocks?.find { it.name == block } }
+        return block?.let { return@let district?.blocks?.find { it.toString() == block } }
     }
 
     /**

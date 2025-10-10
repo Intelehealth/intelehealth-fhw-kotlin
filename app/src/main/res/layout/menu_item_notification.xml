@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/ripple_icon_bg"
-    android:paddingVertical="@dimen/std_8dp"
-    android:paddingStart="0dp"
-    android:paddingEnd="@dimen/std_8dp">
+    android:background="@drawable/bg_ripple_icon"
+    android:padding="@dimen/std_8dp">
 
 
     <ImageView

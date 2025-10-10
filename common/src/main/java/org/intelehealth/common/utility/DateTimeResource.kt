@@ -9,7 +9,8 @@ import androidx.annotation.StringRes
  * Email : mithun@intelehealth.org
  * Mob   : +919727206702
  **/
-class DateTimeResource private constructor(val resource: Resources) {
+
+class DateTimeResource private constructor(var resource: Resources) {
     companion object {
         @Volatile
         private var INSTANCE: DateTimeResource? = null
@@ -28,4 +29,8 @@ class DateTimeResource private constructor(val resource: Resources) {
     fun getResourceString(@StringRes resId: Int) = resource.getString(resId)
 
     fun getResourceString(@StringRes resId: Int, argStr: String) = resource.getString(resId, argStr)
+
+    fun updateResource(resource: Resources) {
+        this.resource = resource
+    }
 }

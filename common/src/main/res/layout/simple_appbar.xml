@@ -10,11 +10,20 @@
         android:theme="@style/Theme.IDA.AppBarOverlay"
         app:elevation="0dp">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:contentInsetStart="0dp"
+            android:contentInsetLeft="0dp"
+            android:contentInsetEnd="0dp"
+            android:contentInsetRight="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetRight="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="0dp"
+            app:titleMarginEnd="0dp"
             android:theme="@style/Theme.IDA.PopupOverlay"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_constraintEnd_toEndOf="parent"

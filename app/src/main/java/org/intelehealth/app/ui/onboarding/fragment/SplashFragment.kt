@@ -192,23 +192,25 @@ class SplashFragment : LanguageFragment(R.layout.fragment_splash), BaseViewHolde
      */
     private fun animateViews() {
         val handler = Handler(Looper.getMainLooper())
-        handler.postDelayed({
-                                val translateAnim = AnimationUtils.loadAnimation(
-                                    requireContext(), org.intelehealth.resource.R.anim.anim_center_to_top
-                                )
-                                translateAnim.fillAfter = true
-                                translateAnim.isFillEnabled = true
-                                translateAnim.fillBefore = false
-                                translateAnim.setAnimationListener(object : Animation.AnimationListener {
-                                    override fun onAnimationStart(animation: Animation) {}
-                                    override fun onAnimationEnd(animation: Animation) {
-                                        showChooseLanguageUI(true)
-                                    }
+        handler.postDelayed(
+            {
+                val translateAnim = AnimationUtils.loadAnimation(
+                    requireContext(), org.intelehealth.resource.R.anim.anim_center_to_top
+                )
+                translateAnim.fillAfter = true
+                translateAnim.isFillEnabled = true
+                translateAnim.fillBefore = false
+                translateAnim.setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {}
+                    override fun onAnimationEnd(animation: Animation) {
+                        showChooseLanguageUI(true)
+                    }
 
-                                    override fun onAnimationRepeat(animation: Animation) {}
-                                })
-                                binding.layoutChild1.startAnimation(translateAnim)
-                            }, SPLASH_DELAY_TIME)
+                    override fun onAnimationRepeat(animation: Animation) {}
+                })
+                binding.layoutChild1.startAnimation(translateAnim)
+            }, SPLASH_DELAY_TIME
+        )
     }
 
     /**

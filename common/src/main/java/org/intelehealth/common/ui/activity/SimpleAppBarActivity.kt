@@ -1,7 +1,6 @@
 package org.intelehealth.common.ui.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.github.ajalt.timberkt.Timber
 import org.intelehealth.common.databinding.SimpleAppbarBinding
 
@@ -17,7 +16,7 @@ import org.intelehealth.common.databinding.SimpleAppbarBinding
  * app bar layout. It handles the setup of the action bar and provides methods for
  * subclasses to customize the title and binding.
  */
-abstract class SimpleAppBarActivity : AppCompatActivity() {
+abstract class SimpleAppBarActivity : BaseStatusBarActivity() {
     private lateinit var appBarBinding: SimpleAppbarBinding
 
     /**

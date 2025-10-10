@@ -44,4 +44,10 @@ class AddressInfoConfig {
     fun isPostalCodeActive(): Boolean = postalCode?.isEnabled == true
 
     fun isCountryActive(): Boolean = country?.isEnabled == true
+
+    fun isStateProvinceActive(): Boolean = isStateActive() || isProvinceActive()
+
+    fun isStateProvinceMandatory(): Boolean {
+        return (isStateActive() && state?.isMandatory == true) || (isProvinceActive() && province?.isMandatory == true)
+    }
 }

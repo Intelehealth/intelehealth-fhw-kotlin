@@ -142,10 +142,15 @@ fun loadImageWithAuth(imageView: ImageView, url: String, profileVersion: Long) {
             .load(glideUrl)
             .thumbnail(requestBuilder)
             .centerCrop()
-            .placeholder(org.intelehealth.resource.R.drawable.avatar1)
-            .error(org.intelehealth.resource.R.drawable.avatar1)
+            .placeholder(org.intelehealth.resource.R.drawable.img_avatar)
+            .error(org.intelehealth.resource.R.drawable.img_avatar)
             .diskCacheStrategy(DiskCacheStrategy.DATA)
             .signature(ObjectKey(profileVersion))
             .into(imageView)
     }
+}
+
+@BindingAdapter("app:customTint")
+fun setImageViewTint(imageView: ImageView, color: Int) {
+    imageView.setColorFilter(color)
 }

@@ -42,7 +42,12 @@ open class LanguageFragment(@LayoutRes layoutResId: Int) : Fragment(layoutResId)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         languageViewModel.fetchSupportedLanguage().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) onLanguageLoaded(it)
+            if (it.isNotEmpty()) {
+                it.map { lang ->
+                    lang.isDefault = lang.code == preferenceUtils.currentLanguage
+                    return@map lang
+                }.apply { onLanguageLoaded(this) }
+            }
         }
         setupLanguage()
     }

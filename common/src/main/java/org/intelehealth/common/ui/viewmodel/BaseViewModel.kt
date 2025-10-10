@@ -7,6 +7,7 @@ import com.github.ajalt.timberkt.Timber
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
@@ -17,15 +18,22 @@ import org.intelehealth.common.service.BaseResponse
 import org.intelehealth.common.service.HttpStatusCode
 import org.intelehealth.common.utility.NO_NETWORK
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import org.intelehealth.common.enums.LoadingType
+import org.intelehealth.common.utility.CommonConstants.LIMIT
 
 open class BaseViewModel(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val networkHelper: NetworkHelper? = null
 ) : ViewModel() {
     private val loadingData = MutableLiveData<Boolean>()
+    private val loadingPageData = MutableLiveData<Boolean>()
 
     @JvmField
     var loading: LiveData<Boolean> = loadingData
+
+    @JvmField
+    var loadingPage: LiveData<Boolean> = loadingPageData
 
     protected val failResult = MutableLiveData<String>()
 
@@ -54,6 +62,27 @@ open class BaseViewModel(
         emit(Result.Error(e.message ?: "Unknown error occurred"))
     }.flowOn(dispatcher)
 
+    /**
+     * Handle two queries at a time
+     */
+    fun <L, M> executeLocalQuery(
+        queryCallOne: () -> L?,
+        queryCallTwo: () -> M?
+    ) = flow {
+        val localDataOne = queryCallOne.invoke()
+        val localDataTwo = queryCallTwo.invoke()
+        if (localDataOne != null && localDataTwo != null) {
+            emit(Result.Success(Pair(localDataOne, localDataTwo), ""))
+        } else {
+            emit(Result.Error<L>("No record found"))
+        }
+    }.onStart {
+        emit(Result.Loading("Please wait..."))
+    }.catch { e ->
+        Timber.e(e) // Log the error
+        emit(Result.Error(e.message ?: "Unknown error occurred"))
+    }.flowOn(dispatcher)
+
     fun <S, R> executeNetworkCall(
         networkCall: suspend () -> Response<out BaseResponse<S, R>>
     ) = flow {
@@ -72,7 +101,7 @@ open class BaseViewModel(
         val response = networkCall()
         Timber.d { "response.status => ${response.code()}" }
         if (response.code() == HttpStatusCode.OK) {
-            Timber.d{"Api success"}
+            Timber.d { "Api success" }
             if (response.body()?.data != null && response.body()?.status is Boolean) {
                 if (response.body()?.status as Boolean) {
                     val result = Result.Success(response.body()?.data, "Success")
@@ -87,7 +116,7 @@ open class BaseViewModel(
                 return result
             }
         } else {
-            Timber.e{"Api error ${response.body()?.message}"}
+            Timber.e { "Api error ${response.body()?.message}" }
             return Result.Error(response.body()?.message)
         }
     }
@@ -96,11 +125,11 @@ open class BaseViewModel(
         val response = networkCall()
         Timber.d { "response.status => ${response.code()}" }
         return isSuccessCode(response.code(), onSuccess = {
-            Timber.d{"Api success"}
+            Timber.d { "Api success" }
             val result = Result.Success(response.body(), "Success")
             return@isSuccessCode result
         }, onFail = {
-            Timber.e{"Api error ${response.body()}"}
+            Timber.e { "Api error ${response.body()}" }
             return@isSuccessCode Result.Error(response.errorBody()?.string())
         })
     }
@@ -167,13 +196,13 @@ open class BaseViewModel(
             Timber.d { "catchNetworkData api calling" }
             val response = networkCall()
             if (response.code() == HttpStatusCode.OK) {
-                Timber.d{"Api success"}
+                Timber.d { "Api success" }
                 val savedData = saveDataCall(response.body()?.data)
                 val result = Result.Success(savedData, "Success")
                 result.message = response.body()?.message
                 emit(result)
             } else {
-                Timber.e{"Api error ${response.body()?.message}"}
+                Timber.e { "Api error ${response.body()?.message}" }
                 emit(Result.Error(response.body()?.message))
             }
         } else dataConnectionStatus.postValue(false)
@@ -194,12 +223,12 @@ open class BaseViewModel(
             Timber.d { "catchNetworkData api calling" }
             val response = networkCall()
             if (response.code() == HttpStatusCode.OK) {
-                Timber.d{"Api success"}
+                Timber.d { "Api success" }
                 val savedData = saveDataCall(response.body())
                 val result = Result.Success(savedData, "Success")
                 emit(result)
             } else {
-                Timber.e{"Api error ${response.body()}"}
+                Timber.e { "Api error ${response.body()}" }
                 emit(Result.Error(response.errorBody()?.string()))
             }
         } else dataConnectionStatus.postValue(false)
@@ -228,6 +257,29 @@ open class BaseViewModel(
             }
 
             else -> handleCommonStats(it)
+        }
+    }
+
+    fun <T> handleResponse(
+        loadingType: LoadingType = LoadingType.INITIAL,
+        it: Result<T>,
+        callback: (data: T) -> Unit
+    ) {
+        println("handleResponse status ${it.status} ${it.message}")
+        when (it.status) {
+            Result.State.SUCCESS -> {
+                if (loadingType == LoadingType.INITIAL) {
+                    loadingData.postValue(false)
+                } else {
+                    loadingPageData.postValue(false)
+                }
+                it.data?.let { data ->
+                    println("data ${Gson().toJson(data)}")
+                    callback(data)
+                } ?: failResult.postValue(it.message ?: "")
+            }
+
+            else -> handleCommonStats(loadingType, it)
         }
     }
 
@@ -266,4 +318,44 @@ open class BaseViewModel(
             }
         }
     }
+
+    private fun <T> handleCommonStats(
+        loadingType: LoadingType = LoadingType.INITIAL,
+        it: Result<T>
+    ) {
+        when (it.status) {
+            Result.State.LOADING -> {
+                if (loadingType == LoadingType.INITIAL) {
+                    loadingData.postValue(true)
+                } else {
+                    loadingPageData.postValue(true)
+                }
+            }
+
+            Result.State.FAIL -> {
+                if (loadingType == LoadingType.INITIAL) {
+                    loadingData.postValue(false)
+                } else {
+                    loadingPageData.postValue(false)
+                }
+                if (it.message == NO_NETWORK) dataConnectionStatus.postValue(false)
+                else failResult.postValue(it.message ?: "")
+            }
+
+            Result.State.ERROR -> {
+                println("ERROR ${it.message}")
+                if (loadingType == LoadingType.INITIAL) {
+                    loadingData.postValue(false)
+                } else {
+                    loadingPageData.postValue(false)
+                }
+                errorResult.postValue(Throwable(it.message))
+            }
+
+            else -> {
+                // do nothing
+            }
+        }
+    }
+
 }

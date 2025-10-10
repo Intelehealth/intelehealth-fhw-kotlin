@@ -262,4 +262,41 @@
         <item>ज़ाम्बिया</item>
         <item>ज़िम्बाब्वे</item>
     </string-array>
+
+    <string-array name="tab_prescription_title">
+        <item>प्राप्त</item>
+        <item>लंबित</item>
+    </string-array>
+
+    <string-array name="caste">
+        <item>सामान्य</item>
+        <item>ओबीसी</item>
+        <item>एससी</item>
+        <item>एसटी</item>
+        <item>अन्य</item>
+    </string-array>
+
+    <string-array name="economic">
+        <item>APL</item>
+        <item>BPL</item>
+    </string-array>
+
+    <string-array name="education">
+        <item>चुनें</item>
+        <item>अशिक्षित</item>
+        <item>प्री-प्राइमरी</item>
+        <item>प्राइमरी</item>
+        <item>माध्यमिक</item>
+        <item>हायर सेकेंडरी</item>
+        <item>स्नातक</item>
+        <item>मास्टर्स और हायर</item>
+    </string-array>
+
+    <string-array name="health_facility_name">
+        <item>सुविधा का नाम चुनें</item>
+        <item>चुई क्षेत्रीय संयुक्त अस्पताल का प्रसूति विभाग</item>
+        <item>इस्सिक-कुल क्षेत्रीय संयुक्त अस्पताल का प्रसूति विभाग</item>
+        <item>जलाल-अबाद क्षेत्रीय संयुक्त अस्पताल का प्रसूति अस्पताल</item>
+        <item>ओश अंतरक्षेत्रीय क्लिनिकल अस्पताल का प्रसूति अस्पताल</item>
+    </string-array>
 </resources>

@@ -5,15 +5,20 @@ import androidx.annotation.VisibleForTesting
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import org.intelehealth.config.room.dao.ConfigDao
 import org.intelehealth.config.room.dao.ActiveFeatureStatusDao
+import org.intelehealth.config.room.dao.ActiveSectionDao
 import org.intelehealth.config.room.dao.LanguageDao
+import org.intelehealth.config.room.dao.PatientDiagnosticsDao
 import org.intelehealth.config.room.dao.PatientRegFieldDao
 import org.intelehealth.config.room.dao.VitalDao
 import org.intelehealth.config.room.dao.SpecializationDao
 import org.intelehealth.config.room.entity.ActiveLanguage
 import org.intelehealth.config.room.entity.ConfigDictionary
 import org.intelehealth.config.room.entity.ActiveFeatureStatus
+import org.intelehealth.config.room.entity.ActiveSection
+import org.intelehealth.config.room.entity.Diagnostics
 import org.intelehealth.config.room.entity.PatientRegistrationFields
 import org.intelehealth.config.room.entity.Vital
 import org.intelehealth.config.room.entity.Specialization
@@ -30,11 +35,14 @@ import org.intelehealth.config.room.entity.Specialization
         ActiveLanguage::class,
         PatientRegistrationFields::class,
         ActiveFeatureStatus::class,
-        Vital::class
+        Vital::class,
+        Diagnostics::class,
+        ActiveSection::class
     ],
     version = 1,
     exportSchema = false
 )
+@TypeConverters(Converters::class)
 abstract class ConfigDatabase : RoomDatabase() {
 
     abstract fun configDao(): ConfigDao
@@ -48,6 +56,11 @@ abstract class ConfigDatabase : RoomDatabase() {
     abstract fun patientVitalDao(): VitalDao
 
     abstract fun featureActiveStatusDao(): ActiveFeatureStatusDao
+
+    abstract fun patientDiagnosticsDao(): PatientDiagnosticsDao
+    abstract fun activeSectionDao(): ActiveSectionDao
+
+
 
     companion object {
 

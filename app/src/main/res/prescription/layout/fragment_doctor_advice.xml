@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="value"
+            type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/diagnosisCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_4dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAdvice"
+                style="@style/Theme.IDA.TextAppearance.Person.Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_list_item"
+                android:drawablePadding="@dimen/std_16dp"
+                android:gravity="center_vertical"
+                android:padding="@dimen/std_16dp"
+                android:text="@string/lbl_advice"
+                app:drawableEndCompat="@drawable/selector_dropdown_arrow_rotate"
+                app:drawableStartCompat="@drawable/ic_med_history"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupAdviceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="divider, adviceTv" />
+
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/std_16dp"
+                android:background="@color/colorLightGray"
+                app:layout_constraintTop_toBottomOf="@id/lblAdvice" />
+
+
+            <TextView
+                android:id="@+id/adviceTv"
+                style="@style/Theme.IDA.TextAppearance.Secondary.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/std_16dp"
+                android:layout_marginHorizontal="@dimen/std_8dp"
+                android:drawablePadding="@dimen/std_4dp"
+                android:placeholder="@{@string/lbl_no_information}"
+                android:text="@{value}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

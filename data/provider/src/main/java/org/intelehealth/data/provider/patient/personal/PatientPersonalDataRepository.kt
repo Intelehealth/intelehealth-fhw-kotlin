@@ -16,7 +16,7 @@ class PatientPersonalDataRepository @Inject constructor(
     private val preferenceUtils: PreferenceUtils,
     private val patientDao: PatientDao
 ) {
-    suspend fun getPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
+    fun getPatientById(patientId: String) = patientDao.getPatientByUuid(patientId)
 
     suspend fun insertPatient(patient: Patient) = patientDao.add(patient.apply {
         createdAt = DateTimeUtils.getCurrentDateInUTC(DateTimeUtils.USER_DOB_DB_FORMAT)

@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/tooltip_bg"
+                android:background="@drawable/bg_tooltip"
                 android:paddingHorizontal="@dimen/std_16dp"
                 android:paddingBottom="@dimen/std_16dp"
                 android:paddingTop="@dimen/std_24dp"

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import org.intelehealth.data.offline.entity.Provider
+import org.intelehealth.data.offline.entity.VisitDetail
 
 @Dao
 interface ProviderDao : CoreDao<Provider> {
@@ -47,4 +48,6 @@ interface ProviderDao : CoreDao<Provider> {
     @Query("SELECT * FROM tbl_provider WHERE synced = :synced AND voided = 0")
     fun getAllUnsyncedProviders(synced: Boolean = false): List<Provider>?
 
+    @Query("SELECT ${VisitDetail.PATIENT_AGE} FROM tbl_provider WHERE uuid = :uuid AND voided = 0")
+    fun getProviderAge(uuid: String): LiveData<Int?>
 }

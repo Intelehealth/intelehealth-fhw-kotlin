@@ -2,10 +2,10 @@ package org.intelehealth.app.ui.patient.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentAddressDetailBinding
@@ -42,6 +42,7 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
         observeAddressDetailsVisibility()
         observeAddressDetails()
         toggleAddressDetailsVisibility()
+        editAddressInfo()
     }
 
     /**
@@ -51,11 +52,11 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
      * of the address section when clicked.
      */
     private fun toggleAddressDetailsVisibility() {
-        binding.btnExpandableAddressSection.isSelected = true
-        binding.btnExpandableAddressSection.setOnClickListener {
+        binding.lblAddressInfo.isSelected = true
+        binding.lblAddressInfo.setOnClickListener {
             val visibility = binding.groupAddressSection.isVisible
             binding.groupAddressSection.isVisible = !visibility
-            binding.btnExpandableAddressSection.isSelected = !visibility
+            binding.lblAddressInfo.isSelected = !visibility
         }
     }
 
@@ -79,8 +80,22 @@ class AddressDetailFragment : Fragment(R.layout.fragment_address_detail) {
      * and updates the binding with the latest address information.
      */
     private fun observeAddressDetails() {
-        detailViewModel.patientAddressLiveData.observe(viewLifecycleOwner) {
+        detailViewModel.fetchPatientAddress().observe(viewLifecycleOwner) {
             binding.addressInfo = it
+        }
+    }
+
+    private fun editAddressInfo() {
+        binding.btnEditAddressInfo.setOnClickListener {
+            navigateToAddressInfo()
+        }
+    }
+
+    private fun navigateToAddressInfo() {
+        binding.addressInfo?.let {
+            PatientDetailFragmentDirections.actionDetailToAddressInfo(it.uuid, true).apply {
+                findNavController().navigate(this)
+            }
         }
     }
 }

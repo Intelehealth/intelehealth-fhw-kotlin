@@ -9,7 +9,7 @@ import org.intelehealth.config.room.entity.PatientRegistrationFields
  **/
 class OtherInfoConfig {
     var nationalId: PatientRegistrationFields? = null
-    var occuptions: PatientRegistrationFields? = null
+    var occuption: PatientRegistrationFields? = null
     var socialCategory: PatientRegistrationFields? = null
     var education: PatientRegistrationFields? = null
     var economicCategory: PatientRegistrationFields? = null
@@ -22,4 +22,6 @@ class OtherInfoConfig {
     var codeOfHealthyFacility: PatientRegistrationFields? = null
     var healthFacilityName: PatientRegistrationFields? = null
     var codeOfDepartment: PatientRegistrationFields? = null
+    var personalDataConsent: PatientRegistrationFields? = null
+    var telemedicineConsent: PatientRegistrationFields? = null
 }

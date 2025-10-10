@@ -1,7 +1,6 @@
 import extensions.androidTestDeps
 import extensions.configModuleDeps
 import extensions.unitTestDeps
-import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
     alias(libs.plugins.android.library)
@@ -39,6 +38,8 @@ android {
         jvmTarget = AndroidConfig.JVM_TARGET
     }
     buildFeatures {
+        viewBinding = true
+        dataBinding = true
         buildConfig = true
     }
 

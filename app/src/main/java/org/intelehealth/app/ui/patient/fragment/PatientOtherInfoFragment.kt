@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import org.intelehealth.app.R
 import org.intelehealth.app.databinding.FragmentPatientOtherInfoBinding
 import org.intelehealth.app.databinding.ViewPatientInfoTabBinding
+import org.intelehealth.app.ui.onboarding.viewmodel.SyncDataViewModel
 import org.intelehealth.app.ui.patient.viewmodel.PatientOtherInfoViewModel
 import org.intelehealth.app.utility.IND_MOBILE_LEN
 import org.intelehealth.app.utility.LanguageUtils.Companion.ENGLISH
@@ -35,6 +36,7 @@ import org.intelehealth.resource.R as ResourceR
  **/
 class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patient_other_info) {
     override val viewModel: PatientOtherInfoViewModel by viewModels()
+    private val syncViewModel: SyncDataViewModel by viewModels()
     private lateinit var binding: FragmentPatientOtherInfoBinding
     private val args by navArgs<PatientOtherInfoFragmentArgs>()
     private var otherInfo = PatientOtherInfo()
@@ -141,14 +143,23 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     private fun createOtherInfo(otherInfo: PatientOtherInfo) {
         viewModel.createPatientOtherInfo(otherInfo).observe(viewLifecycleOwner) {
             it ?: return@observe
-            viewModel.allowNullDataResponse(it) { moveToNextScreen() }
+            viewModel.allowNullDataResponse(it) { pushData() }
         }
     }
 
     private fun updateOtherInfo(otherInfo: PatientOtherInfo) {
         viewModel.updatePatientOtherInfo(args.patientId, otherInfo).observe(viewLifecycleOwner) {
             it ?: return@observe
-            viewModel.allowNullDataResponse(it) { moveToNextScreen() }
+            viewModel.allowNullDataResponse(it) { pushData() }
+        }
+    }
+
+    private fun pushData() {
+        syncViewModel.startPushDataWorker()
+        syncViewModel.workerProgress.observe(viewLifecycleOwner) { progress ->
+            if (progress == 100) {
+                moveToNextScreen()
+            }
         }
     }
 
@@ -254,7 +265,7 @@ class PatientOtherInfoFragment : PatientInfoTabFragment(R.layout.fragment_patien
     }
 
     private fun validOccupation(it: OtherInfoConfig, error: Int): Boolean {
-        return if (it.occuptions?.isEnabled == true && it.occuptions?.isMandatory == true) {
+        return if (it.occuption?.isEnabled == true && it.occuption?.isMandatory == true) {
             binding.textInputLayOccupation.validate(binding.textInputOccupation, error)
         } else true
     }

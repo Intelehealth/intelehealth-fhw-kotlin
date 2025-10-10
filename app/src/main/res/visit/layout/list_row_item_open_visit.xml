@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="visit"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/std_8dp"
+        app:cardElevation="@dimen/std_2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/patientCard"
+                layout="@layout/view_patient_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:patient="@{visit}" />
+
+            <TextView
+                android:id="@+id/btnCloseVisit"
+                style="@style/Theme.IDA.TextButton.Nav.Primary.Light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/std_2dp"
+                android:paddingStart="@dimen/std_20dp"
+                android:paddingEnd="@dimen/std_16dp"
+                android:text="@string/lbl_close_visit"
+                app:drawableStartCompat="@drawable/ic_prescription"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/patientCard" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

@@ -3,9 +3,15 @@ package org.intelehealth.data.offline.dao
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Transaction
+import com.github.ajalt.timberkt.Timber
 import kotlinx.coroutines.flow.Flow
+import org.intelehealth.common.utility.CommonConstants
 import org.intelehealth.data.offline.entity.Patient
-import org.intelehealth.data.offline.entity.PersonAddress
+import org.intelehealth.data.offline.entity.PatientAttributeTypeMaster
+import org.intelehealth.data.offline.entity.PatientWithAge
+import org.intelehealth.data.offline.entity.VisitDetail
+import org.intelehealth.data.offline.entity.VisitDetail.Companion.SEARCHABLE
 
 /**
  * Created by Vaghela Mithun R. on 02-04-2024 - 10:24.
@@ -14,8 +20,8 @@ import org.intelehealth.data.offline.entity.PersonAddress
  **/
 @Dao
 interface PatientDao : CoreDao<Patient> {
-    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS} FROM tbl_patient WHERE uuid = :uuid")
-    suspend fun getPatientByUuid(uuid: String): Patient
+    @Query("SELECT ${Patient.PERSONAL_INFO_FIELDS}, ${VisitDetail.PATIENT_AGE} FROM tbl_patient WHERE uuid = :uuid")
+    fun getPatientByUuid(uuid: String): LiveData<PatientWithAge>
 
     @Query("SELECT * FROM tbl_patient WHERE openmrs_id = :openMrsId")
     fun getPatientByOpenMrsId(openMrsId: String): LiveData<Patient>
@@ -26,7 +32,7 @@ interface PatientDao : CoreDao<Patient> {
     @Query("SELECT * FROM tbl_patient WHERE creatoruuid = :creatorId")
     fun getPatientByCreatorId(creatorId: String): LiveData<List<Patient>>
 
-    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId WHERE uuid = :uuid")
+    @Query("UPDATE tbl_patient SET openmrs_id = :openMrsId, synced = 1 WHERE uuid = :uuid")
     suspend fun updateOpenMrsId(uuid: String, openMrsId: String)
 
     @Query("UPDATE tbl_patient SET first_name = :firstName WHERE uuid = :uuid")
@@ -51,40 +57,45 @@ interface PatientDao : CoreDao<Patient> {
     fun getPatientByCreatorIdAndDate(creatorId: String, date: String): Flow<Int>
 
     @Query("SELECT COUNT(uuid) FROM tbl_patient WHERE creatoruuid = :creatorId AND date(datetime(created_at)) BETWEEN :fromDate AND :toDate")
-    fun getPatientByCreatorIdAndDateRange(creatorId: String, fromDate: String, toDate: String): Flow<Int>
+    fun getPatientByCreatorIdAndDateRange(
+        creatorId: String,
+        fromDate: String,
+        toDate: String
+    ): Flow<Int>
 
     @Query("SELECT * FROM tbl_patient WHERE synced = :synced AND voided = 0")
     suspend fun getAllUnsyncedPatients(synced: Boolean = false): List<Patient>
 
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    fun getLivePatientAddressByUuid(patientId: String): LiveData<PersonAddress>
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE uuid = :patientId")
-    suspend fun getPatientAddressByPatientId(patientId: String): PersonAddress
-
-    @Query("SELECT ${PersonAddress.ADDRESS_FIELDS} FROM tbl_patient WHERE synced = 0 AND voided = 0")
-    fun getAllUnsyncedPatientAddress(): List<PersonAddress>
-
     @Query(
-        "UPDATE tbl_patient SET address1 = :address1, address2 = :address2, address3 = :address3, " +
-                " address4 = :address4, address5 = :address5, address6 = :address6, city_village = :cityVillage, " +
-                " district = :district, state = :state, country = :country, postal_code = :postalCode, " +
-                " addressOfHf = :addressOfHf WHERE uuid = :uuid"
+        "SELECT P.uuid as  patientId,  P.gender, (P.first_name || ' ' || P.last_name ) full_name, " +
+                "${VisitDetail.PATIENT_AGE}, P.openmrs_id,  PA.value as patient_created_at, " +
+                "(V.patientuuid = P.uuid) as has_visit, $SEARCHABLE, " +
+                "MAX(CASE WHEN E.encounter_type_uuid  = :presConceptId THEN 1 ELSE 0 END) prescription, " +
+                "MAX(CASE WHEN E.encounter_type_uuid  = :emergencyConceptId THEN 1 ELSE 0 END) priority, " +
+                "MAX(CASE WHEN E.encounter_type_uuid  = :visitCloseConceptId THEN 1 ELSE 0 END) completed " +
+                "FROM tbl_patient P " +
+                "LEFT OUTER JOIN tbl_visit V ON V.patientuuid = P.uuid " +
+                "LEFT OUTER JOIN tbl_encounter E ON E.visituuid = V.uuid " +
+                "LEFT OUTER JOIN tbl_patient_attribute PA ON PA.patient_uuid = P.uuid " +
+                "LEFT OUTER JOIN tbl_patient_attribute_master PAM ON PAM.uuid = PA.person_attribute_type_uuid " +
+                "WHERE PAM.name = '${PatientAttributeTypeMaster.CREATED_DATE}' " +
+                "AND searchable LIKE '%' || :searchQuery || '%' " +
+                "AND P.synced = 1 AND P.voided = 0 GROUP BY P.uuid ORDER BY P.created_at DESC " +
+                "LIMIT ${CommonConstants.LIMIT} OFFSET :offset"
     )
-//    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    suspend fun updatePatientAddress(
-        uuid: String,
-        address1: String?,
-        address2: String?,
-        address3: String?,
-        address4: String?,
-        address5: String?,
-        address6: String?,
-        cityVillage: String?,
-        district: String?,
-        state: String?,
-        postalCode: String?,
-        country: String?,
-        addressOfHf: String?
-    ): Int
+    fun searchPatient(
+        presConceptId: String,
+        emergencyConceptId: String,
+        visitCloseConceptId: String,
+        searchQuery: String,
+        offset: Int
+    ): Flow<List<VisitDetail>>
+
+    @Transaction
+    suspend fun updateOpenMrsIds(users: List<Patient>) {
+        users.forEach {
+            Timber.d { "uuid => ${it.uuid} OpenMrsId => ${it.openMrsId}" }
+            updateOpenMrsId(it.uuid, it.openMrsId ?: "")
+        }
+    }
 }

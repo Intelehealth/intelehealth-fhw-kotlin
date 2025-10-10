@@ -20,7 +20,7 @@
     <style name="Theme.IDA.Button.Secondary" parent="Theme.IDA.Button">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:backgroundTint">@color/selector_btn_color_secondary</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/colorLightGray</item>
         <item name="strokeColor">@color/colorBorder</item>
         <item name="strokeWidth">1dp</item>
     </style>
@@ -48,6 +48,8 @@
         <item name="android:paddingHorizontal">@dimen/std_8dp</item>
         <item name="android:paddingTop">0dp</item>
         <item name="android:paddingBottom">0dp</item>
+        <item name="rippleColor">@color/colorLightGray</item>
+        <item name="android:fontFamily">@font/dm_sans</item>
     </style>
 
     <style name="Theme.IDA.TextButton.Help" parent="Theme.IDA.TextButton">
@@ -59,6 +61,7 @@
         <item name="android:textColor">@color/colorTextPrimary</item>
         <item name="android:text">@string/action_reset_app_new</item>
         <item name="android:textSize">@dimen/std_14sp</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="icon">@drawable/ic_sync</item>
         <item name="iconGravity">start</item>
         <item name="iconTint">@color/red</item>
@@ -91,7 +94,7 @@
     </style>
 
     <style name="Theme.IDA.TextButton.Nav" parent="Theme.IDA.TextButton.DropDown">
-        <item name="icon">@drawable/dropdown_arrow_rotate_270</item>
+        <item name="icon">@drawable/ic_cupertino_dropdown_arrow_right</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
@@ -108,5 +111,36 @@
         <item name="textFillColor">@color/color_gender_text</item>
         <item name="iconTint">@color/color_gender_text</item>
         <item name="rippleColor">@color/colorAccentLightCard</item>
+    </style>
+
+    <style name="Theme.IDA.TextButton.Edit.Small" parent="Theme.IDA.TextButton">
+        <item name="icon">@drawable/ic_patient_edit</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:text">@string/action_edit</item>
+        <item name="android:textSize">@dimen/std_12sp</item>
+        <item name="android:maxHeight">@dimen/std_24dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/colorLightGray</item>
+        <item name="cornerRadius">@dimen/std_4dp</item>
+    </style>
+
+    <style name="Theme.IDA.TextButton.Nav.Primary.Light" parent="Theme.IDA.TextAppearance.Label">
+        <item name="android:background">@drawable/bg_light_accent_ripple</item>
+        <item name="android:drawablePadding">@dimen/std_8dp</item>
+        <item name="android:paddingEnd">@dimen/std_16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="drawableEndCompat">@drawable/ic_arrow_right_alt</item>
+        <item name="drawableTint">@color/colorTextSecondary</item>
+    </style>
+
+    <style name="Theme.IDA.Button.Secondary.Next" parent="Theme.IDA.Button.Secondary">
+        <item name="iconGravity">end</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="icon">@drawable/ic_arrow_next</item>
+        <item name="iconTint">@color/colorPrimary</item>
+        <item name="android:backgroundTint">@color/colorPrimaryLightCard</item>
+        <item name="android:maxHeight">@dimen/std_32dp</item>
+        <item name="iconPadding">@dimen/std_16dp</item>
+        <item name="rippleColor">@color/white</item>
     </style>
 </resources>

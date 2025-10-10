@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="patientDetail"
+            type="org.intelehealth.data.offline.entity.VisitDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/std_16dp">
+
+        <!-- Profile Image Card -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/sivProfileImage"
+            android:layout_width="@dimen/detail_card_profile_pic_size"
+            android:layout_height="@dimen/detail_card_profile_pic_size"
+            android:contentDescription="@string/lbl_profile_image"
+            android:src="@drawable/img_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+        <!-- Patient Name and Priority -->
+        <TextView
+            android:id="@+id/tvPatientName"
+            style="@style/Theme.IDA.TextAppearance.Person.Name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:ellipsize="end"
+            android:maxLength="@integer/max_name_length"
+            android:maxLines="1"
+            android:text="@{patientDetail.patientFullName}"
+            app:layout_constraintStart_toEndOf="@id/sivProfileImage"
+            app:layout_constraintTop_toTopOf="@id/sivProfileImage"
+            tools:text="Anthony Gonsalves" />
+
+        <!-- Calendar and Date -->
+        <TextView
+            android:id="@+id/tvPatientOpenMrsId"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:layout_marginTop="@dimen/std_4dp"
+            android:drawablePadding="@dimen/std_8dp"
+            android:gravity="center"
+            android:text="@{@string/lbl_openmrs_id(patientDetail.openmrsId)}"
+            app:layout_constraintStart_toEndOf="@id/sivProfileImage"
+            app:layout_constraintTop_toBottomOf="@id/tvPatientName"
+            tools:text="ID-987654jK" />
+
+        <TextView
+            android:id="@+id/tvPersonGender"
+            style="@style/Theme.IDA.TextAppearance.Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginStart="@dimen/std_8dp"
+            android:drawablePadding="@dimen/std_8dp"
+            android:text="@{patientDetail.gender + ' ' + patientDetail.age}"
+            android:visibility="visible"
+            app:drawableEndCompat="@drawable/ic_patient_edit"
+            app:layout_constraintBottom_toBottomOf="@id/tvPatientName"
+            app:layout_constraintStart_toEndOf="@id/tvPatientName"
+            app:layout_constraintTop_toTopOf="@id/tvPatientName"
+            tools:ignore="RtlSymmetry"
+            tools:text="M 22" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

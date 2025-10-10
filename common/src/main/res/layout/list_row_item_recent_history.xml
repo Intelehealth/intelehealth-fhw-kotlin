@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="hasCloseIcon"
+            type="Boolean" />
+
+        <variable
+            name="recentItem"
+            type="org.intelehealth.common.model.RecentItem" />
+    </data>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipRecentHistory"
+        style="@style/Theme.IDA.Chip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{recentItem.recentItemValue()}"
+        app:closeIconEnabled="@{hasCloseIcon}"
+        tools:text="@string/lbl_results_for" />
+</layout>

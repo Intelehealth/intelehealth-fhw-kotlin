@@ -69,4 +69,13 @@
         <item name="android:textSize">@dimen/std_20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Theme.IDA.TextAppearance.Person.Name" parent="Theme.IDA.TextAppearance.Primary">
+        <item name="android:textSize">@dimen/std_16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.IDA.Dark.TextAppearance.Label" parent="Theme.IDA.Dark.TextAppearance">
+        <item name="android:textSize">@dimen/std_14sp</item>
+    </style>
 </resources>

@@ -1,7 +1,6 @@
 package org.intelehealth.common.ui.binding
 
 import android.widget.TextView
-import androidx.constraintlayout.widget.Placeholder
 import androidx.databinding.BindingAdapter
 import com.github.ajalt.timberkt.Timber
 import com.google.android.material.button.MaterialButton
