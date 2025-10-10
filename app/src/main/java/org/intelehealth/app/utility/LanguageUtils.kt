@@ -42,7 +42,6 @@ class LanguageUtils @Inject constructor(private val assetManager: AssetManager) 
         private const val PROVINCE_AND_CITIES_JSON = "province_and_cities.json"
         const val ENGLISH = "en"
     }
-
     /**
      * Gets the current locale's language code (e.g., "en", "hi").
      *
